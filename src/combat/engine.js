@@ -37,6 +37,11 @@ export const GAUGE_NEED = { max: '모든 스킬 = 최대 게이지', cost: '스�
 export const STUN_CAST = { wait: '기절·흐트러짐이 풀리면 즉시', cast: '기절·흐트러짐 중에도 발동' };
 export const STUN_GAUGE = { fill: '기절 중에도 게이지가 참', stop: '기절 중에는 게이지 멈춤' };
 export const CAST_ORDER = { ally: '아군 먼저, 슬롯 순', speed: '속도 높은 순 (같으면 아군 먼저)' };
+// ── 효과 지속 (게이지 모드) ── 게임 확인: 1턴 = 몬몬이 스킬을 한 번 쓸 때. 지속은 효과를 받은 몬몬의 턴으로 셈,
+// 스킬을 쓴 뒤 1 감소(그 스킬에는 적용), 자기 스킬로 자신에게 건 효과는 다음 스킬부터 감소,
+// 기절 중에도 게이지가 차고 차면 스킬 대신 턴만 소모, 지속 피해·치유는 받은 몬몬의 턴마다.
+export const EFFECT_DUR = { turn: '턴 — 받은 몬몬이 스킬을 쓸 때마다 1 (게임 확인)', sec: '초' };
+export const DOT_TIMING = { after: '스킬 뒤', before: '스킬 앞' }; // 턴 안에서 지속 피해가 들어가는 순서 (확인 전)
 // ── 웨이브 ── 전환 연출은 전투 시간에 넣지 않는다(0초). 아군 체력은 유지, 게이지는 유닛별 시작 게이지로.
 export const WAVE_BUFFS = { keep: '버프·디버프·보호막 유지', clear: '모두 해제' };
 export const WAVE_TIMER = { reset: '평타 주기 새로 시작 (전투 시작처럼)', keep: '이어서' };
@@ -47,6 +52,7 @@ export const DEFAULT_RULES = {
   startRes: 40, resRegen: 20, resMax: 100,
   skillMode: 'cost', gaugeMax: 100, gaugeRate: 10, gaugeFill: 'speed', gaugeNeed: 'max',
   stunCast: 'wait', stunGauge: 'fill', castOrder: 'ally', waveBuffs: 'keep', waveTimer: 'reset',
+  effectDur: 'turn', dotTiming: 'after',
   groggyGain: 1, groggyDur: 2, groggyDmg: 1.5, basicGroggy: 5,
   maxTurns: 100, maxTime: 180, speedBase: 100, healBelow: 70,
   targeting: 'front', enemyTargeting: 'front', allyRule: 'lowhp', synergy: true, revive: true,
@@ -148,7 +154,8 @@ export function battle(t, R0, setup, { seed = 1, log = false } = {}) {
   units.forEach(u => freshState(u, R));
   const RT = R.mode === 'realtime';
   const G = RT && R.skillMode === 'gauge';
-  let now = 0, round = 0, waveIdx = -1, pDepth = 0;
+  const TD = G && R.effectDur === 'turn'; // 효과 지속을 턴(받은 몬몬의 스킬 사용)으로
+  let now = 0, round = 0, waveIdx = -1, pDepth = 0, stamp = 0;
   const waveTimes = [];
   const L = [];
   const say = (o) => { if (log) L.push({ t: RT ? +now.toFixed(2) : round, ...o }); };
@@ -198,12 +205,14 @@ export function battle(t, R0, setup, { seed = 1, log = false } = {}) {
   // 시너지: 조건을 만족한 진영 전원에게 전투 시작 때 효과
   applySynergies(0, side(0)); applySynergies(1, side(1));
 
+  /** 턴 지속: 자기 스킬(과 그 스킬에서 터진 패시브)로 자신에게 건 효과는 이번 턴 끝에 줄지 않도록 그 턴 번호를 붙여 둠 */
+  function bornStamp(src, tgt) { return TD && src === tgt && src.casting ? src.castStamp : 0; }
   function addStatus(src, tgt, e, extra = {}) {
     const dur = e.duration ?? 0;
     const st = { eid: e.id, name: e.name, kind: e.kind, stat: e.stat, value: e.value ?? 0, mode: e.mode || 'add', src: src.uid, srcSide: src.side,
-      rem: dur > 0 ? dur : Infinity, until: dur > 0 ? now + dur : Infinity, ...extra };
+      rem: dur > 0 ? dur : Infinity, until: dur > 0 && !TD ? now + dur : Infinity, born: bornStamp(src, tgt), ...extra };
     const same = tgt.statuses.find(x => x.eid === e.id && !e.stack);
-    if (same) { Object.assign(same, { rem: st.rem, until: st.until, src: st.src, srcSide: st.srcSide, dot: st.dot ?? same.dot }); return same; }
+    if (same) { Object.assign(same, { rem: st.rem, until: st.until, born: st.born, src: st.src, srcSide: st.srcSide, dot: st.dot ?? same.dot }); return same; }
     tgt.statuses.push(st);
     return st;
   }
@@ -212,7 +221,7 @@ export function battle(t, R0, setup, { seed = 1, log = false } = {}) {
     const atk = effStat(src, 'atk', R);
     switch (e.kind) {
       case 'heal': { const amt = atk * (e.value ?? 0) / 100, got = Math.min(tgt.maxHp - tgt.hp, amt); tgt.hp += got; src.m.heal += got; say({ ev: 'heal', actor: src.name, target: tgt.name, value: Math.round(got), text: `${e.name} +${Math.round(got)}` }); return true; }
-      case 'shield': { const amt = atk * (e.value ?? 0) / 100; const dur = e.duration ?? 0; tgt.shields.push({ amt, rem: dur > 0 ? dur : Infinity, until: dur > 0 ? now + dur : Infinity }); src.m.shield += amt; say({ ev: 'status', actor: src.name, target: tgt.name, value: Math.round(amt), text: `${e.name} ${Math.round(amt)} 획득` }); return true; }
+      case 'shield': { const amt = atk * (e.value ?? 0) / 100; const dur = e.duration ?? 0; tgt.shields.push({ amt, rem: dur > 0 ? dur : Infinity, until: dur > 0 && !TD ? now + dur : Infinity, born: bornStamp(src, tgt) }); src.m.shield += amt; say({ ev: 'status', actor: src.name, target: tgt.name, value: Math.round(amt), text: `${e.name} ${Math.round(amt)} 획득` }); return true; }
       case 'revive': return false; // 부활은 대상 선택 단계에서 처리
       case 'dot': addStatus(src, tgt, e, { dot: atk * (e.value ?? 0) / 100 }); break;
       default: addStatus(src, tgt, e, srcId ? { src: srcId } : {});
@@ -421,7 +430,8 @@ export function battle(t, R0, setup, { seed = 1, log = false } = {}) {
     return u.kind === 'char' ? acts[0] : acts[u.seq % acts.length];
   };
   const needOf = (u, s) => Math.min(u.gMax, R.gaugeNeed === 'cost' && s.cost > 0 ? s.cost : u.gMax);
-  const gRate = (u) => (R.stunGauge === 'stop' && cannotAct(u) ? 0
+  const groggyNow = (u) => u.groggyLeft > 0 || u.groggyUntil > now + 1e-9;
+  const gRate = (u) => (!TD && R.stunGauge === 'stop' && cannotAct(u) ? 0
     : R.gaugeRate * u.gMult * (R.gaugeFill === 'speed' ? effStat(u, 'spd', R) / R.speedBase : 1));
   /** dt초 동안 게이지를 채움 (구간 안에서 충전 속도가 바뀌지 않도록 상태 만료도 사건으로 끊음). 다음 스킬 필요량에서 멈춤 */
   function advanceGauges(dt) {
@@ -464,16 +474,56 @@ export function battle(t, R0, setup, { seed = 1, log = false } = {}) {
       const ready = units.filter(u => {
         if (!u.alive) return false;
         const s = activeOf(u);
-        return s && u.gauge >= needOf(u, s) - 1e-6 && (R.stunCast === 'cast' || !cannotAct(u));
+        // 턴 지속: 기절이어도 차면 턴을 소모(아래), 흐트러짐(그로기)만 풀릴 때까지 기다림
+        return s && u.gauge >= needOf(u, s) - 1e-6 && (TD ? !groggyNow(u) : R.stunCast === 'cast' || !cannotAct(u));
       });
       if (!ready.length) return;
       ready.sort((a, b) => (R.castOrder === 'speed' ? effStat(b, 'spd', R) - effStat(a, 'spd', R) : 0) || a.side - b.side || a.idx - b.idx);
       const u = ready[0], s = activeOf(u), need = needOf(u, s);
-      say({ ev: 'cast', actor: u.name, skill: s.name, text: `${u.name} 게이지 ${Math.round(need)} 가득 → 「${s.name}」 (전투 정지 · 즉시 발동)` });
       u.gauge = Math.max(0, u.gauge - need);
-      u.seq++; u.m.casts++;
-      act(u, s);
+      if (!TD) {
+        say({ ev: 'cast', actor: u.name, skill: s.name, text: `${u.name} 게이지 ${Math.round(need)} 가득 → 「${s.name}」 (전투 정지 · 즉시 발동)` });
+        u.seq++; u.m.casts++;
+        act(u, s);
+        continue;
+      }
+      // ── 턴: 스킬(또는 기절이면 턴만 소모) → 지속 피해 → 내 효과 지속 1 감소 ──
+      u.castStamp = ++stamp;
+      if (cannotAct(u)) {
+        say({ ev: 'skip', actor: u.name, text: `${u.name} 기절 — 게이지 가득, 스킬 없이 턴 소모` });
+        dotTick(u);
+      } else {
+        if (R.dotTiming === 'before') dotTick(u);
+        if (u.alive) {
+          say({ ev: 'cast', actor: u.name, skill: s.name, text: `${u.name} 게이지 ${Math.round(need)} 가득 → 「${s.name}」 (전투 정지 · 즉시 발동)` });
+          u.seq++; u.m.casts++;
+          u.casting = true;
+          try { act(u, s); } finally { u.casting = false; }
+        }
+        if (R.dotTiming !== 'before') dotTick(u);
+      }
+      if (u.alive) endTurn(u);
     }
+  }
+  /** 턴 지속: 받은 몬몬의 턴마다 지속 피해 */
+  function dotTick(u) {
+    for (const s of [...u.statuses]) {
+      if (!(s.dot > 0) || !u.alive) continue;
+      const d = Math.max(1, roundDmg(s.dot * takenMult(u, R), R)), src = units.find(x => x.uid === s.src);
+      say({ ev: 'dot', actor: s.name, target: u.name, value: d, text: `${s.name}: ${u.name} ${d}` });
+      damage(src, u, d, { dot: true });
+    }
+  }
+  /** 턴 지속: 이번 턴에 자신에게 건 것 빼고 효과·보호막 지속 1 감소, 0이면 해제. 기절이 풀리면 평타도 다시 */
+  function endTurn(u) {
+    const stunnedBefore = cannotAct(u);
+    for (const s of u.statuses) if (s.born !== u.castStamp) s.rem--;
+    const gone = u.statuses.filter(s => s.rem <= 0);
+    u.statuses = u.statuses.filter(s => s.rem > 0);
+    for (const g of gone) say({ ev: 'expire', actor: u.name, text: `${u.name}: ${g.name} 해제 (턴 종료)` });
+    for (const sh of u.shields) if (sh.born !== u.castStamp) sh.rem--;
+    u.shields = u.shields.filter(sh => sh.rem > 0 && sh.amt > 0);
+    if (stunnedBefore && !cannotAct(u)) u.next = Math.min(u.next, now + 1 / aps(u));
   }
 
   // 전투 시작 패시브 → 웨이브 시작 패시브 (첫 웨이브 포함)
@@ -518,7 +568,7 @@ export function battle(t, R0, setup, { seed = 1, log = false } = {}) {
         for (const u of units) {
           if (!u.alive) continue;
           u.res = Math.min(R.resMax, u.res + R.resRegen);
-          for (const s of u.statuses) if (s.dot > 0 && s.until >= now - 1e-9 && u.alive) { const d = Math.max(1, roundDmg(s.dot * takenMult(u, R), R)); const src = units.find(x => x.uid === s.src); say({ ev: 'dot', actor: s.name, target: u.name, value: d, text: `${s.name}: ${u.name} ${d}` }); damage(src, u, d, { dot: true }); }
+          if (!TD) for (const s of u.statuses) if (s.dot > 0 && s.until >= now - 1e-9 && u.alive) { const d = Math.max(1, roundDmg(s.dot * takenMult(u, R), R)); const src = units.find(x => x.uid === s.src); say({ ev: 'dot', actor: s.name, target: u.name, value: d, text: `${s.name}: ${u.name} ${d}` }); damage(src, u, d, { dot: true }); }
           const gone = u.statuses.filter(s => s.until <= now + 1e-9);
           u.statuses = u.statuses.filter(s => s.until > now + 1e-9);
           for (const g of gone) say({ ev: 'expire', actor: u.name, text: `${u.name}: ${g.name} 해제` });

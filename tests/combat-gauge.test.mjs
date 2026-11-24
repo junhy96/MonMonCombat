@@ -9,6 +9,7 @@ import { DEFAULT_RULES, battle, simulate } from '../src/combat/engine.js';
 import { validateTables } from '../src/data/tables.js';
 
 const G = { ...DEFAULT_RULES, mode: 'realtime', skillMode: 'gauge', gaugeMax: 100, gaugeRate: 10, gaugeFill: 'speed', speedBase: 100, maxTime: 35, hitMode: 'always', crit: false, synergy: false };
+const GS = { ...G, effectDur: 'sec' }; // 효과 지속을 초로 (예전 방식)
 
 function tables() {
   const t = defaultTables();
@@ -21,19 +22,29 @@ function tables() {
     { id: 'SK_P_START', name: '전투 시작 공버프', kind: 'passive', trigger: 'start', target: 'self', area: 'single', mult: 0, effects: ['EF_ATK50'] },
     { id: 'SK_P_LOW', name: '위기 보호막', kind: 'passive', trigger: 'hpBelow', threshold: 50, target: 'self', area: 'single', mult: 0, effects: ['EF_SH'] },
     { id: 'SK_P_HIT', name: '평타 추가타', kind: 'passive', trigger: 'onAttack', chance: 100, target: 'enemy', area: 'single', mult: 1, effects: [] },
+    { id: 'SK_ATKUP_ALL', name: '전체 공버프', target: 'ally', area: 'all', mult: 0, effects: ['EF_ATK25_2T'] },
+    { id: 'SK_SELF_ATK', name: '자기 공버프', target: 'self', area: 'single', mult: 0, effects: ['EF_ATK25_1T'] },
+    { id: 'SK_STUN1ALL', name: '전체 1턴 기절', target: 'enemy', area: 'all', mult: 0, effects: ['EF_STUN1T'] },
+    { id: 'SK_DOTHIT', name: '독 찌르기', target: 'enemy', area: 'single', mult: 0, effects: ['EF_DOT2T'] },
   );
   t.effects.push(
     { id: 'EF_STUN5', name: '긴 기절', kind: 'stun', chance: 100, duration: 5, stack: false },
     { id: 'EF_ATK50', name: '공격 +50%', kind: 'buff', stat: 'atk', value: 50, mode: 'mul', chance: 100, duration: 0, stack: false },
     { id: 'EF_SH', name: '보호막', kind: 'shield', value: 100, chance: 100, duration: 0, stack: false },
+    { id: 'EF_ATK25_2T', name: '공격 +25% (2턴)', kind: 'buff', stat: 'atk', value: 25, mode: 'mul', chance: 100, duration: 2, stack: false },
+    { id: 'EF_ATK25_1T', name: '공격 +25% (1턴)', kind: 'buff', stat: 'atk', value: 25, mode: 'mul', chance: 100, duration: 1, stack: false },
+    { id: 'EF_STUN1T', name: '기절 1턴', kind: 'stun', chance: 100, duration: 1, stack: false },
+    { id: 'EF_DOT2T', name: '독', kind: 'dot', value: 10, chance: 100, duration: 2, stack: false },
   );
   const ch = (id, o = {}) => t.characters.push({ id, name: id, classId: 'CL_G', element: '무', modMode: 'add', skills: ['SK_G1'], ...o });
   ch('CH_G'); ch('CH_G2'); ch('CH_GFAST', { spd: 100 }); ch('CH_GHALF', { startGauge: 50 });
   ch('CH_GTWO', { skills: ['SK_G1', 'SK_G2'] });
+  ch('CH_GSLOW', { spd: -50, skills: ['SK_ATKUP_ALL'] }); ch('CH_GSELF', { skills: ['SK_SELF_ATK'] }); ch('CH_GDOT', { skills: ['SK_DOTHIT'] });
   ch('CH_GSTART', { skills: ['SK_G1', 'SK_P_START'] }); ch('CH_GLOW', { skills: ['SK_P_LOW'] }); ch('CH_GHIT', { skills: ['SK_P_HIT'] });
   const mo = (id, o = {}) => t.monsters.push({ id, name: id, element: '무', row: 'front', hp: 1e9, atk: 0, def: 0, spd: 100, cric: 0, crid: 1, acc: 100, eva: 0, skills: [], boss: false, ...o });
   mo('MO_DUMMY'); mo('MO_BOSS', { boss: true, skills: ['SK_G1', 'SK_G2'], gaugeMult: 2 });
   mo('MO_STUNNER', { skills: ['SK_STUNALL'], startGauge: 100, spd: 1 });
+  mo('MO_STUNNER1', { skills: ['SK_STUN1ALL'], startGauge: 100, spd: 1 });
   mo('MO_WEAK', { hp: 150 }); mo('MO_HITTER', { atk: 100, spd: 100 });
   return t;
 }
@@ -98,15 +109,15 @@ test('캐릭터는 첫 액티브 하나만, 보스는 게이지가 찰 때마다
   assert.deepEqual(boss.map(l => l.t).slice(0, 4), [5, 10, 15, 20]); // 충전 배율 2
 });
 
-test('기절 중 발동: 풀리면 즉시(기본) / 기절 중에도 발동 / 기절 중 게이지 멈춤', () => {
+test('(지속 = 초) 기절 중 발동: 풀리면 즉시 / 기절 중에도 발동 / 기절 중 게이지 멈춤', () => {
   const t = tables();
   const setup = { allies: [{ unit: 'char:CH_G', level: 1, gauge: 70 }], enemies: [{ unit: 'monster:MO_STUNNER' }] };
   // 0초: 기절 몬스터가 가득 찬 게이지로 전체 기절 5초. 아군은 3초에 게이지가 참
-  const wait = run(t, { ...G, maxTime: 6 }, setup);
+  const wait = run(t, { ...GS, maxTime: 6 }, setup);
   assert.deepEqual(casts(wait, 'CH_G').map(l => l.t), [5]);
-  const cast = run(t, { ...G, maxTime: 6, stunCast: 'cast' }, setup);
+  const cast = run(t, { ...GS, maxTime: 6, stunCast: 'cast' }, setup);
   assert.deepEqual(casts(cast, 'CH_G').map(l => l.t), [3]);
-  const stop = run(t, { ...G, maxTime: 9, stunGauge: 'stop' }, setup);
+  const stop = run(t, { ...GS, maxTime: 9, stunGauge: 'stop' }, setup);
   assert.deepEqual(casts(stop, 'CH_G').map(l => l.t), [8]); // 0~5초 멈춤 → 5초부터 30 더 채움
 });
 
@@ -168,4 +179,46 @@ test('코스트 모드·턴제는 예전 그대로이고, 턴제에서도 웨이
   const r = battle(t, { ...DEFAULT_RULES, hitMode: 'always', crit: false }, setup, { seed: 1 });
   assert.equal(r.winner, 0);
   assert.equal(r.wave, 2);
+});
+
+// ── 효과 지속 = 턴 (게임 확인): 받은 몬몬의 스킬 사용마다 1, 스킬 뒤 감소, 자기에게 건 건 다음 스킬부터, 기절은 턴 소모 ──
+const basicDmg = (r, who, from, to) => r.log.filter(l => l.ev === 'attack' && l.actor === who && l.skill === '기본 공격' && l.t > from && l.t < to).map(l => l.value);
+
+test('턴 지속: 2턴 버프는 받은 몬몬의 스킬 2번에 적용되고, 두 번째 스킬 뒤에 해제', () => {
+  const t = tables();
+  // 느린 버퍼(속도 50, 시작 75): 5초·25초에 아군 전체 공 +25% 2턴 / 딜러(속도 100): 10·20·30초에 스킬
+  const r = run(t, G, { allies: [{ unit: 'char:CH_G', level: 1 }, { unit: 'char:CH_GSLOW', level: 1, gauge: 75 }], enemies: [{ unit: 'monster:MO_DUMMY' }] });
+  const skill = r.log.filter(l => l.ev === 'attack' && l.actor === 'CH_G' && l.skill === '일격');
+  assert.deepEqual(skill.map(l => [l.t, l.value]).slice(0, 2), [[10, 125], [20, 125]]);
+  assert.ok(basicDmg(r, 'CH_G', 5.05, 19.95).every(v => v === 125));
+  assert.ok(basicDmg(r, 'CH_G', 20.05, 24.95).every(v => v === 100) && basicDmg(r, 'CH_G', 20.05, 24.95).length >= 3);
+  assert.ok(r.log.some(l => l.ev === 'expire' && l.actor === 'CH_G' && l.t === 20));
+});
+
+test('턴 지속: 자기 스킬로 자신에게 건 1턴 버프는 그 스킬에서 줄지 않고 다음 스킬까지 유지', () => {
+  const t = tables();
+  const r = run(t, { ...G, maxTime: 19 }, { allies: [{ unit: 'char:CH_GSELF', level: 1 }], enemies: [{ unit: 'monster:MO_DUMMY' }] });
+  const after = basicDmg(r, 'CH_GSELF', 10.05, 19);
+  assert.ok(after.length >= 7 && after.every(v => v === 125), String(after));
+  assert.ok(basicDmg(r, 'CH_GSELF', 0, 9.95).every(v => v === 100));
+});
+
+test('턴 지속: 기절 중에도 게이지가 차고, 차면 스킬 없이 턴을 소모해 기절이 풀림', () => {
+  const t = tables();
+  // 0초: 기절 몬스터가 전체 1턴 기절. 아군은 게이지 70 → 3초에 가득 → 스킬 대신 턴 소모(기절 해제) → 13초에 스킬
+  const r = run(t, { ...G, maxTime: 14 }, { allies: [{ unit: 'char:CH_G', level: 1, gauge: 70 }], enemies: [{ unit: 'monster:MO_STUNNER1' }] });
+  assert.deepEqual(casts(r, 'CH_G').map(l => l.t), [13]);
+  assert.ok(r.log.some(l => l.ev === 'skip' && l.actor === 'CH_G' && l.t === 3 && /턴 소모/.test(l.text)));
+  assert.equal(basicDmg(r, 'CH_G', 0, 2.99).length, 0); // 기절 동안 평타 없음
+  assert.ok(basicDmg(r, 'CH_G', 3, 5).length >= 1); // 풀리고 바로 평타
+});
+
+test('턴 지속: 지속 피해는 받은 몬몬의 턴마다 (1초마다가 아님)', () => {
+  const t = tables();
+  // 아군이 1초에 독 2턴 → 보스(충전 ×2) 턴 5·10초에 한 번씩, 그 뒤 해제
+  const r = run(t, { ...G, maxTime: 16 }, { allies: [{ unit: 'char:CH_GDOT', level: 1, gauge: 90 }], enemies: [{ unit: 'monster:MO_BOSS' }] });
+  const dots = r.log.filter(l => l.ev === 'dot' && l.target === 'MO_BOSS');
+  assert.deepEqual(dots.map(l => [l.t, l.value]).slice(0, 2), [[5, 10], [10, 10]]);
+  // 11초에 아군이 다시 독을 걸어 15초에 또 들어감 — 1초 틱으로는 들어가지 않음
+  assert.ok(dots.every(l => [5, 10, 15].includes(l.t)), JSON.stringify(dots.map(l => l.t)));
 });
