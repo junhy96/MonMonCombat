@@ -17,15 +17,14 @@
 
 ```
 src/combat/   파티 전투 엔진 (파티 vs 적·보스, 웨이브, 스킬 게이지, 패시브, 실시간·턴제)
-src/battle/   스탯·전투 밸런스 (1:1 전투, 레벨 곡선, 수식 파서, 특성) — Kalivra 기반, NOTICE.md 참고
 src/data/     데이터 테이블 구조(schema.js)·검증·CSV(tables.js)·기본 예시 데이터(tables.json)
-src/lib/      시드 고정 난수, 수렴(오차 범위), ZIP
+src/lib/      시드 고정 난수, ZIP
 tools/        combat-data-template.mjs — 데이터 입력 엑셀 템플릿 만들기
 templates/    combat-data-template.xlsx — 게임에서 모은 수치를 적는 파일
 tests/        node --test
 ```
 
-`src/`는 워크벤치(planning-workbench)의 `js/combat`·`js/battle`·`js/data`에서 화면 코드 없이 계산 부분만 옮겼습니다. 화면 공용 라이브러리 대신 쓰던 순수 함수만 `src/lib`으로 뽑았습니다.
+`src/`는 워크벤치(planning-workbench)의 `js/combat`·`js/data`에서 화면 코드 없이 계산 부분만 옮겼습니다. 화면 공용 라이브러리 대신 쓰던 순수 함수만 `src/lib`으로 뽑았습니다.
 
 ## 전투 규칙 (게임에서 확인한 것)
 
