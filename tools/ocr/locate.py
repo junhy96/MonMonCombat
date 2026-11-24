@@ -16,7 +16,9 @@ big = Image.fromarray(a.max(axis=2)).convert("RGB").resize((img.width * 2, img.h
 r = rapid.ENGINE(np.ascontiguousarray(np.array(big)[:, :, ::-1]), use_det=True, use_cls=False, use_rec=True)
 boxes = list(zip(r.boxes if r.boxes is not None else [], r.txts or []))
 for want in sys.argv[2:]:
-    hit = next(((b, t) for b, t in boxes if want.replace(" ", "") in str(t).replace(" ", "")), None)
+    w = want.replace(" ", "")
+    # 똑같은 글자를 먼저 ("스테이지1" 이 "스테이지10" 에 걸리지 않게), 없으면 포함하는 것
+    hit = next(((b, t) for b, t in boxes if str(t).replace(" ", "") == w), None) or next(((b, t) for b, t in boxes if w in str(t).replace(" ", "")), None)
     if hit:
         xs, ys = [p[0] for p in hit[0]], [p[1] for p in hit[0]]
         print(round(sum(xs) / 4 / 2), round(sum(ys) / 4 / 2))
