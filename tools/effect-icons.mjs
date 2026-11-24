@@ -127,6 +127,24 @@ for (const g of GROUPS) {
   }
 }
 
+// 버프·디버프 목록 이미지에 없지만 몬몬 스킬 팝업 효과 칸에 나오는 효과 (아이콘은 따로 자르지 않음).
+// 설명은 팝업 문장에서 옮김 — 개수·확률·양은 스킬마다 달라 수치를 두지 않는다.
+const OTHERS = [
+  { id: 'IN_BUFF_REMOVE', kind: '즉시', name: '버프 제거', desc: '대상의 [버프]를 제거한다. 개수·확률은 스킬마다 (예: 75% 확률로 1개, 2개).', engine: '없음', note: '예: 꼬뿔·뼈꼬미·라이젤 — 몬몬 7마리', ex: '꼬뿔 「전방 범위 내 적에게 75% 확률로 [버프] 1개를 제거한다.」' },
+  { id: 'IN_BUFF_STEAL', kind: '즉시', name: '버프 훔치기', desc: '대상의 [버프]를 가져온다. 개수·확률은 스킬마다.', engine: '없음', note: '가져온 버프가 누구에게 몇 턴 붙는지 미확인 — 몬몬 5마리', ex: '소닉벗 「피해를 입은 적에게 각각 75% 확률로 [버프] 1개를 훔치고」' },
+  { id: 'IN_DEBUFF_REMOVE', kind: '즉시', name: '디버프 제거', desc: '아군의 [디버프]를 제거한다. 대상·개수는 스킬마다.', engine: '없음', note: '몬몬 11마리', ex: '토실 「자신과 [디버프]를 보유한 무작위 아군 1명의 [디버프] 1개를 제거한다.」' },
+  { id: 'IN_DEBUFF_MOVE', kind: '즉시', name: '디버프 이전', desc: '자신의 [디버프]를 적에게 옮긴다.', engine: '없음', note: '몬몬 1마리', ex: '뭉치뿔 「공격력이 가장 높은 적 1명에게 75% 확률로 자신의 모든 [디버프]를 이전한다.」' },
+  { id: 'IN_HEAL', kind: '즉시', name: '치유', desc: '체력을 회복한다. 양은 스킬마다 (시전자 최대 체력의 %).', engine: '부분', note: '엔진 회복은 시전자 공격력 비례 — 최대 체력 비례는 없음 · 몬몬 15마리', ex: '아울링 「모든 아군을 자신 최대 체력의 10%만큼 치유한다.」' },
+  { id: 'IN_ENERGY_UP', kind: '즉시', name: '스킬 에너지 증가', desc: '스킬 에너지(게이지)를 채운다. 양은 스킬마다 (%).', engine: '없음', note: '"%"가 게이지 최대치 기준인지 미확인 · 몬몬 7마리', ex: '뿔뎅이 「디버프 상태의 적 1명당 모든 아군의 스킬 에너지를 5%씩 증가시킨다.」' },
+  { id: 'IN_ENERGY_DOWN', kind: '즉시', name: '스킬 에너지 감소', desc: '대상의 스킬 에너지(게이지)를 줄인다. 양은 스킬마다 (%).', engine: '없음', note: '"%"가 게이지 최대치 기준인지 미확인 · 몬몬 9마리', ex: '초롱이 「피해를 입은 적에게 스킬 에너지를 20% 감소시킨다.」' },
+  { id: 'IN_BUFF_TIME_UP', kind: '즉시', name: '버프 지속시간 증가', desc: '대상의 모든 [버프]의 남은 턴을 늘린다.', engine: '없음', note: '몬몬 2마리', ex: '꽃핀부리 「모든 아군의 모든 [버프]의 남은 턴을 1턴 증가시킨다.」' },
+  { id: 'IN_BUFF_TIME_DOWN', kind: '즉시', name: '버프 지속시간 감소', desc: '대상의 모든 [버프]의 남은 턴을 줄인다.', engine: '없음', note: '몬몬 1마리', ex: '뿌뿌 「피해를 입은 적에게 각각 모든 [버프]의 남은 턴을 1턴 감소시킨다.」' },
+  { id: 'IN_DEBUFF_TIME_UP', kind: '즉시', name: '디버프 지속시간 증가', desc: '대상의 모든 [디버프]의 남은 턴을 늘린다.', engine: '없음', note: '몬몬 2마리', ex: '스멀이 「75% 확률로 모든 [디버프]의 남은 턴을 1턴 증가시킨다.」' },
+  { id: 'IN_DEBUFF_TIME_DOWN', kind: '즉시', name: '디버프 지속시간 감소', desc: '대상의 모든 [디버프]의 남은 턴을 줄인다.', engine: '없음', note: '몬몬 1마리', ex: '당그미 「모든 아군의 모든 [디버프]의 남은 턴을 1턴 감소시킨다.」' },
+  { id: 'BF_STEEL_STEALTH', kind: '버프 (목록 밖)', name: '강철 은신', desc: '스킬 팝업에 "[강철 은신] 버프를 부여한다"로 나오는 버프. 효과 내용은 버프 목록 이미지에 없음.', engine: '없음', note: '은신과 무엇이 다른지 미확인 · 몬몬 10마리', ex: '지직이 「모든 아군에게 각각 2턴 간 [강철 은신] 버프를 부여한다.」' },
+];
+for (const o of OTHERS) out.push({ id: o.id, kind: o.kind, name: o.name, effect: o.name, level: '단일', value: '', unit: '', desc: o.desc, engine: o.engine, note: `${o.note} · ${o.ex}`, icon: '', source: '몬몬 스킬 팝업 (아이콘 없음)' });
+
 const COLS = [['id', 'ID'], ['kind', '구분'], ['name', '이름'], ['effect', '효과'], ['level', '단계'], ['value', '수치'], ['unit', '단위'], ['desc', '효과 설명'], ['engine', '엔진'], ['note', '메모'], ['icon', '아이콘'], ['source', '아이콘 출처']];
 const csvCell = (v) => { const s = String(v ?? ''); return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s; };
 writeFileSync(`${DIR}/effects.csv`, '﻿' + [COLS.map(c => c[1]), ...out.map(r => COLS.map(c => r[c[0]]))].map(r => r.map(csvCell).join(',')).join('\r\n') + '\r\n');
@@ -138,26 +156,29 @@ const table = (kind) => [
   '',
   '| 아이콘 | ID | 이름 | 수치 | 효과 설명 | 엔진 | 메모 |',
   '|:-:|---|---|--:|---|:-:|---|',
-  ...out.filter(r => r.kind === kind).map(r => `| ![](${r.icon}) | \`${r.id}\` | ${md(r.name)} | ${r.value !== '' ? `${r.value}${r.unit}` : '—'} | ${md(r.desc)} | ${r.engine} | ${md(r.note)} |`),
+  ...out.filter(r => r.kind === kind).map(r => `| ${r.icon ? `![](${r.icon})` : '—'} | \`${r.id}\` | ${md(r.name)} | ${r.value !== '' ? `${r.value}${r.unit}` : '—'} | ${md(r.desc)} | ${r.engine} | ${md(r.note)} |`),
   '',
 ];
 const all = [...LIST.버프.map(b => ({ ...b, kind: '버프' })), ...LIST.디버프.map(b => ({ ...b, kind: '디버프' }))];
 const doc = [
-  '# 효과 목록 (버프 · 디버프)',
+  '# 효과 목록 (버프 · 디버프 · 즉시 효과)',
   '',
   '게임 효과 설명 캡처(`source/`)를 옮긴 표입니다. 수치가 두 개인 효과는 낮은 값 = **약**, 높은 값 = **강**으로 나눴습니다. 스킬·패시브 데이터는 이 ID(이름)를 기준으로 효과를 적습니다.',
   '',
   '- 다시 만들기: `node tools/effect-icons.mjs` (아이콘 자르기 + `effects.csv`·`effects.json`·이 문서)',
   '- **엔진** 열: 지금 `src/combat/engine.js`에 있는지 — 있음 / 부분 / 없음. 게임 규칙을 추측한 값이 아닙니다.',
   '- **턴**: 1턴 = 몬몬이 스킬을 한 번 쓸 때. 지속 시간은 효과를 받은 몬몬의 턴으로, 대기시간은 효과를 쓴 몬몬의 턴으로 셉니다. 지속은 턴으로 표시됩니다 (게임에서 확인).',
+  '- **즉시 효과**: 버프·디버프 목록 이미지에는 없고 몬몬 스킬 팝업 효과 칸에만 나오는 효과(버프 제거·버프 훔치기 등). 아이콘 없이 팝업 문장으로 설명을 적었고, 개수·확률·양은 스킬마다 다릅니다.',
   '- **치명확률·치명피해**: 증가·감소 모두 합연산으로 적용합니다 (다른 게임의 일반적인 방식 기준, 게임에서 확인 전).',
   '',
   ...table('버프'),
   ...table('디버프'),
+  ...table('즉시'),
+  ...table('버프 (목록 밖)'),
   '## 확인이 필요한 점',
   '',
   ...all.filter(b => /미확인|확인 전/.test(b.note)).map(b => `- **${b.name}** (${b.kind}): ${b.note}`),
   '',
 ];
 writeFileSync(`${DIR}/README.md`, doc.join('\n'));
-console.log(`버프 ${LIST.버프.length}종 · 디버프 ${LIST.디버프.length}종 → ${out.length}행, 아이콘 ${out.length}개`);
+console.log(`버프 ${LIST.버프.length}종 · 디버프 ${LIST.디버프.length}종 · 즉시·기타 ${OTHERS.length}개 → ${out.length}행, 아이콘 ${out.filter(r => r.icon).length}개`);
