@@ -1,0 +1,10 @@
+{
+  "name": "monmon-assignment",
+  "private": true,
+  "type": "module",
+  "description": "몬몬 마스터즈 레벨 디자인 과제 — 전투 시뮬레이션 파이프라인",
+  "scripts": {
+    "test": "node --test",
+    "template": "node tools/combat-data-template.mjs"
+  }
+}
