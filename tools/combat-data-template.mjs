@@ -5,8 +5,8 @@
 // - 1행 = 머리글(주황 = 필수), 2행 = 적는 법, 3행부터 데이터. "(예시)"로 시작하는 행은 가져올 때 건너뛴다.
 // - 시트끼리는 이름으로 잇는다 (스킬 이름, 몬스터 이름, 캐릭터 이름이 정확히 같아야 함). 여러 개는 | 로 구분.
 // - 모르는 칸은 비우거나 ? — 가져오는 쪽에서 추측해 채우지 않고 목록으로 되묻는다.
-// - 스킬·패시브의 효과는 "버프" 시트(data/buffs/buffs.json에서 만듦)의 이름을 드롭다운에서 고른다. 약/강이 이름에 들어 있어 수치는 버프가 정한다.
-//   목록에 없는 효과(디버프·정화·게이지 증감 등)는 "기타"로 두고 메모에 설명 → 엔진에 넣을지 따로 정한다.
+// - 스킬·패시브의 효과는 "효과" 시트(data/effects/effects.json에서 만듦, 버프·디버프)의 이름을 드롭다운에서 고른다.
+//   약/강이 이름에 들어 있어 수치는 효과가 정한다. 목록에 없는 효과(정화·게이지 증감 등)는 "기타"로 두고 메모에 설명.
 // - 관찰 시트(피해·스킬 주기·전투 결과)는 데미지 공식·게이지 속도를 추측하지 않고 맞추기 위한 것이고, 시뮬레이션이 실제와 맞는지 확인하는 기준이다.
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname } from 'node:path';
@@ -14,10 +14,10 @@ import { makeZip } from '../src/lib/zip.js';
 import { ROLES, ROWS, TARGETS, AREAS, TRIGGERS } from '../src/data/schema.js';
 
 const out = process.argv[2] || 'templates/combat-data-template.xlsx';
-// 버프 목록 (node tools/buff-icons.mjs가 만든 것) — 마지막에 "기타"를 붙여 드롭다운 한 범위로 쓴다
-const BUFFS = JSON.parse(readFileSync(new URL('../data/buffs/buffs.json', import.meta.url), 'utf8'));
-const BUFF_SHEET = '버프';
-const EFFECT_RANGE = `'${BUFF_SHEET}'!$B$3:$B$${3 + BUFFS.length}`; // 버프 이름 + 기타
+// 효과 목록 (node tools/effect-icons.mjs가 만든 것, 버프 → 디버프) — 마지막에 "기타"를 붙여 드롭다운 한 범위로 쓴다
+const EFFECTS = JSON.parse(readFileSync(new URL('../data/effects/effects.json', import.meta.url), 'utf8'));
+const EFFECT_SHEET = '효과';
+const EFFECT_RANGE = `'${EFFECT_SHEET}'!$C$3:$C$${3 + EFFECTS.length}`; // 효과 이름 + 기타
 
 // ── 선택지 (드롭다운) ──
 const first = (o) => Object.values(o).map(l => l.split(' ')[0]);
@@ -33,9 +33,9 @@ const L = {
 // ── 시트 정의: [머리글, 적는 법, 너비, 필수?, 선택지?] ──
 const C = (label, hint, width = 12, req = false, list = null) => ({ label, hint, width, req, list });
 const effectCols = (n) => [
-  C(`효과${n}`, '버프 시트의 이름 (약/강 포함), 없으면 기타', 17, false, EFFECT_RANGE),
+  C(`효과${n}`, '효과 시트의 이름 (약/강 포함), 없으면 기타', 17, false, EFFECT_RANGE),
   C(`효과${n} 대상`, '비우면 스킬 대상과 같음', 10, false, L.effTarget),
-  C(`효과${n} 수치`, '보호막 양처럼 버프에 수치가 없을 때만', 10),
+  C(`효과${n} 수치`, '보호막 양처럼 효과에 수치가 없을 때만', 10),
   C(`효과${n} 지속(턴)`, '받은 몬몬이 스킬을 쓸 때마다 1턴, 비우면 전투 끝까지', 10),
   C(`효과${n} 확률(%)`, '비우면 100', 9),
 ];
@@ -211,29 +211,29 @@ function guideSheet() {
     ['· 전열/후열은 캐릭터가 아니라 배치로 정해지므로 캐릭터·몬스터 시트에는 없고, 내 파티·던전 시트의 슬롯마다 적습니다.', S.wrap],
     ['· 스탯은 게임 상세 화면에 보이는 값 그대로 (장비·강화가 반영됐는지는 메모에).', S.wrap],
     ['· 피해 배율은 "공격력의 몇 %"로 (180% → 180). 지속은 턴 — 1턴 = 효과를 받은 몬몬이 스킬을 한 번 쓸 때.', S.wrap],
-    ['· 스킬·패시브의 효과는 "버프" 시트의 이름을 드롭다운에서 고릅니다 (예: 공격력 증가 (약)). 약/강에 따라 수치가 정해져 있어 따로 적지 않아도 됩니다.', S.wrap],
-    ['· 목록에 없는 효과(디버프, 정화, 게이지 증감 등)는 "기타"를 고르고 메모에 설명해 주세요. 효과는 스킬마다 3개까지.', S.wrap],
+    ['· 스킬·패시브의 효과는 "효과" 시트(버프·디버프)의 이름을 드롭다운에서 고릅니다 (예: 공격력 증가 (약), 기절). 약/강에 따라 수치가 정해져 있어 따로 적지 않아도 됩니다.', S.wrap],
+    ['· 목록에 없는 효과(정화, 게이지 증감 등)는 "기타"를 고르고 메모에 설명해 주세요. 효과는 스킬마다 3개까지.', S.wrap],
     ['· 스킬 설명은 게임 문구를 그대로 붙여 넣어 주세요. 캡처 이미지만 있어도 괜찮습니다.', S.wrap],
   ];
   const rows = lines.map(([t, s], i) => [i + 1, [cell(i + 1, 1, t, s)]]);
   return sheetXml({ rows, widths: [120], heights: { 1: 26 } });
 }
 
-/** 버프 시트: 스킬 효과 드롭다운의 원본. 이름 열(B)을 범위로 참조한다 */
-function buffSheet() {
-  const head = ['ID', '효과 이름', '버프', '단계', '수치', '효과 설명', '엔진'];
-  const hint = ['', '스킬 시트에서 고르는 이름', '', '약·강·단일', '', '게임 설명 (수치 반영)', '시뮬레이터에 지금 있는지'];
+/** 효과 시트: 스킬 효과 드롭다운의 원본(버프 → 디버프 → 기타). 이름 열(C)을 범위로 참조한다 */
+function effectSheet() {
+  const head = ['ID', '구분', '효과 이름', '효과', '단계', '수치', '효과 설명', '엔진'];
+  const hint = ['', '버프·디버프', '스킬 시트에서 고르는 이름', '', '약·강·단일', '', '게임 설명 (수치 반영)', '시뮬레이터에 지금 있는지'];
   const rows = [
     [1, head.map((t, i) => cell(1, i + 1, t, S.head))],
     [2, hint.map((t, i) => cell(2, i + 1, t, S.hint))],
-    ...BUFFS.map((b, k) => [3 + k, [b.id, b.name, b.buff, b.level, b.value !== '' ? `${b.value}${b.unit}` : '', b.desc, b.engine].map((v, i) => cell(3 + k, i + 1, v, i === 5 ? S.wrap : 0))]),
+    ...EFFECTS.map((b, k) => [3 + k, [b.id, b.kind, b.name, b.effect, b.level, b.value !== '' ? `${b.value}${b.unit}` : '', b.desc, b.engine].map((v, i) => cell(3 + k, i + 1, v, i === 6 ? S.wrap : 0))]),
   ];
-  const k = 3 + BUFFS.length;
-  rows.push([k, ['OTHER', '기타', '', '', '', '목록에 없는 효과 — 스킬 시트 메모에 설명 (디버프 목록은 아직 없음)', ''].map((v, i) => cell(k, i + 1, v, i === 5 ? S.wrap : 0))]);
-  return sheetXml({ rows, widths: [20, 18, 14, 6, 7, 60, 7], freeze: 2, heights: { 1: 33, 2: 30 } });
+  const k = 3 + EFFECTS.length;
+  rows.push([k, ['OTHER', '', '기타', '', '', '', '목록에 없는 효과 — 스킬 시트 메모에 설명', ''].map((v, i) => cell(k, i + 1, v, i === 6 ? S.wrap : 0))]);
+  return sheetXml({ rows, widths: [20, 7, 18, 14, 6, 7, 60, 7], freeze: 2, heights: { 1: 33, 2: 30 } });
 }
 
-const ALL = [{ name: '안내', xml: guideSheet() }, ...SHEETS.flatMap(sh => [{ name: sh.name, xml: tableSheet(sh) }, ...(sh.name === '스킬' ? [{ name: BUFF_SHEET, xml: buffSheet() }] : [])])];
+const ALL = [{ name: '안내', xml: guideSheet() }, ...SHEETS.flatMap(sh => [{ name: sh.name, xml: tableSheet(sh) }, ...(sh.name === '스킬' ? [{ name: EFFECT_SHEET, xml: effectSheet() }] : [])])];
 
 const stylesXml = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">

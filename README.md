@@ -20,6 +20,7 @@ src/combat/   파티 전투 엔진 (파티 vs 적·보스, 웨이브, 스킬 게
 src/data/     데이터 테이블 구조(schema.js)·검증·CSV(tables.js)·기본 예시 데이터(tables.json)
 src/lib/      시드 고정 난수, ZIP
 tools/        combat-data-template.mjs — 데이터 입력 엑셀 템플릿 만들기
+              effect-icons.mjs — 효과 캡처에서 아이콘 자르기 + 효과 목록(data/effects)
 templates/    combat-data-template.xlsx — 게임에서 모은 수치를 적는 파일
 tests/        node --test
 ```
@@ -40,7 +41,7 @@ tests/        node --test
   - 기절 중에도 게이지가 차고, 차면 스킬 없이 턴만 소모 (기절 1턴 = 스킬 한 번을 잃음)
   - 지속 피해·지속 치유는 받은 몬몬의 턴마다
   - 대기시간은 효과를 쓴 몬몬의 턴으로 셈 — 엔진에 아직 대기시간 효과 없음
-- 버프 목록: `data/buffs/` (약/강, 아이콘). 치명확률·치명피해 증가는 합연산으로 적용 (다른 게임 관례 기준, 게임에서 확인 전)
+- 효과 목록: `data/effects/` — 버프 19종·디버프 20종을 약/강으로 나눈 62개와 아이콘. 치명확률·치명피해는 증가·감소 모두 합연산으로 적용 (다른 게임 관례 기준, 게임에서 확인 전)
 
 확인 전인 규칙(동시 발동 순서, 웨이브 사이 버프, 평타 주기 재시작, 한 턴 안에서 지속 피해가 스킬 앞/뒤 중 언제 들어가는지)은 엔진 규칙 선택지로 두었습니다 — `src/combat/engine.js`의 `DEFAULT_RULES`.
 
