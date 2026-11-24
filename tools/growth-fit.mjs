@@ -34,7 +34,7 @@ for (const key of [...new Set(obs.map(o => `${o.grade}|${o.born}|${o.stars}`))])
   const series = mons.flatMap(n => STATS.map(([k]) => ({ k, pts: g.filter(o => o.name === n).sort((a, b) => a.level - b.level).map(o => ({ level: o.level, v: o[k] })) })));
   const fitR = (list) => {
     let best = null;
-    for (let r = 1.005; r <= 1.06; r += 0.00001) {
+    for (let r = 1.005; r <= 1.15; r += 0.00001) {
       let err = 0, worst = 0;
       for (const s of list) { const b = fitB(s.pts, r); err += b.err; worst = Math.max(worst, b.worst); }
       if (!best || err < best.err) best = { r, err, worst };
@@ -42,7 +42,7 @@ for (const key of [...new Set(obs.map(o => `${o.grade}|${o.born}|${o.stars}`))])
     return best;
   };
   // 거친 격자로 범위를 좁힌 뒤 촘촘히 (전부 촘촘히 돌면 느림)
-  const coarse = (list) => { let best = null; for (let r = 1.005; r <= 1.06; r += 0.0005) { let err = 0; for (const s of list) err += fitB(s.pts, r).err; if (!best || err < best.err) best = { r, err }; } return best.r; };
+  const coarse = (list) => { let best = null; for (let r = 1.005; r <= 1.15; r += 0.0005) { let err = 0; for (const s of list) err += fitB(s.pts, r).err; if (!best || err < best.err) best = { r, err }; } return best.r; };
   const fine = (list) => { const c = coarse(list); let best = null; for (let r = c - 0.001; r <= c + 0.001; r += 0.00001) { let err = 0, worst = 0; for (const s of list) { const b = fitB(s.pts, r); err += b.err; worst = Math.max(worst, b.worst); } if (!best || err < best.err) best = { r, err, worst }; } return best; };
   const all = fine(series);
   const per = Object.fromEntries(STATS.map(([k]) => [k, fine(series.filter(s => s.k === k))]));
