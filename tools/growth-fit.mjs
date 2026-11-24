@@ -11,7 +11,8 @@ import { readFileSync, writeFileSync } from 'node:fs';
 const IN = 'data/growth/observations.csv', OUT = 'data/growth/growth.csv';
 const STATS = [['hp', '체력'], ['atk', '공격력'], ['def', '방어력']];
 const rows = readFileSync(IN, 'utf8').replace(/^﻿/, '').trim().split(/\r?\n/).slice(1).map(l => l.split(','));
-const obs = rows.map(c => ({ name: c[0], no: c[1], grade: c[2], stars: +c[3], maxLevel: +c[4], level: +c[5], hp: +c[6], atk: +c[7], def: +c[8] }));
+// 태생 별과 현재 별(진화 후)을 따로 둔다 — 진화하면 최대 레벨과 레벨당 배율이 바뀐다 (딸랑귀: 에픽 4성 → 5성)
+const obs = rows.map(c => ({ name: c[0], no: c[1], grade: c[2], born: +c[3], stars: +c[4], maxLevel: +c[5], level: +c[6], hp: +c[7], atk: +c[8], def: +c[9] }));
 
 /** 한 몬몬·한 스탯 점들에 r 을 고정했을 때 가장 잘 맞는 Lv1 내부값과 오차 */
 function fitB(pts, r) {
@@ -26,8 +27,9 @@ function fitB(pts, r) {
 }
 
 const out = [];
-for (const grade of [...new Set(obs.map(o => o.grade))]) {
-  const g = obs.filter(o => o.grade === grade);
+for (const key of [...new Set(obs.map(o => `${o.grade}|${o.born}|${o.stars}`))]) {
+  const g = obs.filter(o => `${o.grade}|${o.born}|${o.stars}` === key);
+  const grade = g[0].grade + (g[0].stars !== g[0].born ? ` (${g[0].born}성→${g[0].stars}성 진화)` : '');
   const mons = [...new Set(g.map(o => o.name))];
   const series = mons.flatMap(n => STATS.map(([k]) => ({ k, pts: g.filter(o => o.name === n).sort((a, b) => a.level - b.level).map(o => ({ level: o.level, v: o[k] })) })));
   const fitR = (list) => {
@@ -46,9 +48,9 @@ for (const grade of [...new Set(obs.map(o => o.grade))]) {
   const per = Object.fromEntries(STATS.map(([k]) => [k, fine(series.filter(s => s.k === k))]));
   const levels = mons.map(n => `${n} Lv${g.filter(o => o.name === n).map(o => o.level).join('·')}`).join(' / ');
   const max = g[0].maxLevel;
-  out.push([grade, g[0].stars, max, all.r.toFixed(4), ...STATS.map(([k]) => per[k].r.toFixed(4)), Math.pow(all.r, max - 1).toFixed(3), all.worst, levels]);
+  out.push([grade, g[0].born, g[0].stars, max, all.r.toFixed(4), ...STATS.map(([k]) => per[k].r.toFixed(4)), Math.pow(all.r, max - 1).toFixed(3), all.worst, levels]);
   console.log(`${grade}: r=${all.r.toFixed(5)} (체력 ${per.hp.r.toFixed(5)}, 공격력 ${per.atk.r.toFixed(5)}, 방어력 ${per.def.r.toFixed(5)}) · 최대 오차 ${all.worst} · Lv${max} 배율 ${Math.pow(all.r, max - 1).toFixed(3)}`);
 }
 const csv = (rs) => '﻿' + rs.map(r => r.join(',')).join('\r\n') + '\r\n';
-writeFileSync(OUT, csv([['등급', '별', '최대 레벨', '레벨당 배율', '체력만', '공격력만', '방어력만', '최대 레벨 배율(Lv1 대비)', '화면 값 최대 오차', '근거 (몬몬 · 관측 레벨)'], ...out]));
+writeFileSync(OUT, csv([['등급', '태생 별', '현재 별', '최대 레벨', '레벨당 배율', '체력만', '공격력만', '방어력만', '최대 레벨 배율(Lv1 대비)', '화면 값 최대 오차', '근거 (몬몬 · 관측 레벨)'], ...out]));
 console.log(`→ ${OUT}`);
