@@ -21,6 +21,8 @@ src/data/     데이터 테이블 구조(schema.js)·검증·CSV(tables.js)·기
 src/lib/      시드 고정 난수, ZIP
 tools/        combat-data-template.mjs — 데이터 입력 엑셀 템플릿 만들기
               effect-icons.mjs — 효과 캡처에서 아이콘 자르기 + 효과 목록(data/effects)
+              growth-fit.mjs — 레벨 강화 관측값 → 등급별 성장 배율(data/growth)
+              capture/, ocr/ — 게임 도감 캡처와 글자 읽기 → data/monmon
 templates/    combat-data-template.xlsx — 게임에서 모은 수치를 적는 파일
 tests/        node --test
 ```
@@ -42,6 +44,8 @@ tests/        node --test
   - 지속 피해·지속 치유는 받은 몬몬의 턴마다
   - 대기시간은 효과를 쓴 몬몬의 턴으로 셈 — 엔진에 아직 대기시간 효과 없음
 - 효과 목록: `data/effects/` — 버프 19종·디버프 20종을 약/강으로 나눈 62개와 아이콘. 치명확률·치명피해는 증가·감소 모두 합연산으로 적용 (다른 게임 관례 기준, 게임에서 확인 전)
+- 레벨 성장: 곱연산, 레벨당 고급 ×1.0342 · 레어 ×1.0204 · 에픽 ×1.0136 (관측에 맞춘 근사값, 전설·일반은 아직 없음) — `data/growth/`
+- 몬몬 도감: `data/monmon/` — 285개 스탯·스킬(게임 캡처 OCR). 스탯은 도감 화면 값이라 계정 보너스가 들어 있음
 
 확인 전인 규칙(동시 발동 순서, 웨이브 사이 버프, 평타 주기 재시작, 한 턴 안에서 지속 피해가 스킬 앞/뒤 중 언제 들어가는지)은 엔진 규칙 선택지로 두었습니다 — `src/combat/engine.js`의 `DEFAULT_RULES`.
 
