@@ -1,0 +1,104 @@
+{
+  "no": "008",
+  "name": "부엉참",
+  "grade": "전설",
+  "stars": 5,
+  "maxLevel": 50,
+  "role": "공격",
+  "range": "근거리",
+  "element": "바람",
+  "stats": {
+    "hp": 6798,
+    "atk": 641,
+    "def": 382,
+    "spd": 103,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "암흑 속의 칼날",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입히고, 자신에게 4% 확률로1턴간 [치명피해+30%] 버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "치명피해 증가 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +20%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "칼날 부수기",
+      "cooldownTurns": null,
+      "desc": "모든 적에게 피해를 입힌다. [4턴에 한 번] 피해를 입은 적에게 각각75% 확률로 2턴 간 [방어력-60%] [치명피해-25%] 디버프를 부여한다. 무여안나. 무여한나.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "방어력 감소 (강)",
+          "turns": 2,
+          "cooldownTurns": 4
+        },
+        {
+          "name": "치명피해 감소 (강)",
+          "turns": 4,
+          "cooldownTurns": null
+        },
+        {
+          "name": "치명피해 감소 (강)",
+          "turns": 2,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +10%",
+        "LV 3 효과 확률+10%",
+        "LV 4 피해량+10%",
+        "LV 5 효과 확률 +15%",
+        "LV 6 대기시간 감소-1",
+        "LV 3 효과 확률 +10%",
+        "LV 4 피해량+10%",
+        "LV 6 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "급소간파",
+      "cooldownTurns": null,
+      "desc": "[방어력 감소] 디버프 상태의 적에게 피해를 입힐 때, 반드시 치명타 피해를 입힌다. [방어력 감쇠] 디버프 상태의 적에게 피해를입힐때,",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": []
+    },
+    {
+      "slot": "패시브",
+      "name": "기세 몰아치기",
+      "cooldownTurns": 4,
+      "desc": "전투에서 이탈하기 전, 자신의 모든 [디버프]를 제거하고 1턴간 [불사] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "불사",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간"
+      ]
+    }
+  ],
+  "issues": []
+}

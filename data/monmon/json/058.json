@@ -1,0 +1,89 @@
+{
+  "no": "058",
+  "name": "핀돌",
+  "grade": "전설",
+  "stars": 5,
+  "maxLevel": 50,
+  "role": "지원",
+  "range": "원거리",
+  "element": "아쿠아",
+  "stats": {
+    "hp": 8665,
+    "atk": 400,
+    "def": 498,
+    "spd": 103,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "파도의 노래",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 |피해를입히고, 모든 아군에게 각각4% 확률로1턴간 [속도+30%] 버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "속도 증가 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "썰물",
+      "cooldownTurns": null,
+      "desc": "모든 적에게 피해를 입힌다. [4턴에 한 번] 피해를입은 적에게 각각75% 확률로 2턴 간 [속도-30%] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "속도 감소 (강)",
+          "turns": 2,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +10%",
+        "LV 3 효과 확률 +10%",
+        "LV 4 피해량+10%",
+        "LV 5 효과 확률 +15%",
+        "LV 6 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "생명의 바다",
+      "cooldownTurns": 6,
+      "desc": "스킬을 발동한 후, 모든 전투 이탈 상태의 아군을 최대 체력의 25%, 스킬 에너지 25%로 부활시킨다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 대기시간",
+        "LV 3 대기시간"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "공명하는 물",
+      "cooldownTurns": null,
+      "desc": "아군이 부활한 후, 부활한 아군의 체력을 [속도 증가] 버프 상태의 아군 1명당 7%씩 치유하고, 스킬 에너지를 [속도 감소] 디버프 상태의적1명당 7%씩 증가시킨다.",
+      "damageBase": null,
+      "otherBases": [
+        "치유량: 대상의 체력"
+      ],
+      "effects": [],
+      "levels": []
+    }
+  ],
+  "issues": []
+}

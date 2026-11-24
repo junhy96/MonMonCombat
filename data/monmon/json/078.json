@@ -1,0 +1,87 @@
+{
+  "no": "078",
+  "name": "입질범",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "공격",
+  "range": "근거리",
+  "element": "얼음",
+  "stats": {
+    "hp": 4703,
+    "atk": 375,
+    "def": 301,
+    "spd": 97,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "지느러미 펀치",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입히고, , 자신에게 4% 확률로1턴간 [치명확률+30%] 버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "치명확률 증가 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량 +5%",
+        "LV 4 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "월척 낚아채기",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 모든 적에게 피해를 입힌다. [5턴에 한 번] 생존한 적이 1명이라면, 75% 확률로 자신의 스킬 에너지를 75% 증가시킨다. 생존한 적이 2명 이상이라면, 자신의 스킬",
+      "damageBase": "자신의 공격력 / [자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량",
+        "LV 4 피해량",
+        "LV 5 피해량",
+        "LV 6 대기시간"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "물 오른 손맛",
+      "cooldownTurns": 5,
+      "desc": "스킬을 발동한 후, 자신에게 2턴 간 [공격력+50%] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "공격력 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "한 마리 더",
+      "cooldownTurns": 1,
+      "desc": "자신 또는 아군이 적을 전투에서 이탈시킨 후, 모든 아군의 스킬 에너지를15%증가시킨다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": []
+    }
+  ],
+  "issues": []
+}

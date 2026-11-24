@@ -1,0 +1,97 @@
+{
+  "no": "129",
+  "name": "삐죽이",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "제어",
+  "range": "근거리",
+  "element": "땅",
+  "stats": {
+    "hp": 4939,
+    "atk": 297,
+    "def": 347,
+    "spd": 97,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "화분 내려찍기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "땅울림호통",
+      "cooldownTurns": null,
+      "desc": "전방 범위 내 적에게 피해를 입힌다. [5턴에 한 번] 피해를 입은 적에게 각각 75% 확률로 2턴 간 [공격력-50%], [받는 피해량+25%] 디버프를 부여한다. [A]",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "공격력 감소 (강)",
+          "turns": 2,
+          "cooldownTurns": 5
+        },
+        {
+          "name": "받는 피해량 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": 5
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +10%",
+        "LV 3 피해량 +10%",
+        "LV 4 효과 확률+5%",
+        "LV 5 효과 확률+10%",
+        "LV 6 효과 확률+10%",
+        "LV 2 피해량+10%",
+        "LV 7 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "넘치는 물 주기",
+      "cooldownTurns": 5,
+      "desc": "스킬을 발동한 후, 자신 최대 체력의 25%만큼 자신을 치유한다. 치유한 후, 자신의 체력이 100% 이상이라면 모든 아군을자신 최대 체력의 25%만큼 치유한다.",
+      "damageBase": null,
+      "otherBases": [
+        "치유량: 자신의 체력"
+      ],
+      "effects": [],
+      "levels": [
+        "LV 2 치유량+10%",
+        "LV 3 치유+10%"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "쑥쑥 새짝",
+      "cooldownTurns": null,
+      "desc": "기본공격 피해를 입힌 후, 모든 아군을 각각 4% 확률로 자신 최대 체력의 10%만큼 치유한다.",
+      "damageBase": null,
+      "otherBases": [
+        "치유량: 자신의 체력"
+      ],
+      "effects": [],
+      "levels": [
+        "LV 2 치유량+10%",
+        "LV 3 치유량 +10%"
+      ]
+    }
+  ],
+  "issues": []
+}

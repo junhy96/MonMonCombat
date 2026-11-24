@@ -1,0 +1,59 @@
+{
+  "no": "266",
+  "name": "프랑켄상자",
+  "grade": "일반",
+  "stars": 1,
+  "maxLevel": 10,
+  "role": "지원",
+  "range": "근거리",
+  "element": "언데드",
+  "stats": {
+    "hp": 953,
+    "atk": 75,
+    "def": 64,
+    "spd": 94,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "깨물기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량 +10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "축복 맛보기",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 피해를 입힌다. [4턴에 한 번] 무작위 아군 1명을 자신 최대 체력의 20%만큼 치유한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [
+        "치유량: 자신의 체력"
+      ],
+      "effects": [
+        {
+          "name": "치유",
+          "turns": 4,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +10%",
+        "LV 3 치유량 +10%",
+        "LV 4 피해량 +10%",
+        "LV 5 치유량+10%",
+        "LV 6 대기시간 감소-1"
+      ]
+    }
+  ],
+  "issues": []
+}

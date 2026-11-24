@@ -1,0 +1,58 @@
+{
+  "no": "228",
+  "name": "초키젤",
+  "grade": "고급",
+  "stars": 2,
+  "maxLevel": 20,
+  "role": "지원",
+  "range": "원거리",
+  "element": "변이",
+  "stats": {
+    "hp": 1853,
+    "atk": 117,
+    "def": 125,
+    "spd": 98,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "점액발사",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량 +10%",
+        "LV 3 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "초코 폭발",
+      "cooldownTurns": null,
+      "desc": "모든 적에게 피해를 입힌다. [4턴에 한 번] 모든 아군에게 ? | 각각 2턴 간 [치유량 +50%] 버프를 부여한다. 모든 아군에게 각각 2턴 간 [치유량+50%]",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "치유량 증가 (약)",
+          "turns": 2,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 피해량+5%",
+        "LV 6 대기시간 감소-1"
+      ]
+    }
+  ],
+  "issues": []
+}

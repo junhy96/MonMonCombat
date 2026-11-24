@@ -1,0 +1,108 @@
+{
+  "no": "018",
+  "name": "탱북이",
+  "grade": "전설",
+  "stars": 5,
+  "maxLevel": 50,
+  "role": "공격",
+  "range": "원거리",
+  "element": "땅",
+  "stats": {
+    "hp": 9213,
+    "atk": 305,
+    "def": 532,
+    "spd": 93,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "약화 포격",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입히고, 4% 확률로 1턴간 [공격력-50%] 디버프를 부여한다",
+      "damageBase": "자신의 체력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "공격력 감소 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+10%",
+        "LV 3 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "파편 폭격",
+      "cooldownTurns": null,
+      "desc": "모든 적에게 피해를 입힌다. [4턴에 한 번] [공격력 감소] 디버프 상태인 적에게는 75%, 아닌 적에게는 50% 확률로 각각 2턴 간 디버프를 부여한다.",
+      "damageBase": "자신의 체력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 효과 확률+10%",
+        "LV 4 피해량",
+        "LV 5 효과 확률 +15%",
+        "LV 6 대기시간 감소-1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "방어 태세",
+      "cooldownTurns": null,
+      "desc": "[대기시간 ↓ 4턴] 스킬을 발동한 후, 자신에게 2턴 간 [받는] 피해량 -25%], [ [보호막] 버프(자신 최대 체력의25%)를부여한다. [받는] 피해량 -25%], [보호막] 버프(자신 최대",
+      "damageBase": null,
+      "otherBases": [
+        "보호막: 자신의 체력"
+      ],
+      "effects": [
+        {
+          "name": "받는 피해량 감소 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        },
+        {
+          "name": "보호막",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 보호막 증가 +10%",
+        "LV 3 보호막 증가 +10%",
+        "LV 4 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "수호의 파동",
+      "cooldownTurns": 4,
+      "desc": "기본공격 피해를 받은 후, 자신의 체력이 50% 이상이라면 자신에게 1턴 간 [피해 차단] 버프를 부여한다. 50% 미만이라면 자신에게 1턴 간 [지속 치유 15%] 버프를 부여한다. [피해 차단] 버프를브 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "피해 차단",
+          "turns": 1,
+          "cooldownTurns": null
+        },
+        {
+          "name": "지속 치유 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간"
+      ]
+    }
+  ],
+  "issues": []
+}

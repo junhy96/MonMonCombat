@@ -1,0 +1,64 @@
+{
+  "no": "225",
+  "name": "럭키리프",
+  "grade": "고급",
+  "stars": 2,
+  "maxLevel": 20,
+  "role": "지원",
+  "range": "원거리",
+  "element": "식물",
+  "stats": {
+    "hp": 2073,
+    "atk": 128,
+    "def": 99,
+    "spd": 97,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "씨앗 발사",
+      "cooldownTurns": null,
+      "desc": "가까운 적1명에게 피해를입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량",
+        "LV 4 피해량",
+        "LV 5 피해량+5%",
+        "LV 6 피해량+5%",
+        "LV 7 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "기적 씨앗",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 5회 피해를 입힌다. [5턴에 한 번] 무작위 아군에게 2턴 간 [부활] 버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "부활",
+          "turns": 2,
+          "cooldownTurns": 5
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 피해량+5%",
+        "LV 6 피해량+5%",
+        "LV 7 피해량+5%",
+        "LV 8 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": []
+}

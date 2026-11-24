@@ -1,0 +1,101 @@
+{
+  "no": "082",
+  "name": "이그니",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "공격",
+  "range": "근거리",
+  "element": "화염",
+  "stats": {
+    "hp": 4867,
+    "atk": 394,
+    "def": 273,
+    "spd": 92,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "화염물기",
+      "cooldownTurns": null,
+      "desc": "가까운 적1명에게 피해를입히고, 입힌 피해의 15%만큼 자신을 치유한다. 자신에게 4% 확률로 1턴간 [속도+30%] 버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "속도 증가 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "왕관물비",
+      "cooldownTurns": null,
+      "desc": "모든 적에게 피해를입힌다. 이 스킬로 적을 전투에서 이탈시킬 때마다, 자신의 스킬 에너지를 10% 증가시킨다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량",
+        "LV 4 피해량+10%"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "저주받은 불꽃",
+      "cooldownTurns": 4,
+      "desc": "스킬을 발동하기 전, 스킬을 맞을 적에게 75% 확률로 2턴간 [공격력-25%] [방어력-30%] 디버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "공격력 감소 (약)",
+          "turns": 2,
+          "cooldownTurns": null
+        },
+        {
+          "name": "방어력 감소 (약)",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 효과 확률 +10%"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "용의 후예",
+      "cooldownTurns": 4,
+      "desc": "스킬을 발동하기 전, 자신에게 2턴간 [공격력 +25%] [방어력+30%] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "공격력 증가 (약)",
+          "turns": 2,
+          "cooldownTurns": null
+        },
+        {
+          "name": "방어력 증가 (약)",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소-1"
+      ]
+    }
+  ],
+  "issues": []
+}

@@ -1,0 +1,86 @@
+{
+  "no": "070",
+  "name": "깜뭉치",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "공격",
+  "range": "근거리",
+  "element": "유령",
+  "stats": {
+    "hp": 4089,
+    "atk": 421,
+    "def": 280,
+    "spd": 101,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "어둠 베기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입히고, 자신에게 4% 확률로1턴간 [치명피해+30%] 버프를 부여한다.",
+      "damageBase": ": [자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "치명피해 증가 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량 +5%",
+        "LV 4 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "놀래키기",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 자신 주변 범위 내 적에게 피해를입힌다. 스킬 피해가 치명타라면 방어력의 25%를 무시한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 피해량+5%"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "어둠 속에 숨기",
+      "cooldownTurns": 4,
+      "desc": "스킬을 발동한 후, 자신에게 2턴 간[ [강철 은신] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "강철 은신",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "스토커",
+      "cooldownTurns": null,
+      "desc": "스킬 피해를 입힐 때, 피해를입은 적이1명이라면 피해량이20% 증가한다. 피해량이2 20% 증가한다. 스킬 !피해를 입힐 때, 피해를 입은 적이 1명이라면",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": []
+    }
+  ],
+  "issues": []
+}

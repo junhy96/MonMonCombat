@@ -1,0 +1,55 @@
+{
+  "no": "261",
+  "name": "흉내젤이",
+  "grade": "일반",
+  "stars": 1,
+  "maxLevel": 10,
+  "role": "지원",
+  "range": "원거리",
+  "element": "변이",
+  "stats": {
+    "hp": 1150,
+    "atk": 79,
+    "def": 46,
+    "spd": 95,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "점액발사",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량 +10%",
+        "LV 3 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "열정의 폭발",
+      "cooldownTurns": null,
+      "desc": "모든 적에게 피해를 입힌다. [4턴에 한 번] 모든 아군에게 1턴 간 [회피] 버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "회피",
+          "turns": 1,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +10%",
+        "LV 3 대기시간 감소-1"
+      ]
+    }
+  ],
+  "issues": []
+}

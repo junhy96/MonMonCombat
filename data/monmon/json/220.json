@@ -1,0 +1,53 @@
+{
+  "no": "220",
+  "name": "크리스탈록",
+  "grade": "고급",
+  "stars": 2,
+  "maxLevel": 20,
+  "role": "공격",
+  "range": "근거리",
+  "element": "암석",
+  "stats": {
+    "hp": 1817,
+    "atk": 156,
+    "def": 94,
+    "spd": 87,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "바위 박치기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "분쇄 지진",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동후, , 자신 주변 범위 내 적에게 피해를입히며, 이 피해는 방어력의25%를 무시한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량+5%",
+        "LV 4 피해량",
+        "LV 5 피해량+5%"
+      ]
+    }
+  ],
+  "issues": []
+}

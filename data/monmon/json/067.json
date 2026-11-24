@@ -1,0 +1,85 @@
+{
+  "no": "067",
+  "name": "뾰로통",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "제어",
+  "range": "근거리",
+  "element": "아쿠아",
+  "stats": {
+    "hp": 5304,
+    "atk": 303,
+    "def": 333,
+    "spd": 90,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "마법봉 스윙",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "물벼락 도발",
+      "cooldownTurns": null,
+      "desc": "모든 적에게 피해를입힌다. [4턴에 한 번] [공격력 감소] 디버프 상태인 적에게는 75%, 아닌 적에게는 50% 확률로 각각 1턴간 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 효과 확률+10%",
+        "LV 4 피해량",
+        "LV 5 효과 확률 +15%",
+        "LV 6 대기시간"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "씻어내는 물살",
+      "cooldownTurns": 4,
+      "desc": "스킬을 발동하기 전, 모든 아군에게 각각 [디버프] 1개를 제거한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "마녀의 위엄",
+      "cooldownTurns": 5,
+      "desc": "스킬을 발동한 후, 모든 적에게 ? 각각 75% 확률로 3턴 간 [공격력-50%] 디버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "공격력 감소 (강)",
+          "turns": 3,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 효과 확률 +10%",
+        "LV 3 효과 확률 +15%",
+        "LV 4 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": []
+}

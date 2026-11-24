@@ -1,0 +1,79 @@
+{
+  "no": "141",
+  "name": "볼또르",
+  "grade": "레어",
+  "stars": 3,
+  "maxLevel": 30,
+  "role": "공격",
+  "range": "원거리",
+  "element": "변이",
+  "stats": {
+    "hp": 2879,
+    "atk": 261,
+    "def": 162,
+    "spd": 98,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "껌발사",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 피해량+5%",
+        "LV 6 피해량+5%",
+        "LV 7 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "당첨의 맞",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 5회 피해를 입힌다. [4턴에 한 번] 피해를 입히기 전, , 자신에게 2턴 간 [공격력+25%] 버프를, 자신을 제외한 모든 아군에게 1턴 간 [공격력 +25%] 버프를 부여한다. 무여안나.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "공격력 증가 (약)",
+          "turns": 2,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량",
+        "LV 4 피해량",
+        "LV 5 피해량",
+        "LV 6 피해량",
+        "LV 7 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 피해량+5%",
+        "LV 6 피해량+5%",
+        "LV 7 피해량+5%",
+        "LV 8 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "성공궤도",
+      "cooldownTurns": null,
+      "desc": "적을 전투에서 이탈시킨 후, 모든 아군의 스킬 에너지를 6% 증가시킨다. 적을 전투에서 이탈시킨 !후, 모든 아군의 스킬",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": []
+    }
+  ],
+  "issues": []
+}

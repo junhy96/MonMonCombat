@@ -1,0 +1,98 @@
+{
+  "no": "045",
+  "name": "모래톨이",
+  "grade": "전설",
+  "stars": 5,
+  "maxLevel": 50,
+  "role": "지원",
+  "range": "원거리",
+  "element": "땅",
+  "stats": {
+    "hp": 7907,
+    "atk": 440,
+    "def": 484,
+    "spd": 102,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "모래채찍",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입히고, 자신에게 4% 확률로1턴간 [지속 치유 15%] 버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "지속 치유 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +10%",
+        "LV 3 피해량 +10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "불가사리응원",
+      "cooldownTurns": null,
+      "desc": "모든 적에게 피해를 입힌다. [5턴에 한 번] 모든 ㅇ 아군에게 2턴 간[공격력 +50%] [방어력+60%] 버프를 부여한다. 모든 아군에게2턴간 [공격력 +50%]",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "공격력 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": 5
+        },
+        {
+          "name": "방어력 증가 (강)",
+          "turns": 5,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량",
+        "LV 4 피해량+",
+        "LV 5 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "거품속 모래성",
+      "cooldownTurns": 4,
+      "desc": "스킬을 발동하기 전, [지속 치유] 버프 상태의 모든 아군에게 1턴 간 [보호막] 버프(자신 최대 체력의 27%)를 부여한다.",
+      "damageBase": null,
+      "otherBases": [
+        "보호막: 자신의 체력"
+      ],
+      "effects": [
+        {
+          "name": "보호막",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 보호막 증가 +10%"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "진주 건네기",
+      "cooldownTurns": null,
+      "desc": "기본공격을 한 후, 자신의 체력이 50% 이상이라면 자신을 제외한 아군 중 현재 체력 %가 가장 낮은 아군에게 자신의 [지속 치유] 버프 1개를 이전한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": []
+    }
+  ],
+  "issues": []
+}

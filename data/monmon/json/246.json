@@ -1,0 +1,59 @@
+{
+  "no": "246",
+  "name": "구르미",
+  "grade": "고급",
+  "stars": 2,
+  "maxLevel": 20,
+  "role": "지원",
+  "range": "원거리",
+  "element": "유령",
+  "stats": {
+    "hp": 2000,
+    "atk": 132,
+    "def": 101,
+    "spd": 97,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "영혼 탄환",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "포근한 안개",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 5회 피해를입힌다. [4턴에 한 번] 디버프를 보유한 무작위 아군의 [디버프]를 전부 제거한다. 디버프를 보유한트 무작위 아군의[ [디버프]를 전부",
+      "damageBase": "자신의 공격력 / | [자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "디버프 제거",
+          "turns": 4,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량",
+        "LV 4 피해량",
+        "LV 5 피해량",
+        "LV 6 대기시간"
+      ]
+    }
+  ],
+  "issues": []
+}

@@ -1,0 +1,110 @@
+{
+  "no": "046",
+  "name": "꼬물싹",
+  "grade": "전설",
+  "stars": 5,
+  "maxLevel": 50,
+  "role": "지원",
+  "range": "원거리",
+  "element": "땅",
+  "stats": {
+    "hp": 7545,
+    "atk": 474,
+    "def": 474,
+    "spd": 99,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "흙다지기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를입히고, 현재 체력%가 가장 낮은 아군에게4% 확률로1턴간 [방어력+60%] 버프를브 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "방어력 증가 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+10%",
+        "LV 3 피해량"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "싱성 회오리",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를입힌다. [4턴에 한 번] 현재 체력 %가 가장 낮은 아군을 자신 최대 체력의 20%만큼 치유한다. [디버프 차단] 버프 상태의 모든 아군을 자신 최대 체력의 10%만큼 치유한다. 치유량 → 기반: [자신의 체력]",
+      "damageBase": "자신의 공격력",
+      "otherBases": [
+        "치유량: 자신의 체력"
+      ],
+      "effects": [
+        {
+          "name": "치유",
+          "turns": 4,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 치유량",
+        "LV 4 피해량",
+        "LV 5 치유량",
+        "LV 6 대기시간",
+        "LV 6 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "덩굴 울타리",
+      "cooldownTurns": 5,
+      "desc": "스킬을블 발동하기 전, 현재 체력 %가 가장 낮은 아군의 모든 [디버프]를 제거하고, 그 아군에게 |2턴 간 [디버프 차단] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "디버프 차단",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소-1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "다시 돋는 새짝",
+      "cooldownTurns": 6,
+      "desc": "스킬을 발동한 후, 전투 이탈 상태의 아군 1명을 최대 체력의 50%로 부활시키고, 그 아군에게 1턴 간 [강철 은신] [지속 치유 15%] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "강철 은신",
+          "turns": 1,
+          "cooldownTurns": null
+        },
+        {
+          "name": "지속 치유 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간"
+      ]
+    }
+  ],
+  "issues": [
+    "덩굴 울타리: 글자 확신 낮음 \"|2턴\" (0.65)"
+  ]
+}

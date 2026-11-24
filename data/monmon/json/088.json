@@ -1,0 +1,87 @@
+{
+  "no": "088",
+  "name": "훌쩍이",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "공격",
+  "range": "근거리",
+  "element": "얼음",
+  "stats": {
+    "hp": 5249,
+    "atk": 347,
+    "def": 294,
+    "spd": 100,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "우지끈 들이받기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입히고, 근 적에게 4% 확률로1턴간 [방어력-60%] 디버프를 부여한다.",
+      "damageBase": ": [자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "방어력 감소 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량 +5%",
+        "LV 4 피해량 +10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "고드름 분출",
+      "cooldownTurns": null,
+      "desc": "[버프]가 가장 많은 적에게 이동 후, 자신 주변 범위 내 적에게 피해를 입힌다. 자신이 [방어력 감소] 디버프 상태가 아니라면, 자신 주변 범위 내 적에게 추가 피해를 입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "재채기 돌풍",
+      "cooldownTurns": 5,
+      "desc": "스킬을 발동한 후, [버프]가 가장 많은 적 1명에게 75%확률로 모든 [버프]의 남은 턴을 1턴 감소시킨다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 대기시간 감소-1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "꽃꽁 가드",
+      "cooldownTurns": 4,
+      "desc": "자신의 체력이 75%미만으로 내려간 후, 자신에게 2턴간 [방어력+60%] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "방어력 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": []
+}

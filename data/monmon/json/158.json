@@ -1,0 +1,83 @@
+{
+  "no": "158",
+  "name": "샌드농",
+  "grade": "레어",
+  "stars": 3,
+  "maxLevel": 30,
+  "role": "지원",
+  "range": "원거리",
+  "element": "땅",
+  "stats": {
+    "hp": 3654,
+    "atk": 148,
+    "def": 224,
+    "spd": 95,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "타액발사",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "전쟁의 폭풍",
+      "cooldownTurns": null,
+      "desc": "모든 적에게 피해를 입힌다. [5턴에 한 번] 모든 적에게 각각75% 확률로 2턴 간 [공격력-25%] 디버프를 부여한다. 모든 아군에게 각각 2턴 간 [치명확률+15%] 버프를 부여한다.",
+      "damageBase": "자신의 공격력 / [자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "치명확률 증가 (약)",
+          "turns": 2,
+          "cooldownTurns": 5
+        },
+        {
+          "name": "공격력 감소 (약)",
+          "turns": 5,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량",
+        "LV 4 피해량+10%",
+        "LV 5 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "부활의 울음소리",
+      "cooldownTurns": 4,
+      "desc": "스킬을 발동한 후, 현재체력 %가 가장 낮은 아군에게 2턴간 [보호막] 버프(각자 최대 체력의26%)를 부여한다.",
+      "damageBase": null,
+      "otherBases": [
+        "보호막: 대상의 체력"
+      ],
+      "effects": [
+        {
+          "name": "보호막",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 보호막 증가+1.0%"
+      ]
+    }
+  ],
+  "issues": []
+}

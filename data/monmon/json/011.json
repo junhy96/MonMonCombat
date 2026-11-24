@@ -1,0 +1,97 @@
+{
+  "no": "011",
+  "name": "로즈버디",
+  "grade": "전설",
+  "stars": 5,
+  "maxLevel": 50,
+  "role": "제어",
+  "range": "원거리",
+  "element": "식물",
+  "stats": {
+    "hp": 8996,
+    "atk": 397,
+    "def": 455,
+    "spd": 102,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "가시 찌르기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 |피해를입히고, 3% 확률로 1턴 간 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "독 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+10%",
+        "LV 3 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "독가시 폭풍",
+      "cooldownTurns": null,
+      "desc": "모든 적에게 피해를 입힌다. [4턴에 한 번] 피해를 입은 적에게 각각85%홈 확률로 2턴 간 [효과저항-50%], [속도-30%] 디버프를 부여한다. 무여안다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "효과저항 감소 (강)",
+          "turns": 2,
+          "cooldownTurns": 4
+        },
+        {
+          "name": "속도 감소 (강)",
+          "turns": 2,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+10%",
+        "LV 5 효과 확률+15%",
+        "LV 6 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "가시 반격",
+      "cooldownTurns": 3,
+      "desc": "전투를 시작하거나 스킬을 발동한후, 모든 아군에게 1턴간 [피해 반사30%] 버프를 부여한다. 아군이 [피해 반사] 버프로 반사하는 피해가30% 증가한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "피해 반사 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "갉아먹는 가시",
+      "cooldownTurns": null,
+      "desc": "적이 보유한 [디버프] 수만큼 그 적의 효과저항이 5% 감소한다. (최대 25%) 적이! 보유한 [디버프] 수만큼 그 적의 효과저항이 5 5% 감소한다. (최대2 25%)",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": []
+    }
+  ],
+  "issues": []
+}

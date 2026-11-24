@@ -1,0 +1,84 @@
+{
+  "no": "165",
+  "name": "해룡이",
+  "grade": "레어",
+  "stars": 3,
+  "maxLevel": 30,
+  "role": "공격",
+  "range": "근거리",
+  "element": "아쿠아",
+  "stats": {
+    "hp": 2775,
+    "atk": 261,
+    "def": 180,
+    "spd": 102,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "송곳니 물기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": ":[자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량 +5%",
+        "LV 5 피해량+5%",
+        "LV 6 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "금지 분사",
+      "cooldownTurns": null,
+      "desc": "전방 범위 내 적에게 피해를 입힌다. [4턴에 한 번] 피해를 입히기 전, 전방 범위 내 적에게 각각 75% 확률로 2턴간[ [방어력-60%] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "방어력 감소 (강)",
+          "turns": 2,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 효과 확률+5%",
+        "LV 4 피해량+5%",
+        "LV 5 효과 확+10%",
+        "LV 6 피해량+5%",
+        "LV 7 효과 확 +10%",
+        "LV 3 효과 확 +5%",
+        "LV 4 피해량+5%",
+        "LV 5 효과 확률 +10%",
+        "LV 6 피해량+5%",
+        "LV 7 효과 확률 +10%",
+        "LV 8 피해량+5%",
+        "LV 9 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "방어력 약화",
+      "cooldownTurns": 4,
+      "desc": "스킬을 발동한 후, 전방 범위 내 적에게 추가 피해를 입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량 +10%",
+        "LV 3 피해량 +10%",
+        "LV 4 피해량 +10%",
+        "LV 5 피해량+10%"
+      ]
+    }
+  ],
+  "issues": []
+}

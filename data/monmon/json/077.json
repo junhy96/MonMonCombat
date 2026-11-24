@@ -1,0 +1,104 @@
+{
+  "no": "077",
+  "name": "깜빡이",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "방어",
+  "range": "근거리",
+  "element": "전기",
+  "stats": {
+    "hp": 4867,
+    "atk": 238,
+    "def": 425,
+    "spd": 95,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "번쩍 휘두르기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를입히고, 3%확률로1턴 간 디버프를 부여한다.",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "도발",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량 +5%",
+        "LV 4 피해량 +5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "밝기 올리기",
+      "cooldownTurns": null,
+      "desc": "모든 아군을자신 최대 체력의! 5%만큼 치유한다. [4턴에 한 번] 자신이 [부활] 버프 상태라면 모든 아군을 자신 최대 체력의 15%만큼 더 치유하고, 모든 아군의 스킬 에너지를 12% 증가시킨다. 최대 체력의1 15%만큼 더 치유하고, 모든 아군의",
+      "damageBase": null,
+      "otherBases": [
+        "치유량: 자신의 체력"
+      ],
+      "effects": [
+        {
+          "name": "치유",
+          "turns": 4,
+          "cooldownTurns": null
+        },
+        {
+          "name": "스킬 에너지 증가",
+          "turns": 4,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 치유량",
+        "LV 3 치유량",
+        "LV 4 대기시간 금"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "전구 교체",
+      "cooldownTurns": 5,
+      "desc": "스킬을 발동한 후, 자신에게 2턴 간 [부활] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "부활",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "위기의 섬광",
+      "cooldownTurns": 5,
+      "desc": "자신의 체력이50% 미만으로 내려간그 후, 모든 아군을 자신 최대 체력의 30%만큼 치유하고, 모든 아군의 스킬 에너지를15% 증가시킨다.",
+      "damageBase": null,
+      "otherBases": [
+        "치유량: 자신의 체력"
+      ],
+      "effects": [],
+      "levels": [
+        "LV 2 치유량 +10%",
+        "LV 3 치유량",
+        "LV 4 대기시간"
+      ]
+    }
+  ],
+  "issues": []
+}

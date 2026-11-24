@@ -1,0 +1,54 @@
+{
+  "no": "205",
+  "name": "라이옹",
+  "grade": "고급",
+  "stars": 2,
+  "maxLevel": 20,
+  "role": "공격",
+  "range": "근거리",
+  "element": "야수",
+  "stats": {
+    "hp": 2073,
+    "atk": 133,
+    "def": 101,
+    "spd": 90,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "깨물기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량",
+        "LV 5 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "관통의 깨물기",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 피해를 입히며, 이 피해는 [보호막] 버프를 무시한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 피해량",
+        "LV 6 피해량+5%"
+      ]
+    }
+  ],
+  "issues": []
+}

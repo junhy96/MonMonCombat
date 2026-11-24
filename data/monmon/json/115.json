@@ -1,0 +1,85 @@
+{
+  "no": "115",
+  "name": "텅투구",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "공격",
+  "range": "근거리",
+  "element": "유령",
+  "stats": {
+    "hp": 3930,
+    "atk": 361,
+    "def": 350,
+    "spd": 96,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "빈 갑옷 강타",
+      "cooldownTurns": null,
+      "desc": "가까운 적1명에게 피해를 입히고, 자신에게 4% 확률로1턴간 [공격력+50%] 버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "공격력 증가 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량 +5%",
+        "LV 4 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "넓 휩쓸기",
+      "cooldownTurns": null,
+      "desc": "모든 적에게 피해를 입히고, 입힌 피해의 4%만큼 자신을 치유한다. 자신이 [은신] 버프 상태라면 치유량이100% 증가한다. [A]",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "투구 속은신",
+      "cooldownTurns": null,
+      "desc": "스킬로 치명타 피해를 입힌 후, 자신에게 30%확률로 2턴간 [강철 은신] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "강철 은신",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": []
+    },
+    {
+      "slot": "패시브",
+      "name": "망령의 위압",
+      "cooldownTurns": 4,
+      "desc": "[은신] 버프가 만료된 후, 모든 적의 스킬 에너지를 15% 감소시킨다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 대기시간 감소-1"
+      ]
+    }
+  ],
+  "issues": []
+}

@@ -1,0 +1,67 @@
+{
+  "no": "210",
+  "name": "마스큐",
+  "grade": "고급",
+  "stars": 2,
+  "maxLevel": 20,
+  "role": "공격",
+  "range": "근거리",
+  "element": "독",
+  "stats": {
+    "hp": 1951,
+    "atk": 138,
+    "def": 98,
+    "spd": 90,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "더러운 씨르기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 I피해를 입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량",
+        "LV 4 피해량",
+        "LV 5 피해량",
+        "LV 6 피해량+5%",
+        "LV 7 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "독 분출",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 자신 주변 범위 내 적에게 피해를입힌다. [4턴에 한 번] 피해를 입은 적에게 각각 50%확률로 1턴 간 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "독 (강)",
+          "turns": 1,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 피해량+5%",
+        "LV 6 피해량+5%",
+        "LV 7 효과 확 +10%",
+        "LV 2 피해량+5%",
+        "LV 7 효과 확률 +10%",
+        "LV 8 효과 확률 +15%",
+        "LV 9 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": []
+}

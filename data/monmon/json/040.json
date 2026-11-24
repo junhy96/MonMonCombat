@@ -1,0 +1,96 @@
+{
+  "no": "040",
+  "name": "미러큘",
+  "grade": "전설",
+  "stars": 5,
+  "maxLevel": 50,
+  "role": "방어",
+  "range": "근거리",
+  "element": "언데드",
+  "stats": {
+    "hp": 8705,
+    "atk": 310,
+    "def": 561,
+    "spd": 99,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "거울저주",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를입히고, 4% 확률로 1턴간 [공격력-50%] 디버프를 부여한다.",
+      "damageBase": "자신의 체력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "공격력 감소 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량 +5%",
+        "LV 4 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "혼이 빨리는 시선",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 전방 범위 내 적에게 피해를 입힌다. 입힌 피해의 30%만큼 자신을 치유한다. [4턴에 한 번] 자신을 제외한 모든 아군에게 2턴 간 [아군 보호50%] 버프를 부여한다.",
+      "damageBase": "자신의 체력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "아군 보호 (강)",
+          "turns": 2,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량",
+        "LV 4 피해량",
+        "LV 5 피해량",
+        "LV 6 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "생명수혈",
+      "cooldownTurns": 6,
+      "desc": "스킬을 발동하기 전, 전투 이탈 상태의 아군 1명을 최대 체력의 15%로 부활시키고, 2턴간 [지속 치유15%] 버프 2개를 부여한다. [+] [-]",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "지속 치유 (강)",
+          "turns": null,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간",
+        "LV 3 대기시간"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "거울의 갈망",
+      "cooldownTurns": 1,
+      "desc": "피해를입힌 후, 자신의 최대 체력이 영구적으로 3% 증가한다. (최대 30%, 전투에서 이탈할때 [초기화되지 않음)] 피해를입힌 후, 자신의 최대1 체력이영구적으로3%",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": []
+    }
+  ],
+  "issues": [
+    "생명수혈: 지속 치유 (강) 지속 턴 못 읽음"
+  ]
+}

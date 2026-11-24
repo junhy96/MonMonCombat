@@ -1,0 +1,104 @@
+{
+  "no": "042",
+  "name": "먹구삐",
+  "grade": "전설",
+  "stars": 5,
+  "maxLevel": 50,
+  "role": "공격",
+  "range": "원거리",
+  "element": "전기",
+  "stats": {
+    "hp": 6648,
+    "atk": 636,
+    "def": 397,
+    "spd": 98,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "번개 부리",
+      "cooldownTurns": null,
+      "desc": "가까운 적1명에게 피해를입히고, 4% 확률로 1턴 간 [방어력-60%] 디버프를부 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "방어력 감소 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량 +10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "천등 번개",
+      "cooldownTurns": null,
+      "desc": "모든 적에게 피해를 입힌다. [3턴에 한번] 모든 적에게 75%확률로 스킬 에너지를 15% 감소시킨다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "스킬 에너지 감소",
+          "turns": 3,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량+5%",
+        "LV 4 효과 확률 +10%",
+        "LV 5 피해량+10%",
+        "LV 6 효과 확률 +15%",
+        "LV 7 대기시간 감소-1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "전기 흡수",
+      "cooldownTurns": null,
+      "desc": "적의: 스킬 에너지를 감소시킨 후, 감소시킨 스킬 에너지에 비례해서 자신의 치명피해가를 증가한다. (최대 40%) 적의 스킬 에너지를 감소시킨 희 후, 감소시킨 스킬 에너지에 비례해서 자신의 치명피해가증 증가한다. 적의 스킬 에너지를 감소시킨 후, 감소시킨 스킬 적의 스킬 에너지를 감소시킨 !후, 감소시킨 스킬 에너지에 비례해서 자신의 치명피해가 증가한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": []
+    },
+    {
+      "slot": "패시브",
+      "name": "눈 깜짝할 새",
+      "cooldownTurns": null,
+      "desc": "전투를 시작할 때, 자신에게 2턴 간 [치명확률 +30%], [치명피해+30%] [속도+30%] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "치명확률 증가 (강)",
+          "turns": null,
+          "cooldownTurns": null
+        },
+        {
+          "name": "치명피해 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        },
+        {
+          "name": "속도 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": []
+    }
+  ],
+  "issues": [
+    "눈 깜짝할 새: 치명확률 증가 (강) 지속 턴 못 읽음"
+  ]
+}

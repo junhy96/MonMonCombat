@@ -1,0 +1,80 @@
+{
+  "no": "193",
+  "name": "복풍",
+  "grade": "레어",
+  "stars": 3,
+  "maxLevel": 30,
+  "role": "지원",
+  "range": "원거리",
+  "element": "독",
+  "stats": {
+    "hp": 3802,
+    "atk": 170,
+    "def": 192,
+    "spd": 101,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "어뢰 발사",
+      "cooldownTurns": null,
+      "desc": "가까운 적1명에게 피해를 입히고, 그 적에게 3% 확률로 [버프]1개를 훔친다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "전술적 투자",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다. [4턴에 한 번] 피해를 입히기 전, 공격력이 가장 높은 아군에게 2턴 간[ [공격력+50%] 버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "공격력 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 피해량+5%",
+        "LV 6 피해량+5%",
+        "LV 7 피해량+5%",
+        "LV 8 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "불멸의힘",
+      "cooldownTurns": 5,
+      "desc": "스킬을 발동한 후, 공격력이 가장 높은 아군에게 1턴 간 [불사] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "불사",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": []
+}

@@ -1,0 +1,108 @@
+{
+  "no": "009",
+  "name": "초롱이",
+  "grade": "전설",
+  "stars": 5,
+  "maxLevel": 50,
+  "role": "공격",
+  "range": "원거리",
+  "element": "전기",
+  "stats": {
+    "hp": 6648,
+    "atk": 626,
+    "def": 406,
+    "spd": 98,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "심해의 압력",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 3번 연쇄되는 피해를 입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량 +10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "연쇄 전류",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 7번 연쇄되는 공격으로 피해를 입힌다. 연쇄 횟수마다 피해량이 25% 증가한다. [4턴에 한 번] 피해를 입은 적에게 스킬 에너지를 20% 감소시킨다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "스킬 에너지 감소",
+          "turns": 4,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 피해량+5%",
+        "LV 2 피해량+5%",
+        "LV 5 피해량",
+        "LV 6 대기시간"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "심해의 등물",
+      "cooldownTurns": 4,
+      "desc": "스킬을 발동하기 전, 자신에게 2턴간 [공격력 +50%] [치명피해+30%] 버프를 [부여한다]",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "공격력 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        },
+        {
+          "name": "치명피해 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "심해의 저주",
+      "cooldownTurns": 4,
+      "desc": "스킬을 발동하기전, 모든 적에게 75% 확률로 1턴간 [효과저항-50%] [속도-30%] 디버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "효과저항 감소 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        },
+        {
+          "name": "속도 감소 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 효과 확률 +10%",
+        "LV 3 효과확률 +15%"
+      ]
+    }
+  ],
+  "issues": []
+}

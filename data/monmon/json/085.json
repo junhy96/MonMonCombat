@@ -1,0 +1,91 @@
+{
+  "no": "085",
+  "name": "북치기",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "지원",
+  "range": "근거리",
+  "element": "야수",
+  "stats": {
+    "hp": 5573,
+    "atk": 223,
+    "def": 397,
+    "spd": 99,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "북채 후려치기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게1 피해를입히고, 그 적에게 4% 확률로1턴간 [속도-30%] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "속도 감소 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량 +5%",
+        "LV 4 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "방패드럼를",
+      "cooldownTurns": null,
+      "desc": "모든 아군의 스킬 에너지를5% 증가시킨다. [5턴에 한 번] 모든 아군에게 3턴 간[보호막] 버프(자신 최대 체력의 12%)를 부여한다.",
+      "damageBase": null,
+      "otherBases": [
+        "보호막: 자신의 체력"
+      ],
+      "effects": [
+        {
+          "name": "보호막",
+          "turns": 3,
+          "cooldownTurns": 5
+        }
+      ],
+      "levels": [
+        "LV 2 보호막",
+        "LV 3 보호막 증가+5%",
+        "LV 4 보호막",
+        "LV 5 보호막 증가+5%",
+        "LV 6 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "김 빼는 울림",
+      "cooldownTurns": 3,
+      "desc": "스킬을 발동한후, 모든 적의: 스킬 에너지를 15% 감소시킨다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 대기시간"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "느림보 비트",
+      "cooldownTurns": 3,
+      "desc": "[속도 감소] 디버프 상태의 적에게 기본공격 피해를 입힌후, 모든 아군의 스킬 에너지를 10% 증가시킨다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 대기시간"
+      ]
+    }
+  ],
+  "issues": []
+}

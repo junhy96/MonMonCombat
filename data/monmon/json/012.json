@@ -1,0 +1,109 @@
+{
+  "no": "012",
+  "name": "타마링",
+  "grade": "전설",
+  "stars": 5,
+  "maxLevel": 50,
+  "role": "지원",
+  "range": "원거리",
+  "element": "유령",
+  "stats": {
+    "hp": 8560,
+    "atk": 411,
+    "def": 469,
+    "spd": 98,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "응원의 울림",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를입히고, 모든 아군에게 각각4% 확률로1턴간 [치명확률+30%] 버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "치명확률 증가 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "신성한가호",
+      "cooldownTurns": null,
+      "desc": "모든 적에게 피해를 입힌다. 모든 아군을 각자 최대 체력의 8%만큼 치유한다. [4턴에 한 번] 모든 아군에게 1턴 간 [지속 치유 15%] 버프를 부여한다. [A] 117 -1.00",
+      "damageBase": "자신의 공격력",
+      "otherBases": [
+        "치유량: 대상의 체력"
+      ],
+      "effects": [
+        {
+          "name": "지속 치유 (강)",
+          "turns": 1,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 치유량",
+        "LV 3 피해량",
+        "LV 4 치유량",
+        "LV 5 피해량",
+        "LV 6 치유량+5%",
+        "LV 5 피해량+5%",
+        "LV 7 피해량 +10%",
+        "LV 8 치유량+5%",
+        "LV 9 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "마지막 기도",
+      "cooldownTurns": 6,
+      "desc": "스킬을 발동한 후, 자신을 제외한 모든 아군에게 2턴 간 [부활] 버프를부여하고, 스킬에너지를30% 증가시킨다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "부활",
+          "turns": null,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1",
+        "LV 3 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "신의가호",
+      "cooldownTurns": 4,
+      "desc": "아군이 전투에서 이탈한 후, 자신에게 2턴 간[부활] 버프를 부여한다. [+]",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "부활",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": [
+    "마지막 기도: 부활 지속 턴 못 읽음"
+  ]
+}

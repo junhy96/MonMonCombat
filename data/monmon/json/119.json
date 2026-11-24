@@ -1,0 +1,106 @@
+{
+  "no": "119",
+  "name": "파인치",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "제어",
+  "range": "원거리",
+  "element": "식물",
+  "stats": {
+    "hp": 6054,
+    "atk": 251,
+    "def": 319,
+    "spd": 102,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "산성 가시",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게1 피해를입히고, 3% 확률로 1턴간 [독2.5%] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "독 (약)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량 +5%",
+        "LV 4 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "신기루의꿈",
+      "cooldownTurns": null,
+      "desc": "자신과 [디버프]를 1개 이상 보유한 모든 아군에게 1턴간 [지속 치유7.5%] 버프를 부여한다. [4턴에 한 번] 모든 아군에게 2턴 간 [ [지속 치유 15%] 버프를 부여한다. [+] 모든 아군에게 2턴 간 [지속 치유 15%] 버프를",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "지속 치유 (약)",
+          "turns": 1,
+          "cooldownTurns": null
+        },
+        {
+          "name": "지속 치유 (강)",
+          "turns": 2,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "발효 독소",
+      "cooldownTurns": 5,
+      "desc": "스킬을발동한 후, 체력이 가장높은 적1명에게 75% 확률로2턴간 디버프2개를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "독 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 효과 확률+5%",
+        "LV 3 효과 확률+10%",
+        "LV 4 효과 확률 +10%"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "치유 차단독",
+      "cooldownTurns": 5,
+      "desc": "적에게 디버프가 부여된 후, 그 적에게 75% 확률로2턴간 [치유량-100%] 디버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "치유량 감소 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 효과 확률+5%",
+        "LV 3 효과 확률+10%",
+        "LV 4 효과 확률 +10%"
+      ]
+    }
+  ],
+  "issues": []
+}

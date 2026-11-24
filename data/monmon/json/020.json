@@ -1,0 +1,91 @@
+{
+  "no": "020",
+  "name": "풍돌",
+  "grade": "전설",
+  "stars": 5,
+  "maxLevel": 50,
+  "role": "방어",
+  "range": "근거리",
+  "element": "바람",
+  "stats": {
+    "hp": 7918,
+    "atk": 291,
+    "def": 653,
+    "spd": 100,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "단단한 충돌",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를입히고, 자신에게↓ 4% 확률로1턴간 [받는 피해량-25%] 버프를 부여한다.",
+      "damageBase": ":[자신의 방어력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "받는 피해량 감소 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+10%",
+        "LV 3 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "방벽회오리",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 전방 범위 내 적에게 피해를 입힌다. [4턴에 한 번] 자신을 제외한 모든 아군에게 1턴 간 [방어력 +60%], [아군 보호50%] 버프를 부여한다. [L6대기시간] 무여안나.",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "방어력 증가 (강)",
+          "turns": 1,
+          "cooldownTurns": 4
+        },
+        {
+          "name": "아군 보호 (강)",
+          "turns": 1,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량",
+        "LV 4 피해량",
+        "LV 5 피해량",
+        "LV 6 대기시간 감소-1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "버프증폭기",
+      "cooldownTurns": 4,
+      "desc": "스킬을 발동한 후, 모든 아군의 [버프]의 남은 턴을 1턴 증가시킨다. 모든 적의 [버프]의 남은 턴을 1턴 감소시킨다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "거대한벽",
+      "cooldownTurns": null,
+      "desc": "피해를 받을 때, 모든 아군의 [버프]→ 수만큼받는 피해량이 2%감소한다.(최대 20%) 피해를 받을 때, 모든 아군의 [버프] |수만큼받는 피해량이 |2% 감소한다.(최대20%) 피해를 받을 때, 모든 아군의 [버프] 수만큼받는 피해량이 2% 감소한다(최대20%)",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": []
+    }
+  ],
+  "issues": []
+}

@@ -1,0 +1,5 @@
+# 몬몬 시트 글자 읽기 (rapid.py, stats.py) — maple-kakao-bot 과 같은 OCR: RapidOCR + PP-OCRv5 한국어
+# uv venv --python 3.12 .ocrenv && uv pip install --python .ocrenv/Scripts/python.exe -r tools/ocr/requirements.txt
+rapidocr>=3.4
+onnxruntime>=1.18
+pillow>=10

@@ -1,0 +1,122 @@
+{
+  "no": "021",
+  "name": "스카라",
+  "grade": "전설",
+  "stars": 5,
+  "maxLevel": 50,
+  "role": "지원",
+  "range": "원거리",
+  "element": "곤충",
+  "stats": {
+    "hp": 9136,
+    "atk": 382,
+    "def": 488,
+    "spd": 106,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "저주의 낙인",
+      "cooldownTurns": null,
+      "desc": "가까운 적1명에게 피해를입히고, 3% 확률로 1턴간 [버프 차단] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "버프 차단",
+          "turns": 1,
+          "cooldownTurns": null
+        },
+        {
+          "name": "침묵",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +10%",
+        "LV 3 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "심판의 날",
+      "cooldownTurns": null,
+      "desc": "모든 적에게 피해를 입힌다. [4턴에 한 번] 피해를입은 적에게 각각75%홈 확률로 2턴 간 [방어력-60%] [받는 피해량+25%] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [
+        "피애당: 사선의 공격녁"
+      ],
+      "effects": [
+        {
+          "name": "방어력 감소 (강)",
+          "turns": 4,
+          "cooldownTurns": null
+        },
+        {
+          "name": "받는 피해량 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": 4
+        },
+        {
+          "name": "방어력 감소 (강)",
+          "turns": 2,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 효과 확률+5%",
+        "LV 4 피해량+5%",
+        "LV 5 효과 확률+10%",
+        "LV 6 피해량 +10%",
+        "LV 2 피해량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 효과 확률 +10%",
+        "LV 6 피해량+10%",
+        "LV 7 효과 확률 +10%",
+        "LV 8 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "윤회의 법칙",
+      "cooldownTurns": 6,
+      "desc": "적이 부활하기 전, 그 적의 부활을 막고 자신의 스킬 에너지를 50%증가시킨다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "파라오의 은총",
+      "cooldownTurns": 4,
+      "desc": "스킬을 발동한 후, 모든 아군에게 2턴 간 [받는 피해량 -25%], [속도+30%] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "받는 피해량 감소 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        },
+        {
+          "name": "속도 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": []
+}

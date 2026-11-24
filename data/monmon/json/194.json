@@ -1,0 +1,86 @@
+{
+  "no": "194",
+  "name": "카라메리",
+  "grade": "레어",
+  "stars": 3,
+  "maxLevel": 30,
+  "role": "방어",
+  "range": "근거리",
+  "element": "얼음",
+  "stats": {
+    "hp": 3535,
+    "atk": 171,
+    "def": 219,
+    "spd": 100,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "맛보기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입히고, 그 적에게3% 확률로1턴간 디버프를부여한다.",
+      "damageBase": "자신의 체력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "기절",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량+5%",
+        "LV 4 피해량"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "맛있는 선물",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 피해를 입힌다. [5턴에 한 번] 자신의 [디버프]가 1개 이상 3개 미만이라면 25%, 3개 이상이라면 50% 확률로 피해를 입은 적에게 자신의 모든 [디버프]를 이전한다.",
+      "damageBase": "자신의 체력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량",
+        "LV 4 효과 확률 +10%",
+        "LV 53 ",
+        "LV 6 대기시간"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "차가운 보호막",
+      "cooldownTurns": 5,
+      "desc": "스킬을 발동한 후, 모든 아군에게 2턴간 [보호막] 버프(각자 최대 체력의 25%)를, 자신을 제외한 모든 아군에게 2턴 간 [아군 보호 25%] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [
+        "보호막: 대상의 체력"
+      ],
+      "effects": [
+        {
+          "name": "보호막",
+          "turns": 2,
+          "cooldownTurns": null
+        },
+        {
+          "name": "아군 보호 (약)",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 보호막",
+        "LV 3 보호막",
+        "LV 4 대기시간"
+      ]
+    }
+  ],
+  "issues": []
+}

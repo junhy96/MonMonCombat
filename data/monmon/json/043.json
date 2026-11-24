@@ -1,0 +1,100 @@
+{
+  "no": "043",
+  "name": "시큼이",
+  "grade": "전설",
+  "stars": 5,
+  "maxLevel": 50,
+  "role": "지원",
+  "range": "근거리",
+  "element": "전기",
+  "stats": {
+    "hp": 8964,
+    "atk": 404,
+    "def": 474,
+    "spd": 98,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "찌릿 박치기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입히고, 그 적에게3% 확률로1턴간 디버프를부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "기절",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "레몬 소용돌이",
+      "cooldownTurns": null,
+      "desc": "모든 적에게 피해를입힌다. [5턴에 한 번] 피해를 입은 적에게 각각75% 확률로 2턴 간 디버프를 부여한다. 모든 아군에게 각각 2턴 디버프를 보유한 적 수만큼 [보호막] 버프(자신 최대 체력의 2%)를 부여한다. 모든 아군에게 각각 2던 C1 니머프를 모유안",
+      "damageBase": "자신의 공격력",
+      "otherBases": [
+        "보호막: 자신의 체력"
+      ],
+      "effects": [
+        {
+          "name": "보호막",
+          "turns": 2,
+          "cooldownTurns": 5
+        },
+        {
+          "name": "독 (강)",
+          "turns": 2,
+          "cooldownTurns": 5
+        }
+      ],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량",
+        "LV 2 피해량+",
+        "LV 3 피해량",
+        "LV 4 효과 확률 +10%",
+        "LV 5 효과 확률 +15%",
+        "LV 6 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "비타민 사워",
+      "cooldownTurns": null,
+      "desc": "[대기시간< 4턴] 스킬을발동하기 전, 모든 아군의 모든 [디버프]를 제거하고, 모든 아군을 자신최대체력의20%만큼 치유한다.",
+      "damageBase": null,
+      "otherBases": [
+        "치유량: 자신의 체력"
+      ],
+      "effects": [],
+      "levels": [
+        "LV 2 치유량+10%",
+        "LV 3 치유량",
+        "LV 4 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "레몬 배터리",
+      "cooldownTurns": 1,
+      "desc": "디버프 상태의 적에게 스킬 피해를 입힌후, 모든 아군의 스킬 에너지를 3% 증가시킨다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": []
+    }
+  ],
+  "issues": []
+}

@@ -1,0 +1,91 @@
+{
+  "no": "136",
+  "name": "휘릭이",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "공격",
+  "range": "원거리",
+  "element": "기계",
+  "stats": {
+    "hp": 4195,
+    "atk": 432,
+    "def": 262,
+    "spd": 98,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "주스 뽑기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입히고, 그 적에게 3% 확률로 [버프] ] 1개를 훔친다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "믹서 회오리",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 5회 피해를 입힌다. [4턴에 한 번] 피해를입은 적에게 타격마다 20% 확률로 1턴 간 디버프를브 부여한다. 피해를입은 적에게 타격마다 20%홀 확률로 1턴 간 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "독 (강)",
+          "turns": 1,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+10%",
+        "LV 3 효과 확률+5%",
+        "LV 4 피해량 +10%",
+        "LV 5 효과 확률+5%",
+        "LV 6 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "버프 분쇄",
+      "cooldownTurns": 4,
+      "desc": "스킬을볼 발동하기 전, 가까운 적 1명에게 75%확률로 [버프] 2개를 제거한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 효과 확률 +25%",
+        "LV 3 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "원윙 진동",
+      "cooldownTurns": 4,
+      "desc": "기본공격 피해를입힌후, 그 적에게 치명타라면 100%, 아니라면 75% 확률로2턴간 [받는 피해량 +25%] 디버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "받는 피해량 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 효과 확률 +10%",
+        "LV 3 효과 확률+15%",
+        "LV 4 대기시간 강소"
+      ]
+    }
+  ],
+  "issues": []
+}

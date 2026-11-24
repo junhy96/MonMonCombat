@@ -1,0 +1,55 @@
+{
+  "no": "283",
+  "name": "팔랑캔디",
+  "grade": "일반",
+  "stars": 1,
+  "maxLevel": 10,
+  "role": "공격",
+  "range": "원거리",
+  "element": "바람",
+  "stats": {
+    "hp": 966,
+    "atk": 78,
+    "def": 63,
+    "spd": 96,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "사탕 발사",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량 +10%",
+        "LV 3 피해량 +10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "달금사탕 발사",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 5회 피해를 입힌다. [5턴에 한 번] 피해를 입히기 전, , 자신에게 2턴 간 [공격력 +25%] 버프를 부여한다. 가까운 석 1명에게 5외 피해를 입인나.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "공격력 증가 (약)",
+          "turns": 5,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+10%",
+        "LV 3 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": []
+}

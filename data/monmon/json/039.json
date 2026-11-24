@@ -1,0 +1,88 @@
+{
+  "no": "039",
+  "name": "메둘기",
+  "grade": "전설",
+  "stars": 5,
+  "maxLevel": 50,
+  "role": "제어",
+  "range": "원거리",
+  "element": "기계",
+  "stats": {
+    "hp": 8270,
+    "atk": 401,
+    "def": 498,
+    "spd": 101,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "급강하 사격",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입히고, 자신에게 4% 확률로1턴간[ [속도+30%] 버프를 부여한다.",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "속도 증가 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +10%",
+        "LV 3 피해량 +10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "섬광 폭풍",
+      "cooldownTurns": null,
+      "desc": "[모든 적에게 피해를입힌다] [4턴에 한 번] 자신보다 속도가 낮은 적에게 각각 75% 확률로 1턴간 [속도-30%] 디버프를 부여하고, [버프] 2개를 제거한다. 자신보다 속도가 같거나 빠른 적에게 각각 50% 확률로 1턴 간 [속도-30%] 디버프를 부여한다. 사신모나 속노가 낮은 석에게 각각 15% 확률도 1턴간| [속도-30%] 디버프를 부여하고, [버프] 확률로 1턴 간 [속도-30%] 디버프를! 부여한다.",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량",
+        "LV 4 효과 확률 +10%",
+        "LV 5 효과 확률 +15%",
+        "LV 6 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "음속 교란",
+      "cooldownTurns": null,
+      "desc": "자신보다 속도가 낮은 적에게 피해를 입힌후, 그 적에게 1 15% 확률로 [버프] 1개의 남은 턴을1턴 감소시킨다. 적에게 15% 확률로 [버프] 1개의 남은 턴을1턴",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": []
+    },
+    {
+      "slot": "패시브",
+      "name": "강철발톱",
+      "cooldownTurns": null,
+      "desc": "자신보다 속도가 낮은 적에게 피해를입힌후, 그 적에게 3% 확률로1턴간 디버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "기절",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 효과 확률+1%"
+      ]
+    }
+  ],
+  "issues": [
+    "섬광 폭풍: 글자 확신 낮음 \"속노가\" (0.69)"
+  ]
+}

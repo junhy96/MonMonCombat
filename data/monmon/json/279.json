@@ -1,0 +1,55 @@
+{
+  "no": "279",
+  "name": "컹크",
+  "grade": "일반",
+  "stars": 1,
+  "maxLevel": 10,
+  "role": "공격",
+  "range": "근거리",
+  "element": "독",
+  "stats": {
+    "hp": 817,
+    "atk": 98,
+    "def": 49,
+    "spd": 90,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "더러운 찌르기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량 +10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "고통 강화",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 자신 주변 범위 내 적에게 피해를입힌다. [5턴에 한 번] 피해를 입은 적에게 각각 50%확률로 2턴 간 [받는 피해량 +15%] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "받는 피해량 증가 (약)",
+          "turns": 2,
+          "cooldownTurns": 5
+        }
+      ],
+      "levels": [
+        "LV 2 효과 확률 +10%",
+        "LV 3 효과 확률+15%",
+        "LV 4 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": []
+}

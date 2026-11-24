@@ -1,0 +1,97 @@
+{
+  "no": "128",
+  "name": "멍텅곰",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "방어",
+  "range": "근거리",
+  "element": "얼음",
+  "stats": {
+    "hp": 5304,
+    "atk": 253,
+    "def": 382,
+    "spd": 94,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "앞발 후려치기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "기죽이는 한파",
+      "cooldownTurns": null,
+      "desc": "모든 적에게 피해를 입힌다. [4턴에 한 번] 피해를입은 적에게 |각각75% 확률로 2턴 간 [공격력-50%] 디버프를 부여한다. 피해를입은 적에게 각각75% 확률로 2턴 간",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "공격력 감소 (강)",
+          "turns": 2,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+10%",
+        "LV 3 효과 확률 +10%",
+        "LV 4 피해량+10%",
+        "LV 5 효과 확률 +15%",
+        "LV 6 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "내가 막을게",
+      "cooldownTurns": 5,
+      "desc": "스킬을 발동하기 전, 자신을 제외한 모든 아군에게 각각 2턴 간 [아군 보호 50%] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "아군 보호 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "냉동보존",
+      "cooldownTurns": 6,
+      "desc": "[아군 보호] 버프 상태의 아군이 전투에서 이탈한후, 그아군을 최대 체력의 30%로 부활시키고, 부활한 아군에게 1턴 간 [피해 차단] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "피해 차단",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간",
+        "LV 3 대기시간"
+      ]
+    }
+  ],
+  "issues": []
+}

@@ -1,0 +1,76 @@
+{
+  "no": "189",
+  "name": "마쉬퍼피",
+  "grade": "레어",
+  "stars": 3,
+  "maxLevel": 30,
+  "role": "지원",
+  "range": "근거리",
+  "element": "야수",
+  "stats": {
+    "hp": 4068,
+    "atk": 153,
+    "def": 204,
+    "spd": 99,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "탄력박치기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를입히고, 공격력이 가장 높은 아군에게 4% 확률로1턴간 [치유량+50%] 버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "치유량 증가 (약)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "활력충격파",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 자신 주변 범위 내 적에게 피해를 입힌다. 공격력이 가장 높은 아군을 자신 최대 체력의 10%만큼 치유한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [
+        "치유량: 자신의 체력"
+      ],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 치유량",
+        "LV 4 피해량+10%"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "탄력회복",
+      "cooldownTurns": 5,
+      "desc": "스킬을 발동한 후, 공격력이 가장 높은 아군에게 2턴 간 [지속 치유 15%] 버프를 부여한다. [+]",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "지속 치유 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": []
+}

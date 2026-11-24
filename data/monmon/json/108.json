@@ -1,0 +1,96 @@
+{
+  "no": "108",
+  "name": "털털이",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "공격",
+  "range": "원거리",
+  "element": "기계",
+  "stats": {
+    "hp": 5735,
+    "atk": 386,
+    "def": 205,
+    "spd": 95,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "노즐불뿐기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를입히고, 4% 확률로 1턴간 [받는 피해량+25%] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "받는 피해량 증가 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량 +5%",
+        "LV 4 피해량 +10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "매연 대방출",
+      "cooldownTurns": null,
+      "desc": "모든 적에게 피해를 입힌다. [5턴에 한 번] 피해를입은 적에게 각각 75% 확률로 2턴 간 [버프 차단] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "버프 차단",
+          "turns": 2,
+          "cooldownTurns": 5
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+10%",
+        "LV 3 효과 확률 +10%",
+        "LV 4 피해량+10%",
+        "LV 5 효과 확률+15%",
+        "LV 6 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "시동 걸기",
+      "cooldownTurns": 4,
+      "desc": "스킬로 치명타 피해를 입힌 후, 자신의 스킬ㅇ 에너지를 7% 증가시킨다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "과열낙인",
+      "cooldownTurns": 4,
+      "desc": "스킬을 발동한후, [지속 치유] 버프 상태의 모든 적에게 75% 확률로1턴간[독5%] 디버프를 부여하고, 75% 확률로 [지속 치유] 버프를 제거한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "독 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 효과 확률 +25%",
+        "LV 3 대기시간"
+      ]
+    }
+  ],
+  "issues": []
+}

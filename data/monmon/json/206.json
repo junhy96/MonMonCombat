@@ -1,0 +1,59 @@
+{
+  "no": "206",
+  "name": "꿈트리",
+  "grade": "고급",
+  "stars": 2,
+  "maxLevel": 20,
+  "role": "공격",
+  "range": "근거리",
+  "element": "땅",
+  "stats": {
+    "hp": 1536,
+    "atk": 158,
+    "def": 106,
+    "spd": 94,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "흙파기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "영양 보충",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 피해를 입힌다. [4턴에 한 번] 자신에게 2턴 간 [공격력 +25%] 버프를 부여한다. [ㄴ]",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "공격력 증가 (약)",
+          "turns": 4,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+10%",
+        "LV 5 대기시간 감소-1"
+      ]
+    }
+  ],
+  "issues": []
+}

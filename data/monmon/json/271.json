@@ -1,0 +1,57 @@
+{
+  "no": "271",
+  "name": "소우리",
+  "grade": "일반",
+  "stars": 1,
+  "maxLevel": 10,
+  "role": "제어",
+  "range": "원거리",
+  "element": "유령",
+  "stats": {
+    "hp": 1044,
+    "atk": 67,
+    "def": 66,
+    "spd": 95,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "영혼 탄환",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량 +10%",
+        "LV 3 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "공포의 연타",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 5회 피해를 입힌다. [5턴에 한 번] 매 피해마다 피해를 입은 적에게 15% 확률로 2턴 간 [효과저항-25%] 디버프를 부여한다. 가까운석 1명에게 5외 피해를입인나. 매 브 피해마다 피해를 입은 적에게15% 확률로 2턴",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "효과저항 감소 (약)",
+          "turns": 5,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 효과 확률 +5%",
+        "LV 3 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": [
+    "공포의 연타: 글자 확신 낮음 \"매 브\" (0.62)"
+  ]
+}

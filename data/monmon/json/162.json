@@ -1,0 +1,83 @@
+{
+  "no": "162",
+  "name": "콜리",
+  "grade": "레어",
+  "stars": 3,
+  "maxLevel": 30,
+  "role": "방어",
+  "range": "근거리",
+  "element": "식물",
+  "stats": {
+    "hp": 3027,
+    "atk": 153,
+    "def": 261,
+    "spd": 96,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "채소 지르기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량",
+        "LV 5 피해량+5%",
+        "LV 6 피해량+5%",
+        "LV 7 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "보호 영양소",
+      "cooldownTurns": null,
+      "desc": "자신에게 1턴 간 [보호막] 버프(자신 최대 체력의 15%)를 부여한다. [4턴에 한 번] 모든 아군에게 2턴 간 [방어력 +30%] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [
+        "보호막: 자신의 체력"
+      ],
+      "effects": [
+        {
+          "name": "방어력 증가 (약)",
+          "turns": 2,
+          "cooldownTurns": 4
+        },
+        {
+          "name": "보호막",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "비타민 방어",
+      "cooldownTurns": 5,
+      "desc": "스킬을 발동한 후, 모든 아군에게 2턴 간 [효과저항 +25%] 버프를 부여하고, 자신을 자신 최대 체력의 25%만큼 치유한다. 치유량 → 기반: [자신의 체력]",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "효과저항 증가 (약)",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 치유량"
+      ]
+    }
+  ],
+  "issues": []
+}

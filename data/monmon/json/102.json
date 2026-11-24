@@ -1,0 +1,91 @@
+{
+  "no": "102",
+  "name": "슬라미",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "공격",
+  "range": "원거리",
+  "element": "아쿠아",
+  "stats": {
+    "hp": 4265,
+    "atk": 408,
+    "def": 297,
+    "spd": 95,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "물방을 발사",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를입히고, 4% 확률로1턴간 [효과명중-50%] [치유량-100%] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "효과명중 감소 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        },
+        {
+          "name": "치유량 감소 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "물방을 난사",
+      "cooldownTurns": null,
+      "desc": "자신이 [효과명중 증가] 버프 상태라면 무작위 적 2명에게, , 아니라면 무작위 적1명에게7회 피해를 입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량",
+        "LV 4 피해량",
+        "LV 5 피해량"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "물방을 추격",
+      "cooldownTurns": null,
+      "desc": "[효과명중 감소] 디버프 상태의 적에게 스킬 피해를 입힌후, 그 적에게1 10% 확률로 추가 피해를입 입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량",
+        "LV 4 효과 확률 +10%"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "물방을 흠수",
+      "cooldownTurns": null,
+      "desc": "피해를 입힌후, 자신에게 4% 확률로 1턴 간 [효과명중+50%] 버프를브 부여한다. 피해를 입은 적에게 각각3%확률로 스킬0 에너지를 10% 감소시킨다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "효과명중 증가 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": []
+    }
+  ],
+  "issues": []
+}

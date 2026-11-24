@@ -1,0 +1,103 @@
+{
+  "no": "079",
+  "name": "쫑긋이",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "공격",
+  "range": "근거리",
+  "element": "전기",
+  "stats": {
+    "hp": 4539,
+    "atk": 412,
+    "def": 276,
+    "spd": 104,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "봉인 날갯짓",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게1 피해를 입히고, 그 적에게4% 확률로1턴간 [부활 차단] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "부활 차단",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량 +5%",
+        "LV 4 피해량 +10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "벼락 내리꽃기",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 그 적과 전방 범위 내 적에게 피해를 입힌다. [4턴에 한 번] 피해를입은 적에게 각각75% 확률로 스킬 에너지를 를15% 감소시킨다. 자신의 스킬 에너지를 15%증가시킨다. 에너시들 15% 감소시킨나. 피애당 기만:[사신의 공격력]",
+      "damageBase": "자신의 공격력 / [자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "스킬 에너지 감소",
+          "turns": 4,
+          "cooldownTurns": null
+        },
+        {
+          "name": "스킬 에너지 증가",
+          "turns": 4,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량",
+        "LV 4 효과 확률 +10%",
+        "LV 5 피해량+5%",
+        "LV 5 피해량+5%",
+        "LV 6 피해량+5%",
+        "LV 7 효과 확률 +15%",
+        "LV 8 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "비상 배터리",
+      "cooldownTurns": 5,
+      "desc": "스킬로 적의 스킬 에너지를 감소시킨 후, 자신에게 2턴간[ [부활] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "부활",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "마무리 충전",
+      "cooldownTurns": 2,
+      "desc": "자신 또는 아군이 [부활 차단] 디버프 상태의 적을 전투에서 이탈시킨 후, 자신의 스킬 에너지를 30% 증가시킨다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 대기시간"
+      ]
+    }
+  ],
+  "issues": []
+}

@@ -1,0 +1,86 @@
+{
+  "no": "029",
+  "name": "리틀 라피스",
+  "grade": "전설",
+  "stars": 5,
+  "maxLevel": 50,
+  "role": "공격",
+  "range": "원거리",
+  "element": "변이",
+  "stats": {
+    "hp": 5368,
+    "atk": 643,
+    "def": 450,
+    "spd": 102,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "돌격소총",
+      "cooldownTurns": null,
+      "desc": "현재체력이 가장 낮은 적1명을 노려, 맞은 지점범위 내 적에게 피해를입히고, 각각4%혹 확률로1턴간 [방어력-60%] 디버프를 부여한다. [A]",
+      "damageBase": ":[자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "에너지 과부하",
+      "cooldownTurns": null,
+      "desc": "현재 체력이 가장 낮은 적에게 이동 후, 그 적위치 범위 내 적에게7회 피해를 입힌다. [4턴에 한 번] 자신에게 2턴 간 [치명피해+30%] ㅣ버프를 부여한다. 자신에게 2턴 간 [치명피해+30%] 버프를",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "치명피해 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 피해량+5%",
+        "LV 6 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "차원 도약",
+      "cooldownTurns": 1,
+      "desc": "기본공격 피해를 받은 후, 가장 먼 아군에게 이동하고 자신에게 1턴 간 [속도 +30%] 버프를 부여하고, 스킬 에너지를 15% 증가시킨다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "속도 증가 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": []
+    },
+    {
+      "slot": "패시브",
+      "name": "아드레날린",
+      "cooldownTurns": null,
+      "desc": "기본공격을 한 후, 자신이 [속도 증가] 버프 상태라면 가까운 적을 노려, 맞은 지점 범위내 적에게 피해를 입히고, 각각 4% 확률로 1턴 간 [속도 -30%] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": []
+    }
+  ],
+  "issues": []
+}

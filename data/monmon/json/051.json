@@ -1,0 +1,91 @@
+{
+  "no": "051",
+  "name": "제트코",
+  "grade": "전설",
+  "stars": 5,
+  "maxLevel": 50,
+  "role": "공격",
+  "range": "원거리",
+  "element": "기계",
+  "stats": {
+    "hp": 7327,
+    "atk": 547,
+    "def": 416,
+    "spd": 100,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "최적화 타격",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를입히고, 4%확률로1턴간 [효과저항-50%] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "효과저항 감소 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량 +5%",
+        "LV 4 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "전장 분쇄",
+      "cooldownTurns": null,
+      "desc": "모든 적에게 피해를 입힌다. [3턴에 한번] 피해를 입은 적에게 각각 75% 확률로 1턴 간 [받는 피해량 +25%] 디버프를 부여한다. ['V]",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "받는 피해량 증가 (강)",
+          "turns": 1,
+          "cooldownTurns": 3
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 효과 확률+5%",
+        "LV 4 피해량+5%",
+        "LV 5 효과 확률 +10%",
+        "LV 6 피해량+5%",
+        "LV 7 효과 확 +10%",
+        "LV 3 효과 확률 +5%",
+        "LV 7 효과 확률 +10%",
+        "LV 8 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "강적 사냥꾼",
+      "cooldownTurns": null,
+      "desc": "보스에게 피해를 입힐 때 방어력의 30%를, 보스가 아닌적에게 피해를입힐 때15%를무시한다 아닌 적에게 피해를 입힐 때15%를무시한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": []
+    },
+    {
+      "slot": "패시브",
+      "name": "저항해체",
+      "cooldownTurns": 1,
+      "desc": "기본공격 피해를 입힌후, 공격력이기 가장 높은 적 1명에게 3회 피해를 입히고, 매 피해마다30% 확률로 [버프] 1개를 제거한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 효과 확률+5%"
+      ]
+    }
+  ],
+  "issues": []
+}

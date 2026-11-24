@@ -1,0 +1,77 @@
+{
+  "no": "143",
+  "name": "모스니",
+  "grade": "레어",
+  "stars": 3,
+  "maxLevel": 30,
+  "role": "제어",
+  "range": "근거리",
+  "element": "언데드",
+  "stats": {
+    "hp": 2510,
+    "atk": 226,
+    "def": 221,
+    "spd": 95,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "부패한 박치기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게1 피해를입히고, 그 적에게 3% 확률로1턴간 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "기절",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량 +5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "살육 본능",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 피해를 입힌다. [4턴에 한 번] 자신에게 2턴 간[속도 +30%] 버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "속도 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 피해량+5%",
+        "LV 6 대기시간 감소-1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "정신 흔들기",
+      "cooldownTurns": 4,
+      "desc": "스킬을 발동한 후, 공격력이 가장를 높은 적 1명에게 75% 확률로 스킬 에너지를20% 감소시킨다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 대기시간"
+      ]
+    }
+  ],
+  "issues": []
+}

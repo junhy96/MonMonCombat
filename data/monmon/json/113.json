@@ -1,0 +1,96 @@
+{
+  "no": "113",
+  "name": "토부니",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "제어",
+  "range": "원거리",
+  "element": "식물",
+  "stats": {
+    "hp": 4461,
+    "atk": 329,
+    "def": 347,
+    "spd": 96,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "식사준비",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입히고, 자신에게 4% 확률로1턴간 [치명확률+30%] 버프를 부여한다.",
+      "damageBase": "자신의 체력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "치명확률 증가 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +10%",
+        "LV 3 피해량 +10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "에너지 포식",
+      "cooldownTurns": null,
+      "desc": "공격력이 가장 높은 적 1명에게 피해를 입힌다. [4턴에 한 번] 75%확률로 모든 [버프]를 훔친다.",
+      "damageBase": "자신의 체력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "버프 훔치기",
+          "turns": 4,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +10%",
+        "LV 3 효과 확률 +10%",
+        "LV 4 피해량 +10%",
+        "LV 5 효과 확률 +15%",
+        "LV 6 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "공생 관계",
+      "cooldownTurns": 3,
+      "desc": "치명타피해를입힌후, 그 적에게 75% 확률로 1턴 간 [속도-30%] 디버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "속도 감소 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 효과 확률 +25%",
+        "LV 3 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "얽매이는 덩굴",
+      "cooldownTurns": 4,
+      "desc": "스킬 피해를 입힌 후, 그 적에게 75%확률로 스킬 에너지를 15% 감소시킨다. 공격력이 가장 높은 아군 1명의 스킬 에너지를15% 증가시킨다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 효과 확률+25%",
+        "LV 3 대기시간 감소-1"
+      ]
+    }
+  ],
+  "issues": []
+}

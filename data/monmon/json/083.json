@@ -1,0 +1,94 @@
+{
+  "no": "083",
+  "name": "뽀글붕",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "방어",
+  "range": "근거리",
+  "element": "아쿠아",
+  "stats": {
+    "hp": 5304,
+    "atk": 303,
+    "def": 333,
+    "spd": 94,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "헬멧 박치기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를입힌다.",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "거품 가두기",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 자신 주변 범위 내 적에게 피해를 입힌다. [5턴에 한 번] 피해를 입은 적에게 각각 75% 확률로 2턴 간 [공격력-50%] 디버프를 부여한다.",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "공격력 감소 (강)",
+          "turns": 2,
+          "cooldownTurns": 5
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+10%",
+        "LV 3 효과 확률 +10%",
+        "LV 4 피해량+10%",
+        "LV 5 효과 확률 +15%",
+        "LV 6 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "금붕어 방패",
+      "cooldownTurns": 5,
+      "desc": "스킬을 발동하기 전, 자신 주변 범위내 아군의 [디버프] 1개를 제거하고, 현재 체력 %가 가장 낮은 아군에게2턴간 [아군 보호5 50%] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "아군 보호 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "반동 치유",
+      "cooldownTurns": 4,
+      "desc": "피해를 받은 후, 현재 체력 %가 가장 낮은아군을 자신 최대 체력의20%만큼 치유한다.",
+      "damageBase": null,
+      "otherBases": [
+        "치유량: 자신의 체력"
+      ],
+      "effects": [],
+      "levels": [
+        "LV 2 치유량+10%",
+        "LV 3 치유량",
+        "LV 4 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": []
+}

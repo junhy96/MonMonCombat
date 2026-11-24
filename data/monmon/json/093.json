@@ -1,0 +1,109 @@
+{
+  "no": "093",
+  "name": "본티즈",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "공격",
+  "range": "근거리",
+  "element": "언데드",
+  "stats": {
+    "hp": 3080,
+    "atk": 443,
+    "def": 326,
+    "spd": 95,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "부식된 이빨",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입히고. 4% 확률로 1턴간 [방어력-60%] 디버프를 부여한다.",
+      "damageBase": ":[자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "방어력 감소 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량",
+        "LV 4 피해량"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "광견병",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 전방 범위 내 적에게 5회 피해를 를 입힌다. [4턴에 한 번] 매 피해마다 피해를 입은 적에게 각각 20% 확률로 2턴 간[ [효과명중-50%], [ 디버프를 부여한다. 피애당 기만:[사신의 공격력]",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "효과명중 감소 (강)",
+          "turns": 2,
+          "cooldownTurns": 4
+        },
+        {
+          "name": "독 (강)",
+          "turns": 2,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 피해량+5%",
+        "LV 6 효과확률+5%",
+        "LV 2 피해량+5%",
+        "LV 7 효과 확률 +5%",
+        "LV 8 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "불사",
+      "cooldownTurns": 4,
+      "desc": "전투를 시작하거나 부활한 후, 자신에게 1턴 간 [불사] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "불사",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "광폭화",
+      "cooldownTurns": 3,
+      "desc": "전투에서 이탈하기 전, 자신에게 2턴 간 [공격력+50%] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "공격력 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소-1"
+      ]
+    }
+  ],
+  "issues": []
+}

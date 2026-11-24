@@ -1,0 +1,111 @@
+{
+  "no": "138",
+  "name": "한입이",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "공격",
+  "range": "원거리",
+  "element": "변이",
+  "stats": {
+    "hp": 4142,
+    "atk": 435,
+    "def": 262,
+    "spd": 98,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "사탕 던지기",
+      "cooldownTurns": null,
+      "desc": "가까운 적1명에게 피해를입히고, 3%확률로1턴 간 디버프를 부여한다.",
+      "damageBase": ": [자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "독 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량 +5%",
+        "LV 4 피해량 +10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "사탕 풀스윙",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다. [5턴에 한 번] 피해를 입은 적에게50% 확률로 2턴 간 [받는 피해량+15%] 디버프를 부여한다. 자신에게[ [디버프]가 1개 이상이라면, 자신의 모든 [디버프]를 제거한다. 사신에게 [니버프]가 1개 이상이라면, 사신의 피애당 기만:[사신의 공격력]",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "받는 피해량 증가 (약)",
+          "turns": 2,
+          "cooldownTurns": 5
+        },
+        {
+          "name": "디버프 제거",
+          "turns": 5,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 효과",
+        "LV 4 피해량",
+        "LV 5 효과 확+10%",
+        "LV 3 효과 확 +5%",
+        "LV 5 효과 확 +10%",
+        "LV 6 피해량+10%",
+        "LV 7 효과 확률 +10%",
+        "LV 8 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "생강가루",
+      "cooldownTurns": 4,
+      "desc": "스킬을 발동한 후, 무작위 적1명에게 75%확률로 2턴간[ 디버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "독 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "무지개눈부심",
+      "cooldownTurns": 4,
+      "desc": "자신에게 [디버프]가 부여된 후, 디버프를 부여한 적에게 75% 확률로 1턴 간 디버프를 부여한다. [L4흐과 A] [한류 노50/]",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "실명",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 효과",
+        "LV 3 효과"
+      ]
+    }
+  ],
+  "issues": []
+}

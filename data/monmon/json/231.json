@@ -1,0 +1,60 @@
+{
+  "no": "231",
+  "name": "토아미",
+  "grade": "고급",
+  "stars": 2,
+  "maxLevel": 20,
+  "role": "공격",
+  "range": "원거리",
+  "element": "변이",
+  "stats": {
+    "hp": 1366,
+    "atk": 163,
+    "def": 112,
+    "spd": 94,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "사격",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "제압 작전",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다. [5턴에 한 번] 피해를입은 적에게50% 확률로 2턴 간 [속도-30%] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "속도 감소 (강)",
+          "turns": 2,
+          "cooldownTurns": 5
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+10%",
+        "LV 3 피해량+10%",
+        "LV 4 효과 확률 +10%",
+        "LV 5 효과 확률 +15%",
+        "LV 6 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": []
+}

@@ -1,0 +1,49 @@
+{
+  "no": "265",
+  "name": "프리다",
+  "grade": "일반",
+  "stars": 1,
+  "maxLevel": 10,
+  "role": "공격",
+  "range": "원거리",
+  "element": "변이",
+  "stats": {
+    "hp": 1135,
+    "atk": 75,
+    "def": 51,
+    "spd": 96,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "사격",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량 +10%",
+        "LV 3 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "강화사격",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량 +10%",
+        "LV 3 피해량 +10%"
+      ]
+    }
+  ],
+  "issues": []
+}

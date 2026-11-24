@@ -1,0 +1,105 @@
+{
+  "no": "015",
+  "name": "불꼬리",
+  "grade": "전설",
+  "stars": 5,
+  "maxLevel": 50,
+  "role": "방어",
+  "range": "근거리",
+  "element": "화염",
+  "stats": {
+    "hp": 7545,
+    "atk": 370,
+    "def": 600,
+    "spd": 98,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "물씨물기",
+      "cooldownTurns": null,
+      "desc": "가까운 적1명에게 피해를 입히고, 자신에게3% 확률로1턴간[ [불사] 버프를 부여한다",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "불사",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량 +5%",
+        "LV 4 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "혼물 폭발",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 범위 내 적에게 피해를 입힌다. 피해를 입은 적에게 각각 75%확률로 2턴 간 [방어력-60%] 디버프를 부여한다. 피애당 기만:[사선의 방어력]",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "방어력 감소 (강)",
+          "turns": 2,
+          "cooldownTurns": 4
+        },
+        {
+          "name": "화상",
+          "turns": 4,
+          "cooldownTurns": null
+        },
+        {
+          "name": "화상",
+          "turns": 2,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 효과 확률+5%",
+        "LV 4 피해량+5%",
+        "LV 5 효과 확률 +10%",
+        "LV 6 피해량+10%",
+        "LV 7 효과 확률 +10%",
+        "LV 8 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "제몸사르기",
+      "cooldownTurns": null,
+      "desc": "스킬을 발동한후, 자신의 현재 체력이30% 이상이라면 자신에게2턴 간 [지속 치유 15%] 버프를 부여하고, 자신의 체력을 20% 감소시킨다. [+] [i] 스킬을 발동한 후, ㅈ , 자신의 현재체력이30%",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "지속 치유 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": []
+    },
+    {
+      "slot": "패시브",
+      "name": "여름의 인연",
+      "cooldownTurns": null,
+      "desc": "현재체력이50% 미만일 때, 스킬 피해가20% 증가한다. [1턴에 한 번] 팀에 [눈방울] 계열 몬몬이 있다면, 치명적인 피해를받기 전 자신의 모든 [지속 치유] 버프를 즉시 블 발동시킨다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": []
+    }
+  ],
+  "issues": [
+    "여름의 인연: 글자 확신 낮음 \"즉시 블\" (0.68)"
+  ]
+}

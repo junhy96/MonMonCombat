@@ -1,0 +1,62 @@
+{
+  "no": "214",
+  "name": "파르피",
+  "grade": "고급",
+  "stars": 2,
+  "maxLevel": 20,
+  "role": "방어",
+  "range": "근거리",
+  "element": "얼음",
+  "stats": {
+    "hp": 2109,
+    "atk": 85,
+    "def": 146,
+    "spd": 91,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "눈덩이 펀치",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 피해량+5%",
+        "LV 6 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "얼음 보호",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 피해를 입힌다. [4턴에 한 번] 자신에게 2턴 간 [효과저항 +50%] 버프를 부여한다.",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "효과저항 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 피해량+5%",
+        "LV 6 피해량+10%",
+        "LV 7 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": []
+}

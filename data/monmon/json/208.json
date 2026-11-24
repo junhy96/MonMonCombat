@@ -1,0 +1,58 @@
+{
+  "no": "208",
+  "name": "스컹",
+  "grade": "고급",
+  "stars": 2,
+  "maxLevel": 20,
+  "role": "제어",
+  "range": "근거리",
+  "element": "독",
+  "stats": {
+    "hp": 2219,
+    "atk": 124,
+    "def": 94,
+    "spd": 100,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "더러운 씨르기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량 +10%",
+        "LV 3 피해량 +10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "감각 둔화",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 자신 주변 범위 내 적에게 피해를 를 입힌다. [4턴에 한 번] 피해를 입은 적에게 각각 75% 확률로 2턴 간 [효과명중-25%] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "효과명중 감소 (약)",
+          "turns": 2,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 피해량+5%",
+        "LV 6 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": []
+}

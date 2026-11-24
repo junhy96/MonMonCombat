@@ -1,0 +1,103 @@
+{
+  "no": "057",
+  "name": "트윗핑",
+  "grade": "전설",
+  "stars": 5,
+  "maxLevel": 50,
+  "role": "지원",
+  "range": "원거리",
+  "element": "얼음",
+  "stats": {
+    "hp": 7395,
+    "atk": 469,
+    "def": 513,
+    "spd": 100,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "서리 깃털",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를입히고, 그 적에게 4% 확률로1턴간 [효과명중-50%] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "효과명중 감소 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "폭풍의 등지",
+      "cooldownTurns": null,
+      "desc": "[보호막] 버프가 없는 모든 아군에게 1턴 간 [보호막] 버프(자신 최대 체력의 12%)를 부여한다. [4턴에 한 번] 자신 주변 범위 내 아군에게 2턴 간 [효과저항 +50%] [보호막] 버프(자신 최대 체력의12%)를 부여한다.",
+      "damageBase": null,
+      "otherBases": [
+        "보호막: 자신의 체력"
+      ],
+      "effects": [
+        {
+          "name": "보호막",
+          "turns": 2,
+          "cooldownTurns": 4
+        },
+        {
+          "name": "효과저항 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 보호막",
+        "LV 3 !",
+        "LV 4 대기시간"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "폭풍의 눈",
+      "cooldownTurns": 4,
+      "desc": "자신에게 [보호막] 버프가 부여된 후, 모든 아군에게 1턴간 [치명확률 +30%], [치명피해 +30%] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "치명확률 증가 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        },
+        {
+          "name": "치명피해 증가 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "눈보라의 노래",
+      "cooldownTurns": null,
+      "desc": "[보호막] 버프상태의0 아군이 받는 피해량이 15% 감소한다. [보호막] 버프상태의 아군이 받는 피해량이 |15% [감소한다] [보호막] 버프상태의 아군이 받는 피해량이15% [보호막] 버프상태의 아군이범 받는 피해량이 15%",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": []
+    }
+  ],
+  "issues": []
+}

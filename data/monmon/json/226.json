@@ -1,0 +1,60 @@
+{
+  "no": "226",
+  "name": "바이올리프",
+  "grade": "고급",
+  "stars": 2,
+  "maxLevel": 20,
+  "role": "공격",
+  "range": "원거리",
+  "element": "식물",
+  "stats": {
+    "hp": 1536,
+    "atk": 140,
+    "def": 124,
+    "spd": 99,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "씨앗 발사",
+      "cooldownTurns": null,
+      "desc": "가까운 적1명에게 피해를입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량+5%",
+        "LV 4 피해량",
+        "LV 5 피해량"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "독성 씨앗",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 5회 피해를 입힌다. [5턴에 한 번] 매 피해마다 피해를입은 적에게15% 확률로 3턴 간 [치유량-50%] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "치유량 감소 (약)",
+          "turns": 3,
+          "cooldownTurns": 5
+        }
+      ],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량",
+        "LV 4 피해량",
+        "LV 5 효과 확률+5%",
+        "LV 6 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": []
+}

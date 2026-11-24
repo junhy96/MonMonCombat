@@ -1,0 +1,93 @@
+{
+  "no": "072",
+  "name": "보글이",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "지원",
+  "range": "원거리",
+  "element": "언데드",
+  "stats": {
+    "hp": 5257,
+    "atk": 372,
+    "def": 251,
+    "spd": 101,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "물약 끼웠기",
+      "cooldownTurns": null,
+      "desc": "가까운 적1명에게 피해를입히고, [디버프]를 보유한 무작위 아군 1명의 [디버프] 1개를 3% 확률로 제거한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "힘 빠지는 증기",
+      "cooldownTurns": null,
+      "desc": "범위 내 적에게 피해를 입힌다. [4턴에 한 번] 피해를입은 적에게 각각 75% 6 확률로 2턴 간 [공격력-50%] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "공격력 감소 (강)",
+          "turns": 4,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+10%",
+        "LV 3 피해량+10%",
+        "LV 4 효과 확률 +5%",
+        "LV 5 효과 확률 +10%",
+        "LV 6 효과 확률 +10%",
+        "LV 7 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "보약한 모금",
+      "cooldownTurns": 2,
+      "desc": "[디버프]가 없는 아군이 스킬을발동한후, 그 아군에게1턴간 [지속 치유 15%] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "지속 치유 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "하트 모락모락",
+      "cooldownTurns": 2,
+      "desc": "아군이 [공격력 감소] 디버프 상태의 적에게 피해를 받은후, 그아군을 자신 최대 체력의 5%만큼 치유한다.",
+      "damageBase": null,
+      "otherBases": [
+        "치유량: 자신의 체력"
+      ],
+      "effects": [],
+      "levels": [
+        "LV 2 치유량",
+        "LV 3 치유량",
+        "LV 4 대기시간"
+      ]
+    }
+  ],
+  "issues": []
+}

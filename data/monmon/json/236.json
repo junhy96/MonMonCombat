@@ -1,0 +1,61 @@
+{
+  "no": "236",
+  "name": "데빌상자",
+  "grade": "고급",
+  "stars": 2,
+  "maxLevel": 20,
+  "role": "지원",
+  "range": "근거리",
+  "element": "언데드",
+  "stats": {
+    "hp": 2073,
+    "atk": 120,
+    "def": 107,
+    "spd": 100,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "깨물기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게1 피해를입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량",
+        "LV 5 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "활력 맛보기",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 피해를 입힌다. [4턴에 한 번] 피해를입은 적에게50% 확률로 2턴 간 [치유량-50%] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "치유량 감소 (약)",
+          "turns": 2,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+10%",
+        "LV 3 피해량+10%",
+        "LV 4 효과 확률 +5%",
+        "LV 5 효과 확률 +10%",
+        "LV 6 효과 확률 +10%",
+        "LV 7 대기시간 감소-1"
+      ]
+    }
+  ],
+  "issues": []
+}

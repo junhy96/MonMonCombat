@@ -1,0 +1,56 @@
+{
+  "no": "274",
+  "name": "로보링",
+  "grade": "일반",
+  "stars": 1,
+  "maxLevel": 10,
+  "role": "공격",
+  "range": "근거리",
+  "element": "기계",
+  "stats": {
+    "hp": 847,
+    "atk": 83,
+    "def": 63,
+    "spd": 96,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "태엽주먹",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량 +10%",
+        "LV 3 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "가속 태열",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 피해를 입힌다. [5턴에 한 번] 자신에게 2턴 간[속도 +15%] 버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "속도 증가 (약)",
+          "turns": 2,
+          "cooldownTurns": 5
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +10%",
+        "LV 3 피해량+10%",
+        "LV 4 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": []
+}

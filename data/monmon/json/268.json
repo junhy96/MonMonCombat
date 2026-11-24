@@ -1,0 +1,57 @@
+{
+  "no": "268",
+  "name": "낼름상자",
+  "grade": "일반",
+  "stars": 1,
+  "maxLevel": 10,
+  "role": "공격",
+  "range": "근거리",
+  "element": "언데드",
+  "stats": {
+    "hp": 938,
+    "atk": 89,
+    "def": 50,
+    "spd": 95,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "깨물기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량 +10%",
+        "LV 3 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "부식 묻히기",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 피해를 입힌다. [4턴에 한 번] 피해를입은 적에게 75% 확률로 2턴 간 [방어력-30%] 디버프를 부여한다. [‘]",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "방어력 감소 (약)",
+          "turns": 4,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량",
+        "LV 4 피해량 +10%",
+        "LV 5 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": []
+}

@@ -1,0 +1,86 @@
+{
+  "no": "091",
+  "name": "꼴뚜링",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "제어",
+  "range": "원거리",
+  "element": "변이",
+  "stats": {
+    "hp": 5257,
+    "atk": 237,
+    "def": 386,
+    "spd": 93,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "교란 레이지",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를입히고, 4% 확률로 1턴 간 [공격력-50%] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "공격력 감소 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량 +5%",
+        "LV 4 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "정신 붕괴",
+      "cooldownTurns": null,
+      "desc": "전방 범위내 적에게 5회 피해를 입힌다. [5턴에 한 번] 매 피해마다 피해를 입은 적이 [공격력 감쇠] 디버프 상태라면 20%, 아니라면 15% 확률로 각각 2턴 간 [효과저항 -50%] [치유량-100%] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량",
+        "LV 4 대기시간"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "에너지 소실",
+      "cooldownTurns": 1,
+      "desc": "적에게 [공격력 감소] 디버프가브 부여된 !후, 그 적의 스킬 에너지를 15% 감소시킨다. 적에게 [공격력 감소] 디버프가 부여된 후, 그 적의",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": []
+    },
+    {
+      "slot": "패시브",
+      "name": "중력 감소장",
+      "cooldownTurns": 3,
+      "desc": "스킬을 발동한후, [디버프]가 3개 이상인 모든 적에게 75% 확률로 1턴간 [속도-30%] 디버프를 부여한다. [L4대기시간 감소 A]",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "속도 감소 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 효과 확률+10%",
+        "LV 3 효과 확률+15%"
+      ]
+    }
+  ],
+  "issues": []
+}

@@ -1,0 +1,59 @@
+{
+  "no": "282",
+  "name": "캔디윙",
+  "grade": "일반",
+  "stars": 1,
+  "maxLevel": 10,
+  "role": "지원",
+  "range": "원거리",
+  "element": "바람",
+  "stats": {
+    "hp": 1200,
+    "atk": 57,
+    "def": 69,
+    "spd": 93,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "사탕발사",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량 +10%",
+        "LV 3 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "기적사탕 발사",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 5회 피해를 입힌다. [7턴에 한 번] 무작위 전투 이탈 상태의 아군을 최대 체력의 20%로 부활시킨다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "부활",
+          "turns": 7,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 대기시간",
+        "LV 4 피해량+5%",
+        "LV 5 피해량+10%",
+        "LV 6 대기시간 감소-1",
+        "LV 7 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": []
+}

@@ -1,0 +1,97 @@
+{
+  "no": "120",
+  "name": "바워렘",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "방어",
+  "range": "근거리",
+  "element": "암석",
+  "stats": {
+    "hp": 6131,
+    "atk": 227,
+    "def": 358,
+    "spd": 97,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "국건한 일격",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입히며, 그 적이 디버프상태라면 피해량이 30%증가한다.",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량",
+        "LV 4 피해량 +10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "지진 강타",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 범위 내 적에게 피해를 입힌다. [4턴에 한 번] 피해를 입은 적에게 각각 50%확률로 1턴 간 디버프를 부여한다. [‘’]",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "기절",
+          "turns": 1,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+10%",
+        "LV 3 피해량 +10%",
+        "LV 4 효과 확률 +10%",
+        "LV 5 효과 확률 +15%",
+        "LV 6 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "보호의 외침",
+      "cooldownTurns": 4,
+      "desc": "스킬을 발동한 후, 자신을 제외한 모든이 아군에게2턴 간 [아군 보호50%] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "아군 보호 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "돌의 방패",
+      "cooldownTurns": 4,
+      "desc": "스킬을 발동한후, 자신에게 1턴 간[ [보호막] 버프(자신 방어력의 325%)를 부여한다.",
+      "damageBase": null,
+      "otherBases": [
+        "보호막: 자신의 방어력"
+      ],
+      "effects": [
+        {
+          "name": "보호막",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소-1"
+      ]
+    }
+  ],
+  "issues": []
+}

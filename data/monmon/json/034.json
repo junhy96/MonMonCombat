@@ -1,0 +1,80 @@
+{
+  "no": "034",
+  "name": "권법곰",
+  "grade": "전설",
+  "stars": 5,
+  "maxLevel": 50,
+  "role": "공격",
+  "range": "근거리",
+  "element": "야수",
+  "stats": {
+    "hp": 6624,
+    "atk": 614,
+    "def": 416,
+    "spd": 99,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "방어구 파쇄",
+      "cooldownTurns": null,
+      "desc": "가까운 적1명에게 피해를 입히고, 3% 확률로 1턴간 [방어력-60%], 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "방어력 감소 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        },
+        {
+          "name": "독 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "폭풍 난타",
+      "cooldownTurns": null,
+      "desc": "공격력이 가장 높은 적에게 이동 후, 20회 피해를 입힌다. 이 피해는 방어력의 35%를 무시한다. 이 스킬로 적을 전투에서ㅇ 이탈시킨후, , 자신의 스킬 에너지를 25% 증가시킨다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량+5%"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "야성 각성",
+      "cooldownTurns": null,
+      "desc": "[버프]가 없는 적에게 피해를 입힐 때, 피해량이 30% 증가한다. [버프가 없는 적에게 피 피해를 입힐 때, 피해량이30% [버프가 없는 적에게 ¶ 피해를입힐때, 피해량이30%",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": []
+    },
+    {
+      "slot": "패시브",
+      "name": "내상 타격",
+      "cooldownTurns": null,
+      "desc": "피해를입힌후, 15% 확률로 그 적의 [ [버프]1개의 남은턴을1턴 감소시킨다. 남은 턴을1턴 !감소시킨다. 피해를 입힌 !후, 15% 확률로 그 적의 [버프]1개의 피해를 입힌 후, , 15% 확률로 그 적의 [버프]1개의 피해를 입힌 후, 15% 확률로 그 적의 [버프]1개의 [남은턴을1턴 감소시킨다]",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": []
+    }
+  ],
+  "issues": []
+}

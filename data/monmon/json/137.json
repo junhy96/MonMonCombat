@@ -1,0 +1,92 @@
+{
+  "no": "137",
+  "name": "무무",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "지원",
+  "range": "원거리",
+  "element": "식물",
+  "stats": {
+    "hp": 6054,
+    "atk": 266,
+    "def": 304,
+    "spd": 98,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "무력화 구슬",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게피 피해를입히고, 4% 확률로 1턴간 [공격력-50%] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "공격력 감소 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "영양의 밭",
+      "cooldownTurns": null,
+      "desc": "범위 내 아군을 자신 최대 체력의 10%만큼: 치유한다.",
+      "damageBase": null,
+      "otherBases": [
+        "치유량: 자신의 체력"
+      ],
+      "effects": [],
+      "levels": [
+        "LV 2 치유량+5%",
+        "LV 3 치유량+5%",
+        "LV 4 치유량",
+        "LV 5 치유량+5%"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "생명의 순무",
+      "cooldownTurns": 7,
+      "desc": "스킬을 발동하기 전, 부활할 수 있는 전투 이탈 상태의 아군이 없다면범위 내 자신을 제외한 아군을 각자 최대 체력의 15%만큼 치유한다. 있다면 그중 무작위 1명을 최대 체력의 50%로 부활시킨다.",
+      "damageBase": null,
+      "otherBases": [
+        "치유량: 대상의 체력"
+      ],
+      "effects": [],
+      "levels": [
+        "LV 2 대기시간 감소-1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "뿌리의 방벽",
+      "cooldownTurns": 3,
+      "desc": "스킬을 발동한후, 모든 아군에게 1턴간 [받는 피해량-15%] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "받는 피해량 감소 (약)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소-1"
+      ]
+    }
+  ],
+  "issues": []
+}

@@ -1,0 +1,68 @@
+{
+  "no": "240",
+  "name": "샌드록",
+  "grade": "고급",
+  "stars": 2,
+  "maxLevel": 20,
+  "role": "공격",
+  "range": "근거리",
+  "element": "암석",
+  "stats": {
+    "hp": 2175,
+    "atk": 132,
+    "def": 96,
+    "spd": 99,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "바위 박치기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": "자신의 체력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 피해량+5%",
+        "LV 6 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "방해 지진",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 자신 주변 범위 내 적에게 피해를입힌다. [5턴에 한 번] 피해를 입은 적에게 각각 75% 확률로 2턴 간 [치유량-50%] 디버프를 부여한다. [시뉴당 -50%0] 니머프를 누어안나.",
+      "damageBase": "자신의 체력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "치유량 감소 (약)",
+          "turns": 2,
+          "cooldownTurns": 5
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 피해량+5%",
+        "LV 6 피해량+5%",
+        "LV 7 피해량+5%",
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량 +5%",
+        "LV 6 피해량+5%",
+        "LV 7 피해량+5%",
+        "LV 8 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": []
+}

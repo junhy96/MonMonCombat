@@ -1,0 +1,83 @@
+{
+  "no": "075",
+  "name": "싹싹이",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "공격",
+  "range": "원거리",
+  "element": "바람",
+  "stats": {
+    "hp": 3718,
+    "atk": 386,
+    "def": 354,
+    "spd": 99,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "폼폰 던지기",
+      "cooldownTurns": null,
+      "desc": "가까운 적1명에게프 피해를입히고, 자신에게 3% 확률로 [디버프] ]1개를 제거한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량",
+        "LV 4 피해량+5%",
+        "LV 5 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "홈씨 폭풍",
+      "cooldownTurns": null,
+      "desc": "모든 적에게 피해를입힌다. [4턴에 한 번] 자신에게 [디버프]가 있다면 50%, 없다면 75% 확률로 피해를 입은 적에게 각각 2턴 간 [공격력 -50%] 디버프를 부여한다. 자신에게 [디버프]가? 있다면 50%, 없다면 75%",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 효과 확률+5%",
+        "LV 4 피해량",
+        "LV 5 ",
+        "LV 6 효과 확률 +10%",
+        "LV 7 대기시간"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "치어 업",
+      "cooldownTurns": 5,
+      "desc": "스킬을 발동한 후, 자신에게 2턴 간 [치명피해+30%] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "치명피해 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "맑은 정신",
+      "cooldownTurns": null,
+      "desc": "자신에게 [디버프]가 없을 때, 치명확률이 100% 증가한다. 자신에게[ [디버프]가 없을 때, 치명확률이 100%",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": []
+    }
+  ],
+  "issues": []
+}

@@ -1,0 +1,78 @@
+{
+  "no": "160",
+  "name": "라비니",
+  "grade": "레어",
+  "stars": 3,
+  "maxLevel": 30,
+  "role": "지원",
+  "range": "근거리",
+  "element": "식물",
+  "stats": {
+    "hp": 3433,
+    "atk": 182,
+    "def": 204,
+    "spd": 91,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "채소 지르기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를입히고 , 모든 아군에게 각각 4% 확률로 1턴간 [효과저항+25%] 버프를 부여한다. [A]",
+      "damageBase": "자신의 체력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "효과저항 증가 (약)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "활력 영양소",
+      "cooldownTurns": null,
+      "desc": "자신의 이[디버프] 1개를 제거한다. [5턴에 한 번] 모든 아군에게 2턴 간ㅣ [속도+30%] 버프를 부여한다. 자신을 제외한 모든 아군의 [ [디버프]를 각각 1개 제거한다. [증가 (강)] [5던에 안번] 모든 아군에게 2턴 간 [속도+30%] 버프를 자신을 제외한 모든 아군의 [디버프]를 각각 1개",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "속도 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": 5
+        },
+        {
+          "name": "디버프 제거",
+          "turns": 5,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소-1",
+        "LV 3 대기시간 감소-1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "에너지 끊기",
+      "cooldownTurns": 4,
+      "desc": "스킬을 발동한후, 공격력이기 가장 높은 적 1명의 스킬 에너지를50% 확률로 15% 감소시킨다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 대기시간"
+      ]
+    }
+  ],
+  "issues": []
+}

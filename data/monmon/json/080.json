@@ -1,0 +1,100 @@
+{
+  "no": "080",
+  "name": "메크랩",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "공격",
+  "range": "근거리",
+  "element": "기계",
+  "stats": {
+    "hp": 5310,
+    "atk": 379,
+    "def": 241,
+    "spd": 96,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "관통 집게",
+      "cooldownTurns": null,
+      "desc": "가까운 적1명에게 방어력의20%를 무시하는 피해를입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량 +5%",
+        "LV 4 피해량 +5%",
+        "LV 5 피해량 +5%",
+        "LV 6 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "강철 돌격",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 피해를 입힌다. [5턴에 한 번] 자신에게 2턴 간 [공격력+50%], [피해 반사 30%] 버프를 부여한다. [피애 반사 30%이 미프들 루어안나.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "공격력 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": 5
+        },
+        {
+          "name": "피해 반사 (강)",
+          "turns": 2,
+          "cooldownTurns": 5
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 피해량+5%",
+        "LV 6 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "재생 감각",
+      "cooldownTurns": 4,
+      "desc": "전투를시작하거나 스킬을 발동한 후, 자신에게 2턴 간 [지속 치유 15%] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "지속 치유 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "균열 집게질",
+      "cooldownTurns": null,
+      "desc": "기본공격 피해를입힌 후, 그 적에게↓ 4% 확률로 1턴 간 [방어력-60%] 디버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "방어력 감소 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": []
+    }
+  ],
+  "issues": []
+}

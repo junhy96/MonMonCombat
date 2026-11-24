@@ -1,0 +1,94 @@
+{
+  "no": "107",
+  "name": "찌릿쥐",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "방어",
+  "range": "근거리",
+  "element": "전기",
+  "stats": {
+    "hp": 5523,
+    "atk": 191,
+    "def": 428,
+    "spd": 97,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "전기 바늘",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입히고, 자신에게 4% 확률로1턴간 [효과저항+50%] 버프를 부여한다.",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "효과저항 증가 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "충전 파동",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 자신 주변 범위 내 적에게 피해를입힌다. [4턴에 한 번] 피해를 입은 적에게 85% 확률로 2턴 간 [공격력-50%] 디버프를 부여한다.",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "공격력 감소 (강)",
+          "turns": 2,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +10%",
+        "LV 3 효과 확률 +15%",
+        "LV 4 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "전류 보호막",
+      "cooldownTurns": 4,
+      "desc": "스킬을 발동한 후, 자신 주변 범위 내 아군에게 2턴 간 [보호막] 버프(자신 방어력의 230%)를 부여한다.",
+      "damageBase": null,
+      "otherBases": [
+        "보호막: [자신의 방어력"
+      ],
+      "effects": [
+        {
+          "name": "보호막",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 보호막 증가 +10%",
+        "LV 3 보호막 증가 +10%"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "에너지 방전",
+      "cooldownTurns": 3,
+      "desc": "스킬을 발동한후, 공격력이 가장 높은 적 1명의 스킬 에너지를 20% 감소시킨다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 대기시간 감소-1"
+      ]
+    }
+  ],
+  "issues": []
+}

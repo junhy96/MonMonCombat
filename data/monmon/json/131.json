@@ -1,0 +1,86 @@
+{
+  "no": "131",
+  "name": "넓부리",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "공격",
+  "range": "근거리",
+  "element": "땅",
+  "stats": {
+    "hp": 4248,
+    "atk": 428,
+    "def": 262,
+    "spd": 98,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "부리 떠밀기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입히고, 그 적에게 3% 확률로ㄱ 자신의 모든 [디버프]를 이전한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량",
+        "LV 4 피해량 +5%",
+        "LV 5 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "빙글 꼬리치기",
+      "cooldownTurns": null,
+      "desc": "모든 적에게 피해를입힌다. [5턴에 한 번] 스킬을 발동하기 전, 자신에게 [보호막] 버프가 있다면 75%, 없다면 50% 확률로모든 적에게 각각 3턴간 [방어력 -60%] 디버프를 부여한다. 있다면 75%, 없다면 확률로 모든 적에게 50%",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 효과 확률 +5%",
+        "LV 4 피해량",
+        "LV 5 ",
+        "LV 6 피해량",
+        "LV 7 효과 확률 +10%",
+        "LV 8 대기시간"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "팩팩보호막",
+      "cooldownTurns": 4,
+      "desc": "자신에게 [디버프]가 부여되거나 적에게[ [디버프]를 이전한 후, 자신에게2 2턴 !간 [보호막] 버프(자신 최대 체력의 10%)를 부여한다.",
+      "damageBase": null,
+      "otherBases": [
+        "보호막: 자신의 체력"
+      ],
+      "effects": [
+        {
+          "name": "보호막",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 보호막 증가+10%"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "말끔한 기운",
+      "cooldownTurns": null,
+      "desc": "자신에게 [디버프]가 없을 때, 입히는 피해량이 20% 증가한다. 자신에게 [디버프]가입 없을때, 입히는 피해량이 20%",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": []
+    }
+  ],
+  "issues": []
+}

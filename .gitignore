@@ -2,3 +2,7 @@ node_modules/
 out/
 ~$*
 *.tmp
+data/monmon/raw/
+data/monmon/sheets/
+data/monmon/_testout/
+__pycache__/

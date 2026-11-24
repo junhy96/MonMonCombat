@@ -1,0 +1,92 @@
+{
+  "no": "032",
+  "name": "앙콩이",
+  "grade": "전설",
+  "stars": 5,
+  "maxLevel": 50,
+  "role": "공격",
+  "range": "근거리",
+  "element": "변이",
+  "stats": {
+    "hp": 6529,
+    "atk": 619,
+    "def": 397,
+    "spd": 96,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "도그파이트",
+      "cooldownTurns": null,
+      "desc": "가까운 적1명에게 피해를입히고, 3% 확률로1턴간 [버프 차단] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "버프 차단",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량 +5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "깨물기습격",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 피해를 입힌다. 이 피해는 [보호막] 버프를 무시한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+10%",
+        "LV 5 피해량+10%"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "사냥 시간",
+      "cooldownTurns": null,
+      "desc": "자신 또는 [리틀 라피스]가 적을 전투에서 이탈시킨 후, 가까운 적에게 이동후, 피해를입힌다. 이 피해는 [보호막] 버프를 무시한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+10%",
+        "LV 3 피해량+10%"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "승자의 전리품",
+      "cooldownTurns": 1,
+      "desc": "자신 또는| [리틀 라피스]가 적을 전투에서 이탈시킨 후, 자신에게 1턴간[공격력+50%], [치명확률+30%] 버프를 부여한다. 자신의 스킬 에너지를 25% 증가시킨다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "공격력 증가 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        },
+        {
+          "name": "치명확률 증가 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": []
+    }
+  ],
+  "issues": []
+}

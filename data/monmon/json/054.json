@@ -1,0 +1,112 @@
+{
+  "no": "054",
+  "name": "스멀이",
+  "grade": "전설",
+  "stars": 5,
+  "maxLevel": 50,
+  "role": "제어",
+  "range": "근거리",
+  "element": "언데드",
+  "stats": {
+    "hp": 8415,
+    "atk": 401,
+    "def": 488,
+    "spd": 101,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "구정물받기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입히고, 자신에게 4% 확률로1턴간 [효과명중 +50%] 버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "효과명중 증가 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+10%",
+        "LV 3 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "쓰레기 폭탄",
+      "cooldownTurns": null,
+      "desc": "모든 적에게 피해를입힌다. [5턴에 한 번] 피해를 입은 적에게 각각 75% 확률로 모든 [디버프]의 남은 턴을 1턴 증가시킨다. 피해를 입은 적에게 각각 75% 확률로 1턴 간 [받는 피해량 +25%] 디버프를 부여한다. [니미프]의 ↓민 증가시간다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "독 (강)",
+          "turns": 1,
+          "cooldownTurns": 5
+        },
+        {
+          "name": "받는 피해량 증가 (강)",
+          "turns": 1,
+          "cooldownTurns": 5
+        },
+        {
+          "name": "디버프 지속시간 증가",
+          "turns": 5,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+10%",
+        "LV 3 피해량+10%",
+        "LV 4 효과 확률 +10%",
+        "LV 5 효과 확률 +15%",
+        "LV 6 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "코 씨르는 냄새",
+      "cooldownTurns": 3,
+      "desc": "스킬을 발동한 후, 모든 적에게 각각 75% 확률로 1턴 간 [공격력-50%] 디버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "공격력 감소 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 효과 확 +10%",
+        "LV 3 효과 확률 +15%"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "독차지 눈빛",
+      "cooldownTurns": 4,
+      "desc": "스킬을 발동하기 전, 모든 적에게 각각 75% 확률로 [버프] 2개를훔치고, 75% 확률로 1턴간 [버프 차단] 디버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "버프 차단",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 효과 확률 +10%",
+        "LV 3 효과 확률 +15%"
+      ]
+    }
+  ],
+  "issues": []
+}

@@ -1,0 +1,107 @@
+{
+  "no": "031",
+  "name": "조약돌이",
+  "grade": "전설",
+  "stars": 5,
+  "maxLevel": 50,
+  "role": "방어",
+  "range": "근거리",
+  "element": "암석",
+  "stats": {
+    "hp": 8147,
+    "atk": 348,
+    "def": 585,
+    "spd": 98,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "찍벌린입",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 I피해를 입히고, 공격력이 가장 높은 적 1명에게 3% 확률로 1턴 간[ 디버프를 부여한다.",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "도발",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +10%",
+        "LV 3 피해량 +10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "궁 깔아뭉개기",
+      "cooldownTurns": null,
+      "desc": "[버프]가 가장 많은 적에게 이동 후, 피해를 입힌다. [4턴에 한 번] 피해를 입은 적이[도발] 디버프 성 상태라면 100%, 아니라면 75% 확률로 그 적의 [버프]2개를 제거한다. 모든 아군에게 2턴 간 [효과저항+50%] 버프를 부여한다.",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "효과저항 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량",
+        "LV 5 피해량",
+        "LV 6 대기시간 감소 -1",
+        "LV 3 피해량+5%",
+        "LV 4 피해량 +5%",
+        "LV 5 피해량",
+        "LV 6 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "바위 지붕",
+      "cooldownTurns": 5,
+      "desc": "스킬을 발동한 후, 모든 아군에게 2턴 간 [디버프 차단] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "디버프 차단",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "수문장의 외침",
+      "cooldownTurns": 4,
+      "desc": "스킬로 [버프]를 제거한 후, 모든 아군에게 2턴 간 [보호막] 버프(자신 최대 체력의 12%)를 부여한다.",
+      "damageBase": null,
+      "otherBases": [
+        "보호막: 자신의 체력"
+      ],
+      "effects": [
+        {
+          "name": "보호막",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 보호막",
+        "LV 3 보호막"
+      ]
+    }
+  ],
+  "issues": []
+}

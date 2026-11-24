@@ -1,0 +1,80 @@
+{
+  "no": "066",
+  "name": "버블피",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "공격",
+  "range": "근거리",
+  "element": "독",
+  "stats": {
+    "hp": 3824,
+    "atk": 457,
+    "def": 262,
+    "spd": 99,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "독니깨물기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를입히고, 4% 확률로 공격력의 50%만큼 추가 피해를입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량",
+        "LV 4 피해량+5%",
+        "LV 5 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "침묵의 거미줄",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 피해를 입힌다. [3턴에 한번] 치명피해라면 75%, 아니라면 50% 확률로 피해를입은 적에게 1턴간 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 효과 확률+10%",
+        "LV 4 피해량+10%",
+        "LV 5 효과 확률+15%",
+        "LV 6 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "마비의 독",
+      "cooldownTurns": null,
+      "desc": "기본공격 피해를 입힌후, 그 적에게 4% 확률로 1턴 간 [효과명중-50%] 디버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "효과명중 감소 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": []
+    },
+    {
+      "slot": "패시브",
+      "name": "지격수의 눈",
+      "cooldownTurns": null,
+      "desc": "치명타I 피해를입힌 후, 자신의 치명피해를1% 증가시킨다. (최대 30%) 증가시킨다.(최대 3 30%) 치명타 피해를입힌 후, 자신의 치명피해를1% 치명타 피해를 입힌 후, , 자신의 치명피해를1%",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": []
+    }
+  ],
+  "issues": []
+}

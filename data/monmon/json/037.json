@@ -1,0 +1,89 @@
+{
+  "no": "037",
+  "name": "투구벌",
+  "grade": "전설",
+  "stars": 5,
+  "maxLevel": 50,
+  "role": "제어",
+  "range": "원거리",
+  "element": "독",
+  "stats": {
+    "hp": 7182,
+    "atk": 435,
+    "def": 537,
+    "spd": 102,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "약화의 침",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게1 피해를 입히고, 4%확률로1턴간 [공격력-50%] [속도-30%] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "공격력 감소 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        },
+        {
+          "name": "속도 감소 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "버프 약탈",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다. [3턴에 한번] 피해를 입은 적에게서 75%확률로 모든 [버프]를 훔친다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "버프 훔치기",
+          "turns": 3,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +10%",
+        "LV 3 피해량+10%",
+        "LV 4 효과 확률 +10%",
+        "LV 5 효과 확률 +15%",
+        "LV 6 대기시간 감소-1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "잎갑옷 강화",
+      "cooldownTurns": null,
+      "desc": "적에게 피해를입힐때, 적이! 보유한 [디버프] 수만큼 피해량이 6% 증가한다. (최대30%) 적에게 피해를 입힐 때, , 적이 보유한 [디버프]수만큼 피해량이 6% 증가한다. .(최대30%) 적에게 피해를 입힐 때, 적이 보유한[ [디버프] 수만큼 적에게 피해를입힐때, , 적이 보유한[ [디버프] 수만큼",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": []
+    },
+    {
+      "slot": "패시브",
+      "name": "약점 노리기",
+      "cooldownTurns": null,
+      "desc": "적에게 스킬 피해를 입힌 후, 적이 보유한 [디버프] 수만큼 스킬 에너지가 3%증가한다. 적에게 스킬 피해를입힌 후, 적이 보유한[ [디버프] 적에게 스킬 피해를입힌 후, , 적이 보유한 [디버프]",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": []
+    }
+  ],
+  "issues": []
+}

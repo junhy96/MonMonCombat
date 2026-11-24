@@ -1,0 +1,108 @@
+{
+  "no": "109",
+  "name": "일렉불이",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "지원",
+  "range": "원거리",
+  "element": "전기",
+  "stats": {
+    "hp": 5796,
+    "atk": 271,
+    "def": 333,
+    "spd": 99,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "빛의 구슬",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를입히고, 3%확률로1턴 간 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "독 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량 +5%",
+        "LV 4 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "활력의 전구",
+      "cooldownTurns": null,
+      "desc": "공격력이 가장 높은 아군의 스킬 에너지를12% 증가시킨다. [4턴에 한 번] 공격력이 가장 높은 아군에게 1턴 간 [공격력 +50%] 버프를 부여한다. 공격력이 가장 높은 아군의 스킬 에너지를15% 더 증가시킨다. 공격력이 가장 를 높은 아군에게 1턴 간 [공격력 +50%] 버프를브 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "공격력 증가 (강)",
+          "turns": 1,
+          "cooldownTurns": 4
+        },
+        {
+          "name": "스킬 에너지 증가",
+          "turns": 4,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "생명 복원",
+      "cooldownTurns": 6,
+      "desc": "스킬을 발동하기 전, 무작위 전투 이탈 상태의 아군 1명을 최대 체력의 40%로 부활시키고, 1턴간 [지속 치유 15%] 버프를 부여한다. [L4대기시간 감스 A]",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "지속 치유 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 치유량",
+        "LV 3 대기시간"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "에너지 팩",
+      "cooldownTurns": 4,
+      "desc": "스킬을 발동한후, 모든 아군에게 2턴간 [속도 +30%] 버프를, 공격력이 가장 높은 적에게 2턴 간 [속도-30%] 디버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "속도 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        },
+        {
+          "name": "속도 감소 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간"
+      ]
+    }
+  ],
+  "issues": []
+}

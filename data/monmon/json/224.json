@@ -1,0 +1,60 @@
+{
+  "no": "224",
+  "name": "웜햇",
+  "grade": "고급",
+  "stars": 2,
+  "maxLevel": 20,
+  "role": "제어",
+  "range": "근거리",
+  "element": "땅",
+  "stats": {
+    "hp": 1658,
+    "atk": 153,
+    "def": 102,
+    "spd": 98,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "흙파기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "둔화 점액",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 피해를 입힌다. [5턴에 한 번] 피해를 입은 적에게 50% 확률로 2턴 간 [속도-30%] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "속도 감소 (강)",
+          "turns": 2,
+          "cooldownTurns": 5
+        }
+      ],
+      "levels": [
+        "LV 2 효과 확률 +5%",
+        "LV 3 효과 확률+5%",
+        "LV 4 효과 확률 +5%",
+        "LV 5 효과 확률+5%",
+        "LV 6 효과확률+5%",
+        "LV 7 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": []
+}

@@ -1,0 +1,100 @@
+{
+  "no": "089",
+  "name": "붕붕쥐",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "제어",
+  "range": "원거리",
+  "element": "바람",
+  "stats": {
+    "hp": 6288,
+    "atk": 339,
+    "def": 234,
+    "spd": 97,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "공중타격",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게피 |피해를입히고, 자신에게 4% 확률로1턴간 [속도+30%] 버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "속도 증가 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량 +5%",
+        "LV 4 피해량 +10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "특수탄난사",
+      "cooldownTurns": null,
+      "desc": "무작위 적 1명씩 골라 10회! 피해를 입힌다. [4턴에 한 번] 피해를입은 적에게 각각 20% 확률로 1턴 간 [버프 차단] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "버프 차단",
+          "turns": 1,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 효과 확률+5%",
+        "LV 5 효과 확률 +5%",
+        "LV 6 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "섬광탄",
+      "cooldownTurns": null,
+      "desc": "피해를 입힌후, [버프]가 없는 그 적에게 5% 확률로 1턴간 [방어력-60%] 디버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "방어력 감소 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        },
+        {
+          "name": "실명",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": []
+    },
+    {
+      "slot": "패시브",
+      "name": "역풍",
+      "cooldownTurns": null,
+      "desc": "디버프 상태의 적에게 스킬 피해를입힌후 피해를 입은 적에게 각각 50% 확률로추가 피해를 입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량 +10%",
+        "LV 3 피해량+10%",
+        "LV 4 효과 확률 +10%"
+      ]
+    }
+  ],
+  "issues": []
+}

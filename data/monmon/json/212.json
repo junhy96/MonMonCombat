@@ -1,0 +1,59 @@
+{
+  "no": "212",
+  "name": "푸디딩젤",
+  "grade": "고급",
+  "stars": 2,
+  "maxLevel": 20,
+  "role": "공격",
+  "range": "원거리",
+  "element": "변이",
+  "stats": {
+    "hp": 1829,
+    "atk": 150,
+    "def": 94,
+    "spd": 100,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "점액 발사 Levelk 1",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량",
+        "LV 4 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "푸딩 폭발",
+      "cooldownTurns": null,
+      "desc": "모든 적에게 피해를 입힌다. [5턴에 한 번] 피해를입은 적에게 각각 50% 확률로 스킬 에너지를20% 감소시킨다. 피해를입은 적에게 각각년 50% 확률로 스킬",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "스킬 에너지 감소",
+          "turns": 5,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+10%",
+        "LV 3 피해량+10%",
+        "LV 4 효과 확률 +10%",
+        "LV 5 효과 확률 +15%",
+        "LV 6 대기시간 감소-1"
+      ]
+    }
+  ],
+  "issues": []
+}

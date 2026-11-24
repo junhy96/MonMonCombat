@@ -1,0 +1,88 @@
+{
+  "no": "153",
+  "name": "호박이",
+  "grade": "레어",
+  "stars": 3,
+  "maxLevel": 30,
+  "role": "공격",
+  "range": "원거리",
+  "element": "암석",
+  "stats": {
+    "hp": 2828,
+    "atk": 258,
+    "def": 177,
+    "spd": 97,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "보석 발사",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 피해량+5%",
+        "LV 6 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "봉인 암석",
+      "cooldownTurns": null,
+      "desc": "공격력이 가장 높은 적 1명에게 피해를 입힌다. [5턴에 한 번] 50% 확률로 피해를 입은 적의 [버프] 1개를 제거하고, 2턴 간[버프 차단] 디버프를 부여한다. [©]",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "버프 차단",
+          "turns": 2,
+          "cooldownTurns": 5
+        },
+        {
+          "name": "버프 제거",
+          "turns": 5,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 효과 확률+5%",
+        "LV 4 피해량+5%",
+        "LV 5 효과 확률+5%",
+        "LV 6 피해량+5%",
+        "LV 7 효과 확률 +5%",
+        "LV 2 피해량+5%",
+        "LV 7 효과 확률 +5%",
+        "LV 8 피해량+5%",
+        "LV 9 효과 확률 +10%",
+        "LV 10 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "암석독소",
+      "cooldownTurns": null,
+      "desc": "피해를 입힌 후, 그 적에게 3%확률로 1턴 간 [독2.5%] 디버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "독 (약)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": []
+    }
+  ],
+  "issues": []
+}

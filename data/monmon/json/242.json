@@ -1,0 +1,60 @@
+{
+  "no": "242",
+  "name": "좀좀",
+  "grade": "고급",
+  "stars": 2,
+  "maxLevel": 20,
+  "role": "제어",
+  "range": "원거리",
+  "element": "언데드",
+  "stats": {
+    "hp": 1926,
+    "atk": 115,
+    "def": 122,
+    "spd": 95,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "뼈다귀 강타",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "감염 물기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다. [4턴에 한 번] 피해를입은 적에게50% 확률로 2턴 간 [효과저항-50%] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "효과저항 감소 (강)",
+          "turns": 2,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 효과 확 +10%",
+        "LV 6 효과 확률+15%",
+        "LV 7 대기시간 감소-1"
+      ]
+    }
+  ],
+  "issues": []
+}

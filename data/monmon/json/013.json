@@ -1,0 +1,110 @@
+{
+  "no": "013",
+  "name": "락뿔소",
+  "grade": "전설",
+  "stars": 5,
+  "maxLevel": 50,
+  "role": "방어",
+  "range": "근거리",
+  "element": "암석",
+  "stats": {
+    "hp": 10355,
+    "atk": 281,
+    "def": 513,
+    "spd": 100,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "뻘들이받기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입히고, , 4% 확률로 1턴 간 [치명확률-30%] 디버프를 부여한다.",
+      "damageBase": "자신의 체력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "치명확률 감소 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+10%",
+        "LV 3 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "돌격의 뿔",
+      "cooldownTurns": null,
+      "desc": "공격력이 가장 높은 적에게 이동 후, 피해를 입힌다. [3턴에 한번] 피해를 입은 적에게 75% 확률로 1턴 간 디버프를 부여한다.",
+      "damageBase": "자신의 체력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "기절",
+          "turns": 1,
+          "cooldownTurns": 3
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+10%",
+        "LV 3 효과 확+5%",
+        "LV 4 피해량+10%",
+        "LV 5 효과 확률 +10%",
+        "LV 6 효과 확률 +10%",
+        "LV 7 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "희생의 보호",
+      "cooldownTurns": 4,
+      "desc": "스킬 피해를 받은 후, 모든ㅇ 아군에게 1턴간 [피해 차단] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "피해 차단",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "굴건한 방어막",
+      "cooldownTurns": 4,
+      "desc": "스킬을 발동한 후, 모든 아군에게 2턴 간 [효과저항 +50%], [보호막] 버프(자신 최대 체력의 25%)를 부여한다.",
+      "damageBase": null,
+      "otherBases": [
+        "보호막: 자신의 체력"
+      ],
+      "effects": [
+        {
+          "name": "보호막",
+          "turns": 2,
+          "cooldownTurns": null
+        },
+        {
+          "name": "효과저항 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 보호막 증가+10%",
+        "LV 3 보호막 증가 +10%",
+        "LV 4 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": []
+}

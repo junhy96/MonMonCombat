@@ -1,0 +1,55 @@
+{
+  "no": "257",
+  "name": "암서기",
+  "grade": "일반",
+  "stars": 1,
+  "maxLevel": 10,
+  "role": "방어",
+  "range": "근거리",
+  "element": "암석",
+  "stats": {
+    "hp": 1064,
+    "atk": 54,
+    "def": 80,
+    "spd": 95,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "바위 박치기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량 +10%",
+        "LV 3 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "혼란 지진",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 자신 주변 범위 내 적에게 피해를입힌다. [4턴에 한 번] 피해를 입은 적에게 각각 50% 확률로 2턴 간 [효과명중-25%] 디버프를 부여한다. [피해를 입인나]",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "효과명중 감소 (약)",
+          "turns": 4,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 효과 확률+10%",
+        "LV 3 효과 확+15%"
+      ]
+    }
+  ],
+  "issues": []
+}

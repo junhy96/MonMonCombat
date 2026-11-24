@@ -1,0 +1,90 @@
+{
+  "no": "099",
+  "name": "톡찌리",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "제어",
+  "range": "원거리",
+  "element": "독",
+  "stats": {
+    "hp": 6001,
+    "atk": 251,
+    "def": 322,
+    "spd": 103,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "독침 사격",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입히고, 4%확률로 1턴 간 [속도-30%] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "속도 감소 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량 +10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "맹독 연격",
+      "cooldownTurns": null,
+      "desc": "무작위 적 1명씩 골라 10회 피해를입히고, 피해를 입은 적에게 각각2 20% 확률로 [버프]1개의 남은 턴을 1턴 감소시킨다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량 +10%",
+        "LV 3 피해량",
+        "LV 4 효과 확률+5%",
+        "LV 5 효과 확률+5%"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "역병의 저주",
+      "cooldownTurns": null,
+      "desc": "스킬 피해를 입힌 후, 피해를 입은 적에게? 각각15% 확률로 1턴 간 [치유량-100%] 디버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "치유량 감소 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": []
+    },
+    {
+      "slot": "패시브",
+      "name": "영혼 쪼아먹기",
+      "cooldownTurns": null,
+      "desc": "스킬 피해를입힌후, 피해를 입은 적에게 각각 15% 확률로 1턴간 [부활 차단] 디버프를브 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "부활 차단",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": []
+    }
+  ],
+  "issues": []
+}

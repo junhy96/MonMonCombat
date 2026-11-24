@@ -1,0 +1,100 @@
+{
+  "no": "006",
+  "name": "따끔",
+  "grade": "전설",
+  "stars": 5,
+  "maxLevel": 50,
+  "role": "방어",
+  "range": "근거리",
+  "element": "독",
+  "stats": {
+    "hp": 8705,
+    "atk": 339,
+    "def": 532,
+    "spd": 99,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "가시 구르기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입히고, 그 적에게 4% 확률로1턴간 [방어력-60%] 디버프를 부여한다.",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "방어력 감소 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량 +5%",
+        "LV 4 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "약올리기",
+      "cooldownTurns": null,
+      "desc": "자신 주변 범위 내 적에게 피해를 입힌다. [4턴에 한 번] 피해를 입은 적이 [방어력 감소] 디버프 상태라면 90%, 아니라면 65% 확률로 그 적에게 각각 1턴 간 [버프 차단] 디버프를 부여한다.",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량",
+        "LV 4 피해량",
+        "LV 5 효과 확률 +10%",
+        "LV 6 대기시간 금"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "가시 울타리",
+      "cooldownTurns": 5,
+      "desc": "스킬을 발동하기 전, 자신 주변 범위 내 아군에게 각각 2턴간 [방어력 +60%] [효과명중 +50%] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "방어력 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        },
+        {
+          "name": "효과명중 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소-1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "건드리면 따끔",
+      "cooldownTurns": 4,
+      "desc": "피해를 받은 후, 자신이 [방어력 증가] 버프 상태라면 자신 주변 범위 내 적에게 1턴간[ 디버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "도발",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": []
+}

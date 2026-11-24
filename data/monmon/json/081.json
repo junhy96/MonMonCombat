@@ -1,0 +1,102 @@
+{
+  "no": "081",
+  "name": "촛동",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "지원",
+  "range": "근거리",
+  "element": "화염",
+  "stats": {
+    "hp": 4812,
+    "atk": 314,
+    "def": 354,
+    "spd": 100,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "온기의 물씨",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입히고, 모든 아군에게 각각3% 확률로1턴간 [지속 치유 15%] 버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "지속 치유 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "연막 은신",
+      "cooldownTurns": null,
+      "desc": "자신을 제외한 모든 아군에게 1턴간[ [보호막] 버프(자신 최대 체력의12%)를 부여한다. [4턴에 한 번] 자신에게 2턴 간 [보호막] 버프(자신 최대 체력의 12%)를 부여한다. 자신을 제외한 모든 아군에게 2턴 간 [강철 은신] 버프를 부여한다. 자신에게 2턴 간[ [보호막] 버프(자신 최대 체력의 버프를브 부여한다. 12%)를 부여한다 자신을 제외한 모든 아군에게 2턴 간[ [강철 은신]",
+      "damageBase": null,
+      "otherBases": [
+        "보호막: [자신의 체력",
+        "보호막: 자신의 체력"
+      ],
+      "effects": [
+        {
+          "name": "보호막",
+          "turns": 2,
+          "cooldownTurns": 4
+        },
+        {
+          "name": "강철 은신",
+          "turns": 2,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "꺼지지 않는 물꽃",
+      "cooldownTurns": 4,
+      "desc": "스킬을 발동한 후, 자신에게 1턴 간[불사] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "불사",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "불꽃 신호",
+      "cooldownTurns": null,
+      "desc": "기본공격 피해를 입힌 후, 모든 아군에게 각각 4% 확률로1턴간[속도 +15%] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "속도 증가 (약)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": []
+    }
+  ],
+  "issues": []
+}

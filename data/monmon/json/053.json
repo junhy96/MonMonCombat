@@ -1,0 +1,111 @@
+{
+  "no": "053",
+  "name": "떡잎이",
+  "grade": "전설",
+  "stars": 5,
+  "maxLevel": 50,
+  "role": "지원",
+  "range": "근거리",
+  "element": "식물",
+  "stats": {
+    "hp": 7980,
+    "atk": 435,
+    "def": 484,
+    "spd": 101,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "땅박치기",
+      "cooldownTurns": null,
+      "desc": "가까운 적1명에게 피해를 입히고, 현재 체력%가 가장 낮은 아군에게 4% 확률로1턴간 [지속 치유 15%] 버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "지속 치유 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "군고구마 한입",
+      "cooldownTurns": null,
+      "desc": "공격력이 가장 높은 아군의 [ [디버프] ]1개를 제거한다. [5턴에 한 번] 공격력이 가장 높은 아군에게 2턴 간 [공격력 +50%] 버프를 부여한다. 모든 아군에게 |각각[디버프] 1개를 제거한다. 공격력이 가성 표는 아군의 [니미프] 세거안나. 모든 아군에게 각각 [디버프] 1개를 제거한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "공격력 증가 (강)",
+          "turns": 5,
+          "cooldownTurns": null
+        },
+        {
+          "name": "공격력 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": 5
+        },
+        {
+          "name": "디버프 제거",
+          "turns": 5,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "새싹 퇴우기",
+      "cooldownTurns": 5,
+      "desc": "스킬을 발동하기 전, 전투 이탈 상태의 아군이 있다면 1명을 최대체력의 40%로 부활시킨다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 치유량 +10%",
+        "LV 3 치유량",
+        "LV 4 대기시간",
+        "LV 5 대기시간 감소-1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "잎사귀 울타리",
+      "cooldownTurns": 4,
+      "desc": "스킬을 발동하기 전, 모든 아군에게 1턴간 [지속 치유 15%] [디버프 차단] 버프를 부여한다. [×]",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "지속 치유 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        },
+        {
+          "name": "디버프 차단",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소-1"
+      ]
+    }
+  ],
+  "issues": [
+    "군고구마 한입: 글자 확신 낮음 \"공격력이\" (0.66)",
+    "군고구마 한입: 글자 확신 낮음 \"가성\" (0.67)"
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "no": "248",
+  "name": "따개비쉘",
+  "grade": "고급",
+  "stars": 2,
+  "maxLevel": 20,
+  "role": "방어",
+  "range": "근거리",
+  "element": "아쿠아",
+  "stats": {
+    "hp": 1833,
+    "atk": 113,
+    "def": 137,
+    "spd": 95,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "깨물기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량",
+        "LV 4 피해량 +5%",
+        "LV 5 피해량+5%",
+        "LV 6 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "유연한 진주",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 피해를 입힌다. [4턴에 한 번] 모든 아군에게 1턴 간 [회피] 버프를 부여한다.",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "회피",
+          "turns": 1,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+10%",
+        "LV 5 피해량+10%",
+        "LV 6 대기시간 감소-1"
+      ]
+    }
+  ],
+  "issues": []
+}

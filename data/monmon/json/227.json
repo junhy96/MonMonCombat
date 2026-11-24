@@ -1,0 +1,63 @@
+{
+  "no": "227",
+  "name": "삐리리",
+  "grade": "고급",
+  "stars": 2,
+  "maxLevel": 20,
+  "role": "방어",
+  "range": "근거리",
+  "element": "기계",
+  "stats": {
+    "hp": 1731,
+    "atk": 115,
+    "def": 135,
+    "spd": 94,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "태엽 주먹 Levelk,1",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를입힌다.",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량 +5%",
+        "LV 5 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "튼튼한 기계",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 피해를 입힌다. [5턴에 한 번] 자신에게 2턴 간 [ [보호막] 버프(자신 방어력의 100%)를 부여한다.",
+      "damageBase": "자신의 방어력",
+      "otherBases": [
+        "보호막: 자신의 방어력"
+      ],
+      "effects": [
+        {
+          "name": "보호막",
+          "turns": 2,
+          "cooldownTurns": 5
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+10%",
+        "LV 3 보호막",
+        "LV 4 보호막 증가+5%",
+        "LV 5 피해량+10%",
+        "LV 6 보호막 증가+10%",
+        "LV 7 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": []
+}

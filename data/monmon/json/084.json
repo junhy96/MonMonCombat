@@ -1,0 +1,88 @@
+{
+  "no": "084",
+  "name": "마중이",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "지원",
+  "range": "원거리",
+  "element": "유령",
+  "stats": {
+    "hp": 5151,
+    "atk": 280,
+    "def": 350,
+    "spd": 103,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "유령 할퀴기",
+      "cooldownTurns": null,
+      "desc": "가까운 은 적 1명에게 ↓ 피해를 입히고, 호 현재1 체력%가 가장 낮은 아군1명을 4% 확률로그아군최대 체력의20%만큼 치유한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [
+        "치유량: 대상의 체력"
+      ],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 치유량",
+        "LV 5 치유량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "초롱꽃등물",
+      "cooldownTurns": null,
+      "desc": "현재 체력 %가 가장 낮은 아군 1명을 그 아군 최대 체력의 6%만큼 치유한다. [4턴에 한 번] 그 아군의 [ [디버프]가 3개 미만이라면 그 아군 최대 체력의 15%만큼 더 치유한다. 그 아군의[ [디버프]가 3개 이상이라면 [디버프] 2개를 제거하고, 그 아군 최대 체력의 15%만큼 더 치유한다. 그 아군의 [디버프]가 3개 미만이라면 그 아군 그 아군의 [디버프]가 3개 이상이라면 [디버프] 2개를ㅈ 제거하고, 그 아군 최대 체력의 15%만큼",
+      "damageBase": null,
+      "otherBases": [
+        "치유량: 대상의 체력"
+      ],
+      "effects": [],
+      "levels": [
+        "LV 2 치유량",
+        "LV 3 치유량",
+        "LV 4 치유량",
+        "LV 5 대기시간"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "되살림의 숨결",
+      "cooldownTurns": 6,
+      "desc": "아군이 전투에서 이탈하기 전, 그 아군에게 1턴 간 [부활] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "부활",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간",
+        "LV 3 대기시간 금"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "가벼운 발걸음",
+      "cooldownTurns": 4,
+      "desc": "자신이 아군의 [디버프]를 제거한 후, 그 아군의 스킬 에너지를 20% 증가시킨다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": []
+}

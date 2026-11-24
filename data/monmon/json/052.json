@@ -1,0 +1,107 @@
+{
+  "no": "052",
+  "name": "뿔뎅이",
+  "grade": "전설",
+  "stars": 5,
+  "maxLevel": 50,
+  "role": "방어",
+  "range": "근거리",
+  "element": "곤충",
+  "stats": {
+    "hp": 7994,
+    "atk": 416,
+    "def": 527,
+    "spd": 100,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "방패타격",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입히고, , 자신에게 4% 확률로1턴간 [방어력+60%] 버프를 부여한다.",
+      "damageBase": ": [자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "방어력 증가 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량 +5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "충각충돌",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 범위 내 적에게! 피해를 입힌다. [5턴에 한 번] 피해를 입은 적에게 각각75% 확률로 1턴 간 디버프를 부여한다. 디버프 상태의 적 1명당! 모든 아군의 스킬 에너지를 5%씩 증가시킨다. 디버프 상태의 적 1명당 모든 아군의 스킬 에너지를! 5%씩 증가시킨다. 피애당 기만:[사신의 공격력]",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "기절",
+          "turns": 1,
+          "cooldownTurns": 5
+        },
+        {
+          "name": "스킬 에너지 증가",
+          "turns": 5,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 효과확률+5%",
+        "LV 4 피해량",
+        "LV 5 효과 확+1.0%",
+        "LV 2 피해량 +10%",
+        "LV 5 효과 확률 +10%",
+        "LV 6 효과 확 +10%",
+        "LV 7 대기시간 감소-1",
+        "LV 8 대기시간 감소-1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "키틴질 외골격",
+      "cooldownTurns": null,
+      "desc": "자신 공격력의 25%만큼 방어력이 증가한다. 자신 공격력의 25%만큼 를 방어력이 증가한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": []
+    },
+    {
+      "slot": "패시브",
+      "name": "가시 방패",
+      "cooldownTurns": 6,
+      "desc": "스킬을 발동한후, 자신을 제외한 범위내 아군에게 2턴간 [방어력+60%], [불사] 버프를부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "방어력 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        },
+        {
+          "name": "불사",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소-1"
+      ]
+    }
+  ],
+  "issues": []
+}

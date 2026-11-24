@@ -1,0 +1,100 @@
+{
+  "no": "071",
+  "name": "도블린",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "공격",
+  "range": "근거리",
+  "element": "변이",
+  "stats": {
+    "hp": 3558,
+    "atk": 428,
+    "def": 308,
+    "spd": 103,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "약탈의 일격",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를입히고, 3%확률로 [버프] [1개를 훔친다]",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 피해량 +5%",
+        "LV 6 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "그림자 강탈",
+      "cooldownTurns": null,
+      "desc": "공격력이 가장 높은 적에게 이동 후, 피해를 입힌다. [3턴에 한번] 피해를 입은 적에게 80% 확률로 모든 [버프]를 훔친다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "버프 훔치기",
+          "turns": 3,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 효과 확률 +10%",
+        "LV 4 피해량+5%",
+        "LV 5 효과 확률 +10%",
+        "LV 6 피해량+10%",
+        "LV 7 대기시간 감소-1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "그림자 잠행",
+      "cooldownTurns": 4,
+      "desc": "스킬을 발동한 후, 자신에게 2턴 간[ [강철 은신] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "강철 은신",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "약화의 손길",
+      "cooldownTurns": 3,
+      "desc": "피해를 입힌 후, 그 적에게 80%확률로 1턴 간 [공격력-50%] 디버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "공격력 감소 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 효과 확률 +10%",
+        "LV 3 효과 확률 +10%",
+        "LV 4 대기시간 감소-1"
+      ]
+    }
+  ],
+  "issues": []
+}

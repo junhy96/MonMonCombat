@@ -1,0 +1,104 @@
+{
+  "no": "074",
+  "name": "몰몰",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "방어",
+  "range": "근거리",
+  "element": "땅",
+  "stats": {
+    "hp": 5310,
+    "atk": 237,
+    "def": 382,
+    "spd": 93,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "땅고르기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입히고, 4% 확률로 1턴간 [효과명중-50%] 디버프를 부여한다.",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "효과명중 감소 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+10%",
+        "LV 3 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "지하돌진",
+      "cooldownTurns": null,
+      "desc": "치명피해가 가장 높은 적에게 이동 후, 피해를 입힌다. [4턴에 한 번] 피해를 입은 적에게 50%확률로 1턴 간 디버프를 부여한다.",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "기절",
+          "turns": 1,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+10%",
+        "LV 3 효과 확률+10%",
+        "LV 4 피해량 +10%",
+        "LV 5 효과 확률 +15%",
+        "LV 6 대기시간 감소-1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "진흙 도포",
+      "cooldownTurns": 4,
+      "desc": "스킬을 발동한 후, 모든 아군에게 2턴 간 [효과저항+50%] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "효과저항 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "재생 피부",
+      "cooldownTurns": 3,
+      "desc": "스킬을 발동한 후, 자신에게 1턴 간 [지속 치유 15%] 버프를 부여한다. 자신에게 [디버프]가 없다면 자신 최대체력의 15%만큼 자신을 치유한다.",
+      "damageBase": null,
+      "otherBases": [
+        "치유량: 자신의 체력"
+      ],
+      "effects": [
+        {
+          "name": "지속 치유 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 치유량+10%",
+        "LV 3 치유량+10%",
+        "LV 4 대기시간 감소-1"
+      ]
+    }
+  ],
+  "issues": []
+}

@@ -1,0 +1,101 @@
+{
+  "no": "063",
+  "name": "캠키드",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "공격",
+  "range": "근거리",
+  "element": "야수",
+  "stats": {
+    "hp": 5908,
+    "atk": 347,
+    "def": 251,
+    "spd": 97,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "Ko 펀치",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 방어력의 20%를 무시하는 피해를입힌다.",
+      "damageBase": "자신의 체력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량",
+        "LV 4 피해량+5%",
+        "LV 5 피해량 +5%",
+        "LV 6 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "어퍼것",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 피해를 입힌다. [3턴에 한번] 피해를 입은 적에게 75% 확률로 1턴 간 [받는 피해량 +25%] 디버프를 부여한다. [A]",
+      "damageBase": "자신의 체력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "받는 피해량 증가 (강)",
+          "turns": 1,
+          "cooldownTurns": 3
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 효과 확률+5%",
+        "LV 4 피해량+5%",
+        "LV 5 효과 확+5%",
+        "LV 6 피해량+5%",
+        "LV 7 효과 확률 +5%",
+        "LV 8 피해량+5%",
+        "LV 9 효과 확률+10%",
+        "LV 3 효과 확률+5%",
+        "LV 5 효과 확률+5%",
+        "LV 6 피해량+5%",
+        "LV 7 효과 확률 +5%",
+        "LV 8 피해량+5%",
+        "LV 10 대기시간 감소-1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "투지 충전",
+      "cooldownTurns": 1,
+      "desc": "자신에게 [디버프]가 부여된 후, 자신의 스킬 에너지가 10% 증가한다. 자신에게[ [디버프]가 부여된 후, 자신의 스킬 에너지가 10% 증가한다",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": []
+    },
+    {
+      "slot": "패시브",
+      "name": "하이 가드",
+      "cooldownTurns": 4,
+      "desc": "자신에게 [디버프]가 부여된 후, 자신에게 2턴 간 [받는 피해량 -25%] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "받는 피해량 감소 (강)",
+          "turns": null,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소-1",
+        "LV 3 대기시간 감소-1"
+      ]
+    }
+  ],
+  "issues": [
+    "하이 가드: 받는 피해량 감소 (강) 지속 턴 못 읽음"
+  ]
+}

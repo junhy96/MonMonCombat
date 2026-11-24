@@ -1,0 +1,87 @@
+{
+  "no": "118",
+  "name": "동글봇",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "공격",
+  "range": "원거리",
+  "element": "기계",
+  "stats": {
+    "hp": 4779,
+    "atk": 382,
+    "def": 273,
+    "spd": 96,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "바이저 빔",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입히고, 4%확률로 스킬 에너지를 20% 감소시킨다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "감속 부메랑",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다. [5턴에 한 번] 피해를 입은 적에게 50% 확률로 3턴 간 [속도-30%] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "속도 감소 (강)",
+          "turns": 5,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 효과 확률 +5%",
+        "LV 3 효과 확률+10%",
+        "LV 4 효과 확률 +10%",
+        "LV 5 대기시간 감소-1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "약점 스캔",
+      "cooldownTurns": 4,
+      "desc": "스킬을 발동하기 전, 공 , 공격력이 가장 높은 적 1명에게 75%확률로2턴간 [방어력-60%] 디버프를 부여한다. [L4대기시간]",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "방어력 감소 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 효과 확률 +10%",
+        "LV 3 효과 확률+15%"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "합선 충격",
+      "cooldownTurns": 3,
+      "desc": "자신이? 전투에서 이탈한 후, 가까운 적 1명의 스킬 에너지를30% 감소시킨다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 대기시간"
+      ]
+    }
+  ],
+  "issues": []
+}

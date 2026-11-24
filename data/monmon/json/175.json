@@ -1,0 +1,85 @@
+{
+  "no": "175",
+  "name": "당그미",
+  "grade": "레어",
+  "stars": 3,
+  "maxLevel": 30,
+  "role": "지원",
+  "range": "근거리",
+  "element": "식물",
+  "stats": {
+    "hp": 3322,
+    "atk": 189,
+    "def": 204,
+    "spd": 105,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "뿌리 찌르기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": "[자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량",
+        "LV 4 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "새 정화",
+      "cooldownTurns": null,
+      "desc": "자신에게 1턴 간 [보호막] 버프(자신 최대 체력의 14%)를 부여한다. [4턴에 한 번] [디버프]를 보유한 모든 아군에게 2턴 간 [보호막] 버프(자신 최대 체력의 18%)를 부여한다. 모든 아군의 모든 [디버프]의 남은 턴을 1턴 감소시킨다. 아문의 [니미티]의 ↓민 감소시킨나.",
+      "damageBase": null,
+      "otherBases": [
+        "보호막: 자신의 체력"
+      ],
+      "effects": [
+        {
+          "name": "보호막",
+          "turns": 2,
+          "cooldownTurns": 4
+        },
+        {
+          "name": "디버프 지속시간 감소",
+          "turns": 4,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 보호막",
+        "LV 3 ",
+        "LV 4 보호막",
+        "LV 5 ",
+        "LV 2 보호막 증가+5%",
+        "LV 6 대기시간 감소-1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "텃밭 되살리기",
+      "cooldownTurns": 7,
+      "desc": "스킬을 발동하기 전, 무작위 전투 이탈 상태의 아군 1명을 최대 체력의 50%로 부활시킨다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 대기시간 감소 -1",
+        "LV 3 대기시간 감소 -1",
+        "LV 4 대기시간 감소-1"
+      ]
+    }
+  ],
+  "issues": [
+    "새 정화: 글자 확신 낮음 \"아문의\" (0.61)",
+    "새 정화: 글자 확신 낮음 \"[니미티]의\" (0.69)",
+    "새 정화: 글자 확신 낮음 \"↓민\" (0.54)"
+  ]
+}

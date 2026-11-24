@@ -1,0 +1,114 @@
+{
+  "no": "116",
+  "name": "활활이",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "방어",
+  "range": "근거리",
+  "element": "화염",
+  "stats": {
+    "hp": 4976,
+    "atk": 260,
+    "def": 397,
+    "spd": 95,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "불날개 베기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입히고, 자신의 체력이 75% 이상이라면 자신에게 4% 확률로1턴간 [피해 반사30%] 버프를 부여한다.",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "피해 반사 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "앗 뜨거 장막",
+      "cooldownTurns": null,
+      "desc": "자신 !최대 체력의 5%만큼 자신을 치유한다. [5턴에 한 번] 자신 최대 체력의 15%만큼 자신을 더 치유한다. 자신의 체력이 100% 이상이라면 자신을 제외한 모든 아군에게 2턴 간 [피해 반사 30%] 버프를 부여한다. [피에 단시 507의 비르글",
+      "damageBase": null,
+      "otherBases": [
+        "치유량: 자신의 체력",
+        "시유당: 사선의 세텍"
+      ],
+      "effects": [
+        {
+          "name": "피해 반사 (강)",
+          "turns": 2,
+          "cooldownTurns": 5
+        },
+        {
+          "name": "치유",
+          "turns": 5,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 치유량+5%",
+        "LV 3 치유량",
+        "LV 4 치유량",
+        "LV 5 치유량+5%",
+        "LV 5 치유량+5%",
+        "LV 6 치유량+5%",
+        "LV 7 치유량+5%",
+        "LV 8 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "추농 봉인",
+      "cooldownTurns": 4,
+      "desc": "스킬을 발동한 후, 공격력이 가장 높은 적 1명에게 75% 확률로1턴간 [버프 차단] 디버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "버프 차단",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 효과 확률 +5%",
+        "LV 3 효과 확률+10%",
+        "LV 4 효과 확률 +10%"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "달아오른 날개",
+      "cooldownTurns": null,
+      "desc": "기본공격 피해를 받은 후, 공격한 적에게 4%확률로 2턴간 [방어력-60%] 디버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "방어력 감소 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": []
+    }
+  ],
+  "issues": [
+    "앗 뜨거 장막: 글자 확신 낮음 \"[피에 단시 507의\" (0.68)",
+    "앗 뜨거 장막: 글자 확신 낮음 \"비르글\" (0.56)"
+  ]
+}

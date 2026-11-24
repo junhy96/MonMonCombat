@@ -1,0 +1,95 @@
+{
+  "no": "114",
+  "name": "부채치",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "공격",
+  "range": "원거리",
+  "element": "독",
+  "stats": {
+    "hp": 4726,
+    "atk": 393,
+    "def": 266,
+    "spd": 100,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "독작살 찌르기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를입히고, 3%확률로1턴간 [독2.5%] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "독 (약)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "보랫빛 파문",
+      "cooldownTurns": null,
+      "desc": "모든 적에게 피해를 입힌다. [5턴에 한 번] 피해를 입은 적에게 각각 75% 확률로 2턴 간 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "독 (강)",
+          "turns": 2,
+          "cooldownTurns": 5
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +10%",
+        "LV 3 효과 확률 +10%",
+        "LV 4 피해량 +10%",
+        "LV 5 효과 확률+15%",
+        "LV 6 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "부채살 세우기",
+      "cooldownTurns": 4,
+      "desc": "스킬을 발동하기 전, 모든 적에게 2턴간 [효과저항-50%] 디버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "효과저항 감소 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "끈질긴 괴롭힘",
+      "cooldownTurns": 5,
+      "desc": "스킬 피해를입힌후, 피해를 입은모든 적 각각의 모든 [디버프]의 남은 턴을 1턴 증가시킨다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 대기시간"
+      ]
+    }
+  ],
+  "issues": []
+}

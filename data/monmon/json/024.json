@@ -1,0 +1,89 @@
+{
+  "no": "024",
+  "name": "안테니",
+  "grade": "전설",
+  "stars": 5,
+  "maxLevel": 50,
+  "role": "제어",
+  "range": "원거리",
+  "element": "기계",
+  "stats": {
+    "hp": 7835,
+    "atk": 513,
+    "def": 416,
+    "spd": 105,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "교란 전파",
+      "cooldownTurns": null,
+      "desc": "가까운 적과 무작위 적1명에게 피해를 입히고, 그 적들에게 3%확률로 [버프]1개를 제거한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량",
+        "LV 4 피해량+5%",
+        "LV 5 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "궤도 저격",
+      "cooldownTurns": null,
+      "desc": "공격력이 가장 높은 적 1명에게 피해를 입힌다. [4턴에 한 번] 피해를입은 을 적에게 75% 확률로 1턴 간 [버프 차단] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "버프 차단",
+          "turns": 1,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+10%",
+        "LV 3 피해량+10%",
+        "LV 4 효과 확률 +5%",
+        "LV 5 효과 확률 +10%",
+        "LV 6 효과확률+10%",
+        "LV 7 대기시간 감소-1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "신호 나뉘주기",
+      "cooldownTurns": 5,
+      "desc": "스킬을 발동한후, 스킬 피해를입은 적의 모든 [디버프]의 남은 턴을 1턴 증가시키고, 모든 아군의 스킬 에너지를 20% 증가시킨다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 대기시간"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "파쇄 펄스",
+      "cooldownTurns": 1,
+      "desc": "기본공격을 한 후, 무작위 적 1명에게 5회 피해를 입히고, 그 적에게 1턴 간 [방어력 -60%] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "방어력 감소 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": []
+    }
+  ],
+  "issues": []
+}

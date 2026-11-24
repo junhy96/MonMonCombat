@@ -1,0 +1,60 @@
+{
+  "no": "211",
+  "name": "그라스록",
+  "grade": "고급",
+  "stars": 2,
+  "maxLevel": 20,
+  "role": "방어",
+  "range": "근거리",
+  "element": "암석",
+  "stats": {
+    "hp": 1791,
+    "atk": 106,
+    "def": 146,
+    "spd": 93,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "바위 박치기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 피해량+5%",
+        "LV 6 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "정화 지진",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 자신 주변 범위 내 적에게 피해를입힌다. [5턴에 한 번] 자신의 모든[ [디버프]를 제거한다. 자신의 모든[디버프]를 제거한다.",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "디버프 제거",
+          "turns": 5,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량 +5%",
+        "LV 4 피해량 +10%",
+        "LV 5 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": []
+}

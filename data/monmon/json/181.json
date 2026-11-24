@@ -1,0 +1,89 @@
+{
+  "no": "181",
+  "name": "롤리벅",
+  "grade": "레어",
+  "stars": 3,
+  "maxLevel": 30,
+  "role": "방어",
+  "range": "근거리",
+  "element": "곤충",
+  "stats": {
+    "hp": 3409,
+    "atk": 145,
+    "def": 253,
+    "spd": 97,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "갉아먹기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를입힌다.",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "보호 돌진",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 피해를 입힌다. [4턴에 한 번] 피해를 입은 적에게 75% 확률로 각각 2턴 간 [공격력-25%], 1턴간[ 디버프를 부여한다. ['] 피애당 기만:[사신의 방어력]",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "공격력 감소 (약)",
+          "turns": 2,
+          "cooldownTurns": 4
+        },
+        {
+          "name": "도발",
+          "turns": 1,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 효과 확 +10%",
+        "LV 5 피해량+5%",
+        "LV 6 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 효과 확률 +10%",
+        "LV 5 피해량+5%",
+        "LV 6 피해량+5%",
+        "LV 7 효과 확률 +15%",
+        "LV 8 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "갑각의 가호",
+      "cooldownTurns": 5,
+      "desc": "스킬 피해를 받은 후, 자신에게 1턴 간[ [피해 차단] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "피해 차단",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": []
+}

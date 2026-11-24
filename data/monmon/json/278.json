@@ -1,0 +1,53 @@
+{
+  "no": "278",
+  "name": "왈왈",
+  "grade": "일반",
+  "stars": 1,
+  "maxLevel": 10,
+  "role": "공격",
+  "range": "근거리",
+  "element": "야수",
+  "stats": {
+    "hp": 1000,
+    "atk": 80,
+    "def": 59,
+    "spd": 93,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "깨물기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게피 피해를입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "야성의 깨물기",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동후, 피해를 입히며, 이 피해는 방어력의 25%를 무시한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량 +5%",
+        "LV 5 피해량+5%"
+      ]
+    }
+  ],
+  "issues": []
+}

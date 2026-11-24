@@ -1,0 +1,84 @@
+{
+  "no": "164",
+  "name": "쏘시쏟",
+  "grade": "레어",
+  "stars": 3,
+  "maxLevel": 30,
+  "role": "공격",
+  "range": "근거리",
+  "element": "아쿠아",
+  "stats": {
+    "hp": 3839,
+    "atk": 171,
+    "def": 199,
+    "spd": 93,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "머리 박치기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를입히고, 자신을 4% 확률로 자신 최대 체력의 10%만큼 치유한다.",
+      "damageBase": "자신의 1 [체력",
+      "otherBases": [
+        "치유량: 자신의 체력"
+      ],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 치유량",
+        "LV 4 피해량",
+        "LV 5 치유량"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "씻어내는 물살",
+      "cooldownTurns": null,
+      "desc": "전방 범위 내 적에게 피해를 입힌다. [4턴에 한 번] 자신의 모든[ [디버프]를 제거한다.",
+      "damageBase": "자신의 체력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "디버프 제거",
+          "turns": 4,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 피해량+5%",
+        "LV 6 피해량+5%",
+        "LV 7 피해량+5%",
+        "LV 8 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "미꼬러운 해방",
+      "cooldownTurns": 4,
+      "desc": "적을 전투에서 이탈시킨 후, 자신 최대 체력의 25%만큼 자신을 치유하고, 가까운 적 1명에게 50% 확률로 2턴 간 [치유량 -100%] 디버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [
+        "치유량: 자신의 [체력"
+      ],
+      "effects": [
+        {
+          "name": "치유량 감소 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 치유"
+      ]
+    }
+  ],
+  "issues": []
+}

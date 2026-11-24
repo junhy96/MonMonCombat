@@ -1,0 +1,75 @@
+{
+  "no": "152",
+  "name": "찌파리",
+  "grade": "레어",
+  "stars": 3,
+  "maxLevel": 30,
+  "role": "공격",
+  "range": "원거리",
+  "element": "전기",
+  "stats": {
+    "hp": 2661,
+    "atk": 228,
+    "def": 219,
+    "spd": 94,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "발광 필라멘트",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량 +5%",
+        "LV 5 피해량+5%",
+        "LV 6 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "엑셀러레이터",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 5회 피해를 입힌다. [4턴에 한 번] 매 피해마다 피해를입은 적이[ 디버프 상태라면 15% 아니라면 10% 확률로 2턴 간 [속도-30%] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 효과 확률 +5%",
+        "LV 4 피해량",
+        "LV 5 피해량",
+        "LV 6 효과확률+5%",
+        "LV 7 피해량",
+        "LV 8 피해량",
+        "LV 9 효과 확률+5%",
+        "LV 10 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "전기과민증",
+      "cooldownTurns": null,
+      "desc": "기본공격 피해를 입힌 후, 그 적에게 3%확률로1턴 간[ 디버프를 부여한다. [i]",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "기절",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": []
+    }
+  ],
+  "issues": []
+}

@@ -1,0 +1,98 @@
+{
+  "no": "110",
+  "name": "바나낙",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "공격",
+  "range": "근거리",
+  "element": "식물",
+  "stats": {
+    "hp": 4301,
+    "atk": 421,
+    "def": 266,
+    "spd": 101,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "강탈 했바닥",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를입히고, 15% 확률로 [공격력 증가] 또는 [방어력 증가] 버프를 훔친다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량",
+        "LV 4 피해량",
+        "LV 5 피해량"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "배물뜻이",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 |이동 후, 전방 범위 내 적에게 7회 피해를 입힌다. 자신의 [버프] 1개마다 피해량이 5% 증가한다. (최대30%) [A]",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량",
+        "LV 4 피해량+5%"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "공격성 증폭",
+      "cooldownTurns": 4,
+      "desc": "스킬을 발동한 후, 자신에게 [공격력 증가] 버프가 있다면 2턴간 [치명피해 +30%] 버프를, 없다면 2턴 간 [공격력 +50%] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "치명피해 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        },
+        {
+          "name": "공격력 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "행복한 식사",
+      "cooldownTurns": 4,
+      "desc": "스킬을 발동한 후, 자신에게 [방어력 증가] 버프가 있다면 2턴 간 [치명확률+30%] 버프를 없다면 2턴 간 [방어력 +60%] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "치명확률 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        },
+        {
+          "name": "방어력 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": []
+}

@@ -1,0 +1,83 @@
+{
+  "no": "156",
+  "name": "돌자드",
+  "grade": "레어",
+  "stars": 3,
+  "maxLevel": 30,
+  "role": "공격",
+  "range": "원거리",
+  "element": "땅",
+  "stats": {
+    "hp": 2916,
+    "atk": 251,
+    "def": 170,
+    "spd": 97,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "타액 발사",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 피해량+5%",
+        "LV 6 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "석회암 폭발",
+      "cooldownTurns": null,
+      "desc": "모든 적에게 피해를입힌다. 피해를입힌 !적1명마다 자신의 스킬에너지를 4% 증가시킨다. [4턴에 한 번] 피해를 입히기 전, 모든 적에게 각각90% 확률로 2턴간 [받는 피해량 +15%] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "받는 피해량 증가 (약)",
+          "turns": 2,
+          "cooldownTurns": 4
+        },
+        {
+          "name": "받는 피해량 증가 (약)",
+          "turns": 4,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 효과 확률+5%",
+        "LV 4 피해량",
+        "LV 5 효과 확률+5%",
+        "LV 6 피해량+5%",
+        "LV 6 피해량+5%",
+        "LV 7 피해량+5%",
+        "LV 8 피해량 +10%",
+        "LV 9 피해량+10%",
+        "LV 10 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "거친 눈빛",
+      "cooldownTurns": 4,
+      "desc": "적을 전투에서 이탈시킨 후, 자신의 스킬 에너지를 15% 증가시킨다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 대기시간 감소-1"
+      ]
+    }
+  ],
+  "issues": []
+}

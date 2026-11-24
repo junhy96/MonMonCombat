@@ -1,0 +1,101 @@
+{
+  "no": "028",
+  "name": "레오링",
+  "grade": "전설",
+  "stars": 5,
+  "maxLevel": 50,
+  "role": "방어",
+  "range": "근거리",
+  "element": "얼음",
+  "stats": {
+    "hp": 7619,
+    "atk": 345,
+    "def": 619,
+    "spd": 99,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "서리 송곳니",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를입히고, 현재체력%가 가장 낮은 아군1명을 4% 확률로그 아군 최대 체력의20%만큼1 치유한다.",
+      "damageBase": "자신의 방어력",
+      "otherBases": [
+        "치유량: 대상의 체력"
+      ],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+10%",
+        "LV 3 치유량+10%",
+        "LV 4 피해량 +10%",
+        "LV 5 치유량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "눈보라 질주",
+      "cooldownTurns": null,
+      "desc": "모든 적에게 피해를 입힌다. [5턴에 한 번] 피해를입은 적에게 각각 75% 확률로 2턴 간 [속도-30%] 디버프를 부여한다.",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "속도 감소 (강)",
+          "turns": 2,
+          "cooldownTurns": 5
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+10%",
+        "LV 3 효과 확률 +10%",
+        "LV 4 피해량+10%",
+        "LV 5 효과 확률 +15%",
+        "LV 6 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "설원의 격려",
+      "cooldownTurns": 5,
+      "desc": "스킬을 발동한후, 모든 아군에게 2턴간 [속도+30%] 버프를부 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "속도 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 금"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "수호자의 부름",
+      "cooldownTurns": 6,
+      "desc": "스킬을 발동하기 전, 전투 이탈 상태의 아군 1명을 최대 체력의50%로 부활시키고, 2턴 간 [아군 보호 50%] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "아군 보호 (강)",
+          "turns": null,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간",
+        "LV 3 대기시간"
+      ]
+    }
+  ],
+  "issues": [
+    "수호자의 부름: 아군 보호 (강) 지속 턴 못 읽음"
+  ]
+}

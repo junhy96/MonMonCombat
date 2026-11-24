@@ -1,0 +1,89 @@
+{
+  "no": "195",
+  "name": "베리리",
+  "grade": "레어",
+  "stars": 3,
+  "maxLevel": 30,
+  "role": "제어",
+  "range": "근거리",
+  "element": "얼음",
+  "stats": {
+    "hp": 3155,
+    "atk": 223,
+    "def": 192,
+    "spd": 98,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "맞보기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입히고, 근 적에게 4% 확률로1턴간 [공격력-50%] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "공격력 감소 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량 +5%",
+        "LV 4 피해량 +5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "혈당 스파이크",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 피해를 입힌다. [4턴에 한 번] 피해를입은 적에게 50% 확률로 1턴 간[기절], [버프 차단] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "기절",
+          "turns": 1,
+          "cooldownTurns": 4
+        },
+        {
+          "name": "버프 차단",
+          "turns": 1,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 효과 확률 +5%",
+        "LV 3 효과 확률+5%",
+        "LV 4 효과 확률 +5%",
+        "LV 5 효과 확률+5%",
+        "LV 6 효과확률+5%",
+        "LV 7 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "금든 걸음",
+      "cooldownTurns": 5,
+      "desc": "스킬 피해를 입힌 후, 그 적에게 75% 확률로 2턴간 [속도-30%] 디버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "속도 감소 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소-1"
+      ]
+    }
+  ],
+  "issues": []
+}

@@ -1,0 +1,58 @@
+{
+  "no": "280",
+  "name": "크리미",
+  "grade": "일반",
+  "stars": 1,
+  "maxLevel": 10,
+  "role": "방어",
+  "range": "근거리",
+  "element": "얼음",
+  "stats": {
+    "hp": 1278,
+    "atk": 41,
+    "def": 79,
+    "spd": 94,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "눈덩이 편치",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "냉각 타격",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 피해를 입힌다. [5턴에 한 번] 피해를입은 적에게50% 확률로 2턴 간 [속도-15%] 디버프를 부여한다.",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "속도 감소 (약)",
+          "turns": 5,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +10%",
+        "LV 3 효과 확률 +10%",
+        "LV 4 효과 확률 +15%",
+        "LV 5 대기시간 감소-1"
+      ]
+    }
+  ],
+  "issues": []
+}

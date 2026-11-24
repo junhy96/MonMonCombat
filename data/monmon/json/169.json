@@ -1,0 +1,84 @@
+{
+  "no": "169",
+  "name": "다크마",
+  "grade": "레어",
+  "stars": 3,
+  "maxLevel": 30,
+  "role": "제어",
+  "range": "근거리",
+  "element": "화염",
+  "stats": {
+    "hp": 3155,
+    "atk": 231,
+    "def": 185,
+    "spd": 101,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "뒷발차기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량",
+        "LV 4 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "마그마 질주",
+      "cooldownTurns": null,
+      "desc": "전방 범위 내 적에게 피해를 입힌다. [4턴에 한 번] 피해를 입은 적마다 각각 75%호 확률로 2턴 간 [속도-15%] 디버프를 부여하고, , 스킬 에너지를 20% 감소시킨다. 20%0 감소시킨나.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "속도 감소 (약)",
+          "turns": 2,
+          "cooldownTurns": 4
+        },
+        {
+          "name": "스킬 에너지 감소",
+          "turns": 4,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +10%",
+        "LV 3 효과 확률+10%",
+        "LV 4 피해량+10%",
+        "LV 5 효과 확률 +15%",
+        "LV 6 대기시간 감소-1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "검은 족쇄",
+      "cooldownTurns": 4,
+      "desc": "스킬을 발동한 후, 공격력이 가장 높은 적 1명에게 75% 확률로1턴간[ [기절] 디버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "기절",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 효과 확률 +10%",
+        "LV 3 효과 확률 +15%",
+        "LV 4 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": []
+}

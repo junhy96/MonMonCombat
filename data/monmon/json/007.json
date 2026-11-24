@@ -1,0 +1,98 @@
+{
+  "no": "007",
+  "name": "뽀알",
+  "grade": "전설",
+  "stars": 5,
+  "maxLevel": 50,
+  "role": "제어",
+  "range": "근거리",
+  "element": "야수",
+  "stats": {
+    "hp": 10355,
+    "atk": 242,
+    "def": 551,
+    "spd": 101,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "덥석물기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게피 피해를입히고, 그 적에게 3% 확률로 [버프] 1개를 훔친다.",
+      "damageBase": "[자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "와락 덮치기",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 피해를 입힌다. [4턴에 한 번] 피해를 입은 적에게 180% 확률로 1턴 간 디버프를 부여한다. 모든 적에게 각각 80% 확률로 2턴 간 [방어력-60%] [효과명중-50%] 디버프를 부여한다.",
+      "damageBase": "[자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "기절",
+          "turns": 1,
+          "cooldownTurns": 4
+        },
+        {
+          "name": "방어력 감소 (강)",
+          "turns": 2,
+          "cooldownTurns": 4
+        },
+        {
+          "name": "효과명중 감소 (강)",
+          "turns": 2,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량+5%",
+        "LV 3 피해량",
+        "LV 4 효과 확률 +10%",
+        "LV 5 효과 확률 +10%",
+        "LV 6 피해량",
+        "LV 7 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "시원한 포효",
+      "cooldownTurns": 5,
+      "desc": "스킬을 발동하기 전, 자신이 [디버프]를 보유하고 있다면 자신의 모든 [디버프]를 제거하고, 자신최대 체력의 30%만큼 자신을 치유한다.",
+      "damageBase": null,
+      "otherBases": [
+        "치유량: 자신의 체력"
+      ],
+      "effects": [],
+      "levels": [
+        "LV 2 치유량+5%",
+        "LV 3 치유량 +10%",
+        "LV 4 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "얌체 발돔",
+      "cooldownTurns": 4,
+      "desc": "적에게 디버프를 부여한후, 그 적의 [버프] 2개를 훔친다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 대기시간"
+      ]
+    }
+  ],
+  "issues": []
+}

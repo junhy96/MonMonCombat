@@ -1,0 +1,59 @@
+{
+  "no": "270",
+  "name": "좀비링",
+  "grade": "일반",
+  "stars": 1,
+  "maxLevel": 10,
+  "role": "공격",
+  "range": "원거리",
+  "element": "언데드",
+  "stats": {
+    "hp": 968,
+    "atk": 83,
+    "def": 54,
+    "spd": 101,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "뼈다귀 강타",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "날카로운뼈",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다. [5턴에 한 번] 피해를 입히기 전, , 자신에게 2턴 간 [치명확률 +15%] 버프를 부여한다. [ㄴ]",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "치명확률 증가 (약)",
+          "turns": 5,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량 +10%",
+        "LV 5 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": []
+}

@@ -1,0 +1,99 @@
+{
+  "no": "056",
+  "name": "뭉치뿔",
+  "grade": "전설",
+  "stars": 5,
+  "maxLevel": 50,
+  "role": "방어",
+  "range": "근거리",
+  "element": "얼음",
+  "stats": {
+    "hp": 9786,
+    "atk": 316,
+    "def": 508,
+    "spd": 98,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "설산주먹",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입히고, 자신에게3% 확률로1턴간[ [보호막] 버프(자신 최대체력의 20%)를 부여한다. [A] [11/ 3 피해라 +100]",
+      "damageBase": "자신의 체력",
+      "otherBases": [
+        "보호막: 자신의 체력"
+      ],
+      "effects": [
+        {
+          "name": "보호막",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "눈사태",
+      "cooldownTurns": null,
+      "desc": "모든 적에게 피해를 입힌다. [4턴에 한 번] 피해를 입히기 전, 공격력이 가장 높은 적 1명에게 75%확률로 자신의 모든 [디버프]를 이전한다. 피해를 입은 적에게 각각 75% 확률로 2턴 간 [속도-30%] 디버프를 부여한다. [속노 -30% 니버프들 무여안나. [독노-30%0] 니머프들 누어안나.",
+      "damageBase": "자신의 체력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "속도 감소 (강)",
+          "turns": 2,
+          "cooldownTurns": 4
+        },
+        {
+          "name": "디버프 이전",
+          "turns": 4,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+10%",
+        "LV 3 효과 확률 +10%",
+        "LV 4 피해량+10%",
+        "LV 5 효과 확률 +15%",
+        "LV 6 대기시간 감소 -1",
+        "LV 3 효과 확률 +10%",
+        "LV 4 피해량",
+        "LV 5 효과 확률 +15%"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "강인한 생명력",
+      "cooldownTurns": 1,
+      "desc": "자신에게 [버프]가 부여된 후, 자신의 최대 체력이 5% 증가한다. (최대 30%) 자신에게 I [버프]가 부여된 후, 자신의 최대 체력이",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": []
+    },
+    {
+      "slot": "패시브",
+      "name": "거대한 활력",
+      "cooldownTurns": 4,
+      "desc": "자신에게 [버프]가 부여된 후, 자신을 자신 최대 체력의 30%만큼 치유한다. 자신의 스킬 에너지를15% 증가시킨다.",
+      "damageBase": null,
+      "otherBases": [
+        "치유량: 자신의 체력"
+      ],
+      "effects": [],
+      "levels": [
+        "LV 2 치유량",
+        "LV 3 치유량",
+        "LV 4 대기시간 감소-1"
+      ]
+    }
+  ],
+  "issues": []
+}

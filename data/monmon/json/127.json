@@ -1,0 +1,96 @@
+{
+  "no": "127",
+  "name": "아삭",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "방어",
+  "range": "근거리",
+  "element": "야수",
+  "stats": {
+    "hp": 5128,
+    "atk": 216,
+    "def": 432,
+    "spd": 98,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "사과 박치기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게피 피해를입히고, 4% 확률로 1턴간 [공격력-50%] 디버프를 부여한다.",
+      "damageBase": ":[자신의 방어력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "공격력 감소 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량 +5%",
+        "LV 4 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "와그작 땅울림",
+      "cooldownTurns": null,
+      "desc": "모든 적에게 피해를 입힌다. [4턴에 한 번] 모든ㅇ 아군에게 각각 2턴 간 [방어력 +60%] 버프를 부여한다. 모든 아군에게 각각 2턴 간 [방어력+60%]",
+      "damageBase": "자신의 방어력 / | [자신의 방어력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "방어력 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량",
+        "LV 4 피해량",
+        "LV 5 피해량",
+        "LV 6 대기시간"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "잎사귀 돌봄",
+      "cooldownTurns": 4,
+      "desc": "스킬을 발동한 후, 현재 체력 %가 가장 낮은 아군을 자신 최대 체력의 15%만큼 치유한다. 그 아군의 체력이50% 미만이라면 자신 최대 체력의 15%만큼 추가 치유한다.",
+      "damageBase": null,
+      "otherBases": [
+        "치유량: 자신의 체력"
+      ],
+      "effects": [],
+      "levels": [
+        "LV 2 치유량+5%",
+        "LV 3 치유량+5%"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "고요한 황금사과",
+      "cooldownTurns": null,
+      "desc": "기본공격 피해를 입힌후, [공격력 감소] 디버프 상태의 그 적에게 5%확률로 1턴간 디버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "침묵",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": []
+    }
+  ],
+  "issues": []
+}

@@ -1,0 +1,108 @@
+{
+  "no": "132",
+  "name": "뽀송이",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "제어",
+  "range": "원거리",
+  "element": "곤충",
+  "stats": {
+    "hp": 5852,
+    "atk": 273,
+    "def": 329,
+    "spd": 100,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "비단구슬",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입히고, 그 적에게 3% 확률로1턴간[독5%] 디버프를 부여한다",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "독 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+10%",
+        "LV 3 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "고치 터뜨리기",
+      "cooldownTurns": null,
+      "desc": "모든 적에게 피해를입힌다. [4턴에 한 번] 모든 아군에게 2턴 간 [공격력+50%] 버프를 부여한다. 모든 아군에게 2턴 간 [보호막] 버프(자신 최대 체력의 12%)를 부여한다. 모는 아군에게 2런 [보호리] 미프사션 최내 체력의: 12%)를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [
+        "보호막: 자신의 [체력",
+        "보호막: 자신의 체력"
+      ],
+      "effects": [
+        {
+          "name": "공격력 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": 4
+        },
+        {
+          "name": "보호막",
+          "turns": 2,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 ",
+        "LV 4 피해량",
+        "LV 4 피해량 +10%",
+        "LV 5 보호막 증가 +10%",
+        "LV 6 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "졸음 가루",
+      "cooldownTurns": 3,
+      "desc": "스킬을 발동한후, 공격력이? |가장 높은 적 1명에게 75% 확률로 1턴간 [기절] 디버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "기절",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 효과 확률 +10%",
+        "LV 3 효과 확률 +15%",
+        "LV 4 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "되살림의 빛",
+      "cooldownTurns": 6,
+      "desc": "스킬을 발동하거나 적이 전투에서 이탈한후, 전투 이탈상태의 아군 1명을 최대 체력의 50%로 부활시킨다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 대기시간",
+        "LV 3 대기시간"
+      ]
+    }
+  ],
+  "issues": [
+    "고치 터뜨리기: 글자 확신 낮음 \"미프사션\" (0.58)"
+  ]
+}

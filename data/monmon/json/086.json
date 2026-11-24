@@ -1,0 +1,100 @@
+{
+  "no": "086",
+  "name": "비커링",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "지원",
+  "range": "원거리",
+  "element": "독",
+  "stats": {
+    "hp": 5895,
+    "atk": 276,
+    "def": 304,
+    "spd": 94,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "응원 물총",
+      "cooldownTurns": null,
+      "desc": "가까운 적1명에게 피해를입히고, ! 모든 아군에게 각각 4% 확률로 스킬 에너지를10% 증가시킨다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량",
+        "LV 4 피해량",
+        "LV 5 피해량"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "독약 흔들기",
+      "cooldownTurns": null,
+      "desc": "공격력이 가장 높은 적 1명에게 피해를 입힌다. [4턴에 한 번] 피해를 입은 적에게 75% 확률로 2턴 간[독5%] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "독 (강)",
+          "turns": 2,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 효과 확률 +10%",
+        "LV 4 피해량+5%",
+        "LV 5 효과 확 +5%",
+        "LV 6 피해량+5%",
+        "LV 7 피해량+5%",
+        "LV 8 효과 확 +10%",
+        "LV 9 대기시간 감소 -1",
+        "LV 3 효과 확률 +10%",
+        "LV 4 피해량 +5%",
+        "LV 5 효과 확 +5%"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "맥 빠지는 독기",
+      "cooldownTurns": 5,
+      "desc": "적에게[독] 디버프를 부여한 후, [독]디버프 상태의 모든 적에게 75% 확률로 2턴 간 [공격력-50%] 디버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "공격력 감소 (강)",
+          "turns": null,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 효과 확률+25%",
+        "LV 3 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "되살림 한 모금",
+      "cooldownTurns": 6,
+      "desc": "디버프 상태의 적이 전투에서 이탈한후, 전투 이탈 상태의 아군 1명을 최대 체력의5 50%, 스킬 에너지 50%로 부활시킨다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 대기시간",
+        "LV 3 대기시간 감소-1"
+      ]
+    }
+  ],
+  "issues": [
+    "맥 빠지는 독기: 공격력 감소 (강) 지속 턴 못 읽음"
+  ]
+}

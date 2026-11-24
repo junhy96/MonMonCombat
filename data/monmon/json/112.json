@@ -1,0 +1,91 @@
+{
+  "no": "112",
+  "name": "혼토이",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "지원",
+  "range": "원거리",
+  "element": "언데드",
+  "stats": {
+    "hp": 4514,
+    "atk": 354,
+    "def": 319,
+    "spd": 99,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "북소리 일격",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를입히고, 무작위 아군에게 4%확률로1턴간 [공격력+50%] 버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "공격력 증가 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "전투행진곡",
+      "cooldownTurns": null,
+      "desc": "자신을 제외한 무작위 아군 3명의 스킬 에너지를 12% 증가시킨다. [5턴에 한 번] 모든 아군에게 3턴 간 [ [방어력+60%] 버프를 부여한다. [전투행신곡Level1] 모든 아군에게 3턴 간 [방어력 +60%] 버프를",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "방어력 증가 (강)",
+          "turns": 3,
+          "cooldownTurns": 5
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "신나는 리듬",
+      "cooldownTurns": 3,
+      "desc": "스킬을 발동한 후, 자신의 스킬에너지가20% 증가한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "침묵의 행진",
+      "cooldownTurns": 5,
+      "desc": "스킬을 발동한 후, 모든 적에게 1턴 간[ 디버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "침묵",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소-1",
+        "LV 3 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": []
+}

@@ -1,0 +1,77 @@
+{
+  "no": "147",
+  "name": "툼스컬",
+  "grade": "레어",
+  "stars": 3,
+  "maxLevel": 30,
+  "role": "제어",
+  "range": "근거리",
+  "element": "유령",
+  "stats": {
+    "hp": 3138,
+    "atk": 202,
+    "def": 204,
+    "spd": 99,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "까칠한 유령",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입히고, 그 적에게4% 확률로1턴간 [부활 차단] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "부활 차단",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량 +5%",
+        "LV 4 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "축복 벗기기",
+      "cooldownTurns": null,
+      "desc": "모든 적에게 피해를 입힌다. [4턴에 한 번] [버프]가 3개 미만인 적에게 각각 50% 확률로 [버프] 1개를 제거한다. [버프]가 3개 이상인 적에게 각각 50%확률로 모든 [버프]를 제거한다. [버프]가 3개 이상인 적에게 |각각 50%확률로",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량 +10%",
+        "LV 3 효과 확률+10%",
+        "LV 4 피해량+10%",
+        "LV 5 효과 확률 +15%",
+        "LV 6 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "저승길 안내원",
+      "cooldownTurns": 4,
+      "desc": "치명타 피해를 받은 후, 모든 적에게 2턴 간 [받는 피해량+15%] 디버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "받는 피해량 증가 (약)",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": []
+}

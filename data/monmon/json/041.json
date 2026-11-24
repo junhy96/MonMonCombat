@@ -1,0 +1,100 @@
+{
+  "no": "041",
+  "name": "아울링",
+  "grade": "전설",
+  "stars": 5,
+  "maxLevel": 50,
+  "role": "지원",
+  "range": "원거리",
+  "element": "얼음",
+  "stats": {
+    "hp": 8217,
+    "atk": 400,
+    "def": 527,
+    "spd": 103,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "고드름 화살",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를입히고, 모든 아군에게 각각 4% 확률로 스킬 에너지를10% 증가시킨다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량",
+        "LV 4 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "치유의 깃털비",
+      "cooldownTurns": null,
+      "desc": "가까운 적1명에게 5회 피해를 입힌다. [4턴에 한 번] 모든 아군을 자신 최대 체력의 10%만큼 치유한다. [버프]를 3개 이상 보유한 모든 아군에게 1턴 간 [지속 치유 15%] 버프를 부여한다. [디버프]를 3개 이상 보유한 모든 아군에게 1턴 간 [디버프 차단] 버프를 부여한다. [ITT 아군에게 1턴 간] [디버프]를 3개 이상 보유한 모든 [11J]",
+      "damageBase": "자신의 공격력",
+      "otherBases": [
+        "치유량: 자신의 체력"
+      ],
+      "effects": [
+        {
+          "name": "지속 치유 (강)",
+          "turns": 1,
+          "cooldownTurns": 4
+        },
+        {
+          "name": "디버프 차단",
+          "turns": 1,
+          "cooldownTurns": 4
+        },
+        {
+          "name": "치유",
+          "turns": 4,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +10%",
+        "LV 3 피해량 +10%",
+        "LV 4 치유량 +10%",
+        "LV 5 치유량+10%",
+        "LV 6 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "겨울잠 깨우기",
+      "cooldownTurns": 6,
+      "desc": "스킬을 발동하기 전, 전투 이탈 상태의 아군이 있다면 모두 최대 체력의 50%로 부활시킨다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 대기시간 감소 -1",
+        "LV 3 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "날개 아래 품기",
+      "cooldownTurns": 1,
+      "desc": "아군이 부활한 후, 그 아군의 스킬 에너지를15% 증가시키고, 그 아군에게 1턴 간 [피해 차단] 버프를 부여한다. 증가시키고, , 그아군에게1턴 간 [피해 차단] 버프를",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "피해 차단",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": []
+    }
+  ],
+  "issues": []
+}

@@ -1,0 +1,70 @@
+{
+  "no": "155",
+  "name": "젬파이더",
+  "grade": "레어",
+  "stars": 3,
+  "maxLevel": 30,
+  "role": "공격",
+  "range": "원거리",
+  "element": "암석",
+  "stats": {
+    "hp": 3061,
+    "atk": 263,
+    "def": 157,
+    "spd": 95,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "거미줄구슬",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입히고, 그 적에게 4% 확률로스킬 에너지를10% 감소시킨다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량",
+        "LV 4 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "지항 암석",
+      "cooldownTurns": null,
+      "desc": "체력이 가장 높은 적 1명에게 피해를 입힌다. [4턴에 한 번] 피해를 입은 적이[독] 디버프 상태라면 50%, 아니라면 25% 확률로1턴간 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량 +10%",
+        "LV 3 효과 확률+10%",
+        "LV 4 효과 확률 +15%",
+        "LV 5 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "암석독침",
+      "cooldownTurns": 3,
+      "desc": "디버프 상태의 적에게 피해를 입힌 후, 그 적에게 1턴간 디버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "독 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소-1"
+      ]
+    }
+  ],
+  "issues": []
+}

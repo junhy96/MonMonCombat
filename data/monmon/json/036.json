@@ -1,0 +1,100 @@
+{
+  "no": "036",
+  "name": "벗꼬미",
+  "grade": "전설",
+  "stars": 5,
+  "maxLevel": 50,
+  "role": "지원",
+  "range": "원거리",
+  "element": "바람",
+  "stats": {
+    "hp": 8292,
+    "atk": 380,
+    "def": 542,
+    "spd": 101,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "봄의 노래",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를입힌다. 그 적의 [버프]가 4개 이상이라면, 4% 확률로 스킬 에너지를20% 감소시킨다.",
+      "damageBase": "[자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "함성의 노래",
+      "cooldownTurns": null,
+      "desc": "모든 적에게 피해를 입힌다. [3턴에 한번] 모든 아군에게 1턴 간 [속도 +30%] [효과명중 +50%] 버프를 부여한다. [요과명중 +50%0 버프들 누어안나.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "속도 증가 (강)",
+          "turns": 1,
+          "cooldownTurns": 3
+        },
+        {
+          "name": "효과명중 증가 (강)",
+          "turns": 1,
+          "cooldownTurns": 3
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 피해량+5%",
+        "LV 6 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "예리한 시야",
+      "cooldownTurns": 4,
+      "desc": "스킬을 발동한 후, 모든 아군에게 2턴7 간 [치명확률 +30%] 버프를, [버프]가 4개 이상인드 모든 아군에게2턴간 [치명피해 +30%] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "치명확률 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        },
+        {
+          "name": "치명피해 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "만개의 축복",
+      "cooldownTurns": 3,
+      "desc": "자신에게 [버프]가 부여된 후, 모든 아군의 스킬 에너지를 20% 증가시킨다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 대기시간"
+      ]
+    }
+  ],
+  "issues": [
+    "함성의 노래: 글자 확신 낮음 \"버프들 누어안나.\" (0.69)"
+  ]
+}

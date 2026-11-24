@@ -1,0 +1,99 @@
+{
+  "no": "139",
+  "name": "뿌지리",
+  "grade": "레어",
+  "stars": 3,
+  "maxLevel": 30,
+  "role": "제어",
+  "range": "원거리",
+  "element": "변이",
+  "stats": {
+    "hp": 3359,
+    "atk": 180,
+    "def": 212,
+    "spd": 96,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "점액발사",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+",
+        "LV 3 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "지저분한 폭발",
+      "cooldownTurns": null,
+      "desc": "공격력이 가장 높은 적 1명에게 피해를 입힌다. [5턴에 한 번] 피해를 입은 적에게 75% 확률로 2턴 간 [방어력-30%], [독2.5%] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "방어력 감소 (약)",
+          "turns": 2,
+          "cooldownTurns": 5
+        },
+        {
+          "name": "독 (약)",
+          "turns": 2,
+          "cooldownTurns": 5
+        },
+        {
+          "name": "독 (약)",
+          "turns": 5,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 효과 확+5%",
+        "LV 4 피해량",
+        "LV 5 효과 확+5%",
+        "LV 6 피해량+5%",
+        "LV 7 효과 확률 +5%",
+        "LV 3 효과 확률 +5%",
+        "LV 4 피해량+5%",
+        "LV 5 효과 확률+5%",
+        "LV 7 효과 확률 +5%",
+        "LV 8 피해량+5%",
+        "LV 9 효과 확률 +10%",
+        "LV 10 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "부패의 저주",
+      "cooldownTurns": 4,
+      "desc": "스킬 피해를 입힌 후, 그 적에게? 각각75%확률로 1턴간 [치유량-100%] 디버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "실명",
+          "turns": 1,
+          "cooldownTurns": null
+        },
+        {
+          "name": "치유량 감소 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": []
+}

@@ -1,0 +1,92 @@
+{
+  "no": "030",
+  "name": "뼈꼬미",
+  "grade": "전설",
+  "stars": 5,
+  "maxLevel": 50,
+  "role": "공격",
+  "range": "근거리",
+  "element": "유령",
+  "stats": {
+    "hp": 8996,
+    "atk": 387,
+    "def": 464,
+    "spd": 95,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "영혼착취",
+      "cooldownTurns": null,
+      "desc": "가까운 적1명에게 피해를 입히고, 15% 확률로 [보호막], [지속 치유] 버프를 제거하며, , 입힌 피해의 15%만큼 자신을 치유한다.",
+      "damageBase": ":[자신의 체력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량",
+        "LV 4 피해량",
+        "LV 5 피해량"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "파멸의 일격",
+      "cooldownTurns": null,
+      "desc": "모든 적에게 피해를 입힌다. [4턴에 한 번] 피해를 입은 적에게 각각 75% 확률로 [버프] 2개를 제거한다.",
+      "damageBase": "자신의 체력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "버프 제거",
+          "turns": 4,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+10%",
+        "LV 5 효과 확률 +10%",
+        "LV 6 효과 확률+15%",
+        "LV 7 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "사자의 예리함",
+      "cooldownTurns": 4,
+      "desc": "스킬을 발동한후, , 모든 아군에게 2턴 간[ [보호막] 버프(자신 방어력의2 230%)를 부여한다.",
+      "damageBase": null,
+      "otherBases": [
+        "보호막: 자신의 방어력"
+      ],
+      "effects": [
+        {
+          "name": "보호막",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 보호막",
+        "LV 3 보호막 증가 +10%"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "무방비 처형",
+      "cooldownTurns": null,
+      "desc": "[버프]가 없는 적에게 피해를입힐때, 끄 피해량이25% 증가한다. [버프]가 없는 적에게 피해를입힐 때, 피해량이25%",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": []
+    }
+  ],
+  "issues": []
+}

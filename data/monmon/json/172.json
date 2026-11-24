@@ -1,0 +1,77 @@
+{
+  "no": "172",
+  "name": "디아고스",
+  "grade": "레어",
+  "stars": 3,
+  "maxLevel": 30,
+  "role": "공격",
+  "range": "근거리",
+  "element": "유령",
+  "stats": {
+    "hp": 3285,
+    "atk": 229,
+    "def": 167,
+    "spd": 99,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "까칠한 유령",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게1 피해를입히고, 근 적에게 4% 확률로 1턴 !간 [방어력-30%] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "방어력 감소 (약)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량",
+        "LV 4 피해량 +5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "영혼 연타",
+      "cooldownTurns": null,
+      "desc": "모든 적에게 피해를 입힌다. 10% 확률로 피해를 1회 더 입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량",
+        "LV 4 피해량 +5%",
+        "LV 5 피해량+5%",
+        "LV 6 피해량+5%"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "시야차단",
+      "cooldownTurns": 4,
+      "desc": "스킬을 발동한후, 모든 적에게 75%확률로 1턴 간 디버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "실명",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": []
+}

@@ -1,0 +1,101 @@
+{
+  "no": "121",
+  "name": "프록스",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "공격",
+  "range": "원거리",
+  "element": "얼음",
+  "stats": {
+    "hp": 4703,
+    "atk": 433,
+    "def": 244,
+    "spd": 95,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "얼음발톱",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입히고, 자신에게 4% 확률로1턴간[ [효과명중 +50%] 버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "효과명중 증가 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량 +5%",
+        "LV 4 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "설원 폭풍",
+      "cooldownTurns": null,
+      "desc": "전방 범위 내 적에게 피해를 입힌다. [3턴에 한번] 피해를 입히기 전, 전방 범위 내 적의 [보호막] [아군 보호] 버프를제거한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "버프 제거",
+          "turns": 3,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +10%",
+        "LV 3 피해량 +10%",
+        "LV 4 대기시간 감소-1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "차가운 상처",
+      "cooldownTurns": 3,
+      "desc": "기본공격 피해를입힌 후, 그 적에게75% 확률로 1턴 간 [치유량-100%] 디버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "치유량 감소 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 효과 확률 +5%",
+        "LV 3 효과 확률 +10%",
+        "LV 4 효과 확률 +10%"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "설원의 사냥꾼",
+      "cooldownTurns": 4,
+      "desc": "기본공격 피해를입힌후, 자신에게 2턴 간 [치명확률+30%] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "치명확률 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": []
+}

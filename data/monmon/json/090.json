@@ -1,0 +1,101 @@
+{
+  "no": "090",
+  "name": "까악이",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "지원",
+  "range": "근거리",
+  "element": "독",
+  "stats": {
+    "hp": 4461,
+    "atk": 354,
+    "def": 322,
+    "spd": 94,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "지팡이 치기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를입히고, 모든아군을 4% 확률로 자신 최대 체력의 10%만큼 치유한다. [A]",
+      "damageBase": "자신의 공격력",
+      "otherBases": [
+        "치유량: 자신의 체력"
+      ],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+10%",
+        "LV 3 치유량+5%",
+        "LV 4 피해량",
+        "LV 5 치유량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "응급출동",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 피해를 입힌다. [4턴에 한 번] 현재 체력이 30% 미만인 모든 아군을 자신 최대 체력의 10%만큼 치유하고, 1턴간 [방어력 +60%] 버프를 부여한다. 치유한후, 현재 체력이 30% 이상인 모든 아군에게 1턴 !간 [보호막] 버프(자신 최대 체력의 15%)를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [
+        "치유량: 자신의 체력",
+        "보호막: 자신의 체력",
+        "치유량: 자신의 ¶체력"
+      ],
+      "effects": [
+        {
+          "name": "방어력 증가 (강)",
+          "turns": 1,
+          "cooldownTurns": 4
+        },
+        {
+          "name": "보호막",
+          "turns": 1,
+          "cooldownTurns": 4
+        },
+        {
+          "name": "치유",
+          "turns": 4,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 치유량+5%",
+        "LV 3 치유량",
+        "LV 4 치유량 +10%",
+        "LV 5 대기시간 감소-1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "마지막 처방",
+      "cooldownTurns": 6,
+      "desc": "아군이 전투에서 이탈한 후, 자신 이외에 생존한 아군이 없다면 전투 이탈 상태의 모든 아군을최대 체력의25%로 부활시킨다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 치유량",
+        "LV 3 치유량",
+        "LV 4 치유량",
+        "LV 5 대기시간",
+        "LV 6 대기시간:"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "오래가는 등물",
+      "cooldownTurns": 1,
+      "desc": "아군에게 [방어력 증가] 버프가 부여된 후, 그 아군의 모든 [버프]의 남은 턴을 1턴 증가시킨다. 아군에게 [방어력 역 증가] 버프가 부여된 후, 그 아군의",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": []
+    }
+  ],
+  "issues": []
+}

@@ -1,0 +1,68 @@
+{
+  "no": "217",
+  "name": "참새미",
+  "grade": "고급",
+  "stars": 2,
+  "maxLevel": 20,
+  "role": "지원",
+  "range": "원거리",
+  "element": "바람",
+  "stats": {
+    "hp": 1532,
+    "atk": 154,
+    "def": 115,
+    "spd": 95,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "사탕발사",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입힌다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "치유사탕 발사",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 5회 피해를 입힌다. [4턴에 한 번] 모든 아군에게 각각 체력을 자신 최대 체력의 20%만큼 치유한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [
+        "치유량: 자신의 체력"
+      ],
+      "effects": [
+        {
+          "name": "치유",
+          "turns": 4,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 치유량+5%",
+        "LV 4 피해량+5%",
+        "LV 5 치유량+5%",
+        "LV 6 피해량+5%",
+        "LV 7 치유량+5%",
+        "LV 8 피해량+5%",
+        "LV 2 피해량+5%",
+        "LV 3 치유량+5%",
+        "LV 8 피해량 +5%",
+        "LV 9 치유량+5%",
+        "LV 10 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": []
+}

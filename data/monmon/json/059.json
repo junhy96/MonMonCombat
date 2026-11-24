@@ -1,0 +1,94 @@
+{
+  "no": "059",
+  "name": "펀치머쉬",
+  "grade": "전설",
+  "stars": 5,
+  "maxLevel": 50,
+  "role": "공격",
+  "range": "근거리",
+  "element": "식물",
+  "stats": {
+    "hp": 9576,
+    "atk": 377,
+    "def": 435,
+    "spd": 101,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "포자 펀치",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입히고, 3% 확률로 1턴 간 [속도-30%] 디버프를 부여한다.",
+      "damageBase": "자신의 체력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "속도 감소 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +10%",
+        "LV 3 피해량 +10%",
+        "LV 4 피해량"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "버섯 난타",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 전방 범위 내 적에게 20회 피해를 입힌다. 입힌 피해의 일부만큼 자신을 치유한다. [4턴에 한 번] 피해를 입히기 전, 모든7 적에게 75% 확률로 2턴 간 [받는 피해량+25%] 디버프를 부여한다. 피해를 입히기 전, 모든 적에게 75% 확률로 2턴",
+      "damageBase": "자신의 체력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "받는 피해량 증가 (강)",
+          "turns": 4,
+          "cooldownTurns": null
+        },
+        {
+          "name": "받는 피해량 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 피해량",
+        "LV 4 효과 확률 +10%",
+        "LV 5 효과 확률+15%",
+        "LV 6 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "강타활력",
+      "cooldownTurns": null,
+      "desc": "치명타 피해를입힌후, 3% 확률로 자신의 스킬 에너지를 5% 증가시킨다. 치명타1 피해를입힌후, 3% 확률로 자신의 스킬",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": []
+    },
+    {
+      "slot": "패시브",
+      "name": "치명적인 포자",
+      "cooldownTurns": 4,
+      "desc": "스킬을 발동한 후, 전방 범위 내 적에게 추가 피해를 입힌다.",
+      "damageBase": "자신의 체력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량 +10%",
+        "LV 3 피해량+10%",
+        "LV 4 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": []
+}

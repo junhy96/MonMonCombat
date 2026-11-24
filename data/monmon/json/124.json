@@ -1,0 +1,90 @@
+{
+  "no": "124",
+  "name": "팝코니",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "제어",
+  "range": "근거리",
+  "element": "변이",
+  "stats": {
+    "hp": 4779,
+    "atk": 336,
+    "def": 319,
+    "spd": 96,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "특톡 박치기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입히고, 4%확률로1턴 간 [속도-30%] 디버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "속도 감소 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량 +5%",
+        "LV 4 피해량 +5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "팔콘 파티",
+      "cooldownTurns": null,
+      "desc": "모든 아군의 스킬 에너지를 10% 증가시킨다. [5턴에 한 번] 모든 아군에게 2턴 간 [속도 +30%] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "속도 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": 5
+        },
+        {
+          "name": "속도 증가 (강)",
+          "turns": 5,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소-1",
+        "LV 3 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "활력 전파",
+      "cooldownTurns": 5,
+      "desc": "스킬을발동한후, 모든: 적에게 각각 75% 확률로 스킬 에너지를 15% 감소시킨다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 효과 확+25%",
+        "LV 3 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "기세 몰이",
+      "cooldownTurns": null,
+      "desc": "기본공격 피해를 입힌 후, 자신이 [속도 증가] 버프 상태라면 4% 확률로 자신의 스킬 에너지를15% 증가시킨다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": []
+    }
+  ],
+  "issues": []
+}

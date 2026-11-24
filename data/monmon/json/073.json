@@ -1,0 +1,98 @@
+{
+  "no": "073",
+  "name": "버블램",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "지원",
+  "range": "원거리",
+  "element": "아쿠아",
+  "stats": {
+    "hp": 5414,
+    "atk": 336,
+    "def": 294,
+    "spd": 96,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "거품 축복",
+      "cooldownTurns": null,
+      "desc": "가까운 적1명에게1 피해를입힌다. [지속 치유] 버프 상태의 모든 아군을각각4% 확률로자신 최대체력의1 12%만큼 치유한다. [A]",
+      "damageBase": "자신의 공격력",
+      "otherBases": [
+        "치유량: 자신의 체력"
+      ],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 치유량+5%",
+        "LV 4 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "물거품 치유",
+      "cooldownTurns": null,
+      "desc": "[디버프]가 없는 모든 아군을 자신 최대체력의 5%만큼 치유한다. [4턴에 한 번] 모든 아군에게 2턴 간 [지속 치유 15%] 버프를 부여한다. [디버프]가입 없는 모든 아군에게 2턴 간 [효과저항 +50%] 버프를 부여한다. 모든ㅇ 아군에게 2턴 간 [지속 치유 15%] 버프를",
+      "damageBase": null,
+      "otherBases": [
+        "치유량: 자신의 체력"
+      ],
+      "effects": [
+        {
+          "name": "지속 치유 (강)",
+          "turns": 2,
+          "cooldownTurns": 4
+        },
+        {
+          "name": "효과저항 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "물사의 거품",
+      "cooldownTurns": null,
+      "desc": "전투를 시작할 때, 자신에게 2턴 간 [부활] ]버프를 [부여한다] 전투를 시작할 때, 자신에게 2턴 간 [부활] 버프를 [+] 부여한다. 전투를 시작할 때, 자신에게 2턴 간ㅣ [부활] 버프를",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "부활",
+          "turns": 2,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": []
+    },
+    {
+      "slot": "패시브",
+      "name": "수호거품",
+      "cooldownTurns": 3,
+      "desc": "스킬을발동한후, 방어력이? 가장 높은 아군에게 1턴 간 [피해 차단] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "피해 차단",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": []
+}

@@ -1,0 +1,82 @@
+{
+  "no": "105",
+  "name": "바느리",
+  "grade": "에픽",
+  "stars": 4,
+  "maxLevel": 40,
+  "role": "공격",
+  "range": "원거리",
+  "element": "아쿠아",
+  "stats": {
+    "hp": 4648,
+    "atk": 412,
+    "def": 269,
+    "spd": 101,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "물총쓰기",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입히고, 3%확률로 그 적의 [버프]1개를 훔친다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량",
+        "LV 4 피해량 +5%",
+        "LV 5 피해량+5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "물보라 분수",
+      "cooldownTurns": null,
+      "desc": "모든 적에게 피해를 입힌다. [4턴에 한 번] 모든 아군에게 각각 2턴 간 [공격력+50%] 버프를 부여한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "공격력 증가 (강)",
+          "turns": 2,
+          "cooldownTurns": 4
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량 +5%",
+        "LV 5 피해량+5%",
+        "LV 6 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "거품 속 날치기",
+      "cooldownTurns": 5,
+      "desc": "스킬을 발동하기 전, 공격력이 가장 높은 적 1명의 [버프] 1개를 훔친다 스킬을 발동한 후, 자신의 스킬에너지를30% 증가시킨다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 대기시간 감소 -1"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "파도의 기세",
+      "cooldownTurns": null,
+      "desc": "[버프]가 없는 적에게 피해를 입힐 때, 피해량이 15% 증가한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": []
+    }
+  ],
+  "issues": []
+}

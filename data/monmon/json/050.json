@@ -1,0 +1,87 @@
+{
+  "no": "050",
+  "name": "플레닉스",
+  "grade": "전설",
+  "stars": 5,
+  "maxLevel": 50,
+  "role": "공격",
+  "range": "근거리",
+  "element": "화염",
+  "stats": {
+    "hp": 6872,
+    "atk": 607,
+    "def": 411,
+    "spd": 98,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 5
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "작열 부리",
+      "cooldownTurns": null,
+      "desc": "가까운 적 1명에게 피해를 입히고, 3%확률로 1턴 간 [디버프를 부여한다]",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "기절",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량+10%",
+        "LV 3 피해량+10%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "물꽃 연사",
+      "cooldownTurns": null,
+      "desc": "가까운 적에게 이동 후, 전방 범위 내 적에게 5회 피해를입힌다. 이 피해는 방어력의 30%를 무시한다.",
+      "damageBase": "자신의 공격력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량+5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량 +5%",
+        "LV 5 피해량+5%"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "물멸의 존재",
+      "cooldownTurns": null,
+      "desc": "전투에서 이탈하고 1턴 후, 최대 체력의 100%, 스킬 에너지 75%로 부활한다. 에너지75%로부활한다",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [],
+      "levels": []
+    },
+    {
+      "slot": "패시브",
+      "name": "축복 봉쇄",
+      "cooldownTurns": 3,
+      "desc": "스킬을 발동하기 전, 모든 적에게 75% 확률로 1턴 간 [버프 차단] 디버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "버프 차단",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 효과 확률 +10%",
+        "LV 3 효과 확률 +15%",
+        "LV 4 대기시간 감소-1"
+      ]
+    }
+  ],
+  "issues": []
+}

@@ -1,0 +1,84 @@
+{
+  "no": "149",
+  "name": "고스령",
+  "grade": "레어",
+  "stars": 3,
+  "maxLevel": 30,
+  "role": "방어",
+  "range": "근거리",
+  "element": "유령",
+  "stats": {
+    "hp": 3507,
+    "atk": 177,
+    "def": 204,
+    "spd": 97,
+    "critRate": 15,
+    "critDmg": 50,
+    "effRes": 30,
+    "effAcc": 0
+  },
+  "skills": [
+    {
+      "slot": "기본공격",
+      "name": "까칠한 유령",
+      "cooldownTurns": null,
+      "desc": "가까운 적1명에게 피해를입히고, , 자신에게 4% 확률로1턴간 [피해반사30%] 버프를 부여한다.",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "피해 반사 (강)",
+          "turns": 1,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 피해량 +5%",
+        "LV 3 피해량+5%",
+        "LV 4 피해량 +5%"
+      ]
+    },
+    {
+      "slot": "스킬",
+      "name": "과민반응",
+      "cooldownTurns": null,
+      "desc": "모든 적에게 피해를입힌다. [4턴에 한 번] [버프]가 3개 미만인 적에게는 25%, 3개 이상인 적에게는 50% 확률로 각각 2턴간 [속도 -15%] 디버프를 부여한다. 적에게는 [비— ↓II 각각 2턴 간 7V9 [속도-15%] 50% 확률로",
+      "damageBase": "자신의 방어력",
+      "otherBases": [],
+      "effects": [],
+      "levels": [
+        "LV 2 피해량",
+        "LV 3 효과 확률 +5%",
+        "LV 4 효과 확률+5%",
+        "LV 5 피해량",
+        "LV 6 효과 확률+5%",
+        "LV 7 효과 확률 +10%",
+        "LV 8 대기시간"
+      ]
+    },
+    {
+      "slot": "패시브",
+      "name": "편애",
+      "cooldownTurns": 5,
+      "desc": "스킬 피해를 입힌 후, 공격력이가장높은 아군에게 2턴간 [아군 보호50%] 버프를 부여한다.",
+      "damageBase": null,
+      "otherBases": [],
+      "effects": [
+        {
+          "name": "아군 보호 (강)",
+          "turns": null,
+          "cooldownTurns": null
+        }
+      ],
+      "levels": [
+        "LV 2 대기시간",
+        "LV 3 대기시간 감소 -1"
+      ]
+    }
+  ],
+  "issues": [
+    "과민반응: 글자 확신 낮음 \"↓II\" (0.64)",
+    "과민반응: 글자 확신 낮음 \"7V9\" (0.51)",
+    "편애: 아군 보호 (강) 지속 턴 못 읽음"
+  ]
+}
