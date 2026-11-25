@@ -7,3 +7,4 @@ data/monmon/sheets/
 data/monmon/_testout/
 __pycache__/
 data/dungeons/_raw/**/*.png
+.ocrenv/
