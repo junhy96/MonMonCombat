@@ -27,10 +27,13 @@
   .tab[aria-selected="true"] { color: var(--text); border-bottom-color: var(--blue); }
   .tab:focus-visible, .band:focus-visible, .toggle:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
   .pane { padding: 0 8px 14px; display: flex; flex-direction: column; gap: 14px; }
-  .hero { position: relative; height: 210px; background: linear-gradient(180deg, #3a2f5c 0%, #5a3f72 45%, #2b2446 100%); overflow: hidden; }
-  .hero::after { content: ""; position: absolute; inset: auto 0 0; height: 60px; background: linear-gradient(0deg, rgba(16,21,42,.85), transparent); }
+  .hero { position: relative; aspect-ratio: 2000 / 1116; max-width: 100%; background: #2b2446; overflow: hidden; }
+  .hero-img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .hero-meta { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; padding: 0 6px; }
+  .hero-meta .race { margin-top: 0; }
+
   .hero-text { position: absolute; left: 22px; top: 52px; z-index: 1; display: flex; flex-direction: column; gap: 4px; }
-  .boss-name { font-family: var(--display); font-size: 48px; line-height: 1; -webkit-text-stroke: 1.5px #2a2a2a; paint-order: stroke fill; text-shadow: 0 3px 0 #1a1a1a; }
+  .boss-name { font-family: var(--display); font-size: 40px; line-height: 1; -webkit-text-stroke: 1.5px #2a2a2a; paint-order: stroke fill; text-shadow: 0 3px 0 #1a1a1a; }
   .boss-island { color: #d7c9ff; font-weight: 700; font-size: 15px; }
   .race { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
   .race-badge { width: 46px; height: 52px; background: #3c4a6b; border: 3px solid #1b2133; clip-path: polygon(50% 0, 100% 18%, 100% 72%, 50% 100%, 0 72%, 0 18%); display: grid; place-items: center; font-size: 22px; }
@@ -81,6 +84,10 @@
   .sw::after { content: ""; position: absolute; top: 4px; right: 4px; width: 20px; height: 20px; border-radius: 50%; background: #fff; transition: right .15s; }
   .toggle[aria-pressed="false"] .sw { background: #3a4266; } .toggle[aria-pressed="false"] .sw::after { right: 26px; }
   .skill { display: grid; grid-template-columns: 64px 1fr; gap: 6px 14px; align-items: center; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 16px 18px; }
+  .sk-img { width: 64px; height: 64px; border-radius: 50%; border: 3px solid #0d1120; object-fit: cover; box-shadow: 0 0 0 2px #8b4fd9; }
+  .sk-lockwrap { position: relative; width: 64px; height: 64px; }
+  .sk-lock { position: absolute; right: -4px; bottom: -4px; width: 26px; height: 26px; border-radius: 50%; background: #2b3045; border: 2px solid #0d1120; display: grid; place-items: center; }
+  .sk-unlock { display: inline-block; margin-left: 6px; font-size: 11.5px; font-weight: 900; color: #3b2300; background: var(--gold); border-radius: 999px; padding: 1px 8px; vertical-align: 2px; }
   .sk-ico { width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; border: 3px solid #0d1120; font-family: var(--display); font-size: 26px; color: #fff; }
   .k-기본공격 { background: radial-gradient(circle at 35% 30%, #7fd4ff, #1b6fb8); }
   .k-스킬 { background: radial-gradient(circle at 35% 30%, #c39bff, #5b2fb0); }
@@ -94,7 +101,7 @@
   .skill .t-key, .skill .t-boss, .skill .t-bad { border: 1.5px solid currentColor; border-radius: 4px; padding: 0 2px; }
   .skills { display: flex; flex-direction: column; gap: 12px; }
   [hidden] { display: none !important; }
-  @media (max-width: 420px) { .boss-name { font-size: 40px; } .hero svg { width: 190px; } .intro { font-size: 16px; } }
+  @media (max-width: 420px) { .boss-name { font-size: 34px; } .intro { font-size: 16px; } }
   @media (prefers-reduced-motion: no-preference) { .blob { animation: bob 3.2s ease-in-out infinite; transform-origin: center bottom; } .blob.b2 { animation-delay: -.8s; } .blob.b3 { animation-delay: -1.6s; } .blob.b4 { animation-delay: -2.4s; } }
   @keyframes bob { 0%, 100% { transform: translateY(0) scaleY(1); } 50% { transform: translateY(-3px) scaleY(1.03); } }
 </style>
@@ -110,21 +117,11 @@
 
     <div class="pane" id="pane-info" role="tabpanel" aria-labelledby="tab-info">
       <div class="hero">
-        <div class="hero-text">
-          <div class="boss-name" id="bossName"></div>
-          <div class="boss-island" id="bossIsland"></div>
-          <div class="race"><div class="race-badge" aria-hidden="true"><svg viewBox="0 0 64 64" width="34" height="34"><path d="M22 8 C42 20 22 44 42 56" fill="none" stroke="#1a1030" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 8 C42 20 22 44 42 56" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M42 8 C22 20 42 44 22 56" fill="none" stroke="#1a1030" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M42 8 C22 20 42 44 22 56" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M25 16 H39 M25 32 H39 M25 48 H39" fill="none" stroke="#1a1030" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M25 16 H39 M25 32 H39 M25 48 H39" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><small>종족</small><strong id="bossRace"></strong></div></div>
-        </div>
-        <svg viewBox="0 0 230 190" aria-hidden="true">
-          <ellipse cx="128" cy="178" rx="96" ry="9" fill="#120d22" opacity=".6"/>
-          <g class="blob"><path d="M78 176 C60 176 52 150 66 118 C80 84 104 66 126 66 C150 66 172 86 182 120 C194 154 184 176 166 176 Z" fill="#b56ce8" stroke="#2a1640" stroke-width="5"/>
-            <path d="M92 104 C100 86 116 80 128 82" stroke="#e6c9ff" stroke-width="7" stroke-linecap="round" fill="none" opacity=".8"/>
-            <circle cx="108" cy="128" r="9" fill="#1d1030"/><circle cx="146" cy="128" r="9" fill="#1d1030"/><circle cx="111" cy="125" r="3" fill="#fff"/><circle cx="149" cy="125" r="3" fill="#fff"/>
-            <path d="M114 150 Q127 160 140 150" stroke="#1d1030" stroke-width="5" fill="none" stroke-linecap="round"/></g>
-          <g class="blob b2"><ellipse cx="34" cy="166" rx="18" ry="14" fill="#c98af0" stroke="#2a1640" stroke-width="4"/><circle cx="28" cy="164" r="3" fill="#1d1030"/><circle cx="40" cy="164" r="3" fill="#1d1030"/></g>
-          <g class="blob b3"><ellipse cx="208" cy="168" rx="16" ry="12" fill="#a65ad9" stroke="#2a1640" stroke-width="4"/><circle cx="203" cy="166" r="3" fill="#1d1030"/><circle cx="214" cy="166" r="3" fill="#1d1030"/></g>
-          <g class="blob b4"><ellipse cx="196" cy="58" rx="13" ry="10" fill="#c98af0" stroke="#2a1640" stroke-width="3.5"/><ellipse cx="60" cy="62" rx="12" ry="9" fill="#a65ad9" stroke="#2a1640" stroke-width="3.5"/></g>
-        </svg>
+        <img class="hero-img" src="art/boss-banner.jpg" alt="쿼디 보스 그림 — 왕관을 쓴 보라색 젤리와 작은 조각들">
+      </div>
+      <div class="hero-meta">
+        <div><div class="boss-name" id="bossName"></div><div class="boss-island" id="bossIsland"></div></div>
+        <div class="race"><div class="race-badge" aria-hidden="true"><svg viewBox="0 0 64 64" width="34" height="34"><path d="M22 8 C42 20 22 44 42 56" fill="none" stroke="#1a1030" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 8 C42 20 22 44 42 56" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M42 8 C22 20 42 44 22 56" fill="none" stroke="#1a1030" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M42 8 C22 20 42 44 22 56" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M25 16 H39 M25 32 H39 M25 48 H39" fill="none" stroke="#1a1030" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M25 16 H39 M25 32 H39 M25 48 H39" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><small>종족</small><strong id="bossRace"></strong></div></div>
       </div>
       <div class="card"><p class="intro-label">이 보스는</p><p class="intro" id="intro"></p></div>
 
@@ -198,18 +195,25 @@
   }).join('');
 
   const KINDS = { '기본공격': 'b', '스킬': '', '패시브': 'p' };
+  const ART = { '젤리 몸통박치기': 'art/skill-body.png', '젤리 포탄': 'art/skill-shot.png', '젤리 해일': 'art/skill-wave.png', '사분열': 'art/skill-split.png', '다시 뭉치기': 'art/skill-split.png', '녹지 않는 젤리': 'art/skill-jelly.png' };
+  const LOCKED = { '반격 자세': '7단계부터' };
+  const LOCK_SVG = '<svg viewBox="0 0 24 24" width="15" height="15"><rect x="5" y="10" width="14" height="10" rx="2" fill="#c9ced9"/><path d="M8 10 V7 a4 4 0 0 1 8 0 V10" fill="none" stroke="#c9ced9" stroke-width="2.4"/></svg>';
+  const icoHtml = (s) => {
+    const base = ART[s.name] ? '<img class="sk-img" src="' + ART[s.name] + '" alt="">' : '<div class="sk-ico k-' + esc(s.kind) + '">' + (icons[s.name] ? '<svg viewBox="0 0 64 64" width="46" height="46">' + icons[s.name] + '</svg>' : esc(s.name.slice(0, 1))) + '</div>';
+    return LOCKED[s.name] ? '<div class="sk-lockwrap" aria-hidden="true">' + base + '<span class="sk-lock">' + LOCK_SVG + '</span></div>' : '<div aria-hidden="true">' + base + '</div>';
+  };
   function renderSkills(detail) {
     $('skills').innerHTML = guide.skills.filter((s) => detail || s.kind !== '패시브' || !['절대 면역', '몰아붙이기', '기회'].includes(s.name)).map((s) =>
-      '<div class="skill"><div class="sk-ico k-' + esc(s.kind) + '" aria-hidden="true">' + (icons[s.name] ? '<svg viewBox="0 0 64 64" width="46" height="46">' + icons[s.name] + '</svg>' : esc(s.name.slice(0, 1))) + '</div>'
-      + '<div><div class="sk-name">' + esc(s.name) + '</div><div class="sk-kind ' + KINDS[s.kind] + '">' + esc(s.kind) + '</div></div>'
+      '<div class="skill">' + icoHtml(s)
+      + '<div><div class="sk-name">' + esc(s.name) + (LOCKED[s.name] ? '<span class="sk-unlock">' + LOCKED[s.name] + '</span>' : '') + '</div><div class="sk-kind ' + KINDS[s.kind] + '">' + esc(s.kind) + '</div></div>'
       + '<p class="sk-desc">' + rich(s.desc) + '</p></div>').join('');
   }
   renderSkills(true);
   $('detail').addEventListener('click', (e) => { const on = e.currentTarget.getAttribute('aria-pressed') !== 'true'; e.currentTarget.setAttribute('aria-pressed', String(on)); renderSkills(on); });
 
   const tabs = [['tab-info', 'pane-info'], ['tab-skill', 'pane-skill']];
-  tabs.forEach(([t, p]) => $(t).addEventListener('click', () => {
-    tabs.forEach(([t2, p2]) => { $(t2).setAttribute('aria-selected', String(t2 === t)); $(p2).hidden = p2 !== p; });
-  }));
+  const openTab = (t, p) => tabs.forEach(([t2, p2]) => { $(t2).setAttribute('aria-selected', String(t2 === t)); $(p2).hidden = p2 !== p; });
+  tabs.forEach(([t, p]) => $(t).addEventListener('click', () => openTab(t, p)));
+  if (location.hash === '#boss-skills') openTab('tab-skill', 'pane-skill');
 })();
 </script>

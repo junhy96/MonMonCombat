@@ -36,6 +36,17 @@
   .sb-stagetbl { min-width: 880px; font-size: var(--cds-font-size-caption); }
   .sb-stagetbl td:nth-child(3) { text-align: left; white-space: nowrap; }
   .sb-bands { min-width: 520px; }
+  .sb-crit { min-width: 640px; }
+  .sb-crit th, .sb-crit td { text-align: left; vertical-align: top; }
+  .sb-crit td:nth-child(1) { white-space: nowrap; color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+  .sb-crit td:nth-child(2) { white-space: nowrap; font-weight: var(--cds-font-weight-medium); }
+  .sb-crit td:nth-child(3) { line-height: 1.5; }
+  .sb-chip { display: inline-block; white-space: nowrap; border-radius: 999px; padding: 1px 8px; font-size: var(--cds-font-size-caption); border: 1px solid var(--color-border-line); }
+  .sb-chip[data-b="관측"] { color: var(--color-ok); border-color: var(--color-ok); }
+  .sb-chip[data-b="사용자 결정"] { color: var(--color-fg); border-color: var(--color-fg); }
+  .sb-chip[data-b="기획값"] { color: var(--color-warn); border-color: var(--color-warn); }
+  .sb-chip[data-b="가정"] { color: var(--color-bad); border-color: var(--color-bad); }
+  .sb-chip[data-b="방식"] { color: var(--color-fg-muted); }
   .sb-details { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); max-width: 76ch; }
   .sb-details summary { cursor: pointer; color: var(--color-fg); }
   .sb-details ul { padding-left: 1.2em; display: flex; flex-direction: column; gap: 4px; }
@@ -47,6 +58,24 @@
     <p class="sb-lead">분열체 체력 14,000(중반 10단계 기준)에서 기준 파티는 <b data-draw="pct" data-k="base" data-source="sweep" data-field="clear" data-where="key=base&amp;hp=14000">—</b>%, 쥐강이 자리를 같은 화력으로 바꾼 대조군은 <b data-draw="pct" data-k="ctrl" data-source="sweep" data-field="clear" data-where="key=ctrl&amp;hp=14000">—</b>%를 이겨요. 같은 자리에 열쇠 몬몬을 넣으면 톡찌리 <b data-draw="pct" data-k="tok" data-source="sweep" data-field="clear" data-where="key=tok&amp;hp=14000">—</b>%, 몽실벌 <b data-draw="pct" data-k="mong" data-source="sweep" data-field="clear" data-where="key=mong&amp;hp=14000">—</b>%, 촛동 <b data-draw="pct" data-k="chot" data-source="sweep" data-field="clear" data-where="key=chot&amp;hp=14000">—</b>%예요. 이긴 판의 클리어 시간은 대조군 <b data-draw="sec" data-k="ctrl" data-source="sweep" data-field="time" data-where="key=ctrl&amp;hp=14000">—</b>초, 톡찌리 <b data-draw="sec" data-k="tok" data-source="sweep" data-field="time" data-where="key=tok&amp;hp=14000">—</b>초예요.</p>
     <p class="sb-meta">문항 2 · 에픽 열쇠 던전 · 4마리로 분열하고 시간 안에 다 못 잡으면 부활하는 보스 · 모든 몬몬이 빈 스킬 게이지로 시작 · 설정·파티·체력마다 1,000판</p>
   </header>
+
+  <section class="sb-sec" id="criteria">
+    <h2>시뮬레이션 기준</h2>
+    <p class="sb-note">어떤 값으로 어떻게 계산했는지예요. 근거는 <span class="sb-chip" data-b="관측">관측</span> 게임에서 본 값 · <span class="sb-chip" data-b="사용자 결정">사용자 결정</span> 기획자가 정한 규칙 · <span class="sb-chip" data-b="기획값">기획값</span> 시뮬레이션으로 고른 후보 · <span class="sb-chip" data-b="가정">가정</span> 확인 못 한 값 · <span class="sb-chip" data-b="방식">방식</span> 계산 방법으로 나눴어요.</p>
+    <div class="sb-tablewrap">
+      <table class="sb-table sb-crit" data-source="criteria" data-row-key="id">
+        <thead>
+          <tr>
+            <th data-field="group">구분</th>
+            <th data-field="item">항목</th>
+            <th data-field="value">값</th>
+            <th data-field="basis">근거</th>
+          </tr>
+        </thead>
+        <tbody data-draw="critTbl"></tbody>
+      </table>
+    </div>
+  </section>
 
   <section class="sb-sec" id="sweep">
     <h2>분열체 체력별 클리어율</h2>
@@ -140,6 +169,7 @@
             <th data-field="방어력">방어력</th>
             <th data-field="효과저항">효과저항</th>
             <th data-field="반격">반격</th>
+            <th data-field="속도 감소 최대 겹 (가까운 2명 −10%)">느려짐 (최대 겹)</th>
             <th data-field="반격 피해">반격 피해</th>
             <th data-field="글라틀 체력 (비교)">글라틀 체력</th>
           </tr>
@@ -298,6 +328,25 @@
     dash.draw('syncChart', (el) => grouped(el, dash.data('sync'), 'sync', (g) => g, '아군 속도 원래·전원 110·전원 120일 때 파티별 클리어율 묶음 막대 그래프 (분열체 15,000)'));
     dash.draw('stepsChart', (el) => grouped(el, dash.data('steps'), 'step', (s) => s + '단계', '설정 단계 1~5별 파티 클리어율 묶음 막대 그래프 (분열체 15,000)'));
 
+    dash.draw('critTbl', (el) => {
+      const d = dash.data('criteria');
+      el.replaceChildren();
+      if (d.status !== 'ok') {
+        if (d.status === 'error') { const tr = document.createElement('tr'); const td = document.createElement('td'); td.colSpan = 4; td.className = 'sb-fail'; td.textContent = '기준표를 불러오지 못했어요.'; tr.appendChild(td); el.appendChild(tr); }
+        return;
+      }
+      let last = '';
+      for (const r of d.data) {
+        const tr = document.createElement('tr');
+        tr.dataset.key = r.id;
+        const g = document.createElement('td'); g.textContent = r.group === last ? '' : r.group; last = r.group;
+        const it = document.createElement('td'); it.textContent = r.item;
+        const v = document.createElement('td'); v.textContent = r.value;
+        const b = document.createElement('td'); const chip = document.createElement('span'); chip.className = 'sb-chip'; chip.dataset.b = r.basis; chip.textContent = r.basis; b.appendChild(chip);
+        tr.append(g, it, v, b); el.appendChild(tr);
+      }
+    });
+
     dash.draw('bandsTbl', (el) => {
       const d = dash.data('bands');
       el.replaceChildren();
@@ -358,10 +407,10 @@
       const d = dash.data('stages');
       el.replaceChildren();
       if (d.status !== 'ok') {
-        if (d.status === 'error') { const tr = document.createElement('tr'); const td = document.createElement('td'); td.colSpan = 12; td.className = 'sb-fail'; td.textContent = '표의 데이터를 불러오지 못했어요.'; tr.appendChild(td); el.appendChild(tr); }
+        if (d.status === 'error') { const tr = document.createElement('tr'); const td = document.createElement('td'); td.colSpan = 13; td.className = 'sb-fail'; td.textContent = '표의 데이터를 불러오지 못했어요.'; tr.appendChild(td); el.appendChild(tr); }
         return;
       }
-      const cols = ['단계', '보스 레벨', '구간', '한 몸 체력', '분열체 체력 (1마리)', '전체 체력 (한 몸 + 4마리)', '분열체 공격력 (스탯 후보)', '방어력', '효과저항', '반격', '반격 피해', '글라틀 체력 (비교)'];
+      const cols = ['단계', '보스 레벨', '구간', '한 몸 체력', '분열체 체력 (1마리)', '전체 체력 (한 몸 + 4마리)', '분열체 공격력 (스탯 후보)', '방어력', '효과저항', '반격', '속도 감소 최대 겹 (가까운 2명 −10%)', '반격 피해', '글라틀 체력 (비교)'];
       const num = new Set(['한 몸 체력', '분열체 체력 (1마리)', '전체 체력 (한 몸 + 4마리)', '분열체 공격력 (스탯 후보)', '방어력', '반격 피해', '글라틀 체력 (비교)']);
       for (const r of d.data) {
         const tr = document.createElement('tr');
