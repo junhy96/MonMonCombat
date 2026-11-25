@@ -13,17 +13,17 @@ const SIM = 'tools/split-sim.mjs';
 const run = (env) => JSON.parse(execFileSync(process.execPath, [SIM], { env: { ...process.env, JSON: '1', START: '0', ...env }, encoding: 'utf8', maxBuffer: 1 << 24 }));
 const code = readFileSync(SIM, 'utf8');
 const OUT = 'docs/split-report';
-const REF_HP = '15000';
+const REF_HP = '12000';
 mkdirSync(OUT, { recursive: true });
 const codeMeta = { label: 'split-sim.mjs', value: code, type: 'code', lang: 'javascript' };
 const START_NOTE = { label: '시작 게이지', value: '모두 0에서 시작 (사용자 결정)' };
 
-const FINAL = { AOECUT: '0.5', SPLIT: '30000', PCOUNTER: '5000', CTARGET: 'user' };
-const sweep = run({ ...FINAL, HS: '8000,9000,10000,11000,12000,13000,14000,15000,16000' });
+const FINAL = { AOECUT: '0.5', SPLIT: '200000', PCOUNTER: '5000', CTARGET: 'user', PDMG: '0.25', RAMP: '0.1', SLOW: '10', SLOWN: '2', SLOWMAX: '2' };   // 중반 기준 (같은 투력·열쇠 없이 2분 30초~3분 목표)
+const sweep = run({ ...FINAL, HS: '9000,10000,11000,12000,13000,14000,15000' });
 writeFileSync(`${OUT}/sweep.json`, JSON.stringify({
   rows: sweep,
   meta: [
-    { label: '설정', value: 'AOECUT=0.5 SPLIT=30000 PCOUNTER=5000 CTARGET=user (다수 공격 피해 −50%, 한 몸 30,000 뒤 분열, 다수 공격을 쓴 몬몬에게 바로 단일 반격 5,000)' },
+    { label: '설정', value: '중반: ' + Object.entries(FINAL).map(([k, v]) => `${k}=${v}`).join(' ') + ' (다수 공격 피해 −50%, 한 몸 200,000 뒤 분열, 다수 공격을 쓴 몬몬에게 바로 단일 반격, 분열체 피해 ¼, 부활마다 +10%, 가까운 2명 속도 −10% 최대 2겹)' },
     START_NOTE,
     { label: '판 수', value: '설정·파티·체력마다 1,000판, 시드 4242' },
     codeMeta,
@@ -57,16 +57,16 @@ writeFileSync(`${OUT}/sync.json`, JSON.stringify({
 }));
 // 구간별 (split-stages.mjs 의 구간과 같은 설정, 10단계 투력 기준) — 분열체 체력 = 곡선 체력 115,332 × 구간 배율
 const BANDS = [
-  { band: '초반 1~6', order: 1, env: { AOECUT: '0.3', PCOUNTER: '0', SPLIT: '30000', CTARGET: 'user', HS: '13033' } },
-  { band: '중반 7~15', order: 2, env: { ...FINAL, HS: '14993' } },
-  { band: '후반 16~20', order: 3, env: { ...FINAL, HS: '16031' } },
+  { band: '초반 1~6', order: 1, env: { ...FINAL, AOECUT: '0.3', PCOUNTER: '0', SLOW: '0', HS: '10380' } },
+  { band: '중반 7~15', order: 2, env: { ...FINAL, HS: '11995' } },
+  { band: '후반 16~20', order: 3, env: { ...FINAL, SLOWMAX: '3', HS: '13033' } },
 ];
-const bands = BANDS.flatMap(b => run(b.env).map(r => ({ order: b.order, band: b.band, key: r.key, party: r.party, hp: r.hp, clear: r.clear })));
+const bands = BANDS.flatMap(b => run(b.env).map(r => ({ order: b.order, band: b.band, key: r.key, party: r.party, hp: r.hp, clear: r.clear, time: r.time })));
 writeFileSync(`${OUT}/bands.json`, JSON.stringify({
   rows: bands,
   meta: [
     { label: '설정', value: BANDS.map(b => `${b.band}: ${Object.entries(b.env).map(([k, v]) => `${k}=${v}`).join(' ')}`).join('\n') },
-    { label: '기준', value: '10단계 투력(사용자 파티 관측)으로 정규화, 분열체 체력 = 곡선 체력 115,332 × 구간 배율 (0.113 / 0.130 / 0.139)' },
+    { label: '기준', value: '10단계 투력(사용자 파티 관측)으로 정규화, 분열체 체력 = 곡선 체력 115,332 × 구간 배율 (0.090 / 0.104 / 0.113)' },
     START_NOTE, codeMeta,
   ],
 }));

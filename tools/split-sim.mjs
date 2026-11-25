@@ -35,6 +35,7 @@ const SYNC = E.SYNC ? +E.SYNC : 0;
 const PCT = E.PCT === '1';   // 분열체 피해를 맞는 몬몬 최대 체력 % 로 (고정 피해 대신)
 const PCTV = { basic: +(E.PCT_BASIC ?? 1), singleSkill: +(E.PCT_SINGLE ?? 11), aoeSkill: +(E.PCT_AOE ?? 6), counter: +(E.PCT_COUNTER ?? 38) };   // % — 고정 후보값(150·1,500·750·5,000) ÷ 파티 평균 체력 약 13,200
 const NOREFLPCT = E.NOREFLPCT === '1';
+const SLOW = +(E.SLOW ?? 0) / 100, SLOWN = +(E.SLOWN ?? 2), SLOWMAX = +(E.SLOWMAX ?? 1);   // 모든 적형 스킬에 [속도 감소]: 가까운 SLOWN 명, 한 겹당 SLOW%, 최대 SLOWMAX 겹(쌓일수록 점점 느려짐), 2턴 ≈ 30초
 const REFLMUL = +(E.REFLMUL ?? 0.16);   // 반사 피해도 공격한 분열체의 방어력에 깎임 (사용자 확인). 깎이는 비율은 관측 평타 ÷ 공격력(파이온 0.125·쥐강이 0.096·콘센파리 0.20·콜리킹 0.22)의 중앙값 약 0.16으로 추정   // % 피해는 반사되지 않음 (게임 규칙 모름 → 두 경우)   // >0: 아군 전원 속도를 이 값으로 맞춤 (속도 세트 등으로 속도를 맞춘 파티)
 const R4 = E.R4 === '1';   // [4턴에 한 번] 효과가 4번째 스킬에서 처음 나감 (기본: 첫 스킬부터)   // 아군 시작 게이지 0~START (1이면 게이지가 제각각 = 분열이 전투 중간에 일어난 상황)
 if (E.DAL) ALLY.딸랑귀.skill = +E.DAL;
@@ -53,7 +54,7 @@ function simulate(team, H, rnd) {
   const mult = () => Math.pow(1 + PIECE.ramp, revives);
   const aliveA = () => allies.filter(a => a.alive);
   const aliveP = () => pieces.filter(p => p.alive);
-  const spd = (a) => a.spd * (t < speedUntil ? 1.15 : 1);
+  const spd = (a) => a.spd * (t < speedUntil ? 1.15 : 1) * (t < (a.slowUntil ?? -1) ? Math.max(0.1, 1 - SLOW * a.slowStacks) : 1);
 
   const ed = (kind, a, m) => (PCT ? PCTV[kind] / 100 * a.max : PIECE[kind]) * m;   // 분열체가 a 에게 주는 피해
   function hitAlly(a, dmg, src, single) {
@@ -128,7 +129,10 @@ function simulate(team, H, rnd) {
       if (p.gauge >= 1) {
         p.gauge -= 1;
         if (p.type === 'single') { const a = pickAlly(); if (a) hitAlly(a, ed('singleSkill', a, m), p, true); }
-        else for (const a of aliveA()) hitAlly(a, ed('aoeSkill', a, m), p, false);
+        else {
+          for (const a of aliveA()) hitAlly(a, ed('aoeSkill', a, m), p, false);
+          if (SLOW > 0) for (const a of aliveA().slice(0, SLOWN)) { a.slowStacks = t < (a.slowUntil ?? -1) ? Math.min(SLOWMAX, (a.slowStacks || 0) + 1) : 1; a.slowUntil = t + BUFF_T; }
+        }
       }
     }
     // 반격 자세: 한 마리가 늘 자세, 그 턴(9.6초)이 끝날 때 다수 공격을 맞았으면 아군 전체 반격
