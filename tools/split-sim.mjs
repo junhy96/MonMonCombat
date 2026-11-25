@@ -23,13 +23,19 @@ const ALLY = {
   톡찌리: { hp: 12000, spd: 100, basic: 117, skill: 3876, kind: 'tok' },
   몽실벌: { hp: 12000, spd: 100, basic: 117, skill: 3876, kind: 'reflect' },   // 패시브 [달콤한 보답]: 아군이 반사한 뒤 그 아군을 몽실벌 최대 체력 1% 치유
   촛동: { hp: 13000, spd: 100, basic: 117, kind: 'stealth' },
+  대조군: { hp: 12000, spd: 100, basic: 117, skill: 3876, kind: 'single' },   // 열쇠 몬몬과 같은 체력·속도·화력, 열쇠 효과만 없음 — 열쇠 효과는 이것과 비교
 };
 
 // ── 분열체 (기획 후보값 — docs 「분열체 시작값 제안」) ──
 const E = process.env;
 const PD = +(E.PDMG ?? 1);   // 분열체 피해 배율 (기획값 조정용)
 const PIECE = { basic: +(E.PBASIC ?? 150) * PD, singleSkill: 1500 * PD, aoeSkill: 750 * PD, counter: +(E.PCOUNTER ?? 1250) * PD, ramp: +(E.RAMP ?? 0.25), aoeCut: +(E.AOECUT ?? 0.3) };
-const START = +(E.START ?? 0.3);
+const START = +(E.START ?? 1);   // 아군 시작 게이지 = 0 ~ START 사이 무작위. 게임: 몬몬마다 다름(사용자 확인), 값은 모름 → 기본 0~100%
+const SYNC = E.SYNC ? +E.SYNC : 0;
+const PCT = E.PCT === '1';   // 분열체 피해를 맞는 몬몬 최대 체력 % 로 (고정 피해 대신)
+const PCTV = { basic: +(E.PCT_BASIC ?? 1), singleSkill: +(E.PCT_SINGLE ?? 11), aoeSkill: +(E.PCT_AOE ?? 6), counter: +(E.PCT_COUNTER ?? 38) };   // % — 고정 후보값(150·1,500·750·5,000) ÷ 파티 평균 체력 약 13,200
+const NOREFLPCT = E.NOREFLPCT === '1';
+const REFLMUL = +(E.REFLMUL ?? 0.16);   // 반사 피해도 공격한 분열체의 방어력에 깎임 (사용자 확인). 깎이는 비율은 관측 평타 ÷ 공격력(파이온 0.125·쥐강이 0.096·콘센파리 0.20·콜리킹 0.22)의 중앙값 약 0.16으로 추정   // % 피해는 반사되지 않음 (게임 규칙 모름 → 두 경우)   // >0: 아군 전원 속도를 이 값으로 맞춤 (속도 세트 등으로 속도를 맞춘 파티)
 const R4 = E.R4 === '1';   // [4턴에 한 번] 효과가 4번째 스킬에서 처음 나감 (기본: 첫 스킬부터)   // 아군 시작 게이지 0~START (1이면 게이지가 제각각 = 분열이 전투 중간에 일어난 상황)
 if (E.DAL) ALLY.딸랑귀.skill = +E.DAL;
 const SPLIT = +(E.SPLIT ?? 0);   // >0: 처음엔 한 몸(체력 SPLIT)으로 싸우다 쓰러지면 4마리로 분열 — 첫 일제 사격을 한 몸이 받음
@@ -38,7 +44,7 @@ const CTARGET = E.CTARGET ?? 'user';   // user: 다수 공격을 쓴 그 몬몬 
 const HS = E.HS ? E.HS.split(",").map(Number) : [8000, 9500, 11000, 13000];
 
 function simulate(team, H, rnd) {
-  const allies = team.map(n => ({ n, ...ALLY[n], max: ALLY[n].hp, alive: true, shield: 0, gauge: rnd() * START, bt: rnd() * BASIC_T, casts: 0 }));
+  const allies = team.map(n => ({ n, ...ALLY[n], ...(SYNC ? { spd: SYNC } : {}), max: ALLY[n].hp, alive: true, shield: 0, gauge: rnd() * START, bt: rnd() * BASIC_T, casts: 0 }));
   const mk = (i) => ({ i, type: i % 2 ? 'aoe' : 'single', hp: H, alive: true, deadAt: 0, blockUntil: -1, vuln: -1, gauge: rnd() * 0.3, bt: rnd() * PIECE_BASIC_T, perm: false });
   let body = SPLIT > 0 ? { i: 0, type: 'single', hp: SPLIT, alive: true, deadAt: 0, blockUntil: -1, vuln: -1, gauge: rnd() * 0.3, bt: rnd() * PIECE_BASIC_T, perm: true, body: true } : null;
   let pieces = body ? [body] : [0, 1, 2, 3].map(mk);
@@ -49,12 +55,13 @@ function simulate(team, H, rnd) {
   const aliveP = () => pieces.filter(p => p.alive);
   const spd = (a) => a.spd * (t < speedUntil ? 1.15 : 1);
 
+  const ed = (kind, a, m) => (PCT ? PCTV[kind] / 100 * a.max : PIECE[kind]) * m;   // 분열체가 a 에게 주는 피해
   function hitAlly(a, dmg, src, single) {
     if (!a.alive) return;
     if (t < stealthUntil && a.n !== '촛동' && !single) dmg *= 0.9;   // 은신: 광역 피해 −10%
     const s = Math.min(a.shield, dmg); a.shield -= s; dmg -= s;
     a.hp -= dmg;
-    if (t < reflectUntil && src?.alive && dmg > 0) { hitPiece(src, dmg * 0.3, false); const mb = allies.find(x => x.n === '몽실벌' && x.alive); if (mb && a.alive) a.hp = Math.min(a.max, a.hp + mb.max * 0.01); }   // 반사 30% — 다수 공격 아님
+    if (t < reflectUntil && src?.alive && dmg > 0 && !(PCT && NOREFLPCT)) { hitPiece(src, dmg * 0.3 * REFLMUL, false); const mb = allies.find(x => x.n === '몽실벌' && x.alive); if (mb && a.alive) a.hp = Math.min(a.max, a.hp + mb.max * 0.01); }   // 반사 30% — 다수 공격 아님
     if (a.hp <= 0) a.alive = false;
   }
   function pickAlly() {
@@ -84,7 +91,7 @@ function simulate(team, H, rnd) {
       const d = a.crit && rnd() < a.crit ? a.critSkill : a.skill;
       const hitStance = !body && pieces[stance]?.alive;
       for (const p of aliveP()) { hitPiece(p, d, true); if (a.kind === 'aoeDebuff' && every4 && rnd() < 0.75) p.vuln = t + 2 * PIECE_SKILL_T; }
-      if (CTARGET === 'user' && hitStance) { counters++; const stealthed = t < stealthUntil && a.n !== '촛동'; if (!stealthed) hitAlly(a, PIECE.counter * mult(), pieces[stance], true); aoeInStance = false; nextStance(); }   // 다수 공격을 쓴 몬몬에게 바로 단일 반격 (은신이면 빗나감)
+      if (CTARGET === 'user' && hitStance) { counters++; const stealthed = t < stealthUntil && a.n !== '촛동'; if (!stealthed) hitAlly(a, ed('counter', a, mult()), pieces[stance], true); aoeInStance = false; nextStance(); }   // 다수 공격을 쓴 몬몬에게 바로 단일 반격 (은신이면 빗나감)
       else if (INSTANT && hitStance) { doCounter(pieces[stance]); aoeInStance = false; nextStance(); }   // 아군 전체 반격을 맞은 자리에서 바로
     } else if (a.kind === 'shieldSelf') { a.shield = a.max * 0.15; }
     else if (a.kind === 'tok') {
@@ -94,7 +101,7 @@ function simulate(team, H, rnd) {
   }
   const withGauge = (p) => { p.gaugeLeft = () => (1 - p.gauge) * PIECE_SKILL_T; return p; };   // 다음 자기 턴까지 남은 시간 → [부활 차단] 1턴이 줄어드는 시점
   pieces.forEach(withGauge);
-  function doCounter(sp) { counters++; const m = mult(); for (const a of aliveA()) hitAlly(a, PIECE.counter * m, sp, false); }
+  function doCounter(sp) { counters++; const m = mult(); for (const a of aliveA()) hitAlly(a, ed('counter', a, m), sp, false); }
   function nextStance() { stanceEnd = t + PIECE_SKILL_T; const live = aliveP(); const cur = pieces[stance]; if (live.length) stance = live[(live.indexOf(cur) + 1) % live.length]?.i ?? live[0].i; }
 
   while (t < MAX_T) {
@@ -116,12 +123,12 @@ function simulate(team, H, rnd) {
     // 분열체 공격
     const m = mult();
     for (const p of aliveP()) {
-      p.bt -= DT; if (p.bt <= 0) { p.bt += PIECE_BASIC_T; const a = pickAlly(); if (a) hitAlly(a, PIECE.basic * m, p, true); }
+      p.bt -= DT; if (p.bt <= 0) { p.bt += PIECE_BASIC_T; const a = pickAlly(); if (a) hitAlly(a, ed('basic', a, m), p, true); }
       p.gauge += DT / PIECE_SKILL_T;
       if (p.gauge >= 1) {
         p.gauge -= 1;
-        if (p.type === 'single') { const a = pickAlly(); if (a) hitAlly(a, PIECE.singleSkill * m, p, true); }
-        else for (const a of aliveA()) hitAlly(a, PIECE.aoeSkill * m, p, false);
+        if (p.type === 'single') { const a = pickAlly(); if (a) hitAlly(a, ed('singleSkill', a, m), p, true); }
+        else for (const a of aliveA()) hitAlly(a, ed('aoeSkill', a, m), p, false);
       }
     }
     // 반격 자세: 한 마리가 늘 자세, 그 턴(9.6초)이 끝날 때 다수 공격을 맞았으면 아군 전체 반격
@@ -140,8 +147,22 @@ const PARTIES = [
   ['열쇠: 톡찌리 (쥐강이 대신)', ['콜리킹', '딸랑귀', '톡찌리', '파이온', '콘센파리']],
   ['열쇠: 몽실벌 반사 (쥐강이 대신)', ['콜리킹', '딸랑귀', '몽실벌', '파이온', '콘센파리']],
   ['열쇠: 촛동 은신 (쥐강이 대신)', ['콜리킹', '딸랑귀', '촛동', '파이온', '콘센파리']],
+  ['대조군: 같은 화력, 열쇠 효과 없음 (쥐강이 대신)', ['콜리킹', '딸랑귀', '대조군', '파이온', '콘센파리']],
 ];
-const N = 1000;
+const N = +(E.N ?? 1000);
+const KEYS = ['base', 'tok', 'mong', 'chot', 'ctrl'];
+if (E.JSON === '1') {   // tools/split-report.mjs 가 읽는 기계용 출력
+  const out = [];
+  for (const [pi, [name, team]] of PARTIES.entries()) for (const H of HS) {
+    const rnd = mulberry32(4242);
+    const rs = Array.from({ length: N }, () => simulate(team, H, rnd));
+    const wins = rs.filter(r => r.win), times = wins.map(r => r.t).sort((a, b) => a - b);
+    const avg = (k) => +(rs.reduce((s, r) => s + r[k], 0) / N).toFixed(2);
+    out.push({ key: KEYS[pi], party: name, hp: H, clear: +(wins.length / N * 100).toFixed(1), time: times.length ? Math.round(times[times.length >> 1]) : null, revives: avg('revives'), counters: avg('counters'), deaths: avg('deaths') });
+  }
+  process.stdout.write(JSON.stringify(out));
+  process.exit(0);
+}
 console.log(`반격: ${CTARGET === 'user' ? '다수 공격을 쓴 몬몬에게 바로 (단일)' : (INSTANT ? '아군 전체, 바로' : '아군 전체, 자세 끝')} · 한 몸 ${SPLIT || '없음'}
 시작 게이지 0~${START} · 딸랑귀 스킬 ${ALLY.딸랑귀.skill} · 4턴 효과 ${R4 ? '4번째 스킬부터' : '첫 스킬부터'}
 분열체: 평타 ${PIECE.basic} · 단일형 스킬 ${PIECE.singleSkill} · 모든 적형 스킬 ${PIECE.aoeSkill} · 반격 ${PIECE.counter} · 부활마다 +${PIECE.ramp * 100}% · 다수 공격 피해 −${PIECE.aoeCut * 100}%`);

@@ -1,0 +1,261 @@
+<meta name="dash-one-writer">
+<meta name="dash-form" content="freeform">
+<style>
+  .sb { display: flex; flex-direction: column; gap: var(--cds-gap-xl); max-width: 980px; }
+  .sb-head { display: flex; flex-direction: column; gap: var(--cds-gap-sm); }
+  .sb-title { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0; text-wrap: balance; }
+  .sb-lead { font-size: var(--cds-font-size-heading); line-height: 1.5; margin: 0; max-width: 64ch; text-wrap: pretty; }
+  .sb-lead b { font-variant-numeric: tabular-nums; }
+  .sb-meta { color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); margin: 0; }
+  .sb-sec { display: flex; flex-direction: column; gap: var(--cds-gap-md); min-width: 0; }
+  .sb-sec h2 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; text-wrap: balance; }
+  .sb-note { color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); margin: 0; max-width: 72ch; }
+  .sb-legend { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm) var(--cds-gap-lg); list-style: none; margin: 0; padding: 0; font-size: var(--cds-font-size-caption); }
+  .sb-legend li { display: flex; align-items: center; gap: var(--cds-gap-xs); }
+  .sb-sw { width: 12px; height: 12px; border-radius: 3px; background: var(--cds-chart-muted); flex: none; }
+  .sb-chart { position: relative; min-height: 300px; width: 100%; }
+  .sb-chart svg { display: block; width: 100%; overflow: visible; }
+  .sb-axis text { fill: var(--cds-text-secondary); font-size: var(--cds-font-size-caption); font-family: var(--font-anthropic-sans); }
+  .sb-axis path, .sb-axis line { stroke: var(--cds-chart-axis); }
+  .sb-grid line { stroke: var(--cds-chart-grid); }
+  .sb-grid path { display: none; }
+  .sb-ref { stroke: var(--cds-chart-reference); stroke-dasharray: 3 3; }
+  .sb-barval { fill: var(--color-fg); font-size: 10px; font-variant-numeric: tabular-nums; }
+  .sb-tip { position: absolute; pointer-events: none; background: var(--cds-surface-popover); border: 1px solid var(--cds-border); box-shadow: var(--cds-shadow-popover); border-radius: var(--cds-radius); padding: var(--cds-pad-sm) var(--cds-pad-md); font-size: var(--cds-font-size-caption); font-variant-numeric: tabular-nums; white-space: nowrap; z-index: 2; }
+  .sb-tip strong { display: block; margin-bottom: 2px; }
+  .sb-fail { color: var(--color-bad); font-size: var(--cds-font-size-caption); }
+  .sb-steps { margin: 0; padding-left: 1.4em; display: flex; flex-direction: column; gap: 2px; font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); max-width: 72ch; }
+  .sb-tablewrap { overflow-x: auto; }
+  .sb-table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: var(--cds-font-size-body); font-variant-numeric: tabular-nums; }
+  .sb-table th, .sb-table td { padding: var(--cds-pad-sm) var(--cds-pad-md); border-bottom: 1px solid var(--color-border-line); text-align: right; }
+  .sb-table th:first-child, .sb-table td:first-child { text-align: left; }
+  .sb-table th { font-weight: var(--cds-font-weight-medium); color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+  .sb-table td.sb-good { color: var(--color-ok); font-weight: var(--cds-font-weight-medium); }
+  .sb-table td.sb-badv { color: var(--color-bad); font-weight: var(--cds-font-weight-medium); }
+  .sb-details { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); max-width: 76ch; }
+  .sb-details summary { cursor: pointer; color: var(--color-fg); }
+  .sb-details ul { padding-left: 1.2em; display: flex; flex-direction: column; gap: 4px; }
+</style>
+
+<div class="sb" data-read lang="ko">
+  <header class="sb-head" id="top">
+    <h1 class="sb-title">분열 보스 시뮬레이션 결과</h1>
+    <p class="sb-lead">분열체 체력 15,000에서 기준 파티는 <b data-draw="pct" data-k="base" data-source="sweep" data-field="clear" data-where="key=base&amp;hp=15000">—</b>%, 쥐강이 자리를 같은 화력으로 바꾼 대조군은 <b data-draw="pct" data-k="ctrl" data-source="sweep" data-field="clear" data-where="key=ctrl&amp;hp=15000">—</b>%를 이겨요. 같은 자리에 열쇠 몬몬을 넣으면 톡찌리 <b data-draw="pct" data-k="tok" data-source="sweep" data-field="clear" data-where="key=tok&amp;hp=15000">—</b>%, 몽실벌 <b data-draw="pct" data-k="mong" data-source="sweep" data-field="clear" data-where="key=mong&amp;hp=15000">—</b>%, 촛동 <b data-draw="pct" data-k="chot" data-source="sweep" data-field="clear" data-where="key=chot&amp;hp=15000">—</b>%예요.</p>
+    <p class="sb-meta">문항 2 · 에픽 열쇠 던전 · 4마리로 분열하고 시간 안에 다 못 잡으면 부활하는 보스 · 모든 몬몬이 빈 스킬 게이지로 시작 · 설정·파티·체력마다 1,000판</p>
+  </header>
+
+  <section class="sb-sec" id="sweep">
+    <h2>분열체 체력별 클리어율</h2>
+    <p class="sb-note">열쇠 효과는 대조군(회색 점선)과 비교해서 봐요. 기준 파티와 대조군의 차이는 열쇠가 아니라 쥐강이의 속도(110)와 치명타 때문에 스킬이 어긋난 효과예요. 세로 점선은 분열체 15,000.</p>
+    <ul class="sb-legend">
+      <li><span class="sb-sw" data-k="base"></span>기준 파티 (열쇠 없음)</li>
+      <li><span class="sb-sw" data-k="ctrl"></span>대조군 (같은 화력, 열쇠 효과 없음)</li>
+      <li><span class="sb-sw" data-k="tok"></span>톡찌리 (부활 차단)</li>
+      <li><span class="sb-sw" data-k="mong"></span>몽실벌 (피해 반사)</li>
+      <li><span class="sb-sw" data-k="chot"></span>촛동 (은신)</li>
+    </ul>
+    <div class="sb-chart" data-draw="sweepChart" data-source="sweep"></div>
+  </section>
+
+  <section class="sb-sec" id="sync">
+    <h2>속도를 맞추면 열쇠 없이도 깨요 (분열체 15,000)</h2>
+    <p class="sb-note">아군 전원 속도를 같은 값으로 맞춘 파티(속도가 비슷한 몬몬끼리, 또는 속도 세트)예요. 원래 속도는 콜리킹 119 · 딸랑귀 102 · 쥐강이 110 · 파이온 102 · 콘센파리 127로 평균 약 112라, 전원 110은 총 화력은 거의 같고 스킬이 같이 터지는 효과만 남아요.</p>
+    <div class="sb-chart" data-draw="syncChart" data-source="sync"></div>
+  </section>
+
+  <section class="sb-sec" id="steps">
+    <h2>설정을 하나씩 더하며 본 클리어율 (분열체 15,000)</h2>
+    <ol class="sb-steps">
+      <li>다수 공격 피해 −30%, 반격은 반격 자세가 끝날 때 아군 전체에</li>
+      <li>피해 감소를 −50%로</li>
+      <li>반격을 맞는 즉시로</li>
+      <li>체력 30,000짜리 한 몸으로 시작해 중간에 분열</li>
+      <li>반격을 다수 공격을 쓴 몬몬 한 명에게 5,000으로 (최종, 은신이면 빗나감)</li>
+    </ol>
+    <div class="sb-chart" data-draw="stepsChart" data-source="steps"></div>
+  </section>
+
+  <section class="sb-sec" id="table15">
+    <h2>분열체 15,000에서 한 판 평균</h2>
+    <p class="sb-note">부활·반격·쓰러진 아군은 1,000판 평균, 클리어 시간은 이긴 판의 중앙값이에요.</p>
+    <div class="sb-tablewrap">
+      <table class="sb-table" data-source="sweep" data-row-key="key,hp">
+        <thead>
+          <tr>
+            <th data-field="party">파티</th>
+            <th data-field="clear">클리어 (%)</th>
+            <th data-field="time">클리어 시간 (초)</th>
+            <th data-field="revives">부활 (회)</th>
+            <th data-field="counters">반격 (회)</th>
+            <th data-field="deaths">쓰러진 아군 (명)</th>
+          </tr>
+        </thead>
+        <tbody data-draw="tbl"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <details class="sb-details" id="assumptions">
+    <summary>가정과 한계</summary>
+    <ul>
+      <li>전투 엔진이 아니라 관측값만 쓴 전용 계산이에요 (0.1초 단위). 아군 피해는 사용자 계정 파티(파이온·딸랑귀·콜리킹·쥐강이·콘센파리)가 글라틀 10단계에서 낸 값이고, 딸랑귀는 쥐강이 값으로 대신했어요.</li>
+      <li>모든 몬몬이 빈 스킬 게이지로 시작해요. 그래서 결과가 거의 정해진 한 흐름으로 나오고, 분열체 체력이 조금만 바뀌어도 클리어율이 0%와 100% 사이를 크게 오가요.</li>
+      <li>속도 100 기준 아군 평타 1.6초, 스킬 16초(평타 10번). 분열체는 평타 2.4초, 스킬 9.6초. 부활은 속도와 무관한 15초 타이머예요.</li>
+      <li>열쇠 몬몬(톡찌리·몽실벌·촛동)은 계정에 없어 쥐강이 자리에 넣었고, 대조군과 같은 체력 12,000 · 속도 100 · 쥐강이 기대 화력으로 봤어요. 실제 몬몬 수치가 다르면 결과도 달라져요.</li>
+      <li>몽실벌 반사는 받은 피해의 30%를 돌려주고, 그 피해도 공격한 분열체의 방어력에 깎여요. 깎이는 비율은 아군 평타가 공격력의 몇 %로 들어갔는지(파이온 12.5% · 쥐강이 9.6% · 콘센파리 20% · 콜리킹 22%)의 중앙값인 16%로 잡았어요. 분열체 피해는 후보값(평타 150, 단일 스킬 1,500, 모든 적 스킬 750, 반격 5,000)이고, 최대 체력 % 피해로 바꿔도 방어력에 깎여 들어오므로 결과는 같아요.</li>
+      <li>콜리킹 방어력 +30%, 패시브, 효과저항·명중은 피해 공식이 없어 뺐어요. 톡찌리 부활 차단은 맞은 타격마다 15%로 봤어요.</li>
+    </ul>
+  </details>
+</div>
+
+<script>
+  window.SB = {
+    KEYS: ['base', 'ctrl', 'tok', 'mong', 'chot'],
+    NAMES: { base: '기준 파티', ctrl: '대조군', tok: '톡찌리', mong: '몽실벌', chot: '촛동' },
+    REF_HP: 15000,
+    color(k) {
+      if (k === 'ctrl') return 'var(--cds-chart-muted)';
+      const order = ['base', 'tok', 'mong', 'chot'];
+      return dash.colors[order.indexOf(k)] || 'var(--cds-chart-muted)';
+    },
+    fmt1: (v) => (v == null || isNaN(+v)) ? '—' : (+v).toFixed(1),
+  };
+  document.querySelectorAll('.sb-legend .sb-sw').forEach((el) => { el.style.background = window.SB.color(el.dataset.k); });
+</script>
+
+<script>
+  dash.draw('pct', (el) => {
+    const d = dash.data('sweep');
+    el.classList.toggle('dash-skeleton', d.status === 'loading');
+    const r = d.status === 'ok' ? d.data.find((x) => x.key === el.dataset.k && +x.hp === window.SB.REF_HP) : null;
+    el.textContent = r ? window.SB.fmt1(r.clear) : '—';
+  });
+</script>
+
+<script>
+  (function () {
+    const SB = window.SB;
+    function failOrEmpty(el, d) {
+      el.replaceChildren();
+      if (d.status === 'error') { const p = document.createElement('p'); p.className = 'sb-fail'; p.textContent = '이 그래프의 데이터를 불러오지 못했어요.'; el.appendChild(p); }
+    }
+    function tipAt(el, tip, parts, x, y) {
+      tip.replaceChildren();
+      for (const part of parts) {
+        const n = document.createElement(part.tag || 'div');
+        n.textContent = part.text;
+        if (part.color) { n.style.borderLeft = '3px solid ' + part.color; n.style.paddingLeft = '6px'; }
+        tip.appendChild(n);
+      }
+      tip.hidden = false;
+      const w = tip.offsetWidth, W = el.clientWidth;
+      tip.style.left = Math.max(0, Math.min(W - w, x + 12)) + 'px';
+      tip.style.top = Math.max(0, y - 10) + 'px';
+    }
+
+    dash.draw('sweepChart', (el) => {
+      const d = dash.data('sweep');
+      el.classList.toggle('dash-skeleton', d.status === 'loading');
+      if (d.status !== 'ok') return failOrEmpty(el, d);
+      const rows = d.data.map((r) => ({ ...r, hp: +r.hp, clear: +r.clear }));
+      const W = el.clientWidth || 600, H = 300, m = { t: 12, r: 16, b: 36, l: 44 };
+      el.replaceChildren();
+      const svg = d3.select(el).append('svg').attr('viewBox', `0 0 ${W} ${H}`).attr('height', H)
+        .attr('role', 'img').attr('aria-label', '분열체 체력(8,000~16,000)에 따른 파티별 클리어율 선 그래프, 대조군 포함');
+      const x = d3.scaleLinear().domain(d3.extent(rows, (r) => r.hp)).range([m.l, W - m.r]);
+      const y = d3.scaleLinear().domain([0, 100]).range([H - m.b, m.t]);
+      svg.append('g').attr('class', 'sb-grid').attr('transform', `translate(${m.l},0)`)
+        .call(d3.axisLeft(y).ticks(5).tickSize(-(W - m.l - m.r)).tickFormat(''));
+      svg.append('g').attr('class', 'sb-axis').attr('transform', `translate(0,${H - m.b})`)
+        .call(d3.axisBottom(x).ticks(W < 480 ? 4 : 8).tickFormat(d3.format(',')));
+      svg.append('g').attr('class', 'sb-axis').attr('transform', `translate(${m.l},0)`)
+        .call(d3.axisLeft(y).ticks(5).tickFormat((v) => v + '%'));
+      svg.append('line').attr('class', 'sb-ref').attr('x1', x(SB.REF_HP)).attr('x2', x(SB.REF_HP)).attr('y1', m.t).attr('y2', H - m.b);
+      const line = d3.line().x((r) => x(r.hp)).y((r) => y(r.clear));
+      for (const k of SB.KEYS) {
+        const s = rows.filter((r) => r.key === k).sort((a, b) => a.hp - b.hp);
+        const p = svg.append('path').datum(s).attr('d', line).style('fill', 'none').style('stroke', SB.color(k)).style('stroke-width', k === 'base' ? 3 : 2);
+        if (k === 'ctrl') p.style('stroke-dasharray', '5 4');
+        svg.append('g').selectAll('circle').data(s).join('circle').attr('cx', (r) => x(r.hp)).attr('cy', (r) => y(r.clear)).attr('r', 3).style('fill', SB.color(k));
+      }
+      const tip = document.createElement('div'); tip.className = 'sb-tip'; tip.hidden = true; el.appendChild(tip);
+      const hps = [...new Set(rows.map((r) => r.hp))].sort((a, b) => a - b);
+      const guide = svg.append('line').style('stroke', 'var(--cds-chart-reference)').attr('y1', m.t).attr('y2', H - m.b).style('opacity', 0);
+      svg.append('rect').attr('x', m.l).attr('y', m.t).attr('width', W - m.l - m.r).attr('height', H - m.t - m.b).style('fill', 'transparent')
+        .on('pointermove', (ev) => {
+          const [px] = d3.pointer(ev);
+          const hp = hps.reduce((a, b) => Math.abs(x(b) - px) < Math.abs(x(a) - px) ? b : a);
+          guide.attr('x1', x(hp)).attr('x2', x(hp)).style('opacity', 1);
+          const parts = [{ tag: 'strong', text: `분열체 체력 ${d3.format(',')(hp)}` }];
+          for (const k of SB.KEYS) { const r = rows.find((q) => q.key === k && q.hp === hp); if (r) parts.push({ text: `${SB.NAMES[k]} ${SB.fmt1(r.clear)}%`, color: SB.color(k) }); }
+          tipAt(el, tip, parts, x(hp) * el.clientWidth / W, m.t);
+        })
+        .on('pointerleave', () => { tip.hidden = true; guide.style('opacity', 0); });
+    });
+
+    // 묶음 막대: groupField 값마다 파티 5종
+    function grouped(el, d, groupField, groupLabel, aria) {
+      el.classList.toggle('dash-skeleton', d.status === 'loading');
+      if (d.status !== 'ok') return failOrEmpty(el, d);
+      const rows = d.data.map((r) => ({ ...r, clear: +r.clear }));
+      const orderField = groupField === 'step' ? 'step' : 'order';
+      const groups = [...new Map(rows.map((r) => [+r[orderField], r[groupField]])).entries()].sort((a, b) => a[0] - b[0]).map((e) => e[1]);
+      const W = el.clientWidth || 600, H = 300, m = { t: 18, r: 8, b: 36, l: 44 };
+      el.replaceChildren();
+      const svg = d3.select(el).append('svg').attr('viewBox', `0 0 ${W} ${H}`).attr('height', H).attr('role', 'img').attr('aria-label', aria);
+      const x0 = d3.scaleBand().domain(groups).range([m.l, W - m.r]).paddingInner(0.22).paddingOuter(0.05);
+      const x1 = d3.scaleBand().domain(SB.KEYS).range([0, x0.bandwidth()]).padding(0.08);
+      const y = d3.scaleLinear().domain([0, 100]).range([H - m.b, m.t]);
+      svg.append('g').attr('class', 'sb-grid').attr('transform', `translate(${m.l},0)`)
+        .call(d3.axisLeft(y).ticks(5).tickSize(-(W - m.l - m.r)).tickFormat(''));
+      svg.append('g').attr('class', 'sb-axis').attr('transform', `translate(0,${H - m.b})`).call(d3.axisBottom(x0).tickFormat(groupLabel));
+      svg.append('g').attr('class', 'sb-axis').attr('transform', `translate(${m.l},0)`).call(d3.axisLeft(y).ticks(5).tickFormat((v) => v + '%'));
+      const tip = document.createElement('div'); tip.className = 'sb-tip'; tip.hidden = true; el.appendChild(tip);
+      for (const g of groups) {
+        const grp = svg.append('g').attr('transform', `translate(${x0(g)},0)`);
+        const rs = SB.KEYS.map((k) => rows.find((r) => r[groupField] === g && r.key === k)).filter(Boolean);
+        grp.selectAll('rect').data(rs).join('rect')
+          .attr('x', (r) => x1(r.key)).attr('width', x1.bandwidth())
+          .attr('y', (r) => y(r.clear)).attr('height', (r) => y(0) - y(r.clear))
+          .attr('rx', 2).style('fill', (r) => SB.color(r.key));
+        if (x1.bandwidth() >= 22) {
+          grp.selectAll('text').data(rs).join('text').attr('class', 'sb-barval')
+            .attr('x', (r) => x1(r.key) + x1.bandwidth() / 2).attr('y', (r) => y(r.clear) - 3).attr('text-anchor', 'middle')
+            .text((r) => Math.round(r.clear));
+        }
+        grp.append('rect').attr('x', 0).attr('y', m.t).attr('width', x0.bandwidth()).attr('height', H - m.t - m.b).style('fill', 'transparent')
+          .on('pointermove', () => {
+            const parts = [{ tag: 'strong', text: groupLabel(g) }];
+            for (const r of rs) parts.push({ text: `${SB.NAMES[r.key]} ${SB.fmt1(r.clear)}%`, color: SB.color(r.key) });
+            tipAt(el, tip, parts, (x0(g) + x0.bandwidth() / 2) * el.clientWidth / W, m.t);
+          })
+          .on('pointerleave', () => { tip.hidden = true; });
+      }
+    }
+
+    dash.draw('syncChart', (el) => grouped(el, dash.data('sync'), 'sync', (g) => g, '아군 속도 원래·전원 110·전원 120일 때 파티별 클리어율 묶음 막대 그래프 (분열체 15,000)'));
+    dash.draw('stepsChart', (el) => grouped(el, dash.data('steps'), 'step', (s) => s + '단계', '설정 단계 1~5별 파티 클리어율 묶음 막대 그래프 (분열체 15,000)'));
+
+    dash.draw('tbl', (el) => {
+      const d = dash.data('sweep');
+      el.replaceChildren();
+      if (d.status !== 'ok') {
+        if (d.status === 'error') { const tr = document.createElement('tr'); const td = document.createElement('td'); td.colSpan = 6; td.className = 'sb-fail'; td.textContent = '표의 데이터를 불러오지 못했어요.'; tr.appendChild(td); el.appendChild(tr); }
+        return;
+      }
+      for (const k of SB.KEYS) {
+        const r = d.data.find((x) => x.key === k && +x.hp === SB.REF_HP);
+        if (!r) continue;
+        const tr = document.createElement('tr');
+        tr.dataset.key = `${k},${SB.REF_HP}`;
+        const cells = [r.party, SB.fmt1(r.clear), r.time == null ? '—' : String(r.time), (+r.revives).toFixed(2), (+r.counters).toFixed(2), (+r.deaths).toFixed(2)];
+        cells.forEach((v, i) => {
+          const td = document.createElement('td'); td.textContent = v;
+          if (i === 1) td.className = +r.clear >= 80 ? 'sb-good' : (+r.clear < 50 ? 'sb-badv' : '');
+          tr.appendChild(td);
+        });
+        el.appendChild(tr);
+      }
+    });
+  })();
+</script>
