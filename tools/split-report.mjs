@@ -55,4 +55,19 @@ writeFileSync(`${OUT}/sync.json`, JSON.stringify({
     { label: '분열체 체력', value: REF_HP }, START_NOTE, codeMeta,
   ],
 }));
-console.log(`sweep ${sweep.length}행, steps ${steps.length}행, sync ${sync.length}행 → ${OUT}`);
+// 구간별 (split-stages.mjs 의 구간과 같은 설정, 10단계 투력 기준) — 분열체 체력 = 곡선 체력 115,332 × 구간 배율
+const BANDS = [
+  { band: '초반 1~6', order: 1, env: { AOECUT: '0.3', PCOUNTER: '0', SPLIT: '30000', CTARGET: 'user', HS: '13033' } },
+  { band: '중반 7~15', order: 2, env: { ...FINAL, HS: '14993' } },
+  { band: '후반 16~20', order: 3, env: { ...FINAL, HS: '16031' } },
+];
+const bands = BANDS.flatMap(b => run(b.env).map(r => ({ order: b.order, band: b.band, key: r.key, party: r.party, hp: r.hp, clear: r.clear })));
+writeFileSync(`${OUT}/bands.json`, JSON.stringify({
+  rows: bands,
+  meta: [
+    { label: '설정', value: BANDS.map(b => `${b.band}: ${Object.entries(b.env).map(([k, v]) => `${k}=${v}`).join(' ')}`).join('\n') },
+    { label: '기준', value: '10단계 투력(사용자 파티 관측)으로 정규화, 분열체 체력 = 곡선 체력 115,332 × 구간 배율 (0.113 / 0.130 / 0.139)' },
+    START_NOTE, codeMeta,
+  ],
+}));
+console.log(`sweep ${sweep.length}행, steps ${steps.length}행, sync ${sync.length}행, bands ${bands.length}행 → ${OUT}`);

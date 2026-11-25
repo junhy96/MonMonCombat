@@ -148,9 +148,10 @@ const PARTIES = [
   ['열쇠: 몽실벌 반사 (쥐강이 대신)', ['콜리킹', '딸랑귀', '몽실벌', '파이온', '콘센파리']],
   ['열쇠: 촛동 은신 (쥐강이 대신)', ['콜리킹', '딸랑귀', '촛동', '파이온', '콘센파리']],
   ['대조군: 같은 화력, 열쇠 효과 없음 (쥐강이 대신)', ['콜리킹', '딸랑귀', '대조군', '파이온', '콘센파리']],
+  ['열쇠 2명: 몽실벌 (콜리킹 대신) + 톡찌리 (쥐강이 대신)', ['몽실벌', '딸랑귀', '톡찌리', '파이온', '콘센파리']],
 ];
 const N = +(E.N ?? 1000);
-const KEYS = ['base', 'tok', 'mong', 'chot', 'ctrl'];
+const KEYS = ['base', 'tok', 'mong', 'chot', 'ctrl', 'duo'];
 if (E.JSON === '1') {   // tools/split-report.mjs 가 읽는 기계용 출력
   const out = [];
   for (const [pi, [name, team]] of PARTIES.entries()) for (const H of HS) {
