@@ -13,13 +13,13 @@ const SIM = 'tools/split-sim.mjs';
 const run = (env) => JSON.parse(execFileSync(process.execPath, [SIM], { env: { ...process.env, JSON: '1', START: '0', ...env }, encoding: 'utf8', maxBuffer: 1 << 24 }));
 const code = readFileSync(SIM, 'utf8');
 const OUT = 'docs/split-report';
-const REF_HP = '12000';
+const REF_HP = '14000';
 mkdirSync(OUT, { recursive: true });
 const codeMeta = { label: 'split-sim.mjs', value: code, type: 'code', lang: 'javascript' };
 const START_NOTE = { label: '시작 게이지', value: '모두 0에서 시작 (사용자 결정)' };
 
-const FINAL = { AOECUT: '0.5', SPLIT: '200000', PCOUNTER: '5000', CTARGET: 'user', PDMG: '0.25', RAMP: '0.1', SLOW: '10', SLOWN: '2', SLOWMAX: '2' };   // 중반 기준 (같은 투력·열쇠 없이 2분 30초~3분 목표)
-const sweep = run({ ...FINAL, HS: '9000,10000,11000,12000,13000,14000,15000' });
+const FINAL = { AOECUT: '0.5', SPLIT: '200000', PCOUNTER: '5000', CTARGET: 'user', PDMG: '0.3', RAMP: '0.1', SLOW: '10', SLOWN: '2', SLOWMAX: '2' };   // 중반 기준 (같은 투력·열쇠 없이 2분 30초~3분 목표)
+const sweep = run({ ...FINAL, HS: '11000,12000,13000,14000,15000,16000' });
 writeFileSync(`${OUT}/sweep.json`, JSON.stringify({
   rows: sweep,
   meta: [
@@ -57,16 +57,16 @@ writeFileSync(`${OUT}/sync.json`, JSON.stringify({
 }));
 // 구간별 (split-stages.mjs 의 구간과 같은 설정, 10단계 투력 기준) — 분열체 체력 = 곡선 체력 115,332 × 구간 배율
 const BANDS = [
-  { band: '초반 1~6', order: 1, env: { ...FINAL, AOECUT: '0.3', PCOUNTER: '0', SLOW: '0', HS: '10380' } },
-  { band: '중반 7~15', order: 2, env: { ...FINAL, HS: '11995' } },
-  { band: '후반 16~20', order: 3, env: { ...FINAL, SLOWMAX: '3', HS: '13033' } },
+  { band: '초반 1~6', order: 1, env: { ...FINAL, AOECUT: '0.3', PCOUNTER: '0', SLOW: '0', HS: '11995' } },
+  { band: '중반 7~15', order: 2, env: { ...FINAL, HS: '13955' } },
+  { band: '후반 16~20', order: 3, env: { ...FINAL, SLOWMAX: '3', HS: '14993' } },
 ];
 const bands = BANDS.flatMap(b => run(b.env).map(r => ({ order: b.order, band: b.band, key: r.key, party: r.party, hp: r.hp, clear: r.clear, time: r.time })));
 writeFileSync(`${OUT}/bands.json`, JSON.stringify({
   rows: bands,
   meta: [
     { label: '설정', value: BANDS.map(b => `${b.band}: ${Object.entries(b.env).map(([k, v]) => `${k}=${v}`).join(' ')}`).join('\n') },
-    { label: '기준', value: '10단계 투력(사용자 파티 관측)으로 정규화, 분열체 체력 = 곡선 체력 115,332 × 구간 배율 (0.090 / 0.104 / 0.113)' },
+    { label: '기준', value: '10단계 투력(사용자 파티 관측)으로 정규화, 분열체 체력 = 곡선 체력 115,332 × 구간 배율 (0.104 / 0.121 / 0.130)' },
     START_NOTE, codeMeta,
   ],
 }));

@@ -44,13 +44,13 @@
 <div class="sb" data-read lang="ko">
   <header class="sb-head" id="top">
     <h1 class="sb-title">분열 보스 시뮬레이션 결과</h1>
-    <p class="sb-lead">분열체 체력 12,000(중반 10단계 기준)에서 기준 파티는 <b data-draw="pct" data-k="base" data-source="sweep" data-field="clear" data-where="key=base&amp;hp=12000">—</b>%, 쥐강이 자리를 같은 화력으로 바꾼 대조군은 <b data-draw="pct" data-k="ctrl" data-source="sweep" data-field="clear" data-where="key=ctrl&amp;hp=12000">—</b>%를 이겨요. 같은 자리에 열쇠 몬몬을 넣으면 톡찌리 <b data-draw="pct" data-k="tok" data-source="sweep" data-field="clear" data-where="key=tok&amp;hp=12000">—</b>%, 몽실벌 <b data-draw="pct" data-k="mong" data-source="sweep" data-field="clear" data-where="key=mong&amp;hp=12000">—</b>%, 촛동 <b data-draw="pct" data-k="chot" data-source="sweep" data-field="clear" data-where="key=chot&amp;hp=12000">—</b>%예요. 이긴 판의 클리어 시간은 대조군 <b data-draw="sec" data-k="ctrl" data-source="sweep" data-field="time" data-where="key=ctrl&amp;hp=12000">—</b>초, 톡찌리 <b data-draw="sec" data-k="tok" data-source="sweep" data-field="time" data-where="key=tok&amp;hp=12000">—</b>초예요.</p>
+    <p class="sb-lead">분열체 체력 14,000(중반 10단계 기준)에서 기준 파티는 <b data-draw="pct" data-k="base" data-source="sweep" data-field="clear" data-where="key=base&amp;hp=14000">—</b>%, 쥐강이 자리를 같은 화력으로 바꾼 대조군은 <b data-draw="pct" data-k="ctrl" data-source="sweep" data-field="clear" data-where="key=ctrl&amp;hp=14000">—</b>%를 이겨요. 같은 자리에 열쇠 몬몬을 넣으면 톡찌리 <b data-draw="pct" data-k="tok" data-source="sweep" data-field="clear" data-where="key=tok&amp;hp=14000">—</b>%, 몽실벌 <b data-draw="pct" data-k="mong" data-source="sweep" data-field="clear" data-where="key=mong&amp;hp=14000">—</b>%, 촛동 <b data-draw="pct" data-k="chot" data-source="sweep" data-field="clear" data-where="key=chot&amp;hp=14000">—</b>%예요. 이긴 판의 클리어 시간은 대조군 <b data-draw="sec" data-k="ctrl" data-source="sweep" data-field="time" data-where="key=ctrl&amp;hp=14000">—</b>초, 톡찌리 <b data-draw="sec" data-k="tok" data-source="sweep" data-field="time" data-where="key=tok&amp;hp=14000">—</b>초예요.</p>
     <p class="sb-meta">문항 2 · 에픽 열쇠 던전 · 4마리로 분열하고 시간 안에 다 못 잡으면 부활하는 보스 · 모든 몬몬이 빈 스킬 게이지로 시작 · 설정·파티·체력마다 1,000판</p>
   </header>
 
   <section class="sb-sec" id="sweep">
     <h2>분열체 체력별 클리어율</h2>
-    <p class="sb-note">열쇠 효과는 대조군(회색 점선)과 비교해서 봐요. 기준 파티와 대조군의 차이는 열쇠가 아니라 쥐강이의 속도(110)와 치명타 때문에 스킬이 어긋난 효과예요. 세로 점선은 분열체 12,000.</p>
+    <p class="sb-note">열쇠 효과는 대조군(회색 점선)과 비교해서 봐요. 기준 파티와 대조군의 차이는 열쇠가 아니라 쥐강이의 속도(110)와 치명타 때문에 스킬이 어긋난 효과예요. 세로 점선은 분열체 14,000.</p>
     <ul class="sb-legend">
       <li><span class="sb-sw" data-k="base"></span>기준 파티 (열쇠 없음)</li>
       <li><span class="sb-sw" data-k="ctrl"></span>대조군 (같은 화력, 열쇠 효과 없음)</li>
@@ -62,25 +62,25 @@
   </section>
 
   <section class="sb-sec" id="sync">
-    <h2>속도를 맞추면 열쇠 없이도 빨라져요 (분열체 12,000)</h2>
+    <h2>속도를 맞추면 열쇠 없이도 빨라져요 (분열체 14,000)</h2>
     <p class="sb-note">아군 전원 속도를 같은 값으로 맞춘 파티(속도가 비슷한 몬몬끼리, 또는 속도 세트)예요. 원래 속도는 콜리킹 119 · 딸랑귀 102 · 쥐강이 110 · 파이온 102 · 콘센파리 127로 평균 약 112라, 전원 110은 총 화력은 거의 같고 스킬이 같이 터지는 효과만 남아요.</p>
     <div class="sb-chart" data-draw="syncChart" data-source="sync"></div>
   </section>
 
   <section class="sb-sec" id="steps">
-    <h2>설정을 하나씩 더하며 본 클리어율 (분열체 12,000)</h2>
+    <h2>설정을 하나씩 더하며 본 클리어율 (분열체 14,000)</h2>
     <ol class="sb-steps">
       <li>다수 공격 피해 −30%, 반격은 반격 자세가 끝날 때 아군 전체에</li>
       <li>피해 감소를 −50%로</li>
       <li>반격을 맞는 즉시로</li>
       <li>체력 30,000짜리 한 몸으로 시작해 중간에 분열</li>
-      <li>반격을 다수 공격을 쓴 몬몬 한 명에게로 (은신이면 빗나감) + 한 몸 200,000 · 분열체 피해 ¼ · 부활마다 +10% · 가까운 2명 속도 −10% 최대 2겹 (최종)</li>
+      <li>반격을 다수 공격을 쓴 몬몬 한 명에게로 (은신이면 빗나감) + 한 몸 200,000 · 분열체 피해 0.3배 · 부활마다 +10% · 가까운 2명 속도 −10% 최대 2겹 (최종)</li>
     </ol>
     <div class="sb-chart" data-draw="stepsChart" data-source="steps"></div>
   </section>
 
   <section class="sb-sec" id="table15">
-    <h2>분열체 12,000에서 한 판 평균</h2>
+    <h2>분열체 14,000에서 한 판 평균</h2>
     <p class="sb-note">부활·반격·쓰러진 아군은 1,000판 평균, 클리어 시간은 이긴 판의 중앙값이에요.</p>
     <div class="sb-tablewrap">
       <table class="sb-table" data-source="sweep" data-row-key="key,hp">
@@ -101,7 +101,7 @@
 
   <section class="sb-sec" id="stages">
     <h2>단계별 스탯 (1~20단계)</h2>
-    <p class="sb-note">기존 보스 9종에서 뽑은 공통 성장 곡선(글라틀과 같은 룬스톤 위치)에 배율을 곱해 단계마다 올라가요. 한 몸 체력 ×1.734, 분열체 1마리는 초반 ×0.090 · 중반 ×0.104 · 후반 ×0.113, 공격력 ×0.125(스탯 후보). 목표는 같은 투력·열쇠 없이 2분 30초~3분, 톡찌리가 있으면 더 짧게예요. 분열체가 부활할 때마다 체력이 다시 생기므로 실제로 깎아야 하는 양은 표의 전체 체력보다 많아요.</p>
+    <p class="sb-note">기존 보스 9종에서 뽑은 공통 성장 곡선(글라틀과 같은 룬스톤 위치)에 배율을 곱해 단계마다 올라가요. 한 몸 체력 ×1.734, 분열체 1마리는 초반 ×0.104 · 중반 ×0.121 · 후반 ×0.130, 공격력 ×0.15(스탯 후보). 같은 투력이면 열쇠 없이는 대부분 실패하고, 톡찌리가 있으면 약 2분 50초에 깨도록 맞췄어요. 분열체가 부활할 때마다 체력이 다시 생기므로 실제로 깎아야 하는 양은 표의 전체 체력보다 많아요.</p>
     <h3 class="sb-h3">구간별 클리어율 (10단계 투력 기준으로 정규화)</h3>
     <div class="sb-tablewrap">
       <table class="sb-table sb-bands">
@@ -118,7 +118,7 @@
         <tbody data-draw="bandsTbl" data-source="bands"></tbody>
       </table>
     </div>
-    <p class="sb-note">초반은 반격·느려짐 없이 분열·부활만 보여 줘서 모두 약 2분에 깨요. 7단계부터 반격, 다수 공격 피해 −50%, 가까운 2명 속도 감소가 붙어 열쇠 없이는 약 3분에 일부만 깨고, 톡찌리가 있으면 약 2분 10초에 깨요. 16단계부터 느려짐이 3겹까지 쌓여요.</p>
+    <p class="sb-note">초반은 반격·느려짐 없이 분열·부활만 보여 줘서 모두 약 2분에 깨요. 7단계부터 반격, 다수 공격 피해 −50%, 가까운 2명 속도 감소가 붙어 열쇠 없이는 대부분 실패하고(대조군 약 30%), 톡찌리가 있으면 약 2분 50초에 깨요. 16단계부터 느려짐이 3겹까지 쌓여 열쇠 2명이 안정적이에요.</p>
     <h3 class="sb-h3">전체 체력 (한 몸 + 4마리) vs 글라틀 체력</h3>
     <ul class="sb-legend">
       <li><span class="sb-sw" data-k="base"></span>분열 보스 전체 체력</li>
@@ -157,7 +157,7 @@
       <li>모든 몬몬이 빈 스킬 게이지로 시작해요. 그래서 결과가 거의 정해진 한 흐름으로 나오고, 분열체 체력이 조금만 바뀌어도 클리어율이 0%와 100% 사이를 크게 오가요.</li>
       <li>속도 100 기준 아군 평타 1.6초, 스킬 16초(평타 10번). 분열체는 평타 2.4초, 스킬 9.6초. 부활은 속도와 무관한 15초 타이머예요.</li>
       <li>열쇠 몬몬(톡찌리·몽실벌·촛동)은 계정에 없어 쥐강이 자리에 넣었고, 대조군과 같은 체력 12,000 · 속도 100 · 쥐강이 기대 화력으로 봤어요. 실제 몬몬 수치가 다르면 결과도 달라져요.</li>
-      <li>몽실벌 반사는 받은 피해의 30%를 돌려주고, 그 피해도 공격한 분열체의 방어력에 깎여요(아군 평타 ÷ 공격력 중앙값 16%로 추정). 분열체 피해 후보값은 10단계에서 평타 38 · 단일 스킬 375 · 모든 적 스킬 188 · 반격 1,250이고, 부활할 때마다 +10%예요. 모든 적 스킬은 가까운 2명의 속도를 10%씩 늦춰요(중반 최대 2겹).</li>
+      <li>몽실벌 반사는 받은 피해의 30%를 돌려주고, 그 피해도 공격한 분열체의 방어력에 깎여요(아군 평타 ÷ 공격력 중앙값 16%로 추정). 분열체 피해 후보값은 10단계에서 평타 45 · 단일 스킬 450 · 모든 적 스킬 225 · 반격 1,500이고, 부활할 때마다 +10%예요. 모든 적 스킬은 가까운 2명의 속도를 10%씩 늦춰요(중반 최대 2겹).</li>
       <li>분열체는 패시브로 [부활 차단]에 저항하지 못해요. 그래서 단계가 올라 효과저항이 50~75가 돼도 톡찌리의 부활 차단 확률(맞은 타격마다 15%)은 그대로예요. 데디베어 [악몽]의 "저항, 해제 불가", 윈드윙 [폭풍 흡입]의 "저항 불가"와 같은 장치예요.</li>
       <li>콜리킹 방어력 +30%, 패시브, 다른 효과의 저항·명중은 피해 공식이 없어 뺐어요.</li>
     </ul>
@@ -168,7 +168,7 @@
   window.SB = {
     KEYS: ['base', 'ctrl', 'tok', 'mong', 'chot'],
     NAMES: { base: '기준 파티', ctrl: '대조군', tok: '톡찌리', mong: '몽실벌', chot: '촛동', duo: '톡찌리 + 몽실벌' },
-    REF_HP: 12000,
+    REF_HP: 14000,
     color(k) {
       if (k === 'ctrl') return 'var(--cds-chart-muted)';
       const order = ['base', 'tok', 'mong', 'chot'];

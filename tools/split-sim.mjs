@@ -8,7 +8,7 @@ const BASIC_T = 1.6;          // 속도 100 몬몬 평타 간격(초) — 보스
 const SKILL_T = 16;           // 속도 100 몬몬 스킬 주기 = 평타 10번
 const PIECE_BASIC_T = 2.4;    // 속도 100 보스: 평타 4번 뒤 스킬, 한 주기 ≈ 아군 평타 6번(9.6초)
 const PIECE_SKILL_T = 9.6;
-const REVIVE_T = 15;          // 부활 자체 타이머 1턴 ≈ 속도 100 스킬 0.9~1번 (14.4~16초)
+const REVIVE_T = +(process.env.REVIVE ?? 15);          // 부활 자체 타이머 1턴 ≈ 속도 100 스킬 0.9~1번 (14.4~16초)
 const BUFF_T = 30;            // "2턴" 아군 버프 ≈ 받은 몬몬 스킬 2번 ≈ 30초 근사
 const DT = 0.1, MAX_T = 600;
 
