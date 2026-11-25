@@ -1,0 +1,215 @@
+<title>쿼디 보스 공략</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@500;700;900&display=swap">
+<style>
+  /* 게임 보스 공략 창을 그대로 옮긴 단일 테마(어두운 남색) 목업 */
+  :root {
+    color-scheme: dark;
+    --page: #0b0f1c; --frame: #f3f5fb; --panel: #161c31; --card: #1c2340; --card-2: #232b4d; --line: #2c3560;
+    --text: #f4f6ff; --muted: #9aa3c7; --blue: #4a5cf0; --blue-soft: #8e9cff;
+    --orange: #ffb02e; --green: #4fd37a; --red: #ff5d6c; --gold: #f4a521;
+    --legend: #f29a1f; --epic: #8b3fd9; --rare: #2f8fe6; --uncommon: #3fbf6a; --common: #7d8597;
+    --display: 'Jua', 'Noto Sans KR', system-ui, sans-serif; --body: 'Noto Sans KR', system-ui, sans-serif;
+  }
+  body { background: var(--page); color: var(--text); font-family: var(--body); }
+  .wrap { min-height: 100%; display: flex; flex-direction: column; align-items: center; gap: 14px; padding-block: 20px 40px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  .caption { max-width: 480px; width: 100%; color: var(--muted); font-size: 12.5px; line-height: 1.55; }
+  .caption b { color: var(--text); font-weight: 700; }
+  .modal { width: 100%; max-width: 480px; background: var(--panel); border: 4px solid var(--frame); border-radius: 22px; overflow: hidden; box-shadow: 0 18px 50px rgba(0,0,0,.55); }
+  .m-head { position: relative; display: flex; justify-content: center; align-items: center; height: 64px; background: #10152a; }
+  .m-head h1 { margin: 0; font-family: var(--display); font-size: 26px; font-weight: 400; letter-spacing: .02em; }
+  .m-close { position: absolute; right: 14px; top: 12px; width: 40px; height: 40px; border: 0; background: none; cursor: default; }
+  .m-close::before, .m-close::after { content: ""; position: absolute; left: 6px; top: 18px; width: 28px; height: 6px; background: #fff; border-radius: 3px; box-shadow: 0 0 0 2px #000; }
+  .m-close::before { transform: rotate(45deg); } .m-close::after { transform: rotate(-45deg); }
+  .tabs { display: grid; grid-template-columns: 1fr 1fr; background: #181f38; margin: 8px 8px 0; border-radius: 10px 10px 0 0; }
+  .tab { appearance: none; border: 0; background: none; color: var(--blue-soft); font-family: var(--body); font-weight: 900; font-size: 17px; padding: 16px 0 14px; border-bottom: 4px solid transparent; cursor: pointer; }
+  .tab[aria-selected="true"] { color: var(--text); border-bottom-color: var(--blue); }
+  .tab:focus-visible, .band:focus-visible, .toggle:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+  .pane { padding: 0 8px 14px; display: flex; flex-direction: column; gap: 14px; }
+  .hero { position: relative; height: 210px; background: linear-gradient(180deg, #3a2f5c 0%, #5a3f72 45%, #2b2446 100%); overflow: hidden; }
+  .hero::after { content: ""; position: absolute; inset: auto 0 0; height: 60px; background: linear-gradient(0deg, rgba(16,21,42,.85), transparent); }
+  .hero-text { position: absolute; left: 22px; top: 52px; z-index: 1; display: flex; flex-direction: column; gap: 4px; }
+  .boss-name { font-family: var(--display); font-size: 48px; line-height: 1; -webkit-text-stroke: 1.5px #2a2a2a; paint-order: stroke fill; text-shadow: 0 3px 0 #1a1a1a; }
+  .boss-island { color: #d7c9ff; font-weight: 700; font-size: 15px; }
+  .race { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+  .race-badge { width: 46px; height: 52px; background: #3c4a6b; border: 3px solid #1b2133; clip-path: polygon(50% 0, 100% 18%, 100% 72%, 50% 100%, 0 72%, 0 18%); display: grid; place-items: center; font-size: 22px; }
+  .race small { display: block; color: var(--muted); font-size: 12px; }
+  .race strong { font-family: var(--display); font-size: 24px; font-weight: 400; }
+  .hero svg { position: absolute; right: -6px; bottom: 6px; width: 230px; height: 190px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 18px 20px; }
+  .intro-label { color: var(--orange); font-weight: 700; font-size: 14px; margin: 0 0 8px; }
+  .intro { margin: 0; font-weight: 700; font-size: 17px; line-height: 1.65; }
+  .sec-title { display: flex; align-items: center; gap: 12px; padding-bottom: 14px; margin-bottom: 16px; border-bottom: 2px solid var(--line); }
+  .sec-title h2 { margin: 0; font-family: var(--display); font-weight: 400; font-size: 23px; }
+  .sec-ico { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; font-weight: 900; }
+  .ico-target { border: 2px solid var(--blue); color: var(--blue-soft); }
+  .ico-plus { border: 2px solid var(--green); color: var(--green); font-size: 24px; }
+  .ico-race { background: #1fb7a5; color: #fff; clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); }
+  .bands { display: grid; gap: 10px; margin-bottom: 14px; }
+  .band { position: relative; appearance: none; border: 2px solid var(--line); background: #141a30; color: var(--text); border-radius: 14px; padding: 12px 6px 10px; cursor: pointer; font-family: var(--body); }
+  .band b { display: block; font-size: 18px; font-weight: 900; } .band span { font-size: 14px; font-weight: 700; color: var(--muted); }
+  .band[aria-pressed="true"] { background: var(--blue); border-color: #8fa0ff; } .band[aria-pressed="true"] span { color: #e3e7ff; }
+  .band .mine { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--gold); color: #3b2300; font-size: 11px; font-weight: 900; padding: 2px 9px; border-radius: 999px; white-space: nowrap; }
+  .pill { display: inline-block; font-weight: 900; font-size: 13.5px; padding: 6px 12px; border-radius: 10px; margin-bottom: 10px; }
+  .pill-red { color: var(--red); background: rgba(255,93,108,.12); border: 2px solid var(--red); }
+  .pill-green { color: var(--green); background: rgba(79,211,122,.12); border: 2px solid var(--green); }
+  .bullets { list-style: none; margin: 0 0 6px; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  .bullets li { position: relative; padding-left: 18px; font-weight: 700; font-size: 15.5px; line-height: 1.6; }
+  .bullets li::before { content: ""; position: absolute; left: 2px; top: .66em; width: 7px; height: 7px; border-radius: 50%; background: var(--red); }
+  .bullets.solve li::before { background: var(--green); }
+  .divider { height: 2px; background: var(--line); margin: 14px 0; border: 0; }
+  .need { background: #1a2140; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; margin-top: 12px; }
+  .need-head { display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: #1e2b3a; }
+  .need-num { width: 34px; height: 34px; border-radius: 50%; background: var(--green); color: #0b2414; display: grid; place-items: center; font-weight: 900; flex: none; }
+  .need-title { font-weight: 900; font-size: 16px; }
+  .need-desc { padding: 14px 16px; font-weight: 700; font-size: 14.5px; line-height: 1.6; color: #d9def5; border-bottom: 1px solid var(--line); }
+  .mons { display: grid; grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); gap: 10px; padding: 14px 16px 6px; }
+  .mon { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .mon-frame { position: relative; width: 70px; height: 70px; border-radius: 12px; border: 3px solid #0d1120; box-shadow: inset 0 -5px 0 rgba(0,0,0,.25); overflow: hidden; }
+  .mon-frame img { width: 100%; height: 100%; object-fit: contain; }
+  .mon-name { font-size: 12px; font-weight: 700; color: #d9def5; }
+  .mon-grade { font-size: 10.5px; color: var(--muted); }
+  .g-전설 { background: var(--legend); } .g-에픽 { background: var(--epic); } .g-레어 { background: var(--rare); } .g-고급 { background: var(--uncommon); } .g-일반 { background: var(--common); }
+  .go { margin: 10px 16px 16px; display: flex; align-items: center; gap: 10px; background: #19b6ea; color: #fff; border: 3px solid #0c1a2c; border-radius: 12px; padding: 10px 14px; font-family: var(--display); font-size: 18px; }
+  .go .cnt { margin-left: auto; background: #18a44b; border-radius: 8px; padding: 2px 12px; font-family: var(--body); font-weight: 900; font-size: 15px; }
+  .race-note { font-weight: 700; font-size: 15px; line-height: 1.6; margin: 0; }
+  .sk-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 4px 4px; }
+  .sk-head h2 { margin: 0; font-family: var(--display); font-weight: 400; font-size: 26px; }
+  .toggle { display: flex; align-items: center; gap: 10px; background: none; border: 0; color: var(--text); font-family: var(--body); font-weight: 700; font-size: 15px; cursor: pointer; }
+  .sw { width: 50px; height: 28px; border-radius: 999px; background: var(--blue); position: relative; }
+  .sw::after { content: ""; position: absolute; top: 4px; right: 4px; width: 20px; height: 20px; border-radius: 50%; background: #fff; transition: right .15s; }
+  .toggle[aria-pressed="false"] .sw { background: #3a4266; } .toggle[aria-pressed="false"] .sw::after { right: 26px; }
+  .skill { display: grid; grid-template-columns: 64px 1fr; gap: 6px 14px; align-items: center; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 16px 18px; }
+  .sk-ico { width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; border: 3px solid #0d1120; font-family: var(--display); font-size: 26px; color: #fff; }
+  .k-기본공격 { background: radial-gradient(circle at 35% 30%, #7fd4ff, #1b6fb8); }
+  .k-스킬 { background: radial-gradient(circle at 35% 30%, #c39bff, #5b2fb0); }
+  .k-패시브 { background: radial-gradient(circle at 35% 30%, #8ef0c6, #1d8a6b); }
+  .sk-name { font-weight: 900; font-size: 18px; }
+  .sk-kind { font-weight: 700; font-size: 13.5px; color: var(--blue-soft); }
+  .sk-kind.p { color: #6fe0b0; } .sk-kind.b { color: var(--muted); }
+  .sk-desc { grid-column: 1 / -1; margin: 6px 0 0; font-weight: 700; font-size: 15px; line-height: 1.65; }
+  .t-key { color: var(--orange); } .t-boss { color: var(--green); } .t-bad { color: var(--red); }
+  .t-key, .t-boss, .t-bad { white-space: nowrap; }
+  .skill .t-key, .skill .t-boss, .skill .t-bad { border: 1.5px solid currentColor; border-radius: 4px; padding: 0 2px; }
+  .skills { display: flex; flex-direction: column; gap: 12px; }
+  [hidden] { display: none !important; }
+  @media (max-width: 420px) { .boss-name { font-size: 40px; } .hero svg { width: 190px; } .intro { font-size: 16px; } }
+  @media (prefers-reduced-motion: no-preference) { .blob { animation: bob 3.2s ease-in-out infinite; transform-origin: center bottom; } .blob.b2 { animation-delay: -.8s; } .blob.b3 { animation-delay: -1.6s; } .blob.b4 { animation-delay: -2.4s; } }
+  @keyframes bob { 0%, 100% { transform: translateY(0) scaleY(1); } 50% { transform: translateY(-3px) scaleY(1.03); } }
+</style>
+
+<div class="wrap">
+  <p class="caption"><b>문항 2 · 분열 보스 공략 창 초안</b> — 게임 보스 공략 창과 같은 구성이에요. 이름·문구는 가칭이고, 고칠 때는 <b>data/dungeons/split-boss/guide.json</b>을 바꾼 뒤 <b>node tools/split-guide.mjs</b>로 다시 만들어요.</p>
+  <div class="modal" role="dialog" aria-labelledby="mtitle">
+    <div class="m-head"><h1 id="mtitle">보스 공략</h1><button class="m-close" type="button" aria-label="닫기 (목업)"></button></div>
+    <div class="tabs" role="tablist">
+      <button class="tab" id="tab-info" role="tab" aria-selected="true" aria-controls="pane-info" type="button">공략 정보</button>
+      <button class="tab" id="tab-skill" role="tab" aria-selected="false" aria-controls="pane-skill" type="button">보스 스킬</button>
+    </div>
+
+    <div class="pane" id="pane-info" role="tabpanel" aria-labelledby="tab-info">
+      <div class="hero">
+        <div class="hero-text">
+          <div class="boss-name" id="bossName"></div>
+          <div class="boss-island" id="bossIsland"></div>
+          <div class="race"><div class="race-badge" aria-hidden="true"><svg viewBox="0 0 64 64" width="34" height="34"><path d="M22 8 C42 20 22 44 42 56" fill="none" stroke="#1a1030" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 8 C42 20 22 44 42 56" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M42 8 C22 20 42 44 22 56" fill="none" stroke="#1a1030" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M42 8 C22 20 42 44 22 56" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M25 16 H39 M25 32 H39 M25 48 H39" fill="none" stroke="#1a1030" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M25 16 H39 M25 32 H39 M25 48 H39" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><small>종족</small><strong id="bossRace"></strong></div></div>
+        </div>
+        <svg viewBox="0 0 230 190" aria-hidden="true">
+          <ellipse cx="128" cy="178" rx="96" ry="9" fill="#120d22" opacity=".6"/>
+          <g class="blob"><path d="M78 176 C60 176 52 150 66 118 C80 84 104 66 126 66 C150 66 172 86 182 120 C194 154 184 176 166 176 Z" fill="#b56ce8" stroke="#2a1640" stroke-width="5"/>
+            <path d="M92 104 C100 86 116 80 128 82" stroke="#e6c9ff" stroke-width="7" stroke-linecap="round" fill="none" opacity=".8"/>
+            <circle cx="108" cy="128" r="9" fill="#1d1030"/><circle cx="146" cy="128" r="9" fill="#1d1030"/><circle cx="111" cy="125" r="3" fill="#fff"/><circle cx="149" cy="125" r="3" fill="#fff"/>
+            <path d="M114 150 Q127 160 140 150" stroke="#1d1030" stroke-width="5" fill="none" stroke-linecap="round"/></g>
+          <g class="blob b2"><ellipse cx="34" cy="166" rx="18" ry="14" fill="#c98af0" stroke="#2a1640" stroke-width="4"/><circle cx="28" cy="164" r="3" fill="#1d1030"/><circle cx="40" cy="164" r="3" fill="#1d1030"/></g>
+          <g class="blob b3"><ellipse cx="208" cy="168" rx="16" ry="12" fill="#a65ad9" stroke="#2a1640" stroke-width="4"/><circle cx="203" cy="166" r="3" fill="#1d1030"/><circle cx="214" cy="166" r="3" fill="#1d1030"/></g>
+          <g class="blob b4"><ellipse cx="196" cy="58" rx="13" ry="10" fill="#c98af0" stroke="#2a1640" stroke-width="3.5"/><ellipse cx="60" cy="62" rx="12" ry="9" fill="#a65ad9" stroke="#2a1640" stroke-width="3.5"/></g>
+        </svg>
+      </div>
+      <div class="card"><p class="intro-label">이 보스는</p><p class="intro" id="intro"></p></div>
+
+      <div class="card">
+        <div class="sec-title"><div class="sec-ico ico-target" aria-hidden="true">◎</div><h2>공략 포인트</h2></div>
+        <div class="bands" id="bands"></div>
+        <div class="card" style="background:#141a30">
+          <span class="pill pill-red">보스 패턴</span>
+          <ul class="bullets" id="pattern"></ul>
+          <hr class="divider">
+          <span class="pill pill-green">이렇게 풀어요</span>
+          <ul class="bullets solve" id="solve"></ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="sec-title"><div class="sec-ico ico-plus" aria-hidden="true">+</div><h2>필요한 효과</h2></div>
+        <div id="needed"></div>
+      </div>
+
+      <div class="card">
+        <div class="sec-title"><div class="sec-ico ico-race" aria-hidden="true">↑</div><h2>종족 강점 몬몬</h2></div>
+        <p class="race-note" id="raceNote"></p>
+      </div>
+    </div>
+
+    <div class="pane" id="pane-skill" role="tabpanel" aria-labelledby="tab-skill" hidden>
+      <div class="sk-head"><h2 id="skName"></h2><button class="toggle" id="detail" type="button" aria-pressed="true">자세히 보기 <span class="sw" aria-hidden="true"></span></button></div>
+      <div class="skills" id="skills"></div>
+    </div>
+  </div>
+</div>
+
+<script type="application/json" id="data">{"guide":{"_note":"문항 2 분열 보스 — 게임 보스 공략 창(공략 정보 · 보스 스킬)과 같은 구성의 초안. 이름·문구는 가칭, 사용자가 빼고 더함. [대괄호]는 게임처럼 색이 붙는 용어. tools/split-guide.mjs 가 이 파일로 docs/split-guide/index.html 을 만듦","name":"쿼디","island":"분열의 늪 (가칭)","race":"변이","intro":"보스가 쓰러지면 [쿼디 조각] 4마리로 나뉘어요. 조각을 한꺼번에 쓰러뜨리지 못하면 다시 일어나 더 강해져요. [부활 차단]으로 일어나지 못하게 막으세요.","bands":[{"key":"early","label":"초반","range":"1~6","pattern":["보스가 쓰러지면 [쿼디 조각] 4마리로 나뉘어요.","쓰러진 조각은 15초 뒤 다시 일어나요. 다시 일어날 때마다 조각들의 공격력이 올라요.","조각은 [광역 피해] 를 덜 받아요."],"solve":["첫 조각을 쓰러뜨렸다면 남은 조각도 15초 안에 쓰러뜨리세요.","여러 조각을 고르게 깎아 두면 한꺼번에 쓰러뜨리기 쉬워요."]},{"key":"mid","label":"중반","range":"7~15","pattern":["7단계부터 조각 하나가 늘 [반격 자세] 를 잡아요.","[반격 자세] 인 조각이 다수 공격을 맞으면 그 공격을 한 몬몬을 바로 반격해요.","조각이 받는 [광역 피해] 가 절반으로 줄어요."],"solve":["[부활 차단] 이 걸린 채 쓰러진 조각은 다시 일어나지 못해요. 조각은 [부활 차단] 에 저항하지 못해요.","[피해 반사] 로 조각들의 공격을 고르게 되돌려 주세요.","[은신] 중인 몬몬은 반격을 받지 않아요."]},{"key":"late","label":"후반","range":"16~20","pattern":["16단계부터 조각이 더 단단해져요.","한 번 일어날 때마다 강해지는 폭도 커져서 오래 끌수록 버티기 어려워요."],"solve":["[부활 차단] 몬몬과 [피해 반사] 몬몬을 함께 데려가세요.","속도가 비슷한 몬몬끼리 편성하면 스킬이 함께 터져 한꺼번에 쓰러뜨리기 쉬워요."]}],"needed":[{"title":"[부활 차단] 을 거는 몬몬","desc":"[부활 차단] 이 걸린 채 쓰러진 조각은 다시 일어나지 못해요. 여러 조각을 고르게 때리는 몬몬일수록 좋아요.","monmon":["톡찌리","토볼트","쫑긋이","툼스컬"]},{"title":"[피해 반사] 를 거는 몬몬","desc":"조각 넷이 함께 때릴수록 되돌려 주는 피해도 커져요. 반사 피해도 조각의 방어력에 깎여요.","monmon":["몽실벌","활활이","로즈버디","껍질게"]},{"title":"[은신] 을 거는 몬몬","desc":"[은신] 중에는 [반격 자세] 의 반격을 받지 않아 [광역 피해] 를 마음껏 쓸 수 있어요.","monmon":["촛동","깜뭉치","텅투구"]}],"raceNote":"[변이] 종족 보스예요. 종족 강점이 있는 몬몬은 더 큰 피해를 주거나 피해를 덜 받아요.","skills":[{"name":"젤리 몸통박치기","kind":"기본공격","desc":"가까운 적 1명에게 피해를 입힌다."},{"name":"젤리 포탄","kind":"스킬","desc":"공격력이 가장 높은 적 1명에게 큰 피해를 입힌다. 분열한 뒤에는 [단단한 조각] 이 쓴다."},{"name":"젤리 해일","kind":"스킬","desc":"모든 적에게 피해를 입힌다. 분열한 뒤에는 [흐물 조각] 이 쓴다."},{"name":"사분열","kind":"패시브","desc":"체력이 0이 되면 쓰러지지 않고 [쿼디 조각] 4마리([단단한 조각] 2, [흐물 조각] 2)로 나뉜다. 모든 조각이 함께 쓰러져야 전투가 끝난다."},{"name":"다시 뭉치기","kind":"패시브","desc":"조각이 쓰러지면 속도와 관계없이 15초 뒤 최대 체력으로 다시 일어난다. 다시 일어날 때마다 모든 조각의 공격력이 25% 증가한다. 쓰러질 때 [부활 차단] 상태인 조각은 다시 일어나지 못한다."},{"name":"녹지 않는 젤리","kind":"패시브","desc":"조각은 [부활 차단] 에 저항하지 못한다. 다수 공격으로 받는 피해가 30% 감소한다. 7단계부터는 50% 감소한다."},{"name":"반격 자세","kind":"패시브","desc":"7단계부터 조각 하나가 늘 [반격 자세] 를 잡는다. [반격 자세] 인 조각이 다수 공격을 받으면, 그 공격을 한 적 1명에게 바로 큰 피해를 입힌다. 이 반격은 단일 공격이다. 반격한 뒤 다음 조각이 [반격 자세] 를 잡는다."},{"name":"절대 면역","kind":"패시브","desc":"[기절], [실명], [침묵], [도발], [속박] 디버프에 걸리지 않는다."},{"name":"몰아붙이기","kind":"패시브","desc":"전투에서 이탈한 적 1명당 주는 피해가 10% 증가한다."},{"name":"기회","kind":"패시브","desc":"자신이나 아군이 적을 전투에서 이탈시키면 스킬 에너지가 25% 증가한다."}]},"meta":{"깜뭉치":{"no":"070","grade":"에픽","element":"유령","icon":"icons/070.png"},"껍질게":{"no":"092","grade":"에픽","element":"땅","icon":"icons/092.png"},"로즈버디":{"no":"011","grade":"전설","element":"식물","icon":"icons/011.png"},"몽실벌":{"no":"123","grade":"에픽","element":"곤충","icon":"icons/123.png"},"쫑긋이":{"no":"079","grade":"에픽","element":"전기","icon":"icons/079.png"},"촛동":{"no":"081","grade":"에픽","element":"화염","icon":"icons/081.png"},"텅투구":{"no":"115","grade":"에픽","element":"유령","icon":"icons/115.png"},"토볼트":{"no":"010","grade":"전설","element":"전기","icon":"icons/010.png"},"톡찌리":{"no":"099","grade":"에픽","element":"독","icon":"icons/099.png"},"툼스컬":{"no":"147","grade":"레어","element":"유령","icon":"icons/147.png"},"활활이":{"no":"116","grade":"에픽","element":"화염","icon":"icons/116.png"}},"icons":{"젤리 몸통박치기":"\u003cpath d=\"M32 8 L37 23 L53 17 L43 30 L57 38 L41 39 L43 56 L32 43 L21 56 L23 39 L7 38 L21 30 L11 17 L27 23 Z\" fill=\"#fff\" stroke=\"#1a1030\" stroke-width=\"3.5\" stroke-linejoin=\"round\"/>","젤리 포탄":"\u003cpath d=\"M7 23 H20 M5 32 H22 M7 41 H20\" fill=\"none\" stroke=\"#1a1030\" stroke-width=\"8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\u003cpath d=\"M7 23 H20 M5 32 H22 M7 41 H20\" fill=\"none\" stroke=\"#fff\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\u003ccircle cx=\"40\" cy=\"32\" r=\"13\" fill=\"#fff\" stroke=\"#1a1030\" stroke-width=\"3.5\"/>\u003ccircle cx=\"36\" cy=\"27\" r=\"4\" fill=\"#d9b8ff\"/>","젤리 해일":"\u003cpath d=\"M6 38 C13 26 21 26 27 34 C33 42 41 42 47 30 C51 22 57 21 59 25\" fill=\"none\" stroke=\"#1a1030\" stroke-width=\"9\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\u003cpath d=\"M6 38 C13 26 21 26 27 34 C33 42 41 42 47 30 C51 22 57 21 59 25\" fill=\"none\" stroke=\"#fff\" stroke-width=\"5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\u003cpath d=\"M6 51 C13 43 21 43 27 48 C33 53 43 53 58 43\" fill=\"none\" stroke=\"#1a1030\" stroke-width=\"9\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\u003cpath d=\"M6 51 C13 43 21 43 27 48 C33 53 43 53 58 43\" fill=\"none\" stroke=\"#fff\" stroke-width=\"5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>","사분열":"\u003cpath d=\"M32 32 L17 17 M32 32 L47 17 M32 32 L17 47 M32 32 L47 47\" fill=\"none\" stroke=\"#1a1030\" stroke-width=\"8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\u003cpath d=\"M32 32 L17 17 M32 32 L47 17 M32 32 L17 47 M32 32 L47 47\" fill=\"none\" stroke=\"#fff\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\u003ccircle cx=\"32\" cy=\"32\" r=\"9\" fill=\"#fff\" stroke=\"#1a1030\" stroke-width=\"3.5\"/>\u003ccircle cx=\"14\" cy=\"14\" r=\"6.5\" fill=\"#fff\" stroke=\"#1a1030\" stroke-width=\"3.5\"/>\u003ccircle cx=\"50\" cy=\"14\" r=\"6.5\" fill=\"#fff\" stroke=\"#1a1030\" stroke-width=\"3.5\"/>\u003ccircle cx=\"14\" cy=\"50\" r=\"6.5\" fill=\"#fff\" stroke=\"#1a1030\" stroke-width=\"3.5\"/>\u003ccircle cx=\"50\" cy=\"50\" r=\"6.5\" fill=\"#fff\" stroke=\"#1a1030\" stroke-width=\"3.5\"/>","다시 뭉치기":"\u003cpath d=\"M50 34 A18 18 0 1 1 41 17\" fill=\"none\" stroke=\"#1a1030\" stroke-width=\"9\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\u003cpath d=\"M50 34 A18 18 0 1 1 41 17\" fill=\"none\" stroke=\"#fff\" stroke-width=\"5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\u003cpath d=\"M36 9 L48 16 L37 24 Z\" fill=\"#fff\" stroke=\"#1a1030\" stroke-width=\"3.5\" stroke-linejoin=\"round\"/>\u003ccircle cx=\"32\" cy=\"33\" r=\"7\" fill=\"#fff\" stroke=\"#1a1030\" stroke-width=\"3.5\"/>","녹지 않는 젤리":"\u003cpath d=\"M32 7 L53 15 V31 C53 44 44 53 32 57 C20 53 11 44 11 31 V15 Z\" fill=\"#fff\" stroke=\"#1a1030\" stroke-width=\"3.5\" stroke-linejoin=\"round\"/>\u003cpath d=\"M32 21 C36 27 41 32 41 38 A9 9 0 0 1 23 38 C23 32 28 27 32 21 Z\" fill=\"#8a46d6\" stroke=\"#1a1030\" stroke-width=\"2.5\"/>","반격 자세":"\u003cpath d=\"M32 7 L53 15 V31 C53 44 44 53 32 57 C20 53 11 44 11 31 V15 Z\" fill=\"#ffe6a8\" stroke=\"#1a1030\" stroke-width=\"3.5\" stroke-linejoin=\"round\"/>\u003cpath d=\"M42 20 C28 18 20 28 24 40\" fill=\"none\" stroke=\"#1a1030\" stroke-width=\"8.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\u003cpath d=\"M42 20 C28 18 20 28 24 40\" fill=\"none\" stroke=\"#fff\" stroke-width=\"4.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\u003cpath d=\"M16 36 L25 47 L31 35 Z\" fill=\"#fff\" stroke=\"#1a1030\" stroke-width=\"3.5\" stroke-linejoin=\"round\"/>","절대 면역":"\u003cpath d=\"M32 7 L53 15 V31 C53 44 44 53 32 57 C20 53 11 44 11 31 V15 Z\" fill=\"#fff\" stroke=\"#1a1030\" stroke-width=\"3.5\" stroke-linejoin=\"round\"/>\u003cpath d=\"M21 32 L29 40 L44 24\" fill=\"none\" stroke=\"#2fbf6a\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>","몰아붙이기":"\u003cpath d=\"M15 15 L30 32 L15 49\" fill=\"none\" stroke=\"#1a1030\" stroke-width=\"9\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\u003cpath d=\"M15 15 L30 32 L15 49\" fill=\"none\" stroke=\"#fff\" stroke-width=\"5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\u003cpath d=\"M33 15 L48 32 L33 49\" fill=\"none\" stroke=\"#1a1030\" stroke-width=\"9\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\u003cpath d=\"M33 15 L48 32 L33 49\" fill=\"none\" stroke=\"#fff\" stroke-width=\"5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>","기회":"\u003cpath d=\"M37 5 L15 36 H29 L25 59 L49 26 H34 Z\" fill=\"#fff3a8\" stroke=\"#1a1030\" stroke-width=\"3.5\" stroke-linejoin=\"round\"/>"}}</script>
+<script>
+(function () {
+  const { guide, meta, icons } = JSON.parse(document.getElementById('data').textContent);
+  const KEY = ['부활 차단', '피해 반사', '은신', '광역 피해', '다회 피해'];
+  const BAD = ['기절', '실명', '침묵', '도발', '속박', '디버프'];
+  const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const rich = (s) => esc(s.replace(/\]\s+(?=[을를이가은는의에로와과도인으만])/g, ']')).replace(/\[([^\]]+)\]/g, (m, t) => '<span class="' + (KEY.includes(t) ? 't-key' : BAD.includes(t) ? 't-bad' : 't-boss') + '">[' + t + ']</span>');
+  const $ = (id) => document.getElementById(id);
+  $('bossName').textContent = guide.name; $('bossIsland').textContent = guide.island; $('bossRace').textContent = guide.race; $('skName').textContent = guide.name;
+  $('intro').innerHTML = rich(guide.intro);
+  $('raceNote').innerHTML = rich(guide.raceNote);
+
+  const bandsEl = $('bands');
+  bandsEl.style.gridTemplateColumns = 'repeat(' + guide.bands.length + ', 1fr)';
+  function showBand(i) {
+    bandsEl.querySelectorAll('.band').forEach((b, j) => b.setAttribute('aria-pressed', String(i === j)));
+    $('pattern').innerHTML = guide.bands[i].pattern.map((p) => '<li>' + rich(p) + '</li>').join('');
+    $('solve').innerHTML = guide.bands[i].solve.map((p) => '<li>' + rich(p) + '</li>').join('');
+  }
+  guide.bands.forEach((b, i) => {
+    const btn = document.createElement('button');
+    btn.type = 'button'; btn.className = 'band';
+    btn.innerHTML = (i === 1 ? '<span class="mine">내 구간</span>' : '') + '<b>' + esc(b.label) + '</b><span>' + esc(b.range) + '</span>';
+    btn.addEventListener('click', () => showBand(i));
+    bandsEl.appendChild(btn);
+  });
+  showBand(1);
+
+  $('needed').innerHTML = guide.needed.map((n, i) => {
+    const mons = n.monmon.map((name) => {
+      const m = meta[name] || {};
+      return '<div class="mon"><div class="mon-frame g-' + esc(m.grade || '일반') + '">' + (m.icon ? '<img src="' + esc(m.icon) + '" alt="">' : '') + '</div><div class="mon-name">' + esc(name) + '</div><div class="mon-grade">' + esc(m.grade || '') + '</div></div>';
+    }).join('');
+    return '<div class="need"><div class="need-head"><div class="need-num">' + (i + 1) + '</div><div class="need-title">' + rich(n.title) + '</div></div>'
+      + '<div class="need-desc">' + rich(n.desc) + '</div><div class="mons">' + mons + '</div>'
+      + '<div class="go" aria-hidden="true">▼ 내 몬몬으로 편성하러 가기<span class="cnt">' + n.monmon.length + '</span></div></div>';
+  }).join('');
+
+  const KINDS = { '기본공격': 'b', '스킬': '', '패시브': 'p' };
+  function renderSkills(detail) {
+    $('skills').innerHTML = guide.skills.filter((s) => detail || s.kind !== '패시브' || !['절대 면역', '몰아붙이기', '기회'].includes(s.name)).map((s) =>
+      '<div class="skill"><div class="sk-ico k-' + esc(s.kind) + '" aria-hidden="true">' + (icons[s.name] ? '<svg viewBox="0 0 64 64" width="46" height="46">' + icons[s.name] + '</svg>' : esc(s.name.slice(0, 1))) + '</div>'
+      + '<div><div class="sk-name">' + esc(s.name) + '</div><div class="sk-kind ' + KINDS[s.kind] + '">' + esc(s.kind) + '</div></div>'
+      + '<p class="sk-desc">' + rich(s.desc) + '</p></div>').join('');
+  }
+  renderSkills(true);
+  $('detail').addEventListener('click', (e) => { const on = e.currentTarget.getAttribute('aria-pressed') !== 'true'; e.currentTarget.setAttribute('aria-pressed', String(on)); renderSkills(on); });
+
+  const tabs = [['tab-info', 'pane-info'], ['tab-skill', 'pane-skill']];
+  tabs.forEach(([t, p]) => $(t).addEventListener('click', () => {
+    tabs.forEach(([t2, p2]) => { $(t2).setAttribute('aria-selected', String(t2 === t)); $(p2).hidden = p2 !== p; });
+  }));
+})();
+</script>

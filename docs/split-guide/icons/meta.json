@@ -1,0 +1,68 @@
+{
+ "깜뭉치": {
+  "no": "070",
+  "grade": "에픽",
+  "element": "유령",
+  "icon": "icons/070.png"
+ },
+ "껍질게": {
+  "no": "092",
+  "grade": "에픽",
+  "element": "땅",
+  "icon": "icons/092.png"
+ },
+ "로즈버디": {
+  "no": "011",
+  "grade": "전설",
+  "element": "식물",
+  "icon": "icons/011.png"
+ },
+ "몽실벌": {
+  "no": "123",
+  "grade": "에픽",
+  "element": "곤충",
+  "icon": "icons/123.png"
+ },
+ "쫑긋이": {
+  "no": "079",
+  "grade": "에픽",
+  "element": "전기",
+  "icon": "icons/079.png"
+ },
+ "촛동": {
+  "no": "081",
+  "grade": "에픽",
+  "element": "화염",
+  "icon": "icons/081.png"
+ },
+ "텅투구": {
+  "no": "115",
+  "grade": "에픽",
+  "element": "유령",
+  "icon": "icons/115.png"
+ },
+ "토볼트": {
+  "no": "010",
+  "grade": "전설",
+  "element": "전기",
+  "icon": "icons/010.png"
+ },
+ "톡찌리": {
+  "no": "099",
+  "grade": "에픽",
+  "element": "독",
+  "icon": "icons/099.png"
+ },
+ "툼스컬": {
+  "no": "147",
+  "grade": "레어",
+  "element": "유령",
+  "icon": "icons/147.png"
+ },
+ "활활이": {
+  "no": "116",
+  "grade": "에픽",
+  "element": "화염",
+  "icon": "icons/116.png"
+ }
+}
