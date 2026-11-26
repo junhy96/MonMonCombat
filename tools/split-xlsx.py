@@ -7,6 +7,7 @@
 from xlsx_notes import NOTES  # 머리글 메모 문구 (tools/xlsx_notes.py)
 import csv
 import json
+import os
 import re
 import sys
 from pathlib import Path
@@ -15,6 +16,8 @@ from openpyxl import Workbook
 from openpyxl.chart import BarChart, LineChart, Reference
 from openpyxl.chart.text import RichText, Text
 from openpyxl.chart.title import Title
+from openpyxl.drawing.spreadsheet_drawing import AbsoluteAnchor
+from openpyxl.drawing.xdr import XDRPoint2D, XDRPositiveSize2D
 from openpyxl.drawing.text import CharacterProperties, Paragraph, ParagraphProperties, RegularTextRun
 from openpyxl.formatting.rule import FormulaRule
 from openpyxl.worksheet.datavalidation import DataValidation
@@ -26,7 +29,7 @@ from openpyxl.worksheet.table import Table, TableStyleInfo
 
 ROOT = Path(__file__).resolve().parent.parent
 REP = ROOT / "docs/split-report"
-OUT = REP / "split-boss-sim.xlsx"
+OUT = Path(os.environ.get("XLSX_OUT") or REP / "split-boss-sim.xlsx")  # 엑셀로 열려 있을 때 다른 곳에 만들기
 
 F = "맑은 고딕"
 F_BODY = Font(name=F, size=10)
@@ -96,7 +99,8 @@ def table(ws, ref, nm):
 
 # ── 몬스터 · 몬몬 · 대시보드 ──────────────────────────────
 DUNGEONS = ["white-crystal", "green-crystal", "red-crystal", "blue-crystal", "purple-crystal", "wind-canyon", "undead-castle", "ice-fortress", "goblin-territory"]
-PARTIES = [("base", "기준 파티"), ("ctrl", "대조군"), ("tok", "톡찌리"), ("mong", "몽실벌"), ("chot", "촛동"), ("duo", "톡찌리 + 몽실벌")]
+PARTIES = [("base", "기본 파티"), ("tok", "톡찌리"), ("mong", "몽실벌"), ("chot", "촛동"), ("duo", "톡찌리 + 몽실벌")]   # base = 열쇠 효과만 없는 파티
+PL = 11 + len(PARTIES)   # 대시보드 · 계산 시트에서 파티 마지막 행 (12행부터)
 BANDS = ["초반 1~6", "중반 7~15", "후반 16~20"]
 GRADES = ["전설", "에픽", "레어", "고급", "일반"]
 FILL_SEL = PatternFill("solid", fgColor="FFF2B3")
@@ -255,7 +259,7 @@ def build_dash(wb):
     D = "'대시보드'!"
     controls = [  # (행, 라벨, 기본값, 목록, 이름, 뜻)
         (5, "구간", "중반 7~15", '"' + ",".join(BANDS) + '"', "SEL_BAND", "고른 구간 (초반 · 중반 · 후반)"),
-        (6, "열쇠 파티", "톡찌리", '"톡찌리,몽실벌,촛동,톡찌리 + 몽실벌"', "SEL_KEY", "카드에서 대조군과 비교할 열쇠 파티"),
+        (6, "열쇠 파티", "톡찌리", '"톡찌리,몽실벌,촛동,톡찌리 + 몽실벌"', "SEL_KEY", "카드에서 기본 파티와 비교할 열쇠 파티"),
         (7, "단계", 10, '"' + ",".join(str(i) for i in range(1, 21)) + '"', "SEL_STAGE", "고른 단계 (1~20)"),
         (8, "보스 비교", "글라틀", "=BOSS_LIST", "SEL_BOSS", "체력을 쿼디와 비교하고 기믹을 볼 보스"),
         (9, "열쇠 효과", "부활 차단", "=EFFECT_LIST", "SEL_EFFECT", "보유 몬몬을 셀 효과"),
@@ -296,7 +300,13 @@ def build_dash(wb):
         c = put(ws, r, 3, "☑", font=Font(name=F, size=13, bold=True, color=PURPLE), fill=FILL_IN)
         c.alignment = Alignment(horizontal="center")
         chk.add(c)
-    name(wb, "SHOW_PARTY", f"{D}$C$12:$C$17", "파티 표시 칸 6개 (☑/☐) — 위에서부터 기준 파티 · 대조군 · 톡찌리 · 몽실벌 · 촛동 · 톡찌리 + 몽실벌")
+    name(wb, "SHOW_PARTY", f"{D}$C$12:$C${PL}", f"파티 표시 칸 {len(PARTIES)}개 (☑/☐) — 위에서부터 " + " · ".join(p for _, p in PARTIES))
+    nr = PL + 1
+    ws.merge_cells(f"B{nr}:C{nr}")
+    ws[f"B{nr}"] = "기본 파티 = 콜리킹 · 딸랑귀 · 파이온 · 콘센파리 + 쥐강이 자리에 열쇠 몬몬과 같은 체력 · 속도 · 화력의 몬몬 (열쇠 효과만 없음). 열쇠 파티는 그 자리에 열쇠 몬몬을 넣음"
+    ws[f"B{nr}"].font, ws[f"B{nr}"].alignment = Font(name=F, size=9, color="70707A"), Alignment(wrap_text=True, vertical="top")
+    ws.row_dimensions[nr].height = 50
+    memo(ws["B12"], "콜리킹 · 딸랑귀 · 파이온 · 콘센파리 + 쥐강이 자리에 열쇠 몬몬과 똑같은 체력 · 속도 · 화력의 몬몬 (열쇠 효과만 없음). 열쇠 파티는 같은 자리에 열쇠 몬몬을 넣으므로 「열쇠 효과 = 열쇠 파티 − 기본 파티」")
     memo(ws["B11"], "☑/☐ 를 바꾸면 클리어율 · 클리어 시간 · 체력별 · 속도 그래프에서 그 파티가 보이거나 사라짐.\n수식 이름: SHOW_PARTY")
 
     # ── 계산 시트 ──
@@ -310,7 +320,7 @@ def build_dash(wb):
     put(calc, 8, 1, "선택 구간 순서", font=F_BOLD)
     put(calc, 8, 2, "=SUMPRODUCT(($A$4:$A$6=SEL_BAND)*$B$4:$B$6)")  # MATCH 는 「~」를 와일드카드로 읽어 못 씀
     put(calc, 9, 1, "선택 열쇠 파티 키", font=F_BOLD)
-    put(calc, 9, 2, "=INDEX($A$12:$A$17,MATCH(SEL_KEY,$B$12:$B$17,0))")
+    put(calc, 9, 2, f"=INDEX($A$12:$A${PL},MATCH(SEL_KEY,$B$12:$B${PL},0))")
     name(wb, "SEL_ORDER", f"{C}$B$8", "고른 구간의 순서 번호 (1 초반 · 2 중반 · 3 후반)")
     name(wb, "SEL_KEYK", f"{C}$B$9", "고른 열쇠 파티의 키 (tok · mong · chot · duo)")
     head(calc, 11, ["파티 키", "파티", "표시", "클리어율 (%)", "클리어 시간 (초)", "그래프: 클리어율 (%)", "그래프: 클리어 시간 (초)"])
@@ -369,11 +379,11 @@ def build_dash(wb):
         memo(a, note)
 
     ws.row_dimensions[6].height = 34
-    ctrl = 'SUMIFS(R_CLEAR,R_TABLE,"구간",R_ORDER,SEL_ORDER,R_KEY,"ctrl")'
+    ctrl = 'SUMIFS(R_CLEAR,R_TABLE,"구간",R_ORDER,SEL_ORDER,R_KEY,"base")'
     keyv = 'SUMIFS(R_CLEAR,R_TABLE,"구간",R_ORDER,SEL_ORDER,R_KEY,SEL_KEYK)'
-    card("E", "G", "대조군 클리어율", f"={ctrl}/100", "0.0%", '=SEL_BAND&" · 열쇠 효과 없음"', "같은 화력 · 열쇠 효과만 없는 파티의 클리어율 (1,000판)")
+    card("E", "G", "기본 파티 클리어율", f"={ctrl}/100", "0.0%", '=SEL_BAND&" · 열쇠 효과 없음"', "열쇠 몬몬과 같은 능력치 · 열쇠 효과만 없는 파티의 클리어율 (1,000판)")
     card("H", "J", '=SEL_KEY&" 클리어율"', f"={keyv}/100", "0.0%", "=SEL_BAND", "고른 열쇠 파티의 클리어율 (1,000판)")
-    card("K", "M", "열쇠 효과 (대조군 대비)", f"={keyv}-{ctrl}", '+0.0"%p";-0.0"%p"', "같은 화력에서 열쇠 효과만 다름", "열쇠 파티 클리어율 − 대조군 클리어율 (%p)")
+    card("K", "M", "열쇠 효과 (기본 파티 대비)", f"={keyv}-{ctrl}", '+0.0"%p";-0.0"%p"', "같은 능력치에서 열쇠 효과만 다름", "열쇠 파티 클리어율 − 기본 파티 클리어율 (%p)")
     card("N", "P", '=SEL_KEY&" 클리어 시간"', '=TEXT(SUMIFS(R_TIME,R_TABLE,"구간",R_ORDER,SEL_ORDER,R_KEY,SEL_KEYK)/86400,"m:ss")', "@", "목표 2:30~3:00 · 이긴 판 중앙값", "이긴 판의 클리어 시간 중앙값 (분:초)")
 
     # ── 왼쪽 정보 카드 ──
@@ -415,41 +425,49 @@ def build_dash(wb):
     def style(ch, title, ytitle=None):
         cp = CharacterProperties(sz=1100, b=True)
         ch.title = Title(tx=Text(rich=RichText(p=[Paragraph(pPr=ParagraphProperties(defRPr=cp), r=[RegularTextRun(rPr=cp, t=title)])])), overlay=False)
-        ch.style, ch.width, ch.height = 10, 13.2, 7.6
+        ch.style = 10
         ch.y_axis.number_format = "0"
         ch.x_axis.delete = False
         ch.y_axis.delete = False
-        if ytitle:
-            ch.y_axis.title = ytitle
         ch.legend.position = "b"
+        ch.legend.overlay = False   # 단위는 제목에 — 세로축 제목은 눈금과 겹쳐서 뺌
         return ch
 
+    # 절대 위치 (px): 행 높이가 달라도 겹치지 않게. 왼쪽 패널(A~D 약 412px) 오른쪽에 2열 × 3줄
+    CW, CH, X0, Y0, GAP = 700, 430, 450, 215, 56   # 그래프 사이를 넉넉히 띄움
+
+    def place(ch, i):
+        x, y = X0 + (i % 2) * (CW + GAP), Y0 + (i // 2) * (CH + GAP)
+        E = 9525
+        ch.anchor = AbsoluteAnchor(pos=XDRPoint2D(x * E, y * E), ext=XDRPositiveSize2D(CW * E, CH * E))
+        ws.add_chart(ch)
+
     ch = style(BarChart(), "선택 구간 · 파티별 클리어율 (%)", "%")
-    ch.add_data(Reference(calc, min_col=6, min_row=11, max_row=17), titles_from_data=True)
-    ch.set_categories(Reference(calc, min_col=2, min_row=12, max_row=17))
+    ch.add_data(Reference(calc, min_col=6, min_row=11, max_row=PL), titles_from_data=True)
+    ch.set_categories(Reference(calc, min_col=2, min_row=12, max_row=PL))
     ch.y_axis.scaling.min, ch.y_axis.scaling.max = 0, 100
     ch.legend = None
     ch.series[0].graphicalProperties.solidFill = PURPLE
-    ws.add_chart(ch, "E9")
+    place(ch, 0)
     ch = style(BarChart(), "선택 구간 · 클리어 시간 (초, 이긴 판 중앙값)", "초")
-    ch.add_data(Reference(calc, min_col=7, min_row=11, max_row=17), titles_from_data=True)
-    ch.set_categories(Reference(calc, min_col=2, min_row=12, max_row=17))
+    ch.add_data(Reference(calc, min_col=7, min_row=11, max_row=PL), titles_from_data=True)
+    ch.set_categories(Reference(calc, min_col=2, min_row=12, max_row=PL))
     ch.legend = None
     ch.series[0].graphicalProperties.solidFill = "3E7E92"
-    ws.add_chart(ch, "L9")
+    place(ch, 1)
     ch = style(LineChart(), "분열체 체력별 클리어율 (중반 설정, %)", "%")
-    ch.add_data(Reference(calc, min_col=2, max_col=7, min_row=20, max_row=hp_last), titles_from_data=True)
+    ch.add_data(Reference(calc, min_col=2, max_col=1 + len(PARTIES), min_row=20, max_row=hp_last), titles_from_data=True)
     ch.set_categories(Reference(calc, min_col=1, min_row=21, max_row=hp_last))
     ch.y_axis.scaling.min, ch.y_axis.scaling.max = 0, 100
     for se in ch.series:
         se.smooth = False
         se.marker.symbol = "circle"
-    ws.add_chart(ch, "E25")
+    place(ch, 2)
     ch = style(BarChart(), "속도를 맞춘 파티 클리어율 (중반, %)", "%")
-    ch.add_data(Reference(calc, min_col=2, max_col=7, min_row=SY, max_row=SY + 3), titles_from_data=True)
+    ch.add_data(Reference(calc, min_col=2, max_col=1 + len(PARTIES), min_row=SY, max_row=SY + 3), titles_from_data=True)
     ch.set_categories(Reference(calc, min_col=1, min_row=SY + 1, max_row=SY + 3))
     ch.y_axis.scaling.min, ch.y_axis.scaling.max = 0, 100
-    ws.add_chart(ch, "L25")
+    place(ch, 3)
     ch = style(LineChart(), "단계별 체력 — 쿼디 전체 vs 선택 보스 (로그 눈금)")
     ch.add_data(Reference(calc, min_col=2, max_col=5, min_row=ST, max_row=ST + 20), titles_from_data=True)
     ch.set_categories(Reference(calc, min_col=1, min_row=ST + 1, max_row=ST + 20))
@@ -459,27 +477,130 @@ def build_dash(wb):
     for sidx, color in enumerate([PURPLE, "888892", PURPLE, "888892"]):
         se = ch.series[sidx]
         se.smooth = False
-        se.graphicalProperties.line.solidFill = color
-        se.graphicalProperties.line.width = 28000 if sidx < 2 else 12700
-        if sidx >= 2:   # 선택 단계에만 큰 점
+        if sidx >= 2:   # 선택 단계에만 큰 점 — 선은 noFill 만 (solidFill 과 같이 두면 스키마 위반 → 엑셀이 그래프를 전부 지움)
+            se.graphicalProperties.line.noFill = True
             se.marker.symbol, se.marker.size = "circle", 11
             se.marker.graphicalProperties.solidFill = "F2B705" if sidx == 2 else "B5423A"
             se.marker.graphicalProperties.line.solidFill = "2A2740"
-            se.graphicalProperties.line.noFill = True
         else:
+            se.graphicalProperties.line.solidFill = color
+            se.graphicalProperties.line.width = 28000
             se.marker.symbol = "none"
-    ws.add_chart(ch, "E37")
+    place(ch, 4)
     ch = style(BarChart(), "선택 효과 보유 몬몬 — 등급별 (마리)", "마리")
     ch.add_data(Reference(calc, min_col=2, min_row=EG, max_row=EG + 5), titles_from_data=True)
     ch.set_categories(Reference(calc, min_col=1, min_row=EG + 1, max_row=EG + 5))
     ch.legend = None
     ch.series[0].graphicalProperties.solidFill = "8A7A33"
-    ws.add_chart(ch, "L37")
+    place(ch, 5)
     ws.freeze_panes = "A4"
     ws.page_setup.orientation = "landscape"
     ws.sheet_properties.pageSetUpPr.fitToPage = True
     ws.page_setup.fitToWidth, ws.page_setup.fitToHeight = 1, 1
-    ws.print_area = "A1:R56"
+    ws.print_area = "A1:AA80"
+
+
+def build_method(wb):
+    """「시뮬레이션 방식」 — 몬테카를로 전투 계산을 코드(tools/split-sim.mjs) 안 열고도 이해하게 풀어 쓴 시트"""
+    ws = wb.create_sheet("시뮬레이션 방식", wb.sheetnames.index("읽는 법") + 1)
+    ws.sheet_view.showGridLines = False
+    for col, w in {"A": 6, "B": 22, "C": 92, "D": 26}.items():
+        ws.column_dimensions[col].width = w
+    ws["A1"] = "시뮬레이션 방식 — 몬테카를로 전투 계산"
+    ws["A1"].font = F_TITLE
+    ws["A2"] = "한 판 = 전투 하나를 0.1초씩 끝까지 돌려 이기는지 보는 것. 같은 설정 · 같은 파티로 1,000판을 돌려 클리어율과 클리어 시간을 냄 (코드: tools/split-sim.mjs, 이 시트는 그 코드를 글로 옮긴 것)"
+    ws["A2"].font, ws["A2"].alignment = F_BODY, WRAP
+    ws.merge_cells("A2:D2")
+    ws.row_dimensions[2].height = 30
+    r = 4
+
+    def section(title, sub=None):
+        nonlocal r
+        ws.cell(r, 1, title).font = Font(name=F, size=12, bold=True, color="615BAE")
+        if sub:
+            c = ws.cell(r + 1, 1, sub)
+            c.font, c.alignment = F_NOTE, WRAP
+            ws.merge_cells(start_row=r + 1, start_column=1, end_row=r + 1, end_column=4)
+            r += 1
+        r += 1
+
+    def rows(cols, data, h=None):
+        nonlocal r
+        head(ws, r, cols)
+        r += 1
+        for row in data:
+            for j, v in enumerate(row, 1):
+                c = put(ws, r, j, v, wrap=True, font=F_LINK if isinstance(v, str) and v.startswith("=") else F_BODY)
+                if isinstance(v, str) and v.startswith("="):
+                    c.number_format = "#,##0.###"
+            ws.row_dimensions[r].height = h or max(18, 15 * (len(str(row[2])) // 70 + 1) + 4)
+            r += 1
+        r += 1
+
+    section("1. 왜 몬테카를로인가",
+            "엑셀 수식(「1턴 창」 시트)은 평균 화력만 보는 상한이라 「누가 언제 스킬을 쓰는지 · 치명타가 터지는지 · 톡찌리가 어느 조각을 때리는지」에 따라 갈리는 승패를 못 봄. "
+            "그래서 무작위가 섞인 전투를 1,000번 돌려 「몇 번 이기는지(확률)」로 봄.")
+    section("2. 한 판의 흐름 — 0.1초마다 아래 순서를 반복")
+    rows(["순서", "흐름", "하는 일", "쓰는 값 (입력값 이름)"], [
+        ("0", "준비", "아군 5명은 스킬 게이지 0에서 시작, 첫 평타 시점만 0~1.6초 사이 무작위. 보스는 한 몸(10단계 200,000)으로 시작.", "BASIC_T · 한 몸 체력"),
+        ("1", "아군 행동", "평타 타이머와 스킬 게이지가 속도만큼 참 (속도 100 = 평타 1.6초 · 스킬 16초, 속도 120이면 1.2배 빨리). 평타 · 단일 스킬은 맨 앞 조각을, 광역 스킬은 살아 있는 조각 전부를 때림 (조각은 광역 피해 −50%).", "BASIC_T · SKILL_T · AOECUT"),
+        ("2", "분열", "한 몸 체력이 0이 되면 그 자리에서 조각 4마리(단단한 2 · 흐물 2)로 나뉨.", "PIECES"),
+        ("3", "승리 판정", "조각 4마리가 모두 쓰러져 있으면 클리어 — 그 시각이 클리어 시간.", ""),
+        ("4", "부활", "쓰러진 지 15초(속도와 무관한 보스 자체 타이머)가 지난 조각은 체력 가득으로 일어남. 부활 1번마다 모든 조각 공격력 ×1.1 (쌓임). 쓰러질 때 [부활 차단]이 남아 있던 조각은 끝까지 안 일어남.", "REVIVE_T · RAMP"),
+        ("5", "조각 공격", "평타 2.4초마다 맨 앞 아군(은신이면 건너뜀). 스킬 9.6초마다 — 단단한 조각: 맨 앞 1명에게 450, 흐물 조각: 아군 전체 225 + 가까운 2명 속도 −10% (최대 2겹, 30초).", "PIECE_BASIC_T · DMG_SINGLE · DMG_AOE · SLOW"),
+        ("6", "반격", "조각 하나가 늘 [반격 자세]. 아군 다수 공격이 그 조각을 맞히면 그 공격을 쓴 몬몬 1명에게 바로 1,500 (은신이면 빗나감). 그 뒤 자세는 다음 조각으로 넘어감.", "DMG_COUNTER"),
+        ("7", "패배 판정", "아군 5명이 모두 쓰러지거나 600초가 지나면 실패.", ""),
+    ], h=48)
+    section("3. 몬몬별 스킬 처리", "「4번에 1번」 효과는 첫 스킬부터 (1 · 5 · 9번째 스킬). 피해는 글라틀 10단계(방어력 1,183)에서 본 값.")
+    rows(["순서", "몬몬", "스킬 처리", "근거"], [
+        ("", "콜리킹", "평타 124. 스킬: 자신에게 최대 체력 15% 보호막.", "관측"),
+        ("", "딸랑귀", "주변 범위 스킬 3,216 (치명 28% → 5,000). 4번에 1번 75% 확률로 맞은 조각이 받는 피해 +25% (2턴).", "가정 (쥐강이 값)"),
+        ("", "쥐강이", "단일 스킬 3,216 (치명 37% → 5,000).", "관측"),
+        ("", "파이온", "모든 적 스킬 7,470 (조각에게는 −50%라 3,735).", "관측"),
+        ("", "콘센파리", "단일 스킬 2,900. 4번에 1번 아군 전체 속도 +15% (30초).", "관측"),
+        ("", "톡찌리", "스킬 10회가 살아 있는 조각 중 무작위로 1회씩. 타격마다 15% 확률로 [부활 차단] — 그 조각의 다음 턴까지 남음.", "가정 (화력 = 쥐강이)"),
+        ("", "몽실벌", "단일 스킬. 4번에 1번 아군 전체 [피해 반사 30%] (30초) — 반사 피해도 조각 방어력에 깎여 ×0.16, 반사한 아군을 몽실벌 최대 체력 1% 치유.", "가정 (화력 = 쥐강이)"),
+        ("", "촛동", "아군 보호막 12%. 4번에 1번 자신 뺀 아군 [강철 은신] (30초) — 단일 공격 · 반격을 안 맞고 광역 피해 −10%.", "가정"),
+        ("", "기본몬몬", "기본 파티의 쥐강이 자리. 단일 스킬 3,876 — 열쇠 몬몬과 같은 체력 · 속도 · 화력, 열쇠 효과만 없음.", "방식"),
+    ], h=34)
+    section("4. 판마다 달라지는 것 (무작위 요소)", "이 값들 때문에 같은 파티라도 판마다 이기기도 지기도 함. 나머지 규칙은 모두 정해져 있음.")
+    rows(["순서", "무작위 요소", "범위 · 확률", "결과에 주는 영향"], [
+        ("1", "첫 평타 시점", "아군 0~1.6초 · 조각 0~2.4초 사이 무작위 (스킬 게이지는 아군 0, 조각 0~30%)", "스킬이 몰려 터지는지 흩어지는지"),
+        ("2", "치명타", "딸랑귀 28% · 쥐강이 37% (스킬 피해 3,216 → 5,000)", "15초 창 안에 조각을 다 잡는지"),
+        ("3", "톡찌리 타격 대상", "살아 있는 조각 중 무작위 · 타격마다 [부활 차단] 15%", "몇 마리가 부활을 못 하는지"),
+        ("4", "딸랑귀 약화", "4번에 1번, 75%", "조각이 받는 피해 +25%"),
+    ], h=30)
+    section("5. 1,000판 집계")
+    rows(["순서", "집계", "계산", "비고"], [
+        ("1", "클리어율", "이긴 판 수 ÷ 1,000", "대시보드 · 결과 DB 의 클리어율 (%)"),
+        ("2", "클리어 시간", "이긴 판들의 클리어 시간 중앙값 (진 판은 뺌)", "이긴 판이 적으면 운 좋은 빠른 판만 남아 오히려 짧게 보일 수 있음"),
+        ("3", "부활 · 반격 · 쓰러진 아군", "1,000판 평균", "결과 DB 의 부활 (회) 등"),
+        ("4", "시드 4242 고정", "난수를 같은 순서로 뽑음 → 다시 돌려도 같은 결과(재현), 파티끼리도 같은 난수로 비교", "차이가 운이 아니라 파티 차이라는 근거 (공통 난수)"),
+    ], h=30)
+    section("6. 1,000판이면 충분한가 — 클리어율 오차", "95% 오차 = 1.96 × √(p × (1 − p) ÷ 판 수). 판 수는 입력값 N_RUNS. 클리어율 칸(노란 칸)을 바꿔 볼 수 있음.")
+    head(ws, r, ["순서", "클리어율", "95% 오차 (±%p)", "읽는 법"])
+    r += 1
+    for i, (p, note) in enumerate([(0.10, ""), (0.323, "중반 기본 파티"), (0.50, "오차가 가장 큰 경우"), (0.964, "중반 톡찌리")], 1):
+        put(ws, r, 1, str(i))
+        put(ws, r, 2, p, font=F_IN, fmt="0.0%", fill=FILL_IN)
+        put(ws, r, 3, f"=1.96*SQRT(B{r}*(1-B{r})/N_RUNS)*100", fmt='"±"0.0"%p"')
+        put(ws, r, 4, f'="{note + " — " if note else ""}"&TEXT(B{r}-C{r}/100,"0.0%")&" ~ "&TEXT(B{r}+C{r}/100,"0.0%")&" 사이일 가능성 95%"')
+        r += 1
+    ws.cell(r, 1, "→ 기본 파티 32.3%와 톡찌리 96.4%의 차이(64%p)는 오차(±3%p 안팎)보다 훨씬 커서 우연이 아님. 다만 ±3%p 안의 차이는 같은 값으로 봐야 함.").font = F_BOLD
+    r += 2
+    section("7. 한계")
+    rows(["순서", "한계", "내용", "대응"], [
+        ("1", "게임 엔진이 아님", "관측값과 기획자 결정만으로 만든 전용 계산. 피해 공식 · 방어력 계산이 없어 피해는 「아군이 받는 값」을 바로 씀.", "확인할 규칙은 「시뮬레이션 기준」 시트 · PPT 부록"),
+        ("2", "무작위가 적음", "시작 게이지가 모두 0이라 판마다 차이가 작음 → 조각 체력 ±500에도 클리어율이 크게 흔들림.", "체력 하나가 아니라 체력 범위 평균으로 판단 (결과 요약 시트)"),
+        ("3", "보스전만", "잡몹 웨이브 · 이동 · 연출 시간은 빠짐.", "클리어 시간은 보스전 시간"),
+    ], h=34)
+    section("8. 직접 돌려 보기")
+    rows(["순서", "파일", "하는 일", "실행"], [
+        ("1", "tools/split-sim.mjs", "위 2~5를 그대로 코드로 — 전투 1판(simulate) × 1,000판", "node tools/split-sim.mjs"),
+        ("2", "tools/split-report.mjs", "구간 · 체력 · 속도 · 설정 단계별로 돌려 결과 JSON 을 만듦", "node tools/split-report.mjs"),
+        ("3", "tools/split-xlsx.py", "그 JSON 을 「결과 DB」에 넣고 이 엑셀을 만듦", "python tools/split-xlsx.py"),
+    ], h=22)
+    ws.freeze_panes = "A4"
 
 
 def finish_names(wb):
@@ -492,7 +613,7 @@ def finish_names(wb):
             c = wb[sh][f"{m.group(1)}1"]
             if c.comment:
                 memo(c, c.comment.text + f"\n수식 이름: {nm}")
-    LEG_COL = {"대시보드": 20}
+    LEG_COL = {"대시보드": 30}   # 그래프(약 W열까지) 오른쪽
     for sh, items in by.items():
         ws = wb[sh]
         c0 = LEG_COL.get(sh, ws.max_column + 2)
@@ -530,7 +651,7 @@ def main():
         ("이 파일로 할 수 있는 것", "시뮬레이션에 넣은 값(입력값)과 그 값으로 계산되는 것(보스 단계표, 아군 화력, 1턴 창, 전투 시간)을 수식으로 다시 확인. 입력값 시트의 파란 숫자를 바꾸면 수식 시트가 따라 바뀜."),
         ("엑셀로 못 하는 것", "치명타·톡찌리 무작위 타격·부활 차단 확률이 섞인 1,000판 전투(몬테카를로)는 tools/split-sim.mjs 로 돌리고, 그 결과를 「결과 DB」 시트에 넣었음. 결과 요약은 그 DB에서 수식(SUMIFS·AVERAGEIFS·INDEX/MATCH)으로 뽑음."),
         ("대시보드 (맨 앞)", "노란 칸의 드롭다운(구간 · 열쇠 파티 · 단계 · 보스 · 효과)과 ☑/☐ 칸(파티 표시)을 바꾸면 카드와 그래프 6개가 바로 바뀜. 계산은 「대시보드 계산」 시트."),
-        ("시트 순서", "대시보드 → 읽는 법 → 입력값 → 공통곡선 → 보스 단계표 → 아군 DB → 1턴 창 → 전투 시간 → 결과 DB → 결과 요약 → 시뮬레이션 기준 → 몬스터 DB → 보스 스탯 DB → 몬몬 DB → 효과 목록 → 대시보드 계산 → 이름 목록"),
+        ("시트 순서", "대시보드 → 읽는 법 → 시뮬레이션 방식 → 입력값 → 공통곡선 → 보스 단계표 → 아군 DB → 1턴 창 → 전투 시간 → 결과 DB → 결과 요약 → 시뮬레이션 기준 → 몬스터 DB → 보스 스탯 DB → 몬몬 DB → 효과 목록 → 대시보드 계산 → 이름 목록"),
         ("메모 · 범례", "머리글 칸의 빨간 삼각형에 마우스를 올리면 그 열이 무엇인지 메모가 뜸. 수식에서 쓰는 이름(예: C_HP, R_CLEAR)은 각 시트 오른쪽 「이 시트의 이름」 범례와 「이름 목록」 시트(바로가기)에 정리."),
         ("글자 색", "파란 글씨 = 입력값(바꿔도 됨) · 검은 글씨 = 수식 · 초록 글씨 = 다른 시트에서 가져온 값 · 노란 칸 = 입력 칸"),
         ("근거 구분", "관측(게임에서 본 값) · 사용자 결정(기획자가 정한 규칙) · 기획값(시뮬레이션으로 고른 후보) · 가정(확인 못 한 값) · 방식(계산 방법)"),
@@ -656,15 +777,15 @@ def main():
             "평타 간격 (초)", "스킬 주기 (초)", "스킬 기대 피해", "초당 단일 피해", "초당 광역 피해 (분열체 1마리, 감소 후)", "평타 ÷ 공격력"]
     head(ws, 1, cols, [10, 8, 9, 9, 9, 7, 8, 9, 9, 10, 12, 12, 9, 9, 10, 10, 14, 9])
     A_ = [
-        ("콜리킹", 1, "기준", 12451, 566, 119, 0.21, 124, 0, None, "없음", "관측"),
-        ("딸랑귀", 2, "기준", 14182, 1576, 102, 0.28, 117, 3216, 5000, "주변 범위", "가정 (쥐강이 값)"),
-        ("쥐강이", 3, "기준", 9650, 1215, 110, 0.37, 117, 3216, 5000, "단일", "관측"),
-        ("파이온", 4, "기준", 16630, 2542, 102, 0.19, 318, 7470, None, "모든 적", "관측"),
-        ("콘센파리", 5, "기준", 13026, 600, 127, 0.42, 120, 2900, None, "단일 10회", "관측"),
+        ("콜리킹", 1, "기본 파티", 12451, 566, 119, 0.21, 124, 0, None, "없음", "관측"),
+        ("딸랑귀", 2, "기본 파티", 14182, 1576, 102, 0.28, 117, 3216, 5000, "주변 범위", "가정 (쥐강이 값)"),
+        ("쥐강이", 3, "관측 참고", 9650, 1215, 110, 0.37, 117, 3216, 5000, "단일", "관측 — 피해값 출처, 파티에선 기본몬몬으로 바꿈"),
+        ("파이온", 4, "기본 파티", 16630, 2542, 102, 0.19, 318, 7470, None, "모든 적", "관측"),
+        ("콘센파리", 5, "기본 파티", 13026, 600, 127, 0.42, 120, 2900, None, "단일 10회", "관측"),
         ("톡찌리", 3, "열쇠", 12000, None, 100, None, 117, 3876, None, "무작위 10회", "가정"),
         ("몽실벌", 3, "열쇠", 12000, None, 100, None, 117, 3876, None, "단일 + 반사", "가정"),
         ("촛동", 3, "열쇠", 13000, None, 100, None, 117, 0, None, "없음 (은신)", "가정"),
-        ("대조군", 3, "대조군", 12000, None, 100, None, 117, 3876, None, "단일", "방식"),
+        ("기본몬몬", 3, "기본 파티", 12000, None, 100, None, 117, 3876, None, "단일", "방식 — 열쇠 몬몬과 같은 능력치, 열쇠 효과 없음"),
     ]
     for i, row in enumerate(A_, 2):
         for j, v in enumerate(row, 1):
@@ -689,7 +810,7 @@ def main():
     ws["A1"] = "첫 분열체가 쓰러진 뒤 부활 시간(15초) 안에 남은 3마리를 다 잡을 수 있나 — 평균값 계산 (무작위·느려짐·반격 피해는 뺌)"
     ws["A1"].font = F_BOLD
     head(ws, 3, ["몬몬", "창 안 평타 수", "창 안 스킬 수", "단일 피해", "광역 피해 (분열체 1마리)"], [16, 12, 12, 12, 16])
-    party = ["콜리킹", "딸랑귀", "쥐강이", "파이온", "콘센파리"]
+    party = ["콜리킹", "딸랑귀", "기본몬몬", "파이온", "콘센파리"]   # 기본 파티
     for i, m in enumerate(party, 4):
         M = f"MATCH(A{i},'아군 DB'!$A:$A,0)"
         put(ws, i, 1, m, font=F_IN)
@@ -714,20 +835,20 @@ def main():
 
     # ── 전투 시간 ────────────────────────────────────────
     ws = wb.create_sheet("전투 시간")
-    ws["A1"] = "부활이 한 번도 없을 때의 이론 최소 시간 vs 시뮬레이션 클리어 시간 (중반 10단계, 기준 파티)"
+    ws["A1"] = "부활이 한 번도 없을 때의 이론 최소 시간 vs 시뮬레이션 클리어 시간 (중반 10단계, 기본 파티)"
     ws["A1"].font = F_BOLD
     rowsT = [
         ("한 몸 체력", "=INDEX('보스 단계표'!$H:$H,MATCH(REF_STAGE,'보스 단계표'!$A:$A,0))", "#,##0"),
         ("분열체 체력 × 4", "=PIECES*INDEX('보스 단계표'!$I:$I,MATCH(REF_STAGE,'보스 단계표'!$A:$A,0))", "#,##0"),
-        ("기준 파티 초당 피해 — 한 몸 (광역도 그대로)", "=SUMPRODUCT(('아군 DB'!$C$2:$C$10=\"기준\")*('아군 DB'!$H$2:$H$10/'아군 DB'!$M$2:$M$10+'아군 DB'!$O$2:$O$10/'아군 DB'!$N$2:$N$10))", "#,##0"),
-        ("기준 파티 초당 피해 — 분열체 4마리 전체 (광역 감소 반영)", "=SUMIFS('아군 DB'!$P:$P,'아군 DB'!$C:$C,\"기준\")+PIECES*SUMIFS('아군 DB'!$Q:$Q,'아군 DB'!$C:$C,\"기준\")", "#,##0"),
+        ("기본 파티 초당 피해 — 한 몸 (광역도 그대로)", "=SUMPRODUCT(('아군 DB'!$C$2:$C$10=\"기본 파티\")*('아군 DB'!$H$2:$H$10/'아군 DB'!$M$2:$M$10+'아군 DB'!$O$2:$O$10/'아군 DB'!$N$2:$N$10))", "#,##0"),
+        ("기본 파티 초당 피해 — 분열체 4마리 전체 (광역 감소 반영)", "=SUMIFS('아군 DB'!$P:$P,'아군 DB'!$C:$C,\"기본 파티\")+PIECES*SUMIFS('아군 DB'!$Q:$Q,'아군 DB'!$C:$C,\"기본 파티\")", "#,##0"),
         ("한 몸 구간 시간 (초)", "=B3/B5", "0"),
         ("분열 구간 최소 시간 (초)", "=B4/B6", "0"),
         ("부활 없을 때 최소 시간 (초)", "=B7+B8", "0"),
         ("시뮬레이션: 톡찌리 클리어 시간 중앙값 (초)", "=SUMIFS('결과 DB'!$G:$G,'결과 DB'!$A:$A,\"구간\",'결과 DB'!$B:$B,2,'결과 DB'!$D:$D,\"tok\")", "0"),
-        ("시뮬레이션: 대조군 클리어 시간 중앙값 (초)", "=SUMIFS('결과 DB'!$G:$G,'결과 DB'!$A:$A,\"구간\",'결과 DB'!$B:$B,2,'결과 DB'!$D:$D,\"ctrl\")", "0"),
+        ("시뮬레이션: 기본 파티 클리어 시간 중앙값 (초)", "=SUMIFS('결과 DB'!$G:$G,'결과 DB'!$A:$A,\"구간\",'결과 DB'!$B:$B,2,'결과 DB'!$D:$D,\"base\")", "0"),
         ("톡찌리 — 최소 시간과의 차 (초)", "=B10-B9", "0"),
-        ("대조군 — 최소 시간과의 차 (초)", "=B11-B9", "0"),
+        ("기본 파티 — 최소 시간과의 차 (초)", "=B11-B9", "0"),
     ]
     for i, (k, f_, fmt) in enumerate(rowsT, 3):
         put(ws, i, 1, k, font=F_BOLD if i in (9, 10, 11) else F_BODY)
@@ -757,16 +878,16 @@ def main():
     for x in json.loads((REP / "steps.json").read_text(encoding="utf-8"))["rows"]:
         addrow("설정 단계", x["step"], x["setting"], x)
     last_db = r - 1
-    for nm, col, d in [("R_TABLE", "A", "표 종류 (체력별 · 구간 · 속도 · 설정 단계)"), ("R_ORDER", "B", "순서/단계 번호 (구간 1~3, 속도 1~3)"), ("R_KEY", "D", "파티 키 (base · ctrl · tok · mong · chot · duo)"),
+    for nm, col, d in [("R_TABLE", "A", "표 종류 (체력별 · 구간 · 속도 · 설정 단계)"), ("R_ORDER", "B", "순서/단계 번호 (구간 1~3, 속도 1~3)"), ("R_KEY", "D", "파티 키 (base 기본 파티 · tok · mong · chot · duo)"),
                        ("R_HP", "F", "분열체 체력"), ("R_TIME", "G", "클리어 시간 (초, 이긴 판 중앙값)"), ("R_CLEAR", "H", "클리어율 (%)")]:
         name(wb, nm, f"'결과 DB'!${col}$2:${col}${last_db}", d)
-    ws.cell(r + 1, 1, "tools/split-sim.mjs 1,000판 결과 (tools/split-report.mjs 가 만든 sweep·bands·sync·steps.json). 파티 키: base 기준 · ctrl 대조군 · tok 톡찌리 · mong 몽실벌 · chot 촛동 · duo 톡찌리+몽실벌").font = F_NOTE
+    ws.cell(r + 1, 1, "tools/split-sim.mjs 1,000판 결과 (tools/split-report.mjs 가 만든 sweep·bands·sync·steps.json). 파티 키: base 기본 파티(열쇠 효과 없음) · tok 톡찌리 · mong 몽실벌 · chot 촛동 · duo 톡찌리+몽실벌").font = F_NOTE
     table(ws, f"A1:K{last_db}", "결과")
     ws.freeze_panes = "A2"
 
     # ── 결과 요약 ────────────────────────────────────────
     ws = wb.create_sheet("결과 요약")
-    keys = [("base", "기준 파티"), ("ctrl", "대조군"), ("tok", "톡찌리"), ("mong", "몽실벌"), ("chot", "촛동"), ("duo", "톡찌리 + 몽실벌")]
+    keys = PARTIES
     ws["A1"] = "구간별 클리어율 (%) — 결과 DB에서 SUMIFS"
     ws["A1"].font = F_BOLD
     head(ws, 2, ["구간"] + [k[1] for k in keys], [26] + [13] * len(keys))
@@ -782,14 +903,14 @@ def main():
         put(ws, i, 1, b)
         for j, (k, _) in enumerate(keys, 2):
             put(ws, i, j, f"=TEXT(SUMIFS('결과 DB'!$G:$G,'결과 DB'!$A:$A,\"구간\",'결과 DB'!$B:$B,{o},'결과 DB'!$D:$D,\"{k}\")/86400,\"m:ss\")", font=F_LINK)
-    ws["A13"] = "열쇠 효과 (대조군 대비 %p) — 같은 화력에서 열쇠 효과만 다름"
+    ws["A13"] = "열쇠 효과 (기본 파티 대비 %p) — 같은 능력치에서 열쇠 효과만 다름"
     ws["A13"].font = F_BOLD
-    head(ws, 14, ["구간", "톡찌리 − 대조군", "몽실벌 − 대조군", "촛동 − 대조군", "톡찌리+몽실벌 − 대조군"])
+    head(ws, 14, ["구간", "톡찌리 − 기본 파티", "몽실벌 − 기본 파티", "촛동 − 기본 파티", "톡찌리+몽실벌 − 기본 파티"])
     for i, (o, b) in enumerate(bands, 15):
         put(ws, i, 1, b)
         for j, k in enumerate(["tok", "mong", "chot", "duo"], 2):
             col = get_column_letter(2 + [x[0] for x in keys].index(k))
-            put(ws, i, j, f"={col}{i - 12}-C{i - 12}", fmt="+0.0;-0.0;0")
+            put(ws, i, j, f"={col}{i - 12}-B{i - 12}", fmt="+0.0;-0.0;0")
     ws["A19"] = "분열체 체력별 (중반 설정) — 체력이 조금 바뀌어도 흔들리는지 보기"
     ws["A19"].font = F_BOLD
     hps = sorted({int(x["hp"]) for x in json.loads((REP / "sweep.json").read_text(encoding="utf-8"))["rows"]})
@@ -823,6 +944,7 @@ def main():
 
     build_monsters(wb)
     build_monmon(wb)
+    build_method(wb)
     build_dash(wb)
     finish_names(wb)
     if MISSING:

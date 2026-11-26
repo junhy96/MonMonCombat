@@ -1,5 +1,5 @@
 // 분열 보스 결과 페이지용 데이터 — tools/split-sim.mjs 를 설정별로 돌려 docs/split-report/*.json 으로 저장
-//   clear = 클리어율(%, 소수 1자리) · 파티 key: base 기준 / ctrl 대조군(같은 화력, 열쇠 효과 없음) / tok / mong / chot
+//   clear = 클리어율(%, 소수 1자리) · 파티 key: base 기본 파티(열쇠 몬몬과 같은 능력치, 열쇠 효과 없음) / tok / mong / chot / duo
 //   sweep.json : 최종 설정에서 분열체 체력 8,000~16,000 × 파티 5종
 //   steps.json : 분열체 REF_HP에서 설정을 하나씩 더해 가며 파티 5종
 //   sync.json  : 분열체 REF_HP에서 아군 속도 원래 / 전원 110 / 전원 120 × 파티 5종 (속도를 맞춘 파티 = 다른 해법)
@@ -51,7 +51,7 @@ const sync = SYNCS.flatMap((s, i) => run({ ...FINAL, ...s.env, HS: REF_HP }).map
 writeFileSync(`${OUT}/sync.json`, JSON.stringify({
   rows: sync,
   meta: [
-    { label: '설정', value: '최종 설정 + SYNC (아군 전원 속도를 같은 값으로). 원래 속도: 콜리킹 119 · 딸랑귀 102 · 쥐강이 110 · 파이온 102 · 콘센파리 127 (열쇠 몬몬·대조군 100), 평균 약 112' },
+    { label: '설정', value: '최종 설정 + SYNC (아군 전원 속도를 같은 값으로). 원래 속도: 콜리킹 119 · 딸랑귀 102 · 쥐강이 110 · 파이온 102 · 콘센파리 127 (열쇠 몬몬·기본 파티의 쥐강이 자리 100), 평균 약 112' },
     { label: '분열체 체력', value: REF_HP }, START_NOTE, codeMeta,
   ],
 }));

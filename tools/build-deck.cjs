@@ -1,6 +1,8 @@
 // 과제 초안 슬라이드 — 사용자 서식(서식_수정.pptx)의 양식을 따라 pptxgenjs 로 만듦
 //   서식: 13.33×7.5in, 위쪽 보라 띠(615BAE, 번호 · 구분), 왼쪽 보라 막대 + 20pt 제목, 연회색(F8F8FB) 카드에 보라 머리말,
 //         글꼴 "프리젠테이션 4 Regular / 5 Medium / 6 SemiBold / 7 Bold", 본문 2A2740, 보조 70707A
+// 참고 기획서(마왕성 주식회사 v2)에서 가져온 구성: 아래 바닥줄(선 · 과제명 · 출처 · 쪽 번호), 「한 줄 결론」 상자, 흐름 상자 + 화살표,
+//   큰 숫자 + 강조 막대 3칸(결과), 도넛 링(클리어율), 강조 카드 테두리 — 색은 서식의 보라 그대로
 // 데이터: docs/split-report/*.json, data/dungeons/split-boss/boss-stats.csv
 // 실행: NODE_PATH=<pptxgenjs 설치 폴더>/node_modules DECK_IMG=<잘라 둔 이미지 폴더> node tools/build-deck.cjs
 const fs = require('fs');
@@ -14,7 +16,7 @@ const J = (p) => JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8')).rows;
 
 const F = { r: '프리젠테이션 4 Regular', m: '프리젠테이션 5 Medium', s: '프리젠테이션 6 SemiBold', b: '프리젠테이션 7 Bold' };
 const C = { purple: '615BAE', deep: '3E3973', ink: '2A2740', sub: '70707A', mute: '888892', card: 'F8F8FB', line: 'DDDDE6', white: 'FFFFFF',
-  blue: '5B7FB0', teal: '3E7E92', olive: '8A7A33', red: 'B5423A', green: '4A8556', gray: 'EFEFF2', lilac: 'E9E7F6' };
+  blue: '5B7FB0', teal: '3E7E92', olive: '8A7A33', red: 'B5423A', green: '4A8556', gray: 'EFEFF2', lilac: 'E9E7F6', tint: 'F3F2FA', edge: 'D9D6F0', soft: 'B9B6CF', concl: 'E4E1F5' };
 
 const pres = new pptxgen();
 pres.layout = 'LAYOUT_WIDE';
@@ -28,6 +30,10 @@ function header(slide, no, label) {
   slide.addShape(pres.shapes.LINE, { x: 0.54, y: 0, w: 0, h: 0.47, line: { color: 'A9A4DA', width: 0.75 } });
   slide.addText(no, { x: 0.62, y: 0.07, w: 0.45, h: 0.34, fontFace: F.b, fontSize: 16, color: C.white, margin: 0, isTextBox: true });
   slide.addText(label, { x: 1.11, y: 0.07, w: 6, h: 0.34, fontFace: F.m, fontSize: 14, color: C.white, margin: 0, isTextBox: true });
+  // 바닥줄 (참고 기획서): 선 · 과제명 | 작성자 · 쪽 번호. 출처 · 각주는 note() 가 가운데 오른쪽에
+  slide.addShape(pres.shapes.LINE, { x: 0.5, y: 6.82, w: 12.33, h: 0, line: { color: C.edge, width: 1 } });
+  slide.addText('몬몬 마스터즈 레벨 디자인 과제  |  전현영', { x: 0.5, y: 6.9, w: 3.2, h: 0.25, fontFace: F.r, fontSize: 9, color: C.mute, margin: 0, isTextBox: true });
+  slide.slideNumber = { x: 12.23, y: 6.9, w: 0.6, h: 0.25, fontFace: F.s, fontSize: 9, color: C.mute, align: 'right' };
 }
 function title(slide, t, lead) {
   slide.addShape(pres.shapes.RECTANGLE, { x: 0.5, y: 1.04, w: 0.07, h: 0.28, fill: { color: C.purple }, line: { color: C.purple, width: 0 } });
@@ -50,7 +56,27 @@ function chip(slide, x, y, w, text, color, txt = C.white) {
   slide.addText(text, { x, y, w, h: 0.3, fontFace: F.m, fontSize: 10, color: txt, align: 'center', valign: 'middle', margin: 0, isTextBox: true });
 }
 function note(slide, t, y = 7.05) {
+  if (y >= 6.7) {   // 바닥줄 안 (출처 · 가정 자리)
+    slide.addText(t, { x: 3.8, y: 6.88, w: 8.3, h: 0.42, fontFace: F.r, fontSize: 8.5, color: C.mute, margin: 0, align: 'right', valign: 'top', isTextBox: true });
+    return;
+  }
   slide.addText(t, { x: 0.75, y, w: 12, h: 0.3, fontFace: F.r, fontSize: 9.5, color: C.mute, margin: 0, isTextBox: true });
+}
+// 「한 줄 결론」 상자 (참고 기획서) — h < 0.6 이면 라벨과 글을 한 줄로
+function concl(slide, text, o = {}) {
+  const x = o.x ?? 0.5, y = o.y ?? 5.95, w = o.w ?? 12.33, h = o.h ?? 0.75;
+  slide.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y, w, h, rectRadius: 0.08, fill: { color: C.concl }, line: { color: C.edge, width: 0.75 } });
+  if (h < 0.6) {
+    slide.addText('한 줄 결론', { x: x + 0.2, y, w: 1.2, h, fontFace: F.b, fontSize: 12, color: C.deep, valign: 'middle', margin: 0, isTextBox: true });
+    slide.addText(text, { x: x + 1.45, y, w: w - 1.6, h, fontFace: F.m, fontSize: 11.5, color: C.ink, valign: 'middle', margin: 0, isTextBox: true });
+  } else {
+    slide.addText('한 줄 결론', { x: x + 0.2, y: y + 0.08, w: 2, h: 0.3, fontFace: F.b, fontSize: 12.5, color: C.deep, margin: 0, isTextBox: true });
+    slide.addText(text, { x: x + 0.2, y: y + 0.38, w: w - 0.4, h: h - 0.44, fontFace: F.m, fontSize: 11.5, color: C.ink, valign: 'top', margin: 0, isTextBox: true });
+  }
+}
+// 흐름 화살표 (참고 기획서: 상자 사이 작은 오른쪽 화살표)
+function arrow(slide, x, y) {
+  slide.addShape(pres.shapes.RIGHT_ARROW, { x, y, w: 0.16, h: 0.14, fill: { color: C.purple }, line: { color: C.purple, width: 0 } });
 }
 // 표: rows[0] = 머리글
 function table(slide, rows, opt) {
@@ -104,7 +130,7 @@ const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart
   const cards = [
     ['데이터 수집', ['· 도감 285마리 스킬·스탯 (화면 캡처 OCR)', '· 초기 던전 보스 9종 공략·스킬', '· 단계별 보스 스탯 · 전투 관측값']],
     ['분석', ['· 보스 9종 공통 성장 곡선', '· 열쇠 효과 보유 몬몬 등급 분포', '· 보스 한 주기 타수 · 시간 계산']],
-    ['전투 시뮬레이션', ['· 0.1초 단위 전용 전투 계산', '· 설정·파티마다 1,000판', '· 대조군으로 열쇠 효과만 분리']],
+    ['전투 시뮬레이션', ['· 0.1초 단위 전용 전투 계산', '· 설정·파티마다 1,000판', '· 기본 파티와 비교해 열쇠 효과만 분리']],
     ['산출물', ['· 결과 페이지 (표·그래프)', '· 보스 공략 창 UI 목업', '· 검산 엑셀 (수식 · DB)']],
   ];
   cards.forEach(([h, l], i) => card(s, 0.5 + i * 3.12, 2.6, 2.95, 1.55, h, l));
@@ -112,10 +138,10 @@ const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart
   const steps = [['관측', '게임 화면·전투에서 값 수집'], ['진단', '열쇠가 안 먹히는 지점 찾기'], ['설계', '보스 기믹·단계 수치'], ['검증', '열쇠 있음·없음 비교']];
   steps.forEach(([h, d], i) => {
     const x = 0.5 + i * 3.12;
-    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y: 4.95, w: 2.95, h: 1.1, rectRadius: 0.08, fill: { color: i === 3 ? C.purple : C.lilac }, line: { color: C.purple, width: 0.75 } });
+    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y: 4.95, w: 2.95, h: 1.1, rectRadius: 0.08, fill: { color: i === 3 ? C.purple : C.tint }, line: { color: i === 3 ? C.purple : C.edge, width: 0.75 } });
     s.addText(`0${i + 1}  ${h}`, { x: x + 0.2, y: 5.05, w: 2.6, h: 0.4, fontFace: F.b, fontSize: 16, color: i === 3 ? C.white : C.purple, margin: 0, isTextBox: true });
     s.addText(d, { x: x + 0.2, y: 5.5, w: 2.6, h: 0.4, fontFace: F.r, fontSize: 12, color: i === 3 ? C.white : C.ink, margin: 0, isTextBox: true });
-    if (i < 3) s.addText('›', { x: x + 2.95, y: 5.2, w: 0.17, h: 0.5, fontFace: F.b, fontSize: 20, color: C.purple, align: 'center', margin: 0, isTextBox: true });
+    if (i < 3) arrow(s, x + 2.955, 5.43);
   });
   note(s, '모든 수치는 관측·사용자 결정·기획값·가정·방식으로 근거를 나눠 적었습니다 (부록 「시뮬레이션 기준」).', 6.4);
 }
@@ -139,7 +165,7 @@ const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart
   ];
   rows[8] = rows[8].map((c) => (typeof c === 'string' ? { text: c, options: { fill: { color: C.lilac } } } : { ...c, options: { ...c.options, fill: { color: C.lilac } } }));
   table(s, rows, { x: 0.5, y: 2.05, w: 12.33, colW: [2.35, 1.75, 3.2, 2.2, 1.05, 1.78], size: 11, rowH: 0.42 });
-  note(s, '글라틀은 열쇠 몬몬이 고급·일반에도 넉넉한데(15마리) 열쇠가 성장과 이어지지 않는 보스 → 문항 1 대상으로 선정', 6.45);
+  concl(s, '글라틀은 열쇠(다회) 몬몬이 고급 · 일반에도 15마리나 있는데, 열쇠가 성장과 이어지지 않는 보스 → 문항 1 대상', { y: 6.33, h: 0.42 });
 }
 
 // ── 4. 글라틀 구조 ─────────────────────────────────────────
@@ -155,16 +181,16 @@ const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart
     ['빙하 각성', '자신의 디버프 전부 제거 + 속도 +15% → 다음 주기가 짧아짐', C.olive],
   ];
   mech.forEach(([h, d, col], i) => {
-    const y = 2.05 + i * 1.02;
-    s.addShape(pres.shapes.RECTANGLE, { x: 4.4, y, w: 8.43, h: 0.9, fill: { color: C.card }, line: { color: C.line, width: 0.75 } });
-    chip(s, 4.55, y + 0.3, 1.35, h, col);
-    s.addText(d, { x: 6.05, y: y + 0.08, w: 6.65, h: 0.74, fontFace: F.r, fontSize: 12, color: C.ink, margin: 0, valign: 'middle', isTextBox: true });
+    const y = 2.05 + i * 0.92;
+    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: 4.4, y, w: 8.43, h: 0.82, rectRadius: 0.06, fill: { color: C.tint }, line: { color: C.edge, width: 0.75 } });
+    chip(s, 4.55, y + 0.26, 1.35, h, col);
+    s.addText(d, { x: 6.05, y: y + 0.06, w: 6.65, h: 0.7, fontFace: F.r, fontSize: 12, color: C.ink, margin: 0, valign: 'middle', isTextBox: true });
   });
   const stats = [['12초', '보스 게이지 — 이 안에 등껍질을 깨야 함'], ['60 → 90번', '7단계부터 깨야 하는 횟수'], ['38마리', '다회 피해 몬몬 (고급·일반 15)']];
   stats.forEach(([n, l], i) => {
     const x = 4.4 + i * 2.85;
-    s.addText(n, { x, y: 6.2, w: 2.7, h: 0.5, fontFace: F.b, fontSize: 26, color: C.purple, margin: 0, isTextBox: true });
-    s.addText(l, { x, y: 6.7, w: 2.7, h: 0.3, fontFace: F.r, fontSize: 11, color: C.sub, margin: 0, isTextBox: true });
+    s.addText(n, { x, y: 5.85, w: 2.7, h: 0.5, fontFace: F.b, fontSize: 26, color: C.purple, margin: 0, isTextBox: true });
+    s.addText(l, { x, y: 6.35, w: 2.7, h: 0.3, fontFace: F.r, fontSize: 11, color: C.sub, margin: 0, isTextBox: true });
   });
 }
 
@@ -207,7 +233,8 @@ const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart
     [ctr('5'), '진짜 승부는 열쇠 밖', '탈진 7~8초 피해의 약 3/4이 고화력 몬몬 스킬', '보상은 다른 몬몬이 가져감'],
     [ctr('6'), '디버프·속도로 돕는 길도 막힘', '[빙하 각성] 디버프 전부 제거 + 속도 +15%', '탈진 중 건 디버프가 바로 사라짐'],
   ];
-  table(s, rows, { x: 0.5, y: 2.05, w: 12.33, colW: [0.5, 3.2, 5.0, 3.63], size: 12, rowH: 0.62 });
+  table(s, rows, { x: 0.5, y: 2.05, w: 12.33, colW: [0.5, 3.2, 5.0, 3.63], size: 12, rowH: 0.54 });
+  concl(s, '열쇠(다회)는 레벨 · 별과 무관한 고정 타수를 주는데, 단계는 짧아지는 창 × 늘어나는 횟수를 요구합니다 → 키워도 못 여는 열쇠, 진짜 승부는 열쇠 밖.', { y: 6.0, h: 0.7 });
 }
 
 // ── 7. 재설계 방향 ─────────────────────────────────────────
@@ -226,6 +253,7 @@ const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart
     card(s, x, y, 6.03, 1.75, h, l, { size: 14 });
     chip(s, x + 4.55, y + 1.32, 1.3, `푸는 것: ${fix}`, C.teal);
   });
+  concl(s, '보스 정체성(등껍질을 두드려 깨기)은 그대로 두고, 열쇠의 효과를 피해량 · 균열 누적과 이어 「키울수록 빨리 깨는」 보스로 바꿉니다.', { y: 6.0, h: 0.7 });
   note(s, '기획자 확정 전 초안 (docs/q1-glattle-redesign.md). 공략 문구 예: "강하게 때릴수록 [얼음 등껍질]이 빨리 깨져요."', 6.85);
 }
 
@@ -303,7 +331,7 @@ function shotRow(s, items, x0, gap, h, y = 2.0) {   // items: [파일, 라벨, �
   const s = pres.addSlide();
   header(s, '03', '문항 2 · 에픽 열쇠 던전');
   title(s, '보스 공략 창 ① 공략 포인트 — 구간 버튼마다 바뀌는 안내', '게임의 보스 공략 창과 같은 구성. 초반 · 중반 · 후반 버튼을 누르면 「보스 패턴 / 이렇게 풀어요」가 그 구간 내용으로 바뀝니다.');
-  const end = shotRow(s, [['02-points-early.png', '초반 1~6', C.green], ['03-points-mid.png', '중반 7~15', C.purple], ['04-points-late.png', '후반 16~20', C.red]], 0.5, 0.3, 4.75);
+  const end = shotRow(s, [['02-points-early.png', '초반 1~6', C.green], ['03-points-mid.png', '중반 7~15', C.purple], ['04-points-late.png', '후반 16~20', C.red]], 0.5, 0.3, 4.3);
   const x0 = end + 0.4, w0 = 12.83 - x0;
   const pts = [
     ['초반 1~6', '기믹 소개 — 반격 · 느려짐 없음, 광역 피해 감소 30%. 열쇠 없이도 깸', C.green],
@@ -316,13 +344,13 @@ function shotRow(s, items, x0, gap, h, y = 2.0) {   // items: [파일, 라벨, �
     chip(s, x0, y, 1.4, hh, col);
     s.addText(d, { x: x0, y: y + 0.38, w: w0, h: 0.9, fontFace: F.r, fontSize: 12, color: C.ink, margin: 0, valign: 'top', isTextBox: true });
   });
-  s.addText('「내 구간」 표시는 지금 도전 중인 단계의 구간', { x: x0, y: 6.6, w: w0, h: 0.5, fontFace: F.r, fontSize: 10, color: C.mute, margin: 0, valign: 'top', isTextBox: true });
+  s.addText('「내 구간」 표시는 지금 도전 중인 단계의 구간', { x: x0, y: 6.3, w: w0, h: 0.4, fontFace: F.r, fontSize: 10, color: C.mute, margin: 0, valign: 'top', isTextBox: true });
 }
 {
   const s = pres.addSlide();
   header(s, '03', '문항 2 · 에픽 열쇠 던전');
   title(s, '보스 공략 창 ② 필요한 효과 · 보스 스킬', '필요한 효과에 열쇠 몬몬과 편성 버튼이 뜨고, 보스 스킬 탭은 쿼디의 기본공격 · 스킬 · 패시브 10개를 보여 줍니다.');
-  const end = shotRow(s, [['05-needed.png', '필요한 효과', C.teal], ['06-skills-1.png', '보스 스킬 ① 1~5', C.purple], ['07-skills-2.png', '보스 스킬 ② 6~10', C.purple]], 0.5, 0.3, 4.75);
+  const end = shotRow(s, [['05-needed.png', '필요한 효과', C.teal], ['06-skills-1.png', '보스 스킬 ① 1~5', C.purple], ['07-skills-2.png', '보스 스킬 ② 6~10', C.purple]], 0.5, 0.3, 4.3);
   const x0 = end + 0.45, w0 = 12.83 - x0;
   const pts = [
     ['필요한 효과', '① 부활 차단 ② 피해 반사 ③ 은신 — 효과마다 열쇠 몬몬 아이콘과 편성 버튼'],
@@ -341,7 +369,7 @@ function shotRow(s, items, x0, gap, h, y = 2.0) {   // items: [파일, 라벨, �
 {
   const s = pres.addSlide();
   header(s, '03', '문항 2 · 에픽 열쇠 던전');
-  title(s, '열쇠 몬몬 — 같은 보스를 세 갈래로 연다', '열쇠 효과마다 푸는 방식이 다릅니다. 시뮬레이션은 쥐강이 자리에 넣고 화력을 같게 둔 대조군과 비교했습니다.');
+  title(s, '열쇠 몬몬 — 같은 보스를 세 갈래로 연다', '열쇠 효과마다 푸는 방식이 다릅니다. 시뮬레이션은 같은 자리에 같은 능력치 · 열쇠 효과만 없는 몬몬을 둔 기본 파티와 비교했습니다.');
   const keys = [
     ['099.png', '톡찌리 (에픽)', '부활 차단', ['스킬 10회가 무작위 조각에 퍼짐', '★5 패시브: 맞은 타격마다 15% [부활 차단]', '→ 진화해야 열쇠가 완성 (성장과 연결)'], C.purple],
     ['123.png', '몽실벌 (에픽)', '피해 반사', ['4턴마다 아군 전체 [피해 반사 30%]', '반사는 조각에 고르게 들어감', '→ 반사 피해도 방어력에 깎여 효과는 작음'], C.blue],
@@ -349,20 +377,24 @@ function shotRow(s, items, x0, gap, h, y = 2.0) {   // items: [파일, 라벨, �
   ];
   keys.forEach(([ic, n, k, l, col], i) => {
     const x = 0.5 + i * 4.14;
-    s.addShape(pres.shapes.RECTANGLE, { x, y: 2.05, w: 3.95, h: 3.4, fill: { color: C.card }, line: { color: C.line, width: 0.75 } });
+    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y: 2.05, w: 3.95, h: 2.75, rectRadius: 0.08, fill: { color: C.tint }, line: { color: i === 0 ? C.purple : C.edge, width: i === 0 ? 1.5 : 0.75 } });
     s.addImage({ path: path.join(IMG, `key-${ic}`), x: x + 0.2, y: 2.2, w: 1.0, h: 1.0 });
     s.addText(n, { x: x + 1.35, y: 2.25, w: 2.5, h: 0.4, fontFace: F.b, fontSize: 16, color: C.ink, margin: 0, isTextBox: true });
     chip(s, x + 1.35, 2.75, 1.4, k, col);
-    s.addText(l.map((t, j) => ({ text: t, options: { breakLine: j < l.length - 1 } })), { x: x + 0.2, y: 3.4, w: 3.55, h: 1.9, fontFace: F.r, fontSize: 12.5, color: C.ink, margin: 0, valign: 'top', paraSpaceAfter: 6, isTextBox: true });
+    s.addText(l.map((t, j) => ({ text: t, options: { breakLine: j < l.length - 1 } })), { x: x + 0.2, y: 3.4, w: 3.55, h: 1.3, fontFace: F.r, fontSize: 12.5, color: C.ink, margin: 0, valign: 'top', paraSpaceAfter: 6, isTextBox: true });
   });
-  const b2 = band(2, 'ctrl'), t2 = band(2, 'tok'), m2 = band(2, 'mong'), c2 = band(2, 'chot'), d2 = band(2, 'duo');
-  const stats = [[`${b2.clear}%`, '대조군 (열쇠 없음)'], [`${t2.clear}%`, '톡찌리'], [`${m2.clear}%`, '몽실벌'], [`${c2.clear}%`, '촛동'], [`${d2.clear}%`, '톡찌리 + 몽실벌']];
-  stats.forEach(([v, l], i) => {
-    const x = 0.5 + i * 2.48;
-    s.addText(v, { x, y: 5.7, w: 2.3, h: 0.6, fontFace: F.b, fontSize: 30, color: i === 0 ? C.red : C.purple, margin: 0, isTextBox: true });
-    s.addText(l, { x, y: 6.3, w: 2.3, h: 0.3, fontFace: F.r, fontSize: 11.5, color: C.sub, margin: 0, isTextBox: true });
+  const b2 = band(2, 'base'), t2 = band(2, 'tok'), m2 = band(2, 'mong'), c2 = band(2, 'chot'), d2 = band(2, 'duo');
+  const stats = [[b2.clear, '기본 파티', '열쇠 효과 없음', C.red], [t2.clear, '톡찌리', '부활 차단', C.purple], [m2.clear, '몽실벌', '피해 반사', C.blue], [c2.clear, '촛동', '은신', C.teal], [d2.clear, '톡찌리 + 몽실벌', '열쇠 2명', C.deep]];
+  sub(s, '중반(7~15) 클리어율', 0.5, 4.98);
+  stats.forEach(([v, l, k, col], i) => {
+    const x = 0.5 + i * 2.48, y = 5.33;
+    s.addChart(pres.charts.DOUGHNUT, [{ name: l, labels: ['클리어', '실패'], values: [v, Math.max(0, 100 - v)] }],
+      { x, y, w: 1.42, h: 1.42, holeSize: 66, chartColors: [col, C.lilac], showLegend: false, showValue: false, showPercent: false, showLabel: false, showTitle: false, dataBorder: { pt: 0.5, color: 'FFFFFF' } });
+    s.addText(`${Math.round(v)}%`, { x, y: y + 0.5, w: 1.42, h: 0.42, fontFace: F.b, fontSize: 16, color: col, align: 'center', valign: 'middle', margin: 0, isTextBox: true });
+    s.addText([{ text: l, options: { fontFace: F.s, fontSize: 12, color: C.ink, breakLine: true } }, { text: k, options: { fontFace: F.r, fontSize: 10.5, color: C.sub } }],
+      { x: x + 1.48, y: y + 0.38, w: 0.98, h: 0.7, margin: 0, valign: 'middle', isTextBox: true });
   });
-  note(s, '중반(7~15) 클리어율, 1,000판 · 부활 차단 보유: 전설 1 · 에픽 2 · 레어 1 / 피해 반사 (강): 전설 1 · 에픽 4 · 레어 1', 6.8);
+  note(s, '1,000판 · 부활 차단 보유: 전설 1 · 에픽 2 · 레어 1 / 피해 반사 (강): 전설 1 · 에픽 4 · 레어 1', 6.8);
 }
 
 // ── 12. 단계별 설계 ────────────────────────────────────────
@@ -395,28 +427,74 @@ function shotRow(s, items, x0, gap, h, y = 2.0) {   // items: [파일, 라벨, �
   ], { size: 12 });
 }
 
+// ── 12-2. 시뮬레이션 방식 (몬테카를로) — 코드를 안 열어도 계산 방식을 알 수 있게 ──
+{
+  const s = pres.addSlide();
+  header(s, '03', '문항 2 · 검증');
+  title(s, '시뮬레이션 방식 — 전투 1판을 0.1초씩 끝까지, 1,000판 돌려 확률로', '게임 엔진이 아니라 관측값과 기획 규칙으로 만든 전용 전투 계산입니다. 무작위가 섞인 전투를 1,000번 돌려 「몇 번 이기는지」로 봅니다.');
+  sub(s, '한 판의 흐름', 0.5, 2.0);
+  s.addShape(pres.shapes.RECTANGLE, { x: 0.5, y: 2.4, w: 6.9, h: 0.38, fill: { color: C.lilac }, line: { color: C.lilac, width: 0 } });
+  s.addText('준비  아군 게이지 0 · 첫 평타 시점만 무작위, 보스는 한 몸 200,000', { x: 0.62, y: 2.4, w: 6.7, h: 0.38, fontFace: F.m, fontSize: 11.5, color: C.deep, margin: 0, valign: 'middle', isTextBox: true });
+  const flow = [
+    ['아군 행동', '속도만큼 평타 1.6초 · 스킬 16초 (속도 100). 단일은 맨 앞 조각, 광역은 조각 전부 (−50%)'],
+    ['분열', '한 몸이 쓰러지면 조각 4마리 (단단한 2 · 흐물 2)'],
+    ['부활', '쓰러지고 15초 뒤 부활 (속도 무관), 부활마다 공격력 ×1.1 · [부활 차단]이 남아 있으면 못 일어남'],
+    ['조각 공격', '평타 2.4초 · 스킬 9.6초 — 맨 앞 1명 450 / 전체 225 + 가까운 2명 느려짐'],
+    ['반격', '반격 자세 조각이 다수 공격을 맞으면 쓴 몬몬에게 1,500 (은신이면 빗나감)'],
+    ['판정', '조각 4마리가 다 쓰러지면 클리어 · 아군 전멸이나 600초면 실패'],
+  ];
+  const fy = 2.88, fh = 0.6;
+  s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: 0.5, y: fy, w: 0.55, h: flow.length * fh - 0.08, rectRadius: 0.1, fill: { color: C.purple }, line: { color: C.purple, width: 0 } });
+  s.addText('0.1초마다 반복 ↺', { x: 0.5, y: fy, w: 0.55, h: flow.length * fh - 0.08, fontFace: F.b, fontSize: 11, color: C.white, align: 'center', valign: 'middle', vert: 'eaVert', margin: 0, isTextBox: true });
+  flow.forEach(([hh, d], i) => {
+    const y = fy + i * fh;
+    s.addShape(pres.shapes.RECTANGLE, { x: 1.15, y, w: 6.25, h: fh - 0.08, fill: { color: C.card }, line: { color: C.line, width: 0.75 } });
+    s.addText(`${i + 1}  ${hh}`, { x: 1.25, y, w: 1.35, h: fh - 0.08, fontFace: F.s, fontSize: 12, color: C.purple, valign: 'middle', margin: 0, isTextBox: true });
+    s.addText(d, { x: 2.6, y, w: 4.7, h: fh - 0.08, fontFace: F.r, fontSize: 10.5, color: C.ink, valign: 'middle', margin: 0, isTextBox: true });
+  });
+  card(s, 7.75, 2.0, 5.08, 1.75, '판마다 달라지는 것 (무작위 요소)', [
+    '· 첫 평타 시점 — 아군 0~1.6초 · 조각 0~2.4초',
+    '· 치명타 — 딸랑귀 28% · 쥐강이 37% (3,216 → 5,000)',
+    '· 톡찌리 타격 대상 무작위 + 타격마다 [부활 차단] 15%',
+    '· 딸랑귀 약화 75% (받는 피해 +25%)',
+  ], { size: 11.5 });
+  card(s, 7.75, 3.95, 5.08, 1.35, '1,000판 집계', [
+    '· 클리어율 = 이긴 판 ÷ 1,000',
+    '· 클리어 시간 = 이긴 판들의 중앙값',
+    '· 시드 4242 고정 → 다시 돌려도 같은 결과, 파티끼리 같은 난수로 비교',
+  ], { size: 11.5, color: C.teal });
+  s.addText('±3.1%p', { x: 7.75, y: 5.55, w: 2.0, h: 0.6, fontFace: F.b, fontSize: 28, color: C.purple, margin: 0, isTextBox: true });
+  s.addText('1,000판 클리어율의 95% 오차 (최대, 50%일 때). 기본 파티 32% vs 톡찌리 96% 차이 64%p는 우연이 아님', { x: 9.8, y: 5.5, w: 3.03, h: 0.75, fontFace: F.r, fontSize: 10.5, color: C.ink, margin: 0, valign: 'middle', isTextBox: true });
+  note(s, '전체 규칙과 몬몬별 스킬 처리: 엑셀 「시뮬레이션 방식」 시트 · 코드 tools/split-sim.mjs', 6.85);
+}
+
 // ── 13. 시뮬레이션 결과 ────────────────────────────────────
 {
   const s = pres.addSlide();
   header(s, '03', '문항 2 · 검증');
-  title(s, '시뮬레이션 — 같은 투력이면 열쇠 없이는 대부분 실패', '10단계 투력으로 정규화, 모든 몬몬이 빈 게이지로 시작, 구간·파티마다 1,000판. 대조군 = 열쇠 몬몬과 같은 체력·속도·화력, 열쇠 효과만 없음.');
-  const ks = [['base', '기준 파티'], ['ctrl', '대조군'], ['tok', '톡찌리'], ['mong', '몽실벌'], ['chot', '촛동'], ['duo', '톡찌리 + 몽실벌']];
-  s.addChart(pres.charts.BAR, ks.map(([k, n]) => ({ name: n, labels: ['초반 1~6', '중반 7~15', '후반 16~20'], values: [1, 2, 3].map((o) => band(o, k).clear) })), {
-    x: 0.5, y: 2.05, w: 8.2, h: 4.7, barDir: 'col', barGrouping: 'clustered', barGapWidthPct: 60,
-    chartColors: ['B9B6CF', C.mute, C.purple, C.blue, C.teal, C.deep], valAxisMaxVal: 100, valAxisMinVal: 0, valAxisLabelFormatCode: '0"%"',
-    showValue: true, dataLabelPosition: 'outEnd', dataLabelFontSize: 8, dataLabelFontFace: F.r, dataLabelColor: C.ink, dataLabelFormatCode: '0',
-    valAxisLabelFontFace: F.r, catAxisLabelFontFace: F.m, valAxisLabelFontSize: 9, catAxisLabelFontSize: 11, valAxisLabelColor: C.sub, catAxisLabelColor: C.ink,
-    valGridLine: { color: 'E6E6EE', size: 0.5 }, catGridLine: { style: 'none' }, showLegend: true, legendPos: 'b', legendFontFace: F.r, legendFontSize: 10, legendColor: C.ink,
-    showTitle: true, title: '구간별 클리어율 (%)', titleFontFace: F.s, titleFontSize: 12, titleColor: C.ink });
-  const c = band(2, 'ctrl'), t = band(2, 'tok'), d = band(2, 'duo');
-  const big = [[`${c.clear}%`, `중반 대조군 · 이긴 판 ${mmss(c.time)}`, C.red], [`${t.clear}%`, `중반 톡찌리 · ${mmss(t.time)}`, C.purple], [`${d.clear}%`, `중반 열쇠 2명 · ${mmss(d.time)}`, C.deep]];
-  big.forEach(([v, l, col], i) => {
-    const y = 2.1 + i * 1.25;
-    s.addShape(pres.shapes.RECTANGLE, { x: 9.0, y, w: 3.83, h: 1.1, fill: { color: C.card }, line: { color: C.line, width: 0.75 } });
-    s.addText(v, { x: 9.2, y: y + 0.08, w: 3.5, h: 0.6, fontFace: F.b, fontSize: 30, color: col, margin: 0, isTextBox: true });
-    s.addText(l, { x: 9.2, y: y + 0.68, w: 3.5, h: 0.3, fontFace: F.r, fontSize: 11.5, color: C.sub, margin: 0, isTextBox: true });
+  title(s, '시뮬레이션 — 같은 투력이면 열쇠 없이는 대부분 실패', '10단계 투력으로 정규화, 모든 몬몬이 빈 게이지로 시작, 구간·파티마다 1,000판. 기본 파티 = 쥐강이 자리에 열쇠 몬몬과 같은 체력·속도·화력의 몬몬, 열쇠 효과만 없음.');
+  // 참고 기획서 16쪽 방식: 구간마다 큰 숫자 + 강조 막대 (열쇠 파티만 진하게), 지금 구간(중반)은 테두리 강조
+  const ks = [['base', '기본'], ['tok', '톡찌리'], ['mong', '몽실벌'], ['chot', '촛동'], ['duo', '톡+몽']];
+  const BAND = [[1, '초반 1~6', '기믹 소개 — 모두 약 2분에 깸'], [2, '중반 7~15', ''], [3, '후반 16~20', '느려짐 3겹 — 열쇠 2명 권장']];
+  BAND.forEach(([o, lab, msg], i) => {
+    const x = 0.5 + i * 4.17, y = 2.0, w = 3.99, h = 3.75;
+    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y, w, h, rectRadius: 0.08, fill: { color: C.tint }, line: { color: o === 2 ? C.purple : C.edge, width: o === 2 ? 1.5 : 0.75 } });
+    const b0 = band(o, 'base'), bt = band(o, 'tok');
+    s.addText(lab, { x, y: y + 0.12, w, h: 0.3, fontFace: F.s, fontSize: 12.5, color: C.purple, align: 'center', margin: 0, isTextBox: true });
+    s.addText([{ text: `${Math.round(b0.clear)}%`, options: { color: C.red } }, { text: '  →  ', options: { color: C.soft, fontSize: 18 } }, { text: `${Math.round(bt.clear)}%`, options: { color: C.purple } }],
+      { x, y: y + 0.42, w, h: 0.58, fontFace: F.b, fontSize: 28, align: 'center', valign: 'middle', margin: 0, isTextBox: true });
+    s.addText('기본 파티  →  톡찌리', { x, y: y + 1.0, w, h: 0.24, fontFace: F.r, fontSize: 10, color: C.sub, align: 'center', margin: 0, isTextBox: true });
+    s.addChart(pres.charts.BAR, [{ name: lab, labels: ks.map((k) => k[1]), values: ks.map(([k]) => band(o, k).clear) }], {
+      x: x + 0.12, y: y + 1.27, w: w - 0.24, h: 1.85, barDir: 'col', barGapWidthPct: 55,
+      chartColors: [C.mute, C.purple, C.soft, C.soft, C.deep], valAxisMaxVal: 100, valAxisMinVal: 0, valAxisHidden: true, valGridLine: { style: 'none' }, catGridLine: { style: 'none' },
+      showValue: true, dataLabelPosition: 'outEnd', dataLabelFontSize: 9, dataLabelFontFace: F.s, dataLabelColor: C.ink, dataLabelFormatCode: '0',
+      catAxisLabelFontFace: F.r, catAxisLabelFontSize: 9, catAxisLabelColor: C.sub, catAxisLineShow: true, showLegend: false, showTitle: false });
+    const line = msg || `이긴 판 — 기본 파티 ${mmss(b0.time)} · 톡찌리 ${mmss(bt.time)} (목표 2:30~3:00)`;
+    s.addText(line, { x: x + 0.15, y: y + 3.17, w: w - 0.3, h: 0.5, fontFace: F.r, fontSize: 10.5, color: C.ink, align: 'center', valign: 'middle', margin: 0, isTextBox: true });
   });
-  s.addText(`열쇠 없는 파티는 다시 일어날 때마다 강해지는 조각에 무너지고, 톡찌리 파티는 부활을 막아 이긴 판 기준 ${mmss(t.time)}에 깹니다 (목표 2:30~3:00).`, { x: 9.0, y: 5.95, w: 3.83, h: 0.85, fontFace: F.r, fontSize: 11, color: C.ink, margin: 0, valign: 'top', isTextBox: true });
+  const m = band(2, 'base'), t = band(2, 'tok'), l0 = band(3, 'base'), l1 = band(3, 'tok');
+  concl(s, `같은 능력치에서 열쇠 효과만 바꿔도 중반 ${Math.round(m.clear)}% → ${Math.round(t.clear)}%, 후반 ${Math.round(l0.clear)}% → ${Math.round(l1.clear)}%. 열쇠 없는 파티는 다시 일어날 때마다 강해지는 조각에 무너지고, 톡찌리는 부활을 막아 이긴 판 ${mmss(t.time)}에 깹니다.`, { y: 5.92, h: 0.78 });
+  note(s, '막대: 기본 · 톡찌리 · 몽실벌 · 촛동 · 톡찌리 + 몽실벌 클리어율 (%), 1,000판 · 몽실벌 · 촛동은 연하게', 6.85);
 }
 
 // ── 14. 2-2 다른 해법 ──────────────────────────────────────
@@ -425,8 +503,8 @@ function shotRow(s, items, x0, gap, h, y = 2.0) {   // items: [파일, 라벨, �
   header(s, '03', '문항 2 · 다른 해법');
   title(s, '2-2 다른 해법 — 열쇠 없이 깨는 길과 막는 기믹', '현재 도감의 몬몬·스킬로 가능한 우회를 찾고, 기믹을 무력화하는 것만 막았습니다.');
   const groups = [['원래 속도', 1], ['전원 110', 2], ['전원 120', 3]];
-  s.addChart(pres.charts.BAR, [['base', '기준 파티'], ['ctrl', '대조군'], ['tok', '톡찌리']].map(([k, n]) => ({ name: n, labels: groups.map((g) => g[0]), values: groups.map((g) => syncv(g[1], k)) })), {
-    x: 0.5, y: 2.05, w: 4.9, h: 4.4, barDir: 'col', barGrouping: 'clustered', barGapWidthPct: 70, chartColors: ['B9B6CF', C.mute, C.purple],
+  s.addChart(pres.charts.BAR, [['base', '기본 파티'], ['tok', '톡찌리']].map(([k, n]) => ({ name: n, labels: groups.map((g) => g[0]), values: groups.map((g) => syncv(g[1], k)) })), {
+    x: 0.5, y: 2.05, w: 4.9, h: 4.4, barDir: 'col', barGrouping: 'clustered', barGapWidthPct: 70, chartColors: [C.mute, C.purple],
     valAxisMaxVal: 100, valAxisMinVal: 0, valAxisLabelFormatCode: '0"%"', showValue: true, dataLabelPosition: 'outEnd', dataLabelFontSize: 8, dataLabelFontFace: F.r, dataLabelColor: C.ink, dataLabelFormatCode: '0',
     valAxisLabelFontFace: F.r, catAxisLabelFontFace: F.m, valAxisLabelFontSize: 9, catAxisLabelFontSize: 10.5, valAxisLabelColor: C.sub, catAxisLabelColor: C.ink,
     valGridLine: { color: 'E6E6EE', size: 0.5 }, catGridLine: { style: 'none' }, showLegend: true, legendPos: 'b', legendFontFace: F.r, legendFontSize: 10, legendColor: C.ink,
@@ -440,8 +518,9 @@ function shotRow(s, items, x0, gap, h, y = 2.0) {   // items: [파일, 라벨, �
     ['부활을 처치 보상 농사로', '입질범 · 쫑긋이 · 비커링', '부활마다 공격력 +10%가 쌓임'],
     ['조각 행동 막기', '기절 · 도발 · 스킬 에너지 감소', '[절대 면역] · 부활 타이머는 속도 무관'],
   ];
-  table(s, rows, { x: 5.7, y: 2.05, w: 7.13, colW: [2.05, 2.3, 2.78], size: 10.5, rowH: 0.56 });
-  note(s, `전원 110은 원래 평균 속도(약 112)와 거의 같아 총 화력은 그대로 — 스킬이 같이 터지는 효과만으로 기준 파티 ${syncv(1, 'base')}% → ${syncv(2, 'base')}%`, 6.75);
+  table(s, rows, { x: 5.7, y: 2.05, w: 7.13, colW: [2.05, 2.3, 2.78], size: 10.5, rowH: 0.5 });
+  concl(s, '기믹을 이해한 우회(속도 맞춰 일제 사격)는 2-2 답으로 남기고, 기믹 자체를 무력화하는 길(독 · 부활 농사 · 행동 막기)만 막습니다.', { x: 5.7, y: 5.72, w: 7.13, h: 0.78 });
+  note(s, `전원 110은 원래 평균 속도(약 112)와 거의 같아 총 화력은 그대로 — 스킬이 같이 터지는 효과만으로 기본 파티 ${syncv(1, 'base')}% → ${syncv(2, 'base')}%`, 6.75);
 }
 
 // ── 15. 시뮬레이션 기준 (부록) ─────────────────────────────
@@ -450,7 +529,7 @@ function shotRow(s, items, x0, gap, h, y = 2.0) {   // items: [파일, 라벨, �
   header(s, '04', '부록');
   title(s, '시뮬레이션 기준', '근거 — 관측: 게임에서 본 값 · 사용자 결정: 기획자가 정한 규칙 · 기획값: 시뮬레이션으로 고른 후보 · 가정: 확인 못 한 값 · 방식: 계산 방법');
   const crit = J('docs/split-report/criteria.json');
-  const pick = ['계산', '판 수', '클리어 / 실패', '대조군', '파티', '피해', '딸랑귀 피해', '시간', '시작 게이지', '열쇠 몬몬', '체력', '반격', '부활', '부활 차단', '느려짐'];
+  const pick = ['계산', '판 수', '클리어 / 실패', '기본 파티', '파티', '피해', '딸랑귀 피해', '시간', '시작 게이지', '열쇠 몬몬', '체력', '반격', '부활', '부활 차단', '느려짐'];
   const col = { '관측': C.green, '사용자 결정': C.ink, '기획값': C.olive, '가정': C.red, '방식': C.mute };
   const rows = [['구분', '항목', '값', '근거']].concat(pick.map((p) => crit.find((r) => r.item === p)).filter(Boolean).map((r) => [r.group, r.item, r.value, { text: r.basis, options: { color: col[r.basis], fontFace: F.s, align: 'center' } }]));
   table(s, rows, { x: 0.5, y: 1.95, w: 12.33, colW: [1.55, 1.35, 8.33, 1.1], size: 9, rowH: 0.3 });

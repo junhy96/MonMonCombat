@@ -55,7 +55,7 @@
 <div class="sb" data-read lang="ko">
   <header class="sb-head" id="top">
     <h1 class="sb-title">분열 보스 시뮬레이션 결과</h1>
-    <p class="sb-lead">분열체 체력 14,000(중반 10단계 기준)에서 기준 파티는 <b data-draw="pct" data-k="base" data-source="sweep" data-field="clear" data-where="key=base&amp;hp=14000">—</b>%, 쥐강이 자리를 같은 화력으로 바꾼 대조군은 <b data-draw="pct" data-k="ctrl" data-source="sweep" data-field="clear" data-where="key=ctrl&amp;hp=14000">—</b>%를 이겨요. 같은 자리에 열쇠 몬몬을 넣으면 톡찌리 <b data-draw="pct" data-k="tok" data-source="sweep" data-field="clear" data-where="key=tok&amp;hp=14000">—</b>%, 몽실벌 <b data-draw="pct" data-k="mong" data-source="sweep" data-field="clear" data-where="key=mong&amp;hp=14000">—</b>%, 촛동 <b data-draw="pct" data-k="chot" data-source="sweep" data-field="clear" data-where="key=chot&amp;hp=14000">—</b>%예요. 이긴 판의 클리어 시간은 대조군 <b data-draw="sec" data-k="ctrl" data-source="sweep" data-field="time" data-where="key=ctrl&amp;hp=14000">—</b>초, 톡찌리 <b data-draw="sec" data-k="tok" data-source="sweep" data-field="time" data-where="key=tok&amp;hp=14000">—</b>초예요.</p>
+    <p class="sb-lead">분열체 체력 14,000(중반 10단계 기준)에서 열쇠 효과만 없는 기본 파티(쥐강이 자리에 열쇠 몬몬과 같은 능력치)는 <b data-draw="pct" data-k="base" data-source="sweep" data-field="clear" data-where="key=base&amp;hp=14000">—</b>%를 이겨요. 같은 자리에 열쇠 몬몬을 넣으면 톡찌리 <b data-draw="pct" data-k="tok" data-source="sweep" data-field="clear" data-where="key=tok&amp;hp=14000">—</b>%, 몽실벌 <b data-draw="pct" data-k="mong" data-source="sweep" data-field="clear" data-where="key=mong&amp;hp=14000">—</b>%, 촛동 <b data-draw="pct" data-k="chot" data-source="sweep" data-field="clear" data-where="key=chot&amp;hp=14000">—</b>%예요. 이긴 판의 클리어 시간은 기본 파티 <b data-draw="sec" data-k="base" data-source="sweep" data-field="time" data-where="key=base&amp;hp=14000">—</b>초, 톡찌리 <b data-draw="sec" data-k="tok" data-source="sweep" data-field="time" data-where="key=tok&amp;hp=14000">—</b>초예요.</p>
     <p class="sb-meta">문항 2 · 에픽 열쇠 던전 · 4마리로 분열하고 시간 안에 다 못 잡으면 부활하는 보스 · 모든 몬몬이 빈 스킬 게이지로 시작 · 설정·파티·체력마다 1,000판</p>
   </header>
 
@@ -79,10 +79,9 @@
 
   <section class="sb-sec" id="sweep">
     <h2>분열체 체력별 클리어율</h2>
-    <p class="sb-note">열쇠 효과는 대조군(회색 점선)과 비교해서 봐요. 기준 파티와 대조군의 차이는 열쇠가 아니라 쥐강이의 속도(110)와 치명타 때문에 스킬이 어긋난 효과예요. 세로 점선은 분열체 14,000.</p>
+    <p class="sb-note">열쇠 효과는 기본 파티(회색 점선)와 비교해서 봐요. 기본 파티는 쥐강이 자리에 열쇠 몬몬과 같은 능력치의 몬몬을 넣고 열쇠 효과만 뺀 파티예요. 세로 점선은 분열체 14,000.</p>
     <ul class="sb-legend">
-      <li><span class="sb-sw" data-k="base"></span>기준 파티 (열쇠 없음)</li>
-      <li><span class="sb-sw" data-k="ctrl"></span>대조군 (같은 화력, 열쇠 효과 없음)</li>
+      <li><span class="sb-sw" data-k="base"></span>기본 파티 (열쇠 효과 없음)</li>
       <li><span class="sb-sw" data-k="tok"></span>톡찌리 (부활 차단)</li>
       <li><span class="sb-sw" data-k="mong"></span>몽실벌 (피해 반사)</li>
       <li><span class="sb-sw" data-k="chot"></span>촛동 (은신)</li>
@@ -137,8 +136,7 @@
         <thead>
           <tr>
             <th>구간</th>
-            <th>기준 파티</th>
-            <th>대조군</th>
+            <th>기본 파티</th>
             <th>톡찌리</th>
             <th>몽실벌</th>
             <th>톡찌리 + 몽실벌</th>
@@ -147,11 +145,11 @@
         <tbody data-draw="bandsTbl" data-source="bands"></tbody>
       </table>
     </div>
-    <p class="sb-note">초반은 반격·느려짐 없이 분열·부활만 보여 줘서 모두 약 2분에 깨요. 7단계부터 반격, 다수 공격 피해 −50%, 가까운 2명 속도 감소가 붙어 열쇠 없이는 대부분 실패하고(대조군 약 30%), 톡찌리가 있으면 약 2분 50초에 깨요. 16단계부터 느려짐이 3겹까지 쌓여 열쇠 2명이 안정적이에요.</p>
+    <p class="sb-note">초반은 반격·느려짐 없이 분열·부활만 보여 줘서 모두 약 2분에 깨요. 7단계부터 반격, 다수 공격 피해 −50%, 가까운 2명 속도 감소가 붙어 열쇠 없이는 대부분 실패하고(기본 파티 약 30%), 톡찌리가 있으면 약 2분 50초에 깨요. 16단계부터 느려짐이 3겹까지 쌓여 열쇠 2명이 안정적이에요.</p>
     <h3 class="sb-h3">전체 체력 (한 몸 + 4마리) vs 글라틀 체력</h3>
     <ul class="sb-legend">
-      <li><span class="sb-sw" data-k="base"></span>분열 보스 전체 체력</li>
-      <li><span class="sb-sw" data-k="ctrl"></span>글라틀 체력 (관측·외삽)</li>
+      <li><span class="sb-sw" data-k="tok"></span>분열 보스 전체 체력</li>
+      <li><span class="sb-sw" data-k="base"></span>글라틀 체력 (관측·외삽)</li>
     </ul>
     <div class="sb-chart" data-draw="hpChart" data-source="stages"></div>
     <h3 class="sb-h3">단계표</h3>
@@ -186,7 +184,7 @@
       <li>전투 엔진이 아니라 관측값만 쓴 전용 계산이에요 (0.1초 단위). 아군 피해는 사용자 계정 파티(파이온·딸랑귀·콜리킹·쥐강이·콘센파리)가 글라틀 10단계에서 낸 값이고, 딸랑귀는 쥐강이 값으로 대신했어요.</li>
       <li>모든 몬몬이 빈 스킬 게이지로 시작해요. 그래서 결과가 거의 정해진 한 흐름으로 나오고, 분열체 체력이 조금만 바뀌어도 클리어율이 0%와 100% 사이를 크게 오가요.</li>
       <li>속도 100 기준 아군 평타 1.6초, 스킬 16초(평타 10번). 분열체는 평타 2.4초, 스킬 9.6초. 부활은 속도와 무관한 15초 타이머예요.</li>
-      <li>열쇠 몬몬(톡찌리·몽실벌·촛동)은 계정에 없어 쥐강이 자리에 넣었고, 대조군과 같은 체력 12,000 · 속도 100 · 쥐강이 기대 화력으로 봤어요. 실제 몬몬 수치가 다르면 결과도 달라져요.</li>
+      <li>열쇠 몬몬(톡찌리·몽실벌·촛동)은 계정에 없어 쥐강이 자리에 넣었고, 기본 파티의 그 자리 몬몬과 같은 체력 12,000 · 속도 100 · 쥐강이 기대 화력으로 봤어요. 실제 몬몬 수치가 다르면 결과도 달라져요.</li>
       <li>몽실벌 반사는 받은 피해의 30%를 돌려주고, 그 피해도 공격한 분열체의 방어력에 깎여요(아군 평타 ÷ 공격력 중앙값 16%로 추정). 분열체 피해 후보값은 10단계에서 평타 45 · 단일 스킬 450 · 모든 적 스킬 225 · 반격 1,500이고, 부활할 때마다 +10%예요. 모든 적 스킬은 가까운 2명의 속도를 10%씩 늦춰요(중반 최대 2겹).</li>
       <li>분열체는 패시브로 [부활 차단]에 저항하지 못해요. 그래서 단계가 올라 효과저항이 50~75가 돼도 톡찌리의 부활 차단 확률(맞은 타격마다 15%)은 그대로예요. 데디베어 [악몽]의 "저항, 해제 불가", 윈드윙 [폭풍 흡입]의 "저항 불가"와 같은 장치예요.</li>
       <li>콜리킹 방어력 +30%, 패시브, 다른 효과의 저항·명중은 피해 공식이 없어 뺐어요.</li>
@@ -196,12 +194,12 @@
 
 <script>
   window.SB = {
-    KEYS: ['base', 'ctrl', 'tok', 'mong', 'chot'],
-    NAMES: { base: '기준 파티', ctrl: '대조군', tok: '톡찌리', mong: '몽실벌', chot: '촛동', duo: '톡찌리 + 몽실벌' },
+    KEYS: ['base', 'tok', 'mong', 'chot'],
+    NAMES: { base: '기본 파티', tok: '톡찌리', mong: '몽실벌', chot: '촛동', duo: '톡찌리 + 몽실벌' },
     REF_HP: 14000,
     color(k) {
-      if (k === 'ctrl') return 'var(--cds-chart-muted)';
-      const order = ['base', 'tok', 'mong', 'chot'];
+      if (k === 'base') return 'var(--cds-chart-muted)';   // 기본 파티 = 비교 기준 (회색 점선)
+      const order = ['tok', 'mong', 'chot'];
       return dash.colors[order.indexOf(k)] || 'var(--cds-chart-muted)';
     },
     fmt1: (v) => (v == null || isNaN(+v)) ? '—' : (+v).toFixed(1),
@@ -253,7 +251,7 @@
       const W = el.clientWidth || 600, H = 300, m = { t: 12, r: 16, b: 36, l: 44 };
       el.replaceChildren();
       const svg = d3.select(el).append('svg').attr('viewBox', `0 0 ${W} ${H}`).attr('height', H)
-        .attr('role', 'img').attr('aria-label', '분열체 체력(8,000~16,000)에 따른 파티별 클리어율 선 그래프, 대조군 포함');
+        .attr('role', 'img').attr('aria-label', '분열체 체력(8,000~16,000)에 따른 파티별 클리어율 선 그래프, 기본 파티 포함');
       const x = d3.scaleLinear().domain(d3.extent(rows, (r) => r.hp)).range([m.l, W - m.r]);
       const y = d3.scaleLinear().domain([0, 100]).range([H - m.b, m.t]);
       svg.append('g').attr('class', 'sb-grid').attr('transform', `translate(${m.l},0)`)
@@ -266,8 +264,8 @@
       const line = d3.line().x((r) => x(r.hp)).y((r) => y(r.clear));
       for (const k of SB.KEYS) {
         const s = rows.filter((r) => r.key === k).sort((a, b) => a.hp - b.hp);
-        const p = svg.append('path').datum(s).attr('d', line).style('fill', 'none').style('stroke', SB.color(k)).style('stroke-width', k === 'base' ? 3 : 2);
-        if (k === 'ctrl') p.style('stroke-dasharray', '5 4');
+        const p = svg.append('path').datum(s).attr('d', line).style('fill', 'none').style('stroke', SB.color(k)).style('stroke-width', 2);
+        if (k === 'base') p.style('stroke-dasharray', '5 4');
         svg.append('g').selectAll('circle').data(s).join('circle').attr('cx', (r) => x(r.hp)).attr('cy', (r) => y(r.clear)).attr('r', 3).style('fill', SB.color(k));
       }
       const tip = document.createElement('div'); tip.className = 'sb-tip'; tip.hidden = true; el.appendChild(tip);
@@ -358,7 +356,7 @@
       for (const [order, band] of orders) {
         const tr = document.createElement('tr');
         const th = document.createElement('td'); th.textContent = band; tr.appendChild(th);
-        for (const k of ['base', 'ctrl', 'tok', 'mong', 'duo']) {
+        for (const k of ['base', 'tok', 'mong', 'duo']) {
           const r = d.data.find((x) => +x.order === order && x.key === k);
           const td = document.createElement('td');
           td.textContent = r ? SB.fmt1(r.clear) + '% · ' + (r.time != null ? r.time + '초' : '—') : '—';
@@ -388,7 +386,7 @@
       svg.append('g').attr('class', 'sb-axis').attr('transform', `translate(0,${H - m.b})`).call(d3.axisBottom(x).ticks(W < 480 ? 5 : 10).tickFormat((v) => v + '단계'));
       svg.append('g').attr('class', 'sb-axis').attr('transform', `translate(${m.l},0)`).call(d3.axisLeft(y).tickValues(yt).tickFormat(d3.format('~s')));
       for (const b of [7, 16]) svg.append('line').attr('class', 'sb-ref').attr('x1', x(b - 0.5)).attr('x2', x(b - 0.5)).attr('y1', m.t).attr('y2', H - m.b);
-      const series = [{ key: 'total', color: SB.color('base'), name: '분열 보스 전체' }, { key: 'gl', color: SB.color('ctrl'), name: '글라틀' }];
+      const series = [{ key: 'total', color: SB.color('tok'), name: '분열 보스 전체' }, { key: 'gl', color: SB.color('base'), name: '글라틀' }];
       for (const sr of series) {
         svg.append('path').datum(rows).attr('d', d3.line().x((r) => x(r.s)).y((r) => y(r[sr.key]))).style('fill', 'none').style('stroke', sr.color).style('stroke-width', 2.5);
         svg.append('g').selectAll('circle').data(rows).join('circle').attr('cx', (r) => x(r.s)).attr('cy', (r) => y(r[sr.key])).attr('r', 3).style('fill', sr.color);
