@@ -101,6 +101,7 @@ const band = (o, k) => bands.find((r) => r.order === o && r.key === k);
 const syncv = (o, k) => sync.find((r) => r.order === o && r.key === k).clear;
 const stages = fs.readFileSync(path.join(ROOT, 'data/dungeons/split-boss/boss-stats.csv'), 'utf8').replace(/^﻿/, '').trim().split(/\r?\n/).map((l) => l.split(','));
 const SH = stages[0]; const si = (n) => SH.indexOf(n);
+const V = JSON.parse(fs.readFileSync(path.join(ROOT, 'docs/split-report/vars.json'), 'utf8'));   // 변수 실험 · 타임라인 (tools/split-vars.mjs)
 const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, '0')}`;
 
 // ── 1. 표지 ────────────────────────────────────────────────
@@ -314,6 +315,124 @@ const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart
   s.addText('부활 차단이 남은 채 쓰러진 조각은 다시 일어나지 못함', { x: 6.45, y: 6.45, w: 6.4, h: 0.35, fontFace: F.m, fontSize: 12, color: C.purple, margin: 0, isTextBox: true });
 }
 
+// ── 9-2. 스킬별 기획 의도 ─────────────────────────────────
+{
+  const s = pres.addSlide();
+  header(s, '03', '문항 2 · 에픽 열쇠 던전');
+  title(s, '쿼디 스킬 — 하는 일과 기획 의도', '스킬 하나하나가 「함께 쓰러뜨려야 한다」는 한 가지 문제를 만들거나, 그 문제를 다른 길로 피하지 못하게 막습니다. (기획 의도는 초안)');
+  const SK = [
+    ['skill-body.png', '젤리 몸통박치기', '기본공격', '가까운 적 1명에게 피해 (10단계 45)', '평타는 약하게 — 위협은 스킬과 부활에서 오게 해 「무엇이 어려운지」가 흐려지지 않게'],
+    ['skill-shot.png', '젤리 포탄', '스킬 · 단단한 조각', '공격력 1위 적에게 큰 피해 (450)', '화력 1위 한 명이 다 잡는 편성을 흔들어, 여러 몬몬이 나눠 잡게'],
+    ['skill-wave.png', '젤리 해일', '스킬 · 흐물 조각', '모든 적 피해 (225) + 가까운 2명 속도 −10% (최대 2~3겹)', '느려짐이 쌓일수록 아군 스킬 타이밍이 어긋남 → 동시 처치가 점점 어려워짐 (속도 맞추기 · 정화의 가치)'],
+    ['skill-split.png', '사분열', '패시브', '한 몸이 쓰러지면 조각 4마리로 나뉨', '보스의 정체성 — 한 몸을 넘기면 「넷을 함께」라는 두 번째 국면이 열림'],
+    ['skill-split.png', '다시 뭉치기', '패시브', '쓰러진 조각은 15초 뒤 부활 (속도 무관) · 부활마다 공격력 +10%', '시간 제한 대신 누적 압박 — 오래 끌수록 강해져 「언젠가는 못 버팀」. 15초 창이 부활 차단의 자리'],
+    ['skill-jelly.png', '녹지 않는 젤리', '패시브', '[부활 차단]에 저항 못 함 · 광역 피해 −30% (7단계부터 −50%)', '단계가 올라 효과저항이 높아져도 열쇠가 확실히 통하게 보장 · 광역 몰아치기 우회는 좁힘'],
+    [null, '반격 자세', '패시브 · 7단계부터', '조각 하나가 늘 자세, 다수 공격을 맞으면 쓴 몬몬에게 바로 반격 (은신이면 빗나감)', '광역 남용에 대가를 붙여 은신(촛동)이 열쇠가 되는 이유를 만듦 · 반격 연출로 왜 아픈지 보이게 (조건 4)'],
+    [null, '절대 면역 · 몰아붙이기 · 기회', '패시브 (공통)', '기절 · 실명 · 침묵 · 도발 · 속박 면역 / 이탈 1명당 피해 +10% / 이탈시키면 에너지 +25%', '기존 보스와 같은 공통 규칙 — 행동을 묶어 기믹을 건너뛰는 우회를 막음'],
+  ];
+  const rows = [['스킬', '종류', '하는 일', '기획 의도']].concat(SK.map(([, n, k, d, why]) => [
+    { text: n, options: { fontFace: F.s, color: C.ink } }, { text: k, options: { color: C.sub } }, d, { text: why, options: { color: C.deep } }]));
+  const RH = 0.52;
+  table(s, rows, { x: 1.15, y: 1.95, w: 11.68, colW: [2.0, 1.55, 3.6, 4.53], size: 10.5, rowH: [0.36].concat(SK.map(() => RH)) });
+  SK.forEach(([img], i) => {
+    const y = 1.95 + 0.36 + i * RH + (RH - 0.44) / 2;
+    if (img) s.addImage({ path: path.join(ROOT, 'docs/split-guide/art', img), x: 0.6, y, w: 0.44, h: 0.44, rounding: true });
+    else {
+      s.addShape(pres.shapes.OVAL, { x: 0.6, y, w: 0.44, h: 0.44, fill: { color: C.green }, line: { color: C.white, width: 1 } });
+      s.addText('P', { x: 0.6, y, w: 0.44, h: 0.44, fontFace: F.b, fontSize: 13, color: C.white, align: 'center', valign: 'middle', margin: 0, isTextBox: true });
+    }
+  });
+  note(s, '스킬 그림은 사용자 제작 이미지 · 수치는 10단계 기준 (단계 표 · 공략 창과 같음)', 6.85);
+}
+
+// ── 9-3. 쿼디 행동 타임라인 — 한 주기 ──────────────────────
+{
+  const s = pres.addSlide();
+  header(s, '03', '문항 2 · 에픽 열쇠 던전');
+  title(s, '쿼디 행동 타임라인 ① — 9.6초 주기와 15초 부활', '속도 100 기준, 조각 4마리가 같은 때 시작했다고 놓은 예시 30초. 실제로는 조각마다 시작 게이지가 0~30% 달라 조금씩 어긋납니다.');
+  const flow = ['한 몸 200,000 (10단계)', '쓰러지면 사분열 → 조각 4마리', '15초 안에 넷을 함께 쓰러뜨리기', '못 하면 부활 + 공격력 +10%'];
+  flow.forEach((t, i) => {
+    const x = 0.5 + i * 3.12;
+    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y: 1.95, w: 2.95, h: 0.5, rectRadius: 0.08, fill: { color: i === 2 ? C.purple : C.tint }, line: { color: i === 2 ? C.purple : C.edge, width: 0.75 } });
+    s.addText(t, { x, y: 1.95, w: 2.95, h: 0.5, fontFace: F.m, fontSize: 11.5, color: i === 2 ? C.white : C.ink, align: 'center', valign: 'middle', margin: 0, isTextBox: true });
+    if (i < 3) arrow(s, x + 2.955, 2.13);
+  });
+  const T = 30, X0 = 2.2, X1 = 12.75, sx = (t) => X0 + (X1 - X0) * t / T;
+  const rows = ['아군 (속도 100)', '단단한 조각', '흐물 조각', '반격 자세', '부활 (예시)'];
+  const RY = (r) => 2.85 + r * 0.56;
+  rows.forEach((lab, r) => {
+    s.addText(lab, { x: 0.5, y: RY(r), w: 1.6, h: 0.4, fontFace: F.s, fontSize: 11, color: C.ink, align: 'right', valign: 'middle', margin: 0, isTextBox: true });
+    s.addShape(pres.shapes.LINE, { x: X0, y: RY(r) + 0.2, w: X1 - X0, h: 0, line: { color: C.edge, width: 1 } });
+  });
+  for (let t = 0; t <= T; t += 5) {
+    s.addShape(pres.shapes.LINE, { x: sx(t), y: RY(0) - 0.05, w: 0, h: 5 * 0.56, line: { color: 'EEEDF5', width: 0.5, dashType: 'dash' } });
+    s.addText(`${t}초`, { x: sx(t) - 0.3, y: RY(5) - 0.08, w: 0.6, h: 0.22, fontFace: F.r, fontSize: 9, color: C.mute, align: 'center', margin: 0, isTextBox: true });
+  }
+  const dot = (t, r, col, d = 0.09) => s.addShape(pres.shapes.OVAL, { x: sx(t) - d / 2, y: RY(r) + 0.2 - d / 2, w: d, h: d, fill: { color: col }, line: { color: col, width: 0 } });
+  const dia = (t, r, col, lab) => {
+    s.addShape(pres.shapes.DIAMOND, { x: sx(t) - 0.11, y: RY(r) + 0.09, w: 0.22, h: 0.22, fill: { color: col }, line: { color: C.white, width: 0.75 } });
+    if (lab) s.addText(lab, { x: sx(t) + 0.12, y: RY(r) - 0.06, w: 2.2, h: 0.22, fontFace: F.m, fontSize: 9.5, color: col, margin: 0, isTextBox: true });
+  };
+  for (let t = 1.6; t <= T; t += 1.6) dot(t, 0, C.soft, 0.07);
+  dia(16, 0, C.purple, '스킬 (16초마다)');
+  for (const r of [1, 2]) for (let t = 2.4; t <= T + 0.01; t += 2.4) dot(t, r, C.mute);
+  for (let t = 9.6; t <= T; t += 9.6) { dia(t, 1, C.red, t < 10 ? '젤리 포탄 (공격력 1위)' : null); dia(t, 2, C.teal, t < 10 ? '젤리 해일 + 느려짐' : null); }
+  [[0, 9.6, '조각 1'], [9.6, 19.2, '조각 2'], [19.2, 28.8, '조각 3'], [28.8, 30, '4']].forEach(([a, b, lab], i) => {
+    s.addShape(pres.shapes.RECTANGLE, { x: sx(a) + 0.01, y: RY(3) + 0.08, w: sx(b) - sx(a) - 0.02, h: 0.24, fill: { color: i % 2 ? C.soft : C.purple }, line: { color: C.white, width: 0 } });
+    s.addText(lab, { x: sx(a), y: RY(3) + 0.08, w: sx(b) - sx(a), h: 0.24, fontFace: F.m, fontSize: 9, color: C.white, align: 'center', valign: 'middle', margin: 0, isTextBox: true });
+  });
+  s.addShape(pres.shapes.RECTANGLE, { x: sx(3), y: RY(4) + 0.12, w: sx(18) - sx(3), h: 0.16, fill: { color: C.lilac }, line: { color: C.purple, width: 0.75 } });
+  s.addText('쓰러짐 → 15초 (속도 무관) → 부활', { x: sx(3), y: RY(4) + 0.08, w: sx(18) - sx(3), h: 0.24, fontFace: F.m, fontSize: 9, color: C.deep, align: 'center', valign: 'middle', margin: 0, isTextBox: true });
+  s.addShape(pres.shapes.RECTANGLE, { x: sx(19), y: RY(4) + 0.12, w: sx(29.5) - sx(19), h: 0.16, fill: { color: 'F6E3E1' }, line: { color: C.red, width: 0.75 } });
+  s.addText('[부활 차단]이 남은 채 쓰러짐 → ✕ 안 일어남', { x: sx(19), y: RY(4) + 0.08, w: sx(29.5) - sx(19), h: 0.24, fontFace: F.m, fontSize: 9, color: C.red, align: 'center', valign: 'middle', margin: 0, isTextBox: true });
+  concl(s, '조각은 9.6초마다 스킬, 부활은 15초 자체 타이머 — 아군 스킬 16초 주기와 박자가 맞지 않아 「넷을 함께」가 어렵고, 젤리 해일의 느려짐이 쌓일수록 더 어긋납니다. 반격 자세 조각이 바뀌는 것도 주기로 보입니다.', { y: 5.9, h: 0.8 });
+}
+
+// ── 9-4. 쿼디 행동 타임라인 — 실제 한 판 ───────────────────
+{
+  const s = pres.addSlide();
+  header(s, '03', '문항 2 · 에픽 열쇠 던전');
+  title(s, '쿼디 행동 타임라인 ② — 시뮬레이션 한 판 (중반 10단계)', '1,000판 중 시간이 중앙값에 가까운 판을 골라 그대로 그렸습니다. 막대 = 조각이 살아 있는 시간, 빈 칸 = 쓰러져 부활을 기다리는 15초.');
+  const Tm = Math.ceil(Math.max(V.traces.base.t, V.traces.tok.t) / 30) * 30;
+  const X0 = 1.95, X1 = 12.75, sx = (t) => X0 + (X1 - X0) * t / Tm;
+  const panel = (tr, y0, head, col) => {
+    const ev = tr.ev, split = (ev.find((e) => e.type === 'split') || {}).t;
+    s.addText(head, { x: 0.5, y: y0, w: 12.3, h: 0.28, fontFace: F.s, fontSize: 12, color: col, margin: 0, isTextBox: true });
+    const rows = ['한 몸', '조각 1', '조각 2', '조각 3', '조각 4', '아군 쓰러짐'];
+    const RY = (r) => y0 + 0.3 + r * 0.235;
+    rows.forEach((lab, r) => {
+      s.addText(lab, { x: 0.5, y: RY(r), w: 1.35, h: 0.24, fontFace: F.r, fontSize: 9.5, color: C.sub, align: 'right', valign: 'middle', margin: 0, isTextBox: true });
+      s.addShape(pres.shapes.LINE, { x: X0, y: RY(r) + 0.12, w: sx(tr.t) - X0, h: 0, line: { color: C.edge, width: 0.75 } });
+    });
+    const bar = (a, b, r, c) => { if (b > a) s.addShape(pres.shapes.RECTANGLE, { x: sx(a), y: RY(r) + 0.04, w: Math.max(0.02, sx(b) - sx(a)), h: 0.16, fill: { color: c }, line: { color: c, width: 0 } }); };
+    bar(0, split ?? tr.t, 0, C.deep);
+    for (let i = 0; i < 4; i++) {
+      let start = split, alive = split != null;
+      for (const e of ev) {
+        if (e.type === 'die' && !e.body && e.i === i && alive) {
+          bar(start, e.t, i + 1, col); alive = false;
+          if (e.perm) s.addText('✕', { x: sx(e.t) - 0.1, y: RY(i + 1) - 0.02, w: 0.2, h: 0.26, fontFace: F.b, fontSize: 12, color: C.red, align: 'center', valign: 'middle', margin: 0, isTextBox: true });
+        }
+        if (e.type === 'revive' && e.i === i) { start = e.t; alive = true; s.addShape(pres.shapes.ISOSCELES_TRIANGLE, { x: sx(e.t) - 0.05, y: RY(i + 1) + 0.03, w: 0.1, h: 0.1, fill: { color: C.green }, line: { color: C.green, width: 0 } }); }
+      }
+      if (alive) bar(start, tr.t, i + 1, col);
+    }
+    const deaths = ev.filter((e) => e.type === 'adeath');
+    deaths.forEach((e) => s.addShape(pres.shapes.OVAL, { x: sx(e.t) - 0.05, y: RY(5) + 0.06, w: 0.1, h: 0.1, fill: { color: C.red }, line: { color: C.red, width: 0 } }));
+    if (deaths.length) s.addText('쓰러진 순서: ' + deaths.map((e) => (e.n === '기본몬몬' ? '열쇠 자리' : e.n)).join(' → '), { x: X0 + 0.05, y: RY(5) + 0.01, w: 5.5, h: 0.2, fontFace: F.r, fontSize: 8.5, color: C.red, margin: 0, isTextBox: true });
+    s.addShape(pres.shapes.LINE, { x: sx(tr.t), y: RY(0), w: 0, h: 6 * 0.235, line: { color: tr.win ? C.purple : C.red, width: 1.25 } });
+    s.addText(tr.win ? `클리어 ${mmss(tr.t)}` : `전멸 ${mmss(tr.t)}`, { x: sx(tr.t) - 1.2, y: y0, w: 1.15, h: 0.26, fontFace: F.b, fontSize: 10.5, color: tr.win ? C.purple : C.red, align: 'right', margin: 0, isTextBox: true });
+  };
+  const b = V.traces.base, t = V.traces.tok;
+  const perm = t.ev.filter((e) => e.type === 'die' && e.perm).length;
+  panel(b, 1.9, `기본 파티 (열쇠 없음) — ${b.t}초 전멸 · 부활 ${b.revives}번`, C.mute);
+  panel(t, 3.72, `톡찌리 파티 — ${t.t}초 클리어 · 부활 ${t.revives}번 · 부활 차단으로 못 일어난 조각 ${perm}번`, C.purple);
+  for (let x = 0; x <= Tm; x += 30) s.addText(`${x}초`, { x: sx(x) - 0.3, y: 5.5, w: 0.6, h: 0.2, fontFace: F.r, fontSize: 8.5, color: C.mute, align: 'center', margin: 0, isTextBox: true });
+  s.addShape(pres.shapes.ISOSCELES_TRIANGLE, { x: 5.6, y: 1.97, w: 0.1, h: 0.1, fill: { color: C.green }, line: { color: C.green, width: 0 } });
+  s.addText('부활 · ✕ 부활 차단으로 못 일어남 · ● 아군 쓰러짐', { x: 5.75, y: 1.92, w: 4.2, h: 0.2, fontFace: F.r, fontSize: 9, color: C.sub, margin: 0, isTextBox: true });
+  concl(s, `한 몸은 두 파티 모두 약 ${Math.round(((b.ev.find((e) => e.type === 'split') || {}).t + (t.ev.find((e) => e.type === 'split') || {}).t) / 2)}초에 쓰러집니다. 차이는 분열 뒤 — 기본 파티는 조각이 번갈아 쓰러지고 다시 일어나며(${b.revives}번) 강해져 아군이 차례로 무너지고, 톡찌리 파티는 부활 차단으로 한 마리를 지워 넷을 함께 잡는 창이 생깁니다.`, { y: 5.92, h: 0.8 });
+}
+
 // ── 10. 공략 창 UI — 탭 · 구간별로 자른 캡처 (docs/split-guide/shots, tools/split-guide-shots.py) ──
 const SHOT = (f) => path.join(ROOT, 'docs/split-guide/shots', f);
 const shotW = (f, h) => { const d = require('image-size').imageSize(fs.readFileSync(SHOT(f))); return h * d.width / d.height; };
@@ -370,18 +489,23 @@ function shotRow(s, items, x0, gap, h, y = 2.0) {   // items: [파일, 라벨, �
   const s = pres.addSlide();
   header(s, '03', '문항 2 · 에픽 열쇠 던전');
   title(s, '열쇠 몬몬 — 같은 보스를 세 갈래로 연다', '열쇠 효과마다 푸는 방식이 다릅니다. 시뮬레이션은 같은 자리에 같은 능력치 · 열쇠 효과만 없는 몬몬을 둔 기본 파티와 비교했습니다.');
-  const keys = [
-    ['099.png', '톡찌리 (에픽)', '부활 차단', ['스킬 10회가 무작위 조각에 퍼짐', '★5 패시브: 맞은 타격마다 15% [부활 차단]', '→ 진화해야 열쇠가 완성 (성장과 연결)'], C.purple],
-    ['123.png', '몽실벌 (에픽)', '피해 반사', ['4턴마다 아군 전체 [피해 반사 30%]', '반사는 조각에 고르게 들어감', '→ 반사 피해도 방어력에 깎여 효과는 작음'], C.blue],
-    ['081.png', '촛동 (에픽)', '은신', ['4턴마다 자신 제외 아군 [강철 은신]', '은신 중엔 반격을 받지 않음', '→ 광역 몬몬을 마음껏 쓰게 해 줌'], C.teal],
+  const keys = [   // [번호, 이름, 열쇠 효과, 효과 아이콘, 핵심 스킬, 칸, 핵심 효과 문구, 설명, 색]
+    ['099', '톡찌리 (에픽)', '부활 차단', 'DB_REVIVE_BLOCK', '영혼 쪼아먹기', '★5 패시브', '스킬 피해를 입은 적에게 각각 15% [부활 차단]', ['스킬 「맹독 연격」 10회가 무작위 조각에 퍼져 여러 마리에 걸림', '→ ★5로 진화해야 열쇠 완성 (성장과 연결)'], C.purple],
+    ['123', '몽실벌 (에픽)', '피해 반사', 'BF_REFLECT_2', '꿀단지 쏟기', '스킬', '[4턴에 한 번] 모든 아군 2턴 [피해 반사 30%]', ['조각 넷이 함께 때릴수록 돌려주는 피해도 커짐', '→ 반사 피해도 방어력에 깎여 효과는 작음'], C.blue],
+    ['081', '촛동 (에픽)', '은신', 'BF_STEALTH_2', '연막 은신', '스킬', '[4턴에 한 번] 자신 뺀 아군 2턴 [강철 은신]', ['은신 중엔 반격 · 단일 공격을 받지 않음', '→ 광역 몬몬을 마음껏 쓰게 해 줌'], C.teal],
   ];
-  keys.forEach(([ic, n, k, l, col], i) => {
+  keys.forEach(([no, n, k, icon, skill, slot, eff, l, col], i) => {
     const x = 0.5 + i * 4.14;
     s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y: 2.05, w: 3.95, h: 2.75, rectRadius: 0.08, fill: { color: C.tint }, line: { color: i === 0 ? C.purple : C.edge, width: i === 0 ? 1.5 : 0.75 } });
-    s.addImage({ path: path.join(IMG, `key-${ic}`), x: x + 0.2, y: 2.2, w: 1.0, h: 1.0 });
-    s.addText(n, { x: x + 1.35, y: 2.25, w: 2.5, h: 0.4, fontFace: F.b, fontSize: 16, color: C.ink, margin: 0, isTextBox: true });
-    chip(s, x + 1.35, 2.75, 1.4, k, col);
-    s.addText(l.map((t, j) => ({ text: t, options: { breakLine: j < l.length - 1 } })), { x: x + 0.2, y: 3.4, w: 3.55, h: 1.3, fontFace: F.r, fontSize: 12.5, color: C.ink, margin: 0, valign: 'top', paraSpaceAfter: 6, isTextBox: true });
+    s.addShape(pres.shapes.OVAL, { x: x + 0.2, y: 2.17, w: 1.12, h: 1.12, fill: { color: C.white }, line: { color: col, width: 1.5 } });
+    s.addImage({ path: path.join(ROOT, `docs/deck/assets/key-${no}.png`), x: x + 0.26, y: 2.23, w: 1.0, h: 1.0 });   // 배경 없이 오려 가운데 맞춤 (tools/deck-key-art.py)
+    s.addText(n, { x: x + 1.45, y: 2.25, w: 2.4, h: 0.4, fontFace: F.b, fontSize: 16, color: C.ink, margin: 0, isTextBox: true });
+    chip(s, x + 1.45, 2.72, 1.4, k, col);
+    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: x + 0.18, y: 3.42, w: 3.59, h: 0.62, rectRadius: 0.06, fill: { color: C.white }, line: { color: col, width: 0.75 } });
+    s.addImage({ path: path.join(ROOT, `data/effects/icons/${icon}.png`), x: x + 0.27, y: 3.5, w: 0.46, h: 0.46 });
+    s.addText([{ text: '핵심 스킬  ', options: { fontFace: F.s, fontSize: 9.5, color: col } }, { text: skill, options: { fontFace: F.b, fontSize: 12, color: C.ink } }, { text: `  ${slot}`, options: { fontFace: F.r, fontSize: 9.5, color: C.sub, breakLine: true } },
+      { text: eff, options: { fontFace: F.r, fontSize: 9.5, color: C.ink } }], { x: x + 0.82, y: 3.45, w: 2.9, h: 0.56, margin: 0, valign: 'middle', isTextBox: true });
+    s.addText(l.map((t, j) => ({ text: t, options: { breakLine: j < l.length - 1 } })), { x: x + 0.2, y: 4.12, w: 3.55, h: 0.62, fontFace: F.r, fontSize: 10.5, color: C.ink, margin: 0, valign: 'top', paraSpaceAfter: 2, isTextBox: true });
   });
   const b2 = band(2, 'base'), t2 = band(2, 'tok'), m2 = band(2, 'mong'), c2 = band(2, 'chot'), d2 = band(2, 'duo');
   const stats = [[b2.clear, '기본 파티', '열쇠 효과 없음', C.red], [t2.clear, '톡찌리', '부활 차단', C.purple], [m2.clear, '몽실벌', '피해 반사', C.blue], [c2.clear, '촛동', '은신', C.teal], [d2.clear, '톡찌리 + 몽실벌', '열쇠 2명', C.deep]];
@@ -497,6 +621,73 @@ function shotRow(s, items, x0, gap, h, y = 2.0) {   // items: [파일, 라벨, �
   note(s, '막대: 기본 · 톡찌리 · 몽실벌 · 촛동 · 톡찌리 + 몽실벌 클리어율 (%), 1,000판 · 몽실벌 · 촛동은 연하게', 6.85);
 }
 
+// ── 13-2. 몬테카를로 변수 ① 속도 버프 · 게이지 감소 ─────────
+const vrow = (g, o, k) => V.rows.find((r) => r.group === g && r.order === o && r.key === k);
+const CHART_BASE = {
+  barDir: 'col', barGrouping: 'clustered', barGapWidthPct: 55, chartColors: [C.mute, C.purple], valAxisMaxVal: 100, valAxisMinVal: 0, valAxisLabelFormatCode: '0"%"',
+  showValue: true, dataLabelPosition: 'outEnd', dataLabelFontSize: 8.5, dataLabelFontFace: F.s, dataLabelColor: C.ink, dataLabelFormatCode: '0',
+  valAxisLabelFontFace: F.r, catAxisLabelFontFace: F.r, valAxisLabelFontSize: 8.5, catAxisLabelFontSize: 9, valAxisLabelColor: C.sub, catAxisLabelColor: C.ink,
+  valGridLine: { color: 'E6E6EE', size: 0.5 }, catGridLine: { style: 'none' }, showLegend: true, legendPos: 'b', legendFontFace: F.r, legendFontSize: 9.5, legendColor: C.ink,
+  showTitle: true, titleFontFace: F.s, titleFontSize: 11.5, titleColor: C.ink,
+};
+function varChart(s, group, labels, x, y, w, h, ttl) {
+  const n = labels.length;
+  s.addChart(pres.charts.BAR, [['base', '기본 파티'], ['tok', '톡찌리']].map(([k, nm]) => ({ name: nm, labels, values: Array.from({ length: n }, (_, i) => vrow(group, i + 1, k).clear) })),
+    { ...CHART_BASE, x, y, w, h, title: ttl });
+}
+{
+  const s = pres.addSlide();
+  header(s, '03', '문항 2 · 검증');
+  title(s, '몬테카를로 변수 ① — 속도 버프를 누가 받나, 조각 게이지를 깎으면', '중반 10단계 결과와 같은 설정에서 한 가지만 바꿔 1,000판씩. 1,000판 클리어율 오차는 ±3%p 안팎이라 그보다 작은 차이는 같은 값으로 봅니다.');
+  const sb = (o) => vrow('속도 버프 대상', o, 'base').clear, gb = (o) => vrow('조각 게이지 감소', o, 'base').clear;
+  card(s, 0.5, 1.95, 6.05, 0.82, '속도 버프 — 콘센파리 「전류 동조」 [4턴에 한 번] 모든 아군 2턴 [속도 +15%]', ['실제는 모든 아군. 1명에게만 들어간다면 누구냐에 따라 얼마나 바뀌는지'], { size: 10.5 });
+  varChart(s, '속도 버프 대상', ['없음', '모든 아군\n(실제)', '콜리킹만', '열쇠 자리만', '파이온만\n(광역)'], 0.5, 2.85, 6.05, 3.0, '속도 버프를 받는 아군별 클리어율 (%)');
+  card(s, 6.78, 1.95, 6.05, 0.82, '조각 게이지 감소 — 조각 스킬(포탄 · 해일)이 늦게 나오게', ['딸랑귀 평타 「4% 확률로 스킬 에너지 −20%」는 실제 효과 (지금 결과엔 빠짐)'], { size: 10.5, color: C.teal });
+  varChart(s, '조각 게이지 감소', ['없음\n(지금)', '딸랑귀 평타\n4% −20%', '스킬마다\n전체 −15%', '둘 다', '스킬마다\n전체 −30%'], 6.78, 2.85, 6.05, 3.0, '조각 게이지를 깎는 몬몬이 있을 때 클리어율 (%)');
+  concl(s, `속도 버프는 「누가 받느냐」가 승률을 가릅니다 — 광역 딜러(파이온)만 빨라지면 기본 파티 ${sb(2)}% → ${sb(5)}%, 열쇠 자리만이면 ${sb(4)}%. 게이지 감소는 −15%로는 오차 안(${gb(3)}%)이고, −30%쯤 되면 ${gb(5)}%로 열쇠 없이 깨는 우회가 됩니다 → 2-2 대응 후보: 조각 게이지 감소에 상한.`, { y: 5.95, h: 0.78 });
+  note(s, '1명에게만 / −15 · 30% 는 「만약」 실험 (콜리킹 자리 몬몬에 북치기 · 윙빗 ★3 같은 효과를 붙임)', 6.85);
+}
+
+// ── 13-3. 몬테카를로 변수 ② 치명타 ───────────────────────────
+{
+  const s = pres.addSlide();
+  header(s, '03', '문항 2 · 검증');
+  title(s, '몬테카를로 변수 ② — 치명타가 터지면 승패가 바뀌나', '딸랑귀 28% · 쥐강이 자리 37% 확률로 스킬 3,216 → 5,000. 같은 1,000판을 판마다 「터진 치명 ÷ 치명이 날 수 있던 스킬 수」로 나눠 봤습니다.');
+  varChart(s, '치명타', ['치명 없음', '확률대로\n(지금 결과)', '스킬마다 치명'], 0.5, 1.95, 5.2, 3.85, '치명타 조건별 클리어율 (%)');
+  const cb = (k) => V.crit.filter((r) => r.key === k && r.bin !== '평균');
+  s.addChart(pres.charts.BAR, ['base', 'tok'].map((k) => ({ name: k === 'base' ? '기본 파티' : '톡찌리', labels: cb('base').map((r) => r.bin.replace(' (', '\n(')), values: cb(k).map((r) => r.clear) })),
+    { ...CHART_BASE, x: 5.95, y: 1.95, w: 4.6, h: 3.85, title: '판마다 치명 비율별 클리어율 (%)' });
+  const avg = (k) => V.crit.find((r) => r.key === k && r.bin === '평균');
+  const ab = avg('base'), at = avg('tok');
+  const pc = (v) => `${(v * 100).toFixed(1)}%`;
+  card(s, 10.75, 1.95, 2.08, 3.85, '평균 치명 비율', [
+    '기본 파티', `이긴 판 ${pc(ab.winRate)}`, `진 판 ${pc(ab.loseRate)}`, '', '톡찌리', `이긴 판 ${pc(at.winRate)}`, `진 판 ${pc(at.loseRate)}`, '', '판 수: ' + cb('base').map((r) => r.runs).join(' · '),
+  ], { size: 10.5 });
+  const lo = Math.min(...cb('base').map((r) => r.clear)), hi = Math.max(...cb('base').map((r) => r.clear));
+  concl(s, `기본 파티는 이긴 판과 진 판의 치명 비율이 같습니다(${pc(ab.winRate)} · ${pc(ab.loseRate)}) — 「몇 번」보다 「언제」 터지느냐(창 안에 넷을 함께 잡는지)가 승패를 가르고, 운에 따라 ${lo}~${hi}%를 오가도 절반을 못 넘습니다. 스킬마다 치명(스킬 피해 +55%)처럼 크게 강해지면 ${vrow('치명타', 3, 'base').clear}% — 같은 투력이면 열쇠가 필요합니다.`, { y: 5.92, h: 0.8 });
+  note(s, '치명 비율 구간별 판 수가 적은 칸(100판 안팎)은 오차가 ±10%p까지 커짐', 6.85);
+}
+
+// ── 13-4. 전투 업타임별 클리어 확률 ───────────────────────────
+{
+  const s = pres.addSlide();
+  header(s, '03', '문항 2 · 검증');
+  title(s, '전투 업타임별 클리어 확률 — 같은 기준에서 시간이 지나면', '중반 10단계, 파티마다 1,000판. 「t초 안에 깬 판 ÷ 1,000」 누적 곡선 — 곡선이 멈추는 높이가 최종 클리어율입니다.');
+  const U = V.uptime, keysU = ['base', 'tok', 'mong', 'chot', 'duo'];
+  s.addChart(pres.charts.LINE, keysU.map((k) => ({ name: V.upName[k], labels: U.map((r) => (r.t % 30 === 0 ? `${r.t}` : '')), values: U.map((r) => r[k]) })), {
+    x: 0.5, y: 1.95, w: 8.6, h: 3.85, chartColors: [C.mute, C.purple, C.blue, C.teal, C.deep], lineSize: 2, lineDataSymbol: 'none',
+    valAxisMaxVal: 100, valAxisMinVal: 0, valAxisLabelFormatCode: '0"%"', valAxisLabelFontFace: F.r, valAxisLabelFontSize: 9, valAxisLabelColor: C.sub,
+    catAxisLabelFontFace: F.r, catAxisLabelFontSize: 9, catAxisLabelColor: C.sub, catAxisLabelFrequency: 3, catAxisTitle: '전투 시간 (초)', showCatAxisTitle: true, catAxisTitleFontSize: 9, catAxisTitleColor: C.sub,
+    valGridLine: { color: 'E6E6EE', size: 0.5 }, catGridLine: { style: 'none' }, showLegend: true, legendPos: 'b', legendFontFace: F.r, legendFontSize: 9.5, legendColor: C.ink,
+    showTitle: true, title: '누적 클리어 확률 (%)', titleFontFace: F.s, titleFontSize: 11.5, titleColor: C.ink });
+  const at = (sec, k) => (U.find((r) => r.t === sec) || {})[k];
+  const rows = [['파티', '2:30', '3:00', '4:00', '최종']].concat(keysU.map((k) => [V.upName[k], ctr(`${at(150, k)}%`), ctr(`${at(180, k)}%`), ctr(`${at(240, k)}%`), ctr(`${at(360, k)}%`, { fontFace: F.b })]));
+  table(s, rows, { x: 9.35, y: 1.95, w: 3.48, colW: [1.28, 0.55, 0.55, 0.55, 0.55], size: 9.5, rowH: 0.36 });
+  s.addText('목표 클리어 시간 2:30~3:00 (150~180초)', { x: 9.35, y: 4.2, w: 3.48, h: 0.3, fontFace: F.m, fontSize: 10, color: C.purple, margin: 0, isTextBox: true });
+  s.addText('한 몸(200,000)을 깎는 약 100초 동안은 아무도 못 깨고, 분열 뒤 15초 창마다 곡선이 계단처럼 오릅니다.', { x: 9.35, y: 4.5, w: 3.48, h: 1.0, fontFace: F.r, fontSize: 10, color: C.ink, margin: 0, valign: 'top', isTextBox: true });
+  concl(s, `톡찌리 파티는 목표 구간 3:00까지 ${at(180, 'tok')}%가 깨고, 기본 파티는 3:00에 ${at(180, 'base')}% · 4:00에 ${at(240, 'base')}%로 멈춥니다 — 오래 버틴다고 더 깨지지 않습니다 (부활마다 강해지는 조각에 결국 무너짐). 조건 3 「이대로는 못 깬다」가 시간 축에서도 보입니다.`, { y: 5.92, h: 0.8 });
+}
+
 // ── 14. 2-2 다른 해법 ──────────────────────────────────────
 {
   const s = pres.addSlide();
@@ -546,6 +737,7 @@ function shotRow(s, items, x0, gap, h, y = 2.0) {   // items: [파일, 라벨, �
     '· 피해 공식 — 없어서 분열체 피해는 "아군이 받는 값"으로 기획',
     '· 시작 게이지 모두 0 — 결과가 거의 한 흐름이라 체력 ±500에 크게 흔들림 → 체력 범위 평균으로 판단',
     '· 클리어 시간은 보스전만 (잡몹 웨이브 빠짐)',
+    '· 빠진 실제 효과 — 몽실벌 ★5 「다시 윙윙」(쓰러진 아군 50% 부활), 딸랑귀 평타 게이지 −20% (4%, 변수 실험에서만)',
   ], { color: C.red, size: 13.5 });
   card(s, 6.83, 2.05, 6.0, 3.3, '게임에서 확인할 규칙', [
     '· 톡찌리 [부활 차단] 15%가 맞은 적마다인지 타격마다인지',

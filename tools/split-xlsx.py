@@ -19,7 +19,7 @@ from openpyxl.chart.title import Title
 from openpyxl.drawing.spreadsheet_drawing import AbsoluteAnchor
 from openpyxl.drawing.xdr import XDRPoint2D, XDRPositiveSize2D
 from openpyxl.drawing.text import CharacterProperties, Paragraph, ParagraphProperties, RegularTextRun
-from openpyxl.formatting.rule import FormulaRule
+from openpyxl.formatting.rule import DataBarRule, FormulaRule
 from openpyxl.worksheet.datavalidation import DataValidation
 from openpyxl.comments import Comment
 from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
@@ -500,6 +500,85 @@ def build_dash(wb):
     ws.print_area = "A1:AA80"
 
 
+def build_vars(wb):
+    """「변수 실험」 — 속도 버프 대상 · 조각 게이지 감소 · 치명타 · 업타임 · 한 판 타임라인 (tools/split-vars.mjs → vars.json)"""
+    V = json.loads((REP / "vars.json").read_text(encoding="utf-8"))
+    ws = wb.create_sheet("변수 실험", wb.sheetnames.index("결과 요약") + 1)
+    ws["A1"] = "몬테카를로 변수 실험 — 중반 10단계 결과와 같은 설정에서 한 가지만 바꿔 1,000판씩 (오차 ±3%p 안팎)"
+    ws["A1"].font = F_TITLE
+    r = 3
+    ws.cell(r, 1, "1. 실험별 클리어율").font = F_BOLD
+    r += 1
+    head(ws, r, ["실험", "순서", "조건", "설명", "파티", "클리어율 (%)", "클리어 시간 (초)", "부활 (회)"], [18, 6, 24, 58, 12, 11, 11, 9])
+    r0 = r + 1
+    for x in V["rows"]:
+        r += 1
+        for j, v in enumerate([x["group"], x["order"], x["label"], x["note"], x["party"], x["clear"], x["time"], x["revives"]], 1):
+            put(ws, r, j, v, font=F_IN if j >= 6 else F_BODY, fmt="0.0" if j == 6 else None, wrap=j == 4)
+    table(ws, f"A{r0 - 1}:H{r}", "변수")
+    ws.conditional_formatting.add(f"F{r0}:F{r}", DataBarRule(start_type="num", start_value=0, end_type="num", end_value=100, color="8E88CC"))
+    r += 2
+    ws.cell(r, 1, "2. 치명 비율별 클리어율 — 판마다 「터진 치명 ÷ 치명이 날 수 있던 스킬 수」로 나눔 (횟수로 나누면 오래 끈 판일수록 치명이 많아 보이는 착시)").font = F_BOLD
+    r += 1
+    head(ws, r, ["파티", "치명 비율 구간", "판 수", "클리어율 (%)"], None)
+    c0 = r + 1
+    for x in V["crit"]:
+        if x["bin"] == "평균":
+            continue
+        r += 1
+        for j, v in enumerate([x["party"], x["bin"], x["runs"], x["clear"]], 1):
+            put(ws, r, j, v, font=F_IN if j >= 3 else F_BODY, fmt="0.0" if j == 4 else None)
+    table(ws, f"A{c0 - 1}:D{r}", "치명")
+    r += 1
+    for x in V["crit"]:
+        if x["bin"] == "평균":
+            r += 1
+            put(ws, r, 1, x["party"], font=F_BOLD)
+            put(ws, r, 2, f"평균 치명 비율 — 이긴 판 {x['winRate'] * 100:.1f}% · 진 판 {x['loseRate'] * 100:.1f}%")
+    r += 2
+    ws.cell(r, 1, "3. 전투 업타임별 누적 클리어 확률 (%) — t초 안에 깬 판 ÷ 1,000").font = F_BOLD
+    r += 1
+    keys = ["base", "tok", "mong", "chot", "duo"]
+    head(ws, r, ["전투 시간 (초)"] + [V["upName"][k] for k in keys], None)
+    u0 = r
+    for x in V["uptime"]:
+        r += 1
+        put(ws, r, 1, x["t"], font=F_IN)
+        for j, k in enumerate(keys, 2):
+            put(ws, r, j, x[k], font=F_IN, fmt="0.0")
+    ch = LineChart()
+    ch.title, ch.style, ch.width, ch.height = "전투 업타임별 누적 클리어 확률 (%)", 10, 18, 9
+    ch.add_data(Reference(ws, min_col=2, max_col=1 + len(keys), min_row=u0, max_row=r), titles_from_data=True)
+    ch.set_categories(Reference(ws, min_col=1, min_row=u0 + 1, max_row=r))
+    ch.y_axis.scaling.min, ch.y_axis.scaling.max = 0, 100
+    ch.x_axis.delete = False
+    ch.y_axis.delete = False
+    ch.legend.position = "b"
+    for se in ch.series:
+        se.smooth = False
+        se.marker.symbol = "none"
+    ws.add_chart(ch, f"H{u0}")
+    r += 2
+    ws.cell(r, 1, "4. 한 판 기록 (몬스터 타임라인) — 1,000판 중 시간이 중앙값에 가까운 판").font = F_BOLD
+    r += 1
+    head(ws, r, ["파티", "시각 (초)", "일", "조각", "누가"], None)
+    t0 = r
+    WHAT = {"split": "한 몸이 쓰러져 사분열", "die": "조각 쓰러짐", "revive": "조각 부활", "counter": "반격", "adeath": "아군 쓰러짐", "gcut": "게이지 감소"}
+    for k in ("base", "tok"):
+        tr = V["traces"][k]
+        for e in tr["ev"]:
+            if e["type"] not in WHAT:
+                continue
+            r += 1
+            what = WHAT[e["type"]] + (" (부활 차단 — 안 일어남)" if e.get("perm") else "") + (f" · {e['n']}번째" if e["type"] == "revive" else "")
+            who = e.get("n") if e["type"] == "adeath" else e.get("by", "")
+            for j, v in enumerate([tr["party"], e["t"], what, (e["i"] + 1) if e.get("i") is not None and e["type"] != "split" else "", who], 1):
+                put(ws, r, j, v, font=F_BODY, fmt="0.0" if j == 2 else None)
+    table(ws, f"A{t0}:E{r}", "타임라인")
+    ws.cell(r + 2, 1, "만들기: node tools/split-vars.mjs (시뮬레이션 옵션 SPDTO · GCUT · DALCUT · CRIT · TRACE) → python tools/split-xlsx.py").font = F_NOTE
+    ws.freeze_panes = "A3"
+
+
 def build_method(wb):
     """「시뮬레이션 방식」 — 몬테카를로 전투 계산을 코드(tools/split-sim.mjs) 안 열고도 이해하게 풀어 쓴 시트"""
     ws = wb.create_sheet("시뮬레이션 방식", wb.sheetnames.index("읽는 법") + 1)
@@ -651,7 +730,7 @@ def main():
         ("이 파일로 할 수 있는 것", "시뮬레이션에 넣은 값(입력값)과 그 값으로 계산되는 것(보스 단계표, 아군 화력, 1턴 창, 전투 시간)을 수식으로 다시 확인. 입력값 시트의 파란 숫자를 바꾸면 수식 시트가 따라 바뀜."),
         ("엑셀로 못 하는 것", "치명타·톡찌리 무작위 타격·부활 차단 확률이 섞인 1,000판 전투(몬테카를로)는 tools/split-sim.mjs 로 돌리고, 그 결과를 「결과 DB」 시트에 넣었음. 결과 요약은 그 DB에서 수식(SUMIFS·AVERAGEIFS·INDEX/MATCH)으로 뽑음."),
         ("대시보드 (맨 앞)", "노란 칸의 드롭다운(구간 · 열쇠 파티 · 단계 · 보스 · 효과)과 ☑/☐ 칸(파티 표시)을 바꾸면 카드와 그래프 6개가 바로 바뀜. 계산은 「대시보드 계산」 시트."),
-        ("시트 순서", "대시보드 → 읽는 법 → 시뮬레이션 방식 → 입력값 → 공통곡선 → 보스 단계표 → 아군 DB → 1턴 창 → 전투 시간 → 결과 DB → 결과 요약 → 시뮬레이션 기준 → 몬스터 DB → 보스 스탯 DB → 몬몬 DB → 효과 목록 → 대시보드 계산 → 이름 목록"),
+        ("시트 순서", "대시보드 → 읽는 법 → 시뮬레이션 방식 → 입력값 → 공통곡선 → 보스 단계표 → 아군 DB → 1턴 창 → 전투 시간 → 결과 DB → 결과 요약 → 변수 실험 → 시뮬레이션 기준 → 몬스터 DB → 보스 스탯 DB → 몬몬 DB → 효과 목록 → 대시보드 계산 → 이름 목록"),
         ("메모 · 범례", "머리글 칸의 빨간 삼각형에 마우스를 올리면 그 열이 무엇인지 메모가 뜸. 수식에서 쓰는 이름(예: C_HP, R_CLEAR)은 각 시트 오른쪽 「이 시트의 이름」 범례와 「이름 목록」 시트(바로가기)에 정리."),
         ("글자 색", "파란 글씨 = 입력값(바꿔도 됨) · 검은 글씨 = 수식 · 초록 글씨 = 다른 시트에서 가져온 값 · 노란 칸 = 입력 칸"),
         ("근거 구분", "관측(게임에서 본 값) · 사용자 결정(기획자가 정한 규칙) · 기획값(시뮬레이션으로 고른 후보) · 가정(확인 못 한 값) · 방식(계산 방법)"),
@@ -945,6 +1024,7 @@ def main():
     build_monsters(wb)
     build_monmon(wb)
     build_method(wb)
+    build_vars(wb)
     build_dash(wb)
     finish_names(wb)
     if MISSING:

@@ -43,9 +43,18 @@ const SPLIT = +(E.SPLIT ?? 0);   // >0: 처음엔 한 몸(체력 SPLIT)으로 �
 const INSTANT = E.INSTANT === '1';
 const CTARGET = E.CTARGET ?? 'user';   // user: 다수 공격을 쓴 그 몬몬 1명을 때림(단일 — 은신이면 안 맞음, 맞으면 바로) / all: 아군 전체 (이전 방식)   // 반격 자세인 분열체가 다수 공격을 맞으면 그 자리에서 바로 반격 (기본: 자세 턴이 끝날 때)
 const HS = E.HS ? E.HS.split(",").map(Number) : [8000, 9500, 11000, 13000];
+// ── 변수 실험용 (기본값이면 예전과 같은 결과 — 난수도 같은 순서로 뽑음) ──
+const SPDTO = E.SPDTO ?? 'all';   // 콘센파리 [속도 +15%] 받는 아군: all(실제 스킬: 모든 아군) · none(끔) · slot1~slot5(그 자리 1명) · 몬몬 이름
+const CRIT = E.CRIT ?? 'roll';    // roll(확률대로) · off(치명 없음) · all(스킬마다 치명)
+const GCUT = +(E.GCUT ?? 0), GCUTBY = E.GCUTBY ?? '콜리킹';   // GCUTBY 가 스킬을 쓴 뒤 살아 있는 모든 조각 스킬 게이지 −GCUT (예: 북치기 · 윙빗 ★3 「스킬 발동 후 모든 적 스킬 에너지 15% 감소」)
+const DALCUT = E.DALCUT === '1';  // 딸랑귀 기본공격 「4% 확률로 스킬 에너지 20% 감소」 반영 (기본: 안 넣음)
+const TRACE = E.TRACE === '1';    // 한 판 기록 (몬스터 타임라인)
 
 function simulate(team, H, rnd) {
-  const allies = team.map(n => ({ n, ...ALLY[n], ...(SYNC ? { spd: SYNC } : {}), max: ALLY[n].hp, alive: true, shield: 0, gauge: rnd() * START, bt: rnd() * BASIC_T, casts: 0 }));
+  const allies = team.map((n, slot) => ({ n, slot, ...ALLY[n], ...(SYNC ? { spd: SYNC } : {}), max: ALLY[n].hp, alive: true, shield: 0, gauge: rnd() * START, bt: rnd() * BASIC_T, casts: 0 }));
+  const ev = TRACE ? [] : null;
+  const log = (type, o = {}) => { if (ev) ev.push({ t: Math.round(t * 10) / 10, type, ...o }); };
+  let crits = 0, critTries = 0;
   const mk = (i) => ({ i, type: i % 2 ? 'aoe' : 'single', hp: H, alive: true, deadAt: 0, blockUntil: -1, vuln: -1, gauge: rnd() * 0.3, bt: rnd() * PIECE_BASIC_T, perm: false });
   let body = SPLIT > 0 ? { i: 0, type: 'single', hp: SPLIT, alive: true, deadAt: 0, blockUntil: -1, vuln: -1, gauge: rnd() * 0.3, bt: rnd() * PIECE_BASIC_T, perm: true, body: true } : null;
   let pieces = body ? [body] : [0, 1, 2, 3].map(mk);
@@ -54,7 +63,8 @@ function simulate(team, H, rnd) {
   const mult = () => Math.pow(1 + PIECE.ramp, revives);
   const aliveA = () => allies.filter(a => a.alive);
   const aliveP = () => pieces.filter(p => p.alive);
-  const spd = (a) => a.spd * (t < speedUntil ? 1.15 : 1) * (t < (a.slowUntil ?? -1) ? Math.max(0.1, 1 - SLOW * a.slowStacks) : 1);
+  const spdOn = (a) => SPDTO === 'all' || (SPDTO.startsWith('slot') ? a.slot === +SPDTO.slice(4) - 1 : a.n === SPDTO);
+  const spd = (a) => a.spd * (t < speedUntil && spdOn(a) ? 1.15 : 1) * (t < (a.slowUntil ?? -1) ? Math.max(0.1, 1 - SLOW * a.slowStacks) : 1);
 
   const ed = (kind, a, m) => (PCT ? PCTV[kind] / 100 * a.max : PIECE[kind]) * m;   // 분열체가 a 에게 주는 피해
   function hitAlly(a, dmg, src, single) {
@@ -63,7 +73,7 @@ function simulate(team, H, rnd) {
     const s = Math.min(a.shield, dmg); a.shield -= s; dmg -= s;
     a.hp -= dmg;
     if (t < reflectUntil && src?.alive && dmg > 0 && !(PCT && NOREFLPCT)) { hitPiece(src, dmg * 0.3 * REFLMUL, false); const mb = allies.find(x => x.n === '몽실벌' && x.alive); if (mb && a.alive) a.hp = Math.min(a.max, a.hp + mb.max * 0.01); }   // 반사 30% — 다수 공격 아님
-    if (a.hp <= 0) a.alive = false;
+    if (a.hp <= 0) { a.alive = false; log('adeath', { n: a.n }); }
   }
   function pickAlly() {
     const live = aliveA();   // 파티 배열 순서 = 앞줄부터 (분열체 단일 공격은 앞에서부터)
@@ -75,30 +85,39 @@ function simulate(team, H, rnd) {
     if (aoe && !p.body) { dmg *= 1 - PIECE.aoeCut; aoeInStance = true; }
     if (t < p.vuln) dmg *= 1.25;
     p.hp -= dmg;
-    if (p.hp <= 0) { p.alive = false; p.deadAt = t; p.perm = t <= p.blockUntil; }
+    if (p.hp <= 0) { p.alive = false; p.deadAt = t; p.perm = t <= p.blockUntil; log('die', { i: p.i, perm: p.perm, body: !!p.body }); }
   }
   const frontPiece = () => aliveP()[0];
 
-  function allyBasic(a) { const p = frontPiece(); if (p) hitPiece(p, a.basic, false); }
+  function allyBasic(a) { const p = frontPiece(); if (p) { hitPiece(p, a.basic, false); if (DALCUT && a.n === '딸랑귀' && p.alive && rnd() < 0.04) { p.gauge = Math.max(0, p.gauge - 0.2); log('gcut', { by: a.n, i: p.i }); } } }
+  function skillDmg(a) {   // 치명: 기본은 확률대로 (난수 순서 예전과 같음)
+    if (!a.crit) return a.skill;
+    critTries++;
+    const c = CRIT === 'off' ? false : CRIT === 'all' ? true : rnd() < a.crit;
+    if (c) crits++;
+    return c ? a.critSkill : a.skill;
+  }
   function allySkill(a) {
     a.casts++;
+    log('askill', { n: a.n });
     const every4 = R4 ? a.casts % 4 === 0 : (a.casts - 1) % 4 === 0;
     if (a.kind === 'single' || a.kind === 'singleSpeedBuff') {
       const p = frontPiece();
-      const d = a.crit && rnd() < a.crit ? a.critSkill : a.skill;
+      const d = skillDmg(a);
       if (p) hitPiece(p, d, false);
-      if (a.kind === 'singleSpeedBuff' && every4) speedUntil = t + BUFF_T;
+      if (a.kind === 'singleSpeedBuff' && every4 && SPDTO !== 'none') speedUntil = t + BUFF_T;
     } else if (a.kind === 'aoe' || a.kind === 'aoeDebuff') {
-      const d = a.crit && rnd() < a.crit ? a.critSkill : a.skill;
+      const d = skillDmg(a);
       const hitStance = !body && pieces[stance]?.alive;
       for (const p of aliveP()) { hitPiece(p, d, true); if (a.kind === 'aoeDebuff' && every4 && rnd() < 0.75) p.vuln = t + 2 * PIECE_SKILL_T; }
-      if (CTARGET === 'user' && hitStance) { counters++; const stealthed = t < stealthUntil && a.n !== '촛동'; if (!stealthed) hitAlly(a, ed('counter', a, mult()), pieces[stance], true); aoeInStance = false; nextStance(); }   // 다수 공격을 쓴 몬몬에게 바로 단일 반격 (은신이면 빗나감)
+      if (CTARGET === 'user' && hitStance) { counters++; log('counter', { by: a.n, i: stance }); const stealthed = t < stealthUntil && a.n !== '촛동'; if (!stealthed) hitAlly(a, ed('counter', a, mult()), pieces[stance], true); aoeInStance = false; nextStance(); }   // 다수 공격을 쓴 몬몬에게 바로 단일 반격 (은신이면 빗나감)
       else if (INSTANT && hitStance) { doCounter(pieces[stance]); aoeInStance = false; nextStance(); }   // 아군 전체 반격을 맞은 자리에서 바로
     } else if (a.kind === 'shieldSelf') { a.shield = a.max * 0.15; }
     else if (a.kind === 'tok') {
       for (let h = 0; h < 10; h++) { const live = aliveP(); if (!live.length) break; const p = live[Math.floor(rnd() * live.length)]; hitPiece(p, a.skill / 10, false); if (p.alive && rnd() < 0.15) p.blockUntil = t + p.gaugeLeft(); }
     } else if (a.kind === 'reflect') { const p = frontPiece(); if (p) hitPiece(p, a.skill, false); if (every4) reflectUntil = t + BUFF_T; }
     else if (a.kind === 'stealth') { for (const b of aliveA()) if (b !== a) b.shield = Math.max(b.shield, a.max * 0.12); if (every4) stealthUntil = t + BUFF_T; }
+    if (GCUT > 0 && a.n === GCUTBY) { for (const p of aliveP()) p.gauge = Math.max(0, p.gauge - GCUT); log('gcut', { by: a.n }); }
   }
   const withGauge = (p) => { p.gaugeLeft = () => (1 - p.gauge) * PIECE_SKILL_T; return p; };   // 다음 자기 턴까지 남은 시간 → [부활 차단] 1턴이 줄어드는 시점
   pieces.forEach(withGauge);
@@ -113,14 +132,14 @@ function simulate(team, H, rnd) {
       a.bt -= DT * s; if (a.bt <= 0) { a.bt += BASIC_T; allyBasic(a); }
       if (a.kind !== undefined) { a.gauge += DT * s / SKILL_T; if (a.gauge >= 1) { a.gauge -= 1; allySkill(a); } }
     }
-    if (body && !body.alive) { body = null; pieces = [0, 1, 2, 3].map(mk).map(withGauge); stance = 0; stanceEnd = t + PIECE_SKILL_T; aoeInStance = false; }   // 한 몸이 쓰러지면 4마리로 분열
-    if (!aliveP().length) return { win: true, t, revives, counters, deaths: allies.filter(a => !a.alive).length };
+    if (body && !body.alive) { log('split'); body = null; pieces = [0, 1, 2, 3].map(mk).map(withGauge); stance = 0; stanceEnd = t + PIECE_SKILL_T; aoeInStance = false; }   // 한 몸이 쓰러지면 4마리로 분열
+    if (!aliveP().length) return { win: true, t, revives, counters, crits, critTries, ev, deaths: allies.filter(a => !a.alive).length };
     // 부활 (자체 타이머, 속도 무관)
     for (const p of pieces) if (!p.alive && !p.perm && t - p.deadAt >= REVIVE_T) {
       if (!aliveP().length) break;
-      p.alive = true; p.hp = H; revives++; p.blockUntil = -1;
+      p.alive = true; p.hp = H; revives++; p.blockUntil = -1; log('revive', { i: p.i, n: revives });
     }
-    if (pieces.every(p => !p.alive)) return { win: true, t, revives, counters, deaths: allies.filter(a => !a.alive).length };
+    if (pieces.every(p => !p.alive)) return { win: true, t, revives, counters, crits, critTries, ev, deaths: allies.filter(a => !a.alive).length };
     // 분열체 공격
     const m = mult();
     for (const p of aliveP()) {
@@ -128,6 +147,7 @@ function simulate(team, H, rnd) {
       p.gauge += DT / PIECE_SKILL_T;
       if (p.gauge >= 1) {
         p.gauge -= 1;
+        log('pskill', { i: p.i, kind: p.body ? 'body' : p.type });
         if (p.type === 'single') { const a = pickAlly(); if (a) hitAlly(a, ed('singleSkill', a, m), p, true); }
         else {
           for (const a of aliveA()) hitAlly(a, ed('aoeSkill', a, m), p, false);
@@ -141,9 +161,9 @@ function simulate(team, H, rnd) {
       if (CTARGET === 'all' && sp.alive && aoeInStance) doCounter(sp);
       aoeInStance = false; nextStance();
     }
-    if (!aliveA().length) return { win: false, t, revives, counters, deaths: allies.length };
+    if (!aliveA().length) return { win: false, t, revives, counters, crits, critTries, ev, deaths: allies.length };
   }
-  return { win: false, t: MAX_T, revives, counters, deaths: allies.filter(a => !a.alive).length, timeout: true };
+  return { win: false, t: MAX_T, revives, counters, crits, critTries, ev, deaths: allies.filter(a => !a.alive).length, timeout: true };
 }
 
 const PARTIES = [
@@ -155,6 +175,18 @@ const PARTIES = [
 ];
 const N = +(E.N ?? 1000);
 const KEYS = ['base', 'tok', 'mong', 'chot', 'duo'];   // base = 기본 파티 (열쇠 효과만 없음)
+if (E.RAW === '1') {   // tools/split-vars.mjs: 판마다 승패 · 시간 · 치명 수 (TRACE=1 이면 RUNIDX 판의 기록도)
+  const want = new Set((E.RUNIDX ?? '').split(',').filter(Boolean).map(Number));
+  const out = [];
+  for (const [pi, [name, team]] of PARTIES.entries()) for (const H of HS) {
+    if (E.KEY && E.KEY.split(',').indexOf(KEYS[pi]) < 0) continue;
+    const rnd = mulberry32(4242);
+    const runs = Array.from({ length: N }, (_, k) => { const r = simulate(team, H, rnd); return { k, win: r.win, t: Math.round(r.t * 10) / 10, crits: r.crits, tries: r.critTries, revives: r.revives, ev: want.has(k) ? r.ev : undefined }; });
+    out.push({ key: KEYS[pi], party: name, hp: H, runs });
+  }
+  process.stdout.write(JSON.stringify(out));
+  process.exit(0);
+}
 if (E.JSON === '1') {   // tools/split-report.mjs 가 읽는 기계용 출력
   const out = [];
   for (const [pi, [name, team]] of PARTIES.entries()) for (const H of HS) {
