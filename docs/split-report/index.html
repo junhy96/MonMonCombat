@@ -83,8 +83,7 @@
     <ul class="sb-legend">
       <li><span class="sb-sw" data-k="base"></span>기본 파티 (열쇠 효과 없음)</li>
       <li><span class="sb-sw" data-k="tok"></span>톡찌리 (부활 차단)</li>
-      <li><span class="sb-sw" data-k="mong"></span>몽실벌 (피해 반사)</li>
-      <li><span class="sb-sw" data-k="chot"></span>촛동 (은신)</li>
+      <li><span class="sb-sw" data-k="ment"></span>멘티삿 (은신 + 광역)</li>
     </ul>
     <div class="sb-chart" data-draw="sweepChart" data-source="sweep"></div>
   </section>
@@ -138,8 +137,9 @@
             <th>구간</th>
             <th>기본 파티</th>
             <th>톡찌리</th>
-            <th>몽실벌</th>
-            <th>톡찌리 + 몽실벌</th>
+            <th>멘티삿</th>
+            <th>톡찌리 + 멘티삿</th>
+            <th>톡찌리 + 토볼트</th>
           </tr>
         </thead>
         <tbody data-draw="bandsTbl" data-source="bands"></tbody>
@@ -184,8 +184,8 @@
       <li>전투 엔진이 아니라 관측값만 쓴 전용 계산이에요 (0.1초 단위). 아군 피해는 사용자 계정 파티(파이온·딸랑귀·콜리킹·쥐강이·콘센파리)가 글라틀 10단계에서 낸 값이고, 딸랑귀는 쥐강이 값으로 대신했어요.</li>
       <li>모든 몬몬이 빈 스킬 게이지로 시작해요. 그래서 결과가 거의 정해진 한 흐름으로 나오고, 분열체 체력이 조금만 바뀌어도 클리어율이 0%와 100% 사이를 크게 오가요.</li>
       <li>속도 100 기준 아군 평타 1.6초, 스킬 16초(평타 10번). 분열체는 평타 2.4초, 스킬 9.6초. 부활은 속도와 무관한 15초 타이머예요.</li>
-      <li>열쇠 몬몬(톡찌리·몽실벌·촛동)은 계정에 없어 쥐강이 자리에 넣었고, 기본 파티의 그 자리 몬몬과 같은 체력 12,000 · 속도 100 · 쥐강이 기대 화력으로 봤어요. 실제 몬몬 수치가 다르면 결과도 달라져요.</li>
-      <li>몽실벌 반사는 받은 피해의 30%를 돌려주고, 그 피해도 공격한 분열체의 방어력에 깎여요(아군 평타 ÷ 공격력 중앙값 16%로 추정). 분열체 피해 후보값은 10단계에서 평타 45 · 단일 스킬 450 · 모든 적 스킬 225 · 반격 1,500이고, 부활할 때마다 +10%예요. 모든 적 스킬은 가까운 2명의 속도를 10%씩 늦춰요(중반 최대 2겹).</li>
+      <li>열쇠 몬몬(톡찌리·멘티삿·토볼트)은 계정에 없어 쥐강이 자리에 넣었고, 기본 파티의 그 자리 몬몬과 같은 체력 12,000 · 속도 100 · 쥐강이 기대 화력으로 봤어요. 실제 몬몬 수치가 다르면 결과도 달라져요.</li>
+      <li>반격은 10단계 6,000 — 은신 없이 광역을 쓰는 몬몬(파이온 · 딸랑귀)이 버티지 못하게 (2026-11-26). 몽실벌(반사)과 촛동(자신은 광역 없음)은 열쇠에서 뺐어요. 분열체 피해 후보값은 10단계에서 평타 45 · 단일 스킬 450 · 모든 적 스킬 225예요.</li>
       <li>분열체는 패시브로 [부활 차단]에 저항하지 못해요. 그래서 단계가 올라 효과저항이 50~75가 돼도 톡찌리의 부활 차단 확률(맞은 타격마다 15%)은 그대로예요. 데디베어 [악몽]의 "저항, 해제 불가", 윈드윙 [폭풍 흡입]의 "저항 불가"와 같은 장치예요.</li>
       <li>콜리킹 방어력 +30%, 패시브, 다른 효과의 저항·명중은 피해 공식이 없어 뺐어요.</li>
     </ul>
@@ -194,12 +194,12 @@
 
 <script>
   window.SB = {
-    KEYS: ['base', 'tok', 'mong', 'chot'],
-    NAMES: { base: '기본 파티', tok: '톡찌리', mong: '몽실벌', chot: '촛동', duo: '톡찌리 + 몽실벌' },
+    KEYS: ['base', 'tok', 'ment'],
+    NAMES: { base: '기본 파티', tok: '톡찌리', ment: '멘티삿', duo: '톡찌리 + 멘티삿', duo2: '톡찌리 + 토볼트' },
     REF_HP: 14000,
     color(k) {
       if (k === 'base') return 'var(--cds-chart-muted)';   // 기본 파티 = 비교 기준 (회색 점선)
-      const order = ['tok', 'mong', 'chot'];
+      const order = ['tok', 'ment'];
       return dash.colors[order.indexOf(k)] || 'var(--cds-chart-muted)';
     },
     fmt1: (v) => (v == null || isNaN(+v)) ? '—' : (+v).toFixed(1),
@@ -356,7 +356,7 @@
       for (const [order, band] of orders) {
         const tr = document.createElement('tr');
         const th = document.createElement('td'); th.textContent = band; tr.appendChild(th);
-        for (const k of ['base', 'tok', 'mong', 'duo']) {
+        for (const k of ['base', 'tok', 'ment', 'duo', 'duo2']) {
           const r = d.data.find((x) => +x.order === order && x.key === k);
           const td = document.createElement('td');
           td.textContent = r ? SB.fmt1(r.clear) + '% · ' + (r.time != null ? r.time + '초' : '—') : '—';

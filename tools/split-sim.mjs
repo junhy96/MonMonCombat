@@ -22,7 +22,9 @@ const ALLY = {
   // 열쇠 후보 — 사용자 계정에 없음 → 쥐강이와 같은 화력 가정
   톡찌리: { hp: 12000, spd: 100, basic: 117, skill: 3876, kind: 'tok' },
   몽실벌: { hp: 12000, spd: 100, basic: 117, skill: 3876, kind: 'reflect' },   // 패시브 [달콤한 보답]: 아군이 반사한 뒤 그 아군을 몽실벌 최대 체력 1% 치유
-  촛동: { hp: 13000, spd: 100, basic: 117, kind: 'stealth' },
+  촛동: { hp: 13000, spd: 100, basic: 117, kind: 'stealth' },   // (2026-11-26 열쇠에서 뺌 — 자신은 다수 공격을 안 함)
+  멘티삿: { hp: 12000, spd: 100, basic: 117, skill: 3876, kind: 'aoeStealth' },
+  토볼트: { hp: 12000, spd: 100, basic: 117, skill: 3876, kind: 'tobolt' },   // 「번개 추적」 체력이 가장 낮은 적 3명 피해, [5턴에 한 번] 맞은 적 각각 75% 2턴 [부활 차단] (2턴 = 조각의 다음 턴 + 한 턴 더). 3명을 때리므로 다수 공격(피해 감소 · 반격). 화력은 쥐강이 값 가정   // 「맹독난무」 모든 적 피해, [4턴에 한 번] 피해 전 자신 2턴 [강철 은신]. 화력은 다른 열쇠처럼 쥐강이 값 가정 (적마다), 디버프 75%는 종류 모름 → 뺌
   기본몬몬: { hp: 12000, spd: 100, basic: 117, skill: 3876, kind: 'single' },   // 기본 파티의 쥐강이 자리 — 열쇠 몬몬과 같은 체력·속도·화력, 열쇠 효과만 없음 (열쇠 효과는 이것과 비교)
 };
 
@@ -60,6 +62,7 @@ function simulate(team, H, rnd) {
   let pieces = body ? [body] : [0, 1, 2, 3].map(mk);
   let t = 0, revives = 0, counters = 0, stance = 0, stanceEnd = PIECE_SKILL_T, aoeInStance = false;
   let speedUntil = -1, reflectUntil = -1, stealthUntil = -1;
+  const hidden = (a) => (t < stealthUntil && a.n !== '촛동') || t < (a.selfStealth ?? -1);   // 촛동이 건 파티 은신 또는 자기 은신(멘티삿)
   const mult = () => Math.pow(1 + PIECE.ramp, revives);
   const aliveA = () => allies.filter(a => a.alive);
   const aliveP = () => pieces.filter(p => p.alive);
@@ -69,7 +72,7 @@ function simulate(team, H, rnd) {
   const ed = (kind, a, m) => (PCT ? PCTV[kind] / 100 * a.max : PIECE[kind]) * m;   // 분열체가 a 에게 주는 피해
   function hitAlly(a, dmg, src, single) {
     if (!a.alive) return;
-    if (t < stealthUntil && a.n !== '촛동' && !single) dmg *= 0.9;   // 은신: 광역 피해 −10%
+    if (hidden(a) && !single) dmg *= 0.9;   // 은신: 광역 피해 −10%
     const s = Math.min(a.shield, dmg); a.shield -= s; dmg -= s;
     a.hp -= dmg;
     if (t < reflectUntil && src?.alive && dmg > 0 && !(PCT && NOREFLPCT)) { hitPiece(src, dmg * 0.3 * REFLMUL, false); const mb = allies.find(x => x.n === '몽실벌' && x.alive); if (mb && a.alive) a.hp = Math.min(a.max, a.hp + mb.max * 0.01); }   // 반사 30% — 다수 공격 아님
@@ -77,7 +80,7 @@ function simulate(team, H, rnd) {
   }
   function pickAlly() {
     const live = aliveA();   // 파티 배열 순서 = 앞줄부터 (분열체 단일 공격은 앞에서부터)
-    const vis = live.filter(a => !(t < stealthUntil && a.n !== '촛동'));
+    const vis = live.filter(a => !hidden(a));
     return (vis.length ? vis : live)[0];
   }
   function hitPiece(p, dmg, aoe) {
@@ -106,15 +109,23 @@ function simulate(team, H, rnd) {
       const d = skillDmg(a);
       if (p) hitPiece(p, d, false);
       if (a.kind === 'singleSpeedBuff' && every4 && SPDTO !== 'none') speedUntil = t + BUFF_T;
-    } else if (a.kind === 'aoe' || a.kind === 'aoeDebuff') {
+    } else if (a.kind === 'aoe' || a.kind === 'aoeDebuff' || a.kind === 'aoeStealth') {
+      if (a.kind === 'aoeStealth' && every4 && E.NOSTEALTH !== '1') a.selfStealth = t + BUFF_T;   // NOSTEALTH=1: 은신만 끈 대조 (광역 화력은 그대로)   // 피해를 입히기 전에 은신 → 이번 반격부터 빗나감
       const d = skillDmg(a);
       const hitStance = !body && pieces[stance]?.alive;
       for (const p of aliveP()) { hitPiece(p, d, true); if (a.kind === 'aoeDebuff' && every4 && rnd() < 0.75) p.vuln = t + 2 * PIECE_SKILL_T; }
-      if (CTARGET === 'user' && hitStance) { counters++; log('counter', { by: a.n, i: stance }); const stealthed = t < stealthUntil && a.n !== '촛동'; if (!stealthed) hitAlly(a, ed('counter', a, mult()), pieces[stance], true); aoeInStance = false; nextStance(); }   // 다수 공격을 쓴 몬몬에게 바로 단일 반격 (은신이면 빗나감)
+      if (CTARGET === 'user' && hitStance) { counters++; log('counter', { by: a.n, i: stance }); if (!hidden(a)) hitAlly(a, ed('counter', a, mult()), pieces[stance], true); aoeInStance = false; nextStance(); }   // 다수 공격을 쓴 몬몬에게 바로 단일 반격 (은신이면 빗나감)
       else if (INSTANT && hitStance) { doCounter(pieces[stance]); aoeInStance = false; nextStance(); }   // 아군 전체 반격을 맞은 자리에서 바로
     } else if (a.kind === 'shieldSelf') { a.shield = a.max * 0.15; }
     else if (a.kind === 'tok') {
       for (let h = 0; h < 10; h++) { const live = aliveP(); if (!live.length) break; const p = live[Math.floor(rnd() * live.length)]; hitPiece(p, a.skill / 10, false); if (p.alive && rnd() < 0.15) p.blockUntil = t + p.gaugeLeft(); }
+    } else if (a.kind === 'tobolt') {
+      const every5 = (a.casts - 1) % 5 === 0;   // [5턴에 한 번]도 첫 스킬부터
+      const d = skillDmg(a);
+      const targets = aliveP().slice().sort((x, y) => x.hp - y.hp).slice(0, 3);
+      const hitStance = !body && targets.includes(pieces[stance]) && pieces[stance]?.alive;
+      for (const p of targets) { hitPiece(p, d, true); if (every5 && p.alive && rnd() < 0.75) p.blockUntil = t + p.gaugeLeft() + PIECE_SKILL_T; }
+      if (CTARGET === 'user' && hitStance) { counters++; log('counter', { by: a.n, i: stance }); if (!hidden(a)) hitAlly(a, ed('counter', a, mult()), pieces[stance], true); aoeInStance = false; nextStance(); }
     } else if (a.kind === 'reflect') { const p = frontPiece(); if (p) hitPiece(p, a.skill, false); if (every4) reflectUntil = t + BUFF_T; }
     else if (a.kind === 'stealth') { for (const b of aliveA()) if (b !== a) b.shield = Math.max(b.shield, a.max * 0.12); if (every4) stealthUntil = t + BUFF_T; }
     if (GCUT > 0 && a.n === GCUTBY) { for (const p of aliveP()) p.gauge = Math.max(0, p.gauge - GCUT); log('gcut', { by: a.n }); }
@@ -169,12 +180,12 @@ function simulate(team, H, rnd) {
 const PARTIES = [
   ['기본 파티: 열쇠 효과 없음 (쥐강이 자리에 열쇠 몬몬과 같은 능력치)', ['콜리킹', '딸랑귀', '기본몬몬', '파이온', '콘센파리']],
   ['열쇠: 톡찌리 (쥐강이 대신)', ['콜리킹', '딸랑귀', '톡찌리', '파이온', '콘센파리']],
-  ['열쇠: 몽실벌 반사 (쥐강이 대신)', ['콜리킹', '딸랑귀', '몽실벌', '파이온', '콘센파리']],
-  ['열쇠: 촛동 은신 (쥐강이 대신)', ['콜리킹', '딸랑귀', '촛동', '파이온', '콘센파리']],
-  ['열쇠 2명: 몽실벌 (콜리킹 대신) + 톡찌리 (쥐강이 대신)', ['몽실벌', '딸랑귀', '톡찌리', '파이온', '콘센파리']],
+  ['열쇠: 멘티삿 은신 + 광역 (쥐강이 대신)', ['콜리킹', '딸랑귀', '멘티삿', '파이온', '콘센파리']],
+  ['열쇠 2명: 멘티삿 (콜리킹 대신) + 톡찌리 (쥐강이 대신)', ['멘티삿', '딸랑귀', '톡찌리', '파이온', '콘센파리']],
+  ['열쇠 2명: 토볼트 (콜리킹 대신) + 톡찌리 (쥐강이 대신) — 부활 차단 2명', ['토볼트', '딸랑귀', '톡찌리', '파이온', '콘센파리']],   // 2026-11-26 몽실벌 제외 (반사가 반격을 되받는다는 보장이 없음 — 사용자 결정)
 ];
 const N = +(E.N ?? 1000);
-const KEYS = ['base', 'tok', 'mong', 'chot', 'duo'];   // base = 기본 파티 (열쇠 효과만 없음)
+const KEYS = ['base', 'tok', 'ment', 'duo', 'duo2'];   // duo = 톡찌리 + 멘티삿, duo2 = 톡찌리 + 토볼트   // base = 기본 파티 (열쇠 효과만 없음)
 if (E.RAW === '1') {   // tools/split-vars.mjs: 판마다 승패 · 시간 · 치명 수 (TRACE=1 이면 RUNIDX 판의 기록도)
   const want = new Set((E.RUNIDX ?? '').split(',').filter(Boolean).map(Number));
   const out = [];

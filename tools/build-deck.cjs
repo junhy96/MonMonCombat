@@ -103,6 +103,7 @@ const syncv = (o, k) => sync.find((r) => r.order === o && r.key === k).clear;
 const stages = fs.readFileSync(path.join(ROOT, 'data/dungeons/split-boss/boss-stats.csv'), 'utf8').replace(/^﻿/, '').trim().split(/\r?\n/).map((l) => l.split(','));
 const SH = stages[0]; const si = (n) => SH.indexOf(n);
 const V = JSON.parse(fs.readFileSync(path.join(ROOT, 'docs/split-report/vars.json'), 'utf8'));   // 변수 실험 · 타임라인 (tools/split-vars.mjs)
+const vrow = (g, o, k) => V.rows.find((r) => r.group === g && r.order === o && r.key === k);
 const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, '0')}`;
 
 // ── 1. 표지 ────────────────────────────────────────────────
@@ -115,7 +116,7 @@ const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart
   s.addShape(pres.shapes.LINE, { x: 0.52, y: 7.1, w: 12.08, h: 0, line: { color: C.white, width: 0.75 } });
   s.addShape(pres.shapes.RECTANGLE, { x: 1.19, y: 1.58, w: 2.69, h: 0.4, fill: { color: C.white }, line: { color: C.white, width: 0 } });
   s.addText('몬몬 마스터즈', { x: 1.19, y: 1.58, w: 2.69, h: 0.4, fontFace: F.b, fontSize: 18, color: C.purple, align: 'center', valign: 'middle', margin: 0, isTextBox: true });
-  s.addText([{ text: '레벨 디자인 과제', options: { breakLine: true } }, { text: '열쇠가 열쇠가 되는 던전' }],
+  s.addText([{ text: '레벨 디자인 과제' }],   // 사용자 수정: 둘째 줄(열쇠가 열쇠가 되는 던전) 지움
     { x: 1.19, y: 2.17, w: 8, h: 1.5, fontFace: F.b, fontSize: 40, color: C.white, margin: 0, valign: 'top', isTextBox: true });
   s.addText([{ text: '문항 1 · 초기 던전 열쇠 진단과 재설계 — 글라틀', options: { breakLine: true } }, { text: '문항 2 · 에픽 열쇠 던전 — 분열 보스 쿼디' }],
     { x: 1.19, y: 5.25, w: 8, h: 0.8, fontFace: F.m, fontSize: 18, color: C.white, margin: 0, isTextBox: true });
@@ -283,7 +284,7 @@ const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart
   });
   card(s, 0.5, 4.75, 5.9, 1.95, '선택: 분열 + 부활', [
     '보스가 4마리로 나뉘고, 시간 안에 다 함께 못 쓰러뜨리면 다시 일어남',
-    '→ 부활 차단 · 피해 반사 · 은신이 각각 다른 길로 열쇠가 됨',
+    '→ 부활 차단 · 은신 + 광역이 각각 다른 길로 열쇠가 됨',
     '→ "여러 적에게 피해를 나눠 넣는" 새 축',
   ], { size: 12.5, color: C.deep });
 }
@@ -329,7 +330,7 @@ const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart
     ['skill-split.png', '사분열', '패시브', '한 몸이 쓰러지면 조각 4마리로 나뉨', '보스의 정체성 — 한 몸을 넘기면 「넷을 함께」라는 두 번째 국면이 열림'],
     ['skill-split.png', '다시 뭉치기', '패시브', '쓰러진 조각은 15초 뒤 부활 (속도 무관) · 부활마다 공격력 +10%', '시간 제한 대신 누적 압박 — 오래 끌수록 강해져 「언젠가는 못 버팀」. 15초 창이 부활 차단의 자리'],
     ['skill-jelly.png', '녹지 않는 젤리', '패시브', '[부활 차단]에 저항 못 함 · 광역 피해 −30% (7단계부터 −50%)', '단계가 올라 효과저항이 높아져도 열쇠가 확실히 통하게 보장 · 광역 몰아치기 우회는 좁힘'],
-    [null, '반격 자세', '패시브 · 7단계부터', '조각 하나가 늘 자세, 다수 공격을 맞으면 쓴 몬몬에게 바로 반격 (은신이면 빗나감)', '광역 남용에 대가를 붙여 은신(촛동)이 열쇠가 되는 이유를 만듦 · 반격 연출로 왜 아픈지 보이게 (조건 4)'],
+    [null, '반격 자세', '패시브 · 7단계부터', '조각 하나가 늘 자세, 다수 공격을 맞으면 쓴 몬몬에게 바로 반격 6,000 (은신이면 빗나감)', '반격 6,000으로 광역 남용에 큰 대가 — 스스로 은신하며 광역을 쓰는 몬몬(멘티삿)이 열쇠가 되는 이유 · 반격 연출로 왜 아픈지 보이게 (조건 4)'],
     [null, '절대 면역 · 몰아붙이기 · 기회', '패시브 (공통)', '기절 · 실명 · 침묵 · 도발 · 속박 면역 / 이탈 1명당 피해 +10% / 이탈시키면 에너지 +25%', '기존 보스와 같은 공통 규칙 — 행동을 묶어 기믹을 건너뛰는 우회를 막음'],
   ];
   const rows = [['스킬', '종류', '하는 일', '기획 의도']].concat(SK.map(([, n, k, d, why]) => [
@@ -431,7 +432,7 @@ const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart
   panel(t, 3.72, `톡찌리 파티 — ${t.t}초 클리어 · 부활 ${t.revives}번 · 부활 차단으로 못 일어난 조각 ${perm}번`, C.purple);
   for (let x = 0; x <= Tm; x += 30) s.addText(`${x}초`, { x: sx(x) - 0.3, y: 5.5, w: 0.6, h: 0.2, fontFace: F.r, fontSize: 8.5, color: C.mute, align: 'center', margin: 0, isTextBox: true });
   s.addShape(pres.shapes.ISOSCELES_TRIANGLE, { x: 5.6, y: 1.97, w: 0.1, h: 0.1, fill: { color: C.green }, line: { color: C.green, width: 0 } });
-  s.addText('부활 · ✕ 부활 차단으로 못 일어남 · ● 아군 쓰러짐', { x: 5.75, y: 1.92, w: 4.2, h: 0.2, fontFace: F.r, fontSize: 9, color: C.sub, margin: 0, isTextBox: true });
+  [['부활', C.sub, 5.75], ['✕ 부활 차단으로 못 일어남', C.red, 6.45], ['● 아군 쓰러짐', C.red, 8.6]].forEach(([t, c, x]) => s.addText(t, { x, y: 1.92, w: 2.2, h: 0.2, fontFace: F.r, fontSize: 9, color: c, margin: 0, isTextBox: true }));   // 사용자 수정: 범례 간격 넓힘
   concl(s, `한 몸은 두 파티 모두 약 ${Math.round(((b.ev.find((e) => e.type === 'split') || {}).t + (t.ev.find((e) => e.type === 'split') || {}).t) / 2)}초에 쓰러집니다. 차이는 분열 뒤 — 기본 파티는 조각이 번갈아 쓰러지고 다시 일어나며(${b.revives}번) 강해져 아군이 차례로 무너지고, 톡찌리 파티는 부활 차단으로 한 마리를 지워 넷을 함께 잡는 창이 생깁니다.`, { y: 5.92, h: 0.8 });
 }
 
@@ -442,7 +443,8 @@ function shotRow(s, items, x0, gap, h, y = 2.0) {   // items: [파일, 라벨, �
   let x = x0;
   items.forEach(([f, lab, col]) => {
     const w = shotW(f, h);
-    chip(s, x, y, Math.min(w, 2.1), lab, col);
+    const cw = Math.min(w, 2.1);
+    chip(s, x + (w - cw) / 2, y, cw, lab, col);   // 사용자 수정: 칩을 그림 가운데로
     s.addImage({ path: SHOT(f), x, y: y + 0.4, w, h, altText: `쿼디 공략 창 — ${lab}` });
     x += w + gap;
   });
@@ -456,8 +458,8 @@ function shotRow(s, items, x0, gap, h, y = 2.0) {   // items: [파일, 라벨, �
   const x0 = end + 0.4, w0 = 12.83 - x0;
   const pts = [
     ['초반 1~6', '기믹 소개 — 반격 · 느려짐 없음, 광역 피해 감소 30%. 열쇠 없이도 깸', C.green],
-    ['중반 7~15', '[반격 자세] · 느려짐 2겹 · 광역 감소 50% → 같은 투력이면 열쇠가 필요', C.purple],
-    ['후반 16~20', '느려짐 3겹 · 조각 체력↑ → 열쇠 2명 권장', C.red],
+    ['중반 7~15', '[반격 자세]로 광역 한 방에 조각을 모두 처치하는 것을 막음 · 광역 감소 50% → 같은 투력이면 열쇠가 필요', C.purple],
+    ['후반 16~20', '느려짐 3 중첩 · 조각 체력↑ → 부활 차단 열쇠 2명 (또는 부활 차단 + 은신 광역) 권장', C.red],
   ];
   sub(s, '구간마다 바뀌는 것', x0, 2.0, w0);
   pts.forEach(([hh, d, col], i) => {
@@ -474,7 +476,7 @@ function shotRow(s, items, x0, gap, h, y = 2.0) {   // items: [파일, 라벨, �
   const end = shotRow(s, [['05-needed.png', '필요한 효과', C.teal], ['06-skills-1.png', '보스 스킬 ① 1~5', C.purple], ['07-skills-2.png', '보스 스킬 ② 6~10', C.purple]], 0.5, 0.3, 4.3);
   const x0 = end + 0.45, w0 = 12.83 - x0;
   const pts = [
-    ['필요한 효과', '① 부활 차단 ② 피해 반사 ③ 은신 — 효과마다 열쇠 몬몬 아이콘과 편성 버튼'],
+    ['필요한 효과', '① 부활 차단 ② 은신 + 광역 — 효과마다 열쇠 몬몬 아이콘과 편성 버튼'],
     ['예고가 보이게', '반격 자세 조각 · 부활까지 남은 시간 · 공격력 증가를 전투 화면에 표시'],
     ['스킬 그림', '젤리 몸통박치기 · 포탄 · 해일 · 사분열 · 녹지 않는 젤리는 제작 이미지'],
     ['반격 자세 잠금', '7단계부터 열리는 패시브는 자물쇠 + 「7단계부터」 표시'],
@@ -493,8 +495,8 @@ function shotRow(s, items, x0, gap, h, y = 2.0) {   // items: [파일, 라벨, �
   title(s, '열쇠 몬몬 — 같은 보스를 세 갈래로 연다', '열쇠 효과마다 푸는 방식이 다릅니다. 시뮬레이션은 같은 자리에 같은 능력치 · 열쇠 효과만 없는 몬몬을 둔 기본 파티와 비교했습니다.');
   const keys = [   // [번호, 이름, 열쇠 효과, 효과 아이콘, 핵심 스킬, 칸, 핵심 효과 문구, 설명, 색]
     ['099', '톡찌리 (에픽)', '부활 차단', 'DB_REVIVE_BLOCK', '영혼 쪼아먹기', '★5 패시브', '스킬 피해를 입은 적에게 각각 15% [부활 차단]', ['스킬 「맹독 연격」 10회가 무작위 조각에 퍼져 여러 마리에 걸림', '→ ★5로 진화해야 열쇠 완성 (성장과 연결)'], C.purple],
-    ['123', '몽실벌 (에픽)', '피해 반사', 'BF_REFLECT_2', '꿀단지 쏟기', '스킬', '[4턴에 한 번] 모든 아군 2턴 [피해 반사 30%]', ['조각 넷이 함께 때릴수록 돌려주는 피해도 커짐', '→ 반사 피해도 방어력에 깎여 효과는 작음'], C.blue],
-    ['081', '촛동 (에픽)', '은신', 'BF_STEALTH_2', '연막 은신', '스킬', '[4턴에 한 번] 자신 뺀 아군 2턴 [강철 은신]', ['은신 중엔 반격 · 단일 공격을 받지 않음', '→ 광역 몬몬을 마음껏 쓰게 해 줌'], C.teal],
+    ['055', '멘티삿 (전설)', '은신 + 광역', 'BF_STEALTH_2', '맹독난무', '스킬', '모든 적 피해 · [4턴에 한 번] 피해 전 자신 2턴 [강철 은신]', [`은신 동안 반격이 빗나가 광역을 마음껏 — 은신 끄면 ${vrow('은신', 1, 'ment').clear}% (켜면 ${vrow('은신', 2, 'ment').clear}%)`, '→ 스스로 은신하는 광역이라야 열쇠 (촛동은 광역 없음)'], C.teal],
+    ['010', '토볼트 (전설)', '부활 차단', 'DB_REVIVE_BLOCK', '번개 추적', '스킬', '체력 낮은 적 3명 · [5턴에 한 번] 각각 75% 2턴 [부활 차단]', ['톡찌리와 함께 「부활 차단 2명」 — 후반용', `→ 후반 톡찌리 + 토볼트 ${band(3, 'duo2').clear}% (톡찌리 혼자 ${band(3, 'tok').clear}%)`], C.deep],
   ];
   keys.forEach(([no, n, k, icon, skill, slot, eff, l, col], i) => {
     const x = 0.5 + i * 4.14;
@@ -509,8 +511,8 @@ function shotRow(s, items, x0, gap, h, y = 2.0) {   // items: [파일, 라벨, �
       { text: eff, options: { fontFace: F.r, fontSize: 9.5, color: C.ink } }], { x: x + 0.82, y: 3.45, w: 2.9, h: 0.56, margin: 0, valign: 'middle', isTextBox: true });
     s.addText(l.map((t, j) => ({ text: t, options: { breakLine: j < l.length - 1 } })), { x: x + 0.2, y: 4.12, w: 3.55, h: 0.62, fontFace: F.r, fontSize: 10.5, color: C.ink, margin: 0, valign: 'top', paraSpaceAfter: 2, isTextBox: true });
   });
-  const b2 = band(2, 'base'), t2 = band(2, 'tok'), m2 = band(2, 'mong'), c2 = band(2, 'chot'), d2 = band(2, 'duo');
-  const stats = [[b2.clear, '기본 파티', '열쇠 효과 없음', C.red], [t2.clear, '톡찌리', '부활 차단', C.purple], [m2.clear, '몽실벌', '피해 반사', C.blue], [c2.clear, '촛동', '은신', C.teal], [d2.clear, '톡찌리 + 몽실벌', '열쇠 2명', C.deep]];
+  const b2 = band(2, 'base'), t2 = band(2, 'tok'), m2 = band(2, 'ment'), d2 = band(2, 'duo'), e2 = band(2, 'duo2');
+  const stats = [[b2.clear, '기본 파티', '열쇠 효과 없음', C.red], [t2.clear, '톡찌리', '부활 차단', C.purple], [m2.clear, '멘티삿', '은신 + 광역', C.teal], [d2.clear, '톡찌리 + 멘티삿', '열쇠 2명', 'E2803A'], [e2.clear, '톡찌리 + 토볼트', '부활 차단 2명', C.deep]];
   sub(s, '중반(7~15) 클리어율', 0.5, 4.98);
   stats.forEach(([v, l, k, col], i) => {
     const x = 0.5 + i * 2.48, y = 5.33;
@@ -520,7 +522,7 @@ function shotRow(s, items, x0, gap, h, y = 2.0) {   // items: [파일, 라벨, �
     s.addText([{ text: l, options: { fontFace: F.s, fontSize: 12, color: C.ink, breakLine: true } }, { text: k, options: { fontFace: F.r, fontSize: 10.5, color: C.sub } }],
       { x: x + 1.48, y: y + 0.38, w: 0.98, h: 0.7, margin: 0, valign: 'middle', isTextBox: true });
   });
-  note(s, '1,000판 · 부활 차단 보유: 전설 1 · 에픽 2 · 레어 1 / 피해 반사 (강): 전설 1 · 에픽 4 · 레어 1', 6.8);
+  note(s, '몬테카를로 시뮬레이션 결과 1,000판 · 반격 6,000 · 부활 차단 보유: 전설 3 · 에픽 2 · 레어 1. 세부 전투 로직에 따라 값이 변할 수 있습니다.', 6.8);   // 사용자 수정 문구 반영
 }
 
 // ── 12. 단계별 설계 ────────────────────────────────────────
@@ -566,7 +568,7 @@ function shotRow(s, items, x0, gap, h, y = 2.0) {   // items: [파일, 라벨, �
     ['분열', '한 몸이 쓰러지면 조각 4마리 (단단한 2 · 흐물 2)'],
     ['부활', '쓰러지고 15초 뒤 부활 (속도 무관), 부활마다 공격력 ×1.1 · [부활 차단]이 남아 있으면 못 일어남'],
     ['조각 공격', '평타 2.4초 · 스킬 9.6초 — 맨 앞 1명 450 / 전체 225 + 가까운 2명 느려짐'],
-    ['반격', '반격 자세 조각이 다수 공격을 맞으면 쓴 몬몬에게 1,500 (은신이면 빗나감)'],
+    ['반격', '반격 자세 조각이 다수 공격을 맞으면 쓴 몬몬에게 6,000 (은신이면 빗나감)'],
     ['판정', '조각 4마리가 다 쓰러지면 클리어 · 아군 전멸이나 600초면 실패'],
   ];
   const fy = 2.88, fh = 0.6;
@@ -590,7 +592,7 @@ function shotRow(s, items, x0, gap, h, y = 2.0) {   // items: [파일, 라벨, �
     '· 시드 4242 고정 → 다시 돌려도 같은 결과, 파티끼리 같은 난수로 비교',
   ], { size: 11.5, color: C.teal });
   s.addText('±3.1%p', { x: 7.75, y: 5.55, w: 2.0, h: 0.6, fontFace: F.b, fontSize: 28, color: C.purple, margin: 0, isTextBox: true });
-  s.addText('1,000판 클리어율의 95% 오차 (최대, 50%일 때). 기본 파티 32% vs 톡찌리 96% 차이 64%p는 우연이 아님', { x: 9.8, y: 5.5, w: 3.03, h: 0.75, fontFace: F.r, fontSize: 10.5, color: C.ink, margin: 0, valign: 'middle', isTextBox: true });
+  s.addText(`1,000판 클리어율의 95% 오차 (최대, 50%일 때). 중반 기본 파티 ${Math.round(band(2, 'base').clear)}% vs 톡찌리 ${Math.round(band(2, 'tok').clear)}% 차이 ${Math.round(band(2, 'tok').clear - band(2, 'base').clear)}%p는 우연이 아님`, { x: 9.8, y: 5.5, w: 3.03, h: 0.75, fontFace: F.r, fontSize: 10.5, color: C.ink, margin: 0, valign: 'middle', isTextBox: true });
   note(s, '전체 규칙과 몬몬별 스킬 처리: 엑셀 「시뮬레이션 방식」 시트 · 코드 tools/split-sim.mjs', 6.85);
 }
 
@@ -600,7 +602,7 @@ function shotRow(s, items, x0, gap, h, y = 2.0) {   // items: [파일, 라벨, �
   header(s, '03', '문항 2 · 검증');
   title(s, '시뮬레이션 — 같은 투력이면 열쇠 없이는 대부분 실패', '10단계 투력으로 정규화, 모든 몬몬이 빈 게이지로 시작, 구간·파티마다 1,000판. 기본 파티 = 쥐강이 자리에 열쇠 몬몬과 같은 체력·속도·화력의 몬몬, 열쇠 효과만 없음.');
   // 참고 기획서 16쪽 방식: 구간마다 큰 숫자 + 강조 막대 (열쇠 파티만 진하게), 지금 구간(중반)은 테두리 강조
-  const ks = [['base', '기본'], ['tok', '톡찌리'], ['mong', '몽실벌'], ['chot', '촛동'], ['duo', '톡+몽']];
+  const ks = [['base', '기본'], ['tok', '톡찌리'], ['ment', '멘티삿'], ['duo', '톡+멘'], ['duo2', '톡+토']];
   const BAND = [[1, '초반 1~6', '기믹 소개 — 모두 약 2분에 깸'], [2, '중반 7~15', ''], [3, '후반 16~20', '느려짐 3겹 — 열쇠 2명 권장']];
   BAND.forEach(([o, lab, msg], i) => {
     const x = 0.5 + i * 4.17, y = 2.0, w = 3.99, h = 3.75;
@@ -620,13 +622,12 @@ function shotRow(s, items, x0, gap, h, y = 2.0) {   // items: [파일, 라벨, �
   });
   const m = band(2, 'base'), t = band(2, 'tok'), l0 = band(3, 'base'), l1 = band(3, 'tok');
   concl(s, `같은 능력치에서 열쇠 효과만 바꿔도 중반 ${Math.round(m.clear)}% → ${Math.round(t.clear)}%, 후반 ${Math.round(l0.clear)}% → ${Math.round(l1.clear)}%. 열쇠 없는 파티는 다시 일어날 때마다 강해지는 조각에 무너지고, 톡찌리는 부활을 막아 이긴 판 ${mmss(t.time)}에 깹니다.`, { y: 5.92, h: 0.78 });
-  note(s, '막대: 기본 · 톡찌리 · 몽실벌 · 촛동 · 톡찌리 + 몽실벌 클리어율 (%), 1,000판 · 몽실벌 · 촛동은 연하게', 6.85);
+  note(s, '막대: 기본 · 톡찌리 · 멘티삿 · 톡찌리 + 멘티삿 · 톡찌리 + 토볼트 클리어율 (%), 1,000판 · 반격 6,000', 6.85);
 }
 
 // ── 13-2. 몬테카를로 변수 ① 속도 버프 · 게이지 감소 ─────────
-const vrow = (g, o, k) => V.rows.find((r) => r.group === g && r.order === o && r.key === k);
 const CHART_BASE = {
-  barDir: 'col', barGrouping: 'clustered', barGapWidthPct: 55, chartColors: [C.mute, C.purple], valAxisMaxVal: 100, valAxisMinVal: 0, valAxisLabelFormatCode: '0"%"',
+  barDir: 'col', barGrouping: 'clustered', barGapWidthPct: 55, chartColors: [C.mute, C.purple, C.teal], valAxisMaxVal: 100, valAxisMinVal: 0, valAxisLabelFormatCode: '0"%"',
   showValue: true, dataLabelPosition: 'outEnd', dataLabelFontSize: 8.5, dataLabelFontFace: F.s, dataLabelColor: C.ink, dataLabelFormatCode: '0',
   valAxisLabelFontFace: F.r, catAxisLabelFontFace: F.r, valAxisLabelFontSize: 8.5, catAxisLabelFontSize: 9, valAxisLabelColor: C.sub, catAxisLabelColor: C.ink,
   valGridLine: { color: 'E6E6EE', size: 0.5 }, catGridLine: { style: 'none' }, showLegend: true, legendPos: 'b', legendFontFace: F.r, legendFontSize: 9.5, legendColor: C.ink,
@@ -634,19 +635,19 @@ const CHART_BASE = {
 };
 function varChart(s, group, labels, x, y, w, h, ttl) {
   const n = labels.length;
-  s.addChart(pres.charts.BAR, [['base', '기본 파티'], ['tok', '톡찌리']].map(([k, nm]) => ({ name: nm, labels, values: Array.from({ length: n }, (_, i) => vrow(group, i + 1, k).clear) })),
+  s.addChart(pres.charts.BAR, [['base', '기본 파티'], ['tok', '톡찌리'], ['ment', '멘티삿']].map(([k, nm]) => ({ name: nm, labels, values: Array.from({ length: n }, (_, i) => vrow(group, i + 1, k).clear) })),
     { ...CHART_BASE, x, y, w, h, title: ttl });
 }
 {
   const s = pres.addSlide();
   header(s, '03', '문항 2 · 검증');
   title(s, '몬테카를로 변수 ① — 속도 버프를 누가 받나, 조각 게이지를 깎으면', '중반 10단계 결과와 같은 설정에서 한 가지만 바꿔 1,000판씩. 1,000판 클리어율 오차는 ±3%p 안팎이라 그보다 작은 차이는 같은 값으로 봅니다.');
-  const sb = (o) => vrow('속도 버프 대상', o, 'base').clear, gb = (o) => vrow('조각 게이지 감소', o, 'base').clear;
+  const sb = (o, k = 'tok') => vrow('속도 버프 대상', o, k).clear, gb = (o, k = 'tok') => vrow('조각 게이지 감소', o, k).clear;
   card(s, 0.5, 1.95, 6.05, 0.82, '속도 버프 — 콘센파리 「전류 동조」 [4턴에 한 번] 모든 아군 2턴 [속도 +15%]', ['실제는 모든 아군. 1명에게만 들어간다면 누구냐에 따라 얼마나 바뀌는지'], { size: 10.5 });
   varChart(s, '속도 버프 대상', ['없음', '모든 아군\n(실제)', '콜리킹만', '열쇠 자리만', '파이온만\n(광역)'], 0.5, 2.85, 6.05, 3.0, '속도 버프를 받는 아군별 클리어율 (%)');
   card(s, 6.78, 1.95, 6.05, 0.82, '조각 게이지 감소 — 조각 스킬(포탄 · 해일)이 늦게 나오게', ['딸랑귀 평타 「4% 확률로 스킬 에너지 −20%」는 실제 효과 (지금 결과엔 빠짐)'], { size: 10.5, color: C.teal });
   varChart(s, '조각 게이지 감소', ['없음\n(지금)', '딸랑귀 평타\n4% −20%', '스킬마다\n전체 −15%', '둘 다', '스킬마다\n전체 −30%'], 6.78, 2.85, 6.05, 3.0, '조각 게이지를 깎는 몬몬이 있을 때 클리어율 (%)');
-  concl(s, `속도 버프는 「누가 받느냐」가 승률을 가릅니다 — 광역 딜러(파이온)만 빨라지면 기본 파티 ${sb(2)}% → ${sb(5)}%, 열쇠 자리만이면 ${sb(4)}%. 게이지 감소는 −15%로는 오차 안(${gb(3)}%)이고, −30%쯤 되면 ${gb(5)}%로 열쇠 없이 깨는 우회가 됩니다 → 2-2 대응 후보: 조각 게이지 감소에 상한.`, { y: 5.95, h: 0.78 });
+  concl(s, `속도 버프는 「누가 받느냐」가 승률을 가릅니다 — 멘티삿 파티는 파이온만 빨라지면 ${sb(2, 'ment')}% → ${sb(5, 'ment')}%, 멘티삿만 빨라지면 ${sb(4, 'ment')}% (박자가 어긋나 광역이 반격 자세에 걸림). 조각 게이지 감소는 −30%까지도 톡찌리 ${gb(1)} → ${gb(5)}%로 오차 수준 → 우회로가 되지 않아 막을 필요 없음.`, { y: 5.95, h: 0.78 });
   note(s, '1명에게만 / −15 · 30% 는 「만약」 실험 (콜리킹 자리 몬몬에 북치기 · 윙빗 ★3 같은 효과를 붙임)', 6.85);
 }
 
@@ -657,16 +658,16 @@ function varChart(s, group, labels, x, y, w, h, ttl) {
   title(s, '몬테카를로 변수 ② — 치명타가 터지면 승패가 바뀌나', '딸랑귀 28% · 쥐강이 자리 37% 확률로 스킬 3,216 → 5,000. 같은 1,000판을 판마다 「터진 치명 ÷ 치명이 날 수 있던 스킬 수」로 나눠 봤습니다.');
   varChart(s, '치명타', ['치명 없음', '확률대로\n(지금 결과)', '스킬마다 치명'], 0.5, 1.95, 5.2, 3.85, '치명타 조건별 클리어율 (%)');
   const cb = (k) => V.crit.filter((r) => r.key === k && r.bin !== '평균');
-  s.addChart(pres.charts.BAR, ['base', 'tok'].map((k) => ({ name: k === 'base' ? '기본 파티' : '톡찌리', labels: cb('base').map((r) => r.bin.replace(' (', '\n(')), values: cb(k).map((r) => r.clear) })),
-    { ...CHART_BASE, x: 5.95, y: 1.95, w: 4.6, h: 3.85, title: '판마다 치명 비율별 클리어율 (%)' });
+  s.addChart(pres.charts.BAR, ['tok', 'ment'].map((k) => ({ name: k === 'tok' ? '톡찌리' : '멘티삿', labels: cb('tok').map((r) => r.bin.replace(' (', '\n(')), values: cb(k).map((r) => r.clear) })),
+    { ...CHART_BASE, chartColors: [C.purple, C.teal], x: 5.95, y: 1.95, w: 4.6, h: 3.85, title: '판마다 치명 비율별 클리어율 (%)' });
   const avg = (k) => V.crit.find((r) => r.key === k && r.bin === '평균');
-  const ab = avg('base'), at = avg('tok');
+  const at = avg('tok'), am = avg('ment');
   const pc = (v) => `${(v * 100).toFixed(1)}%`;
   card(s, 10.75, 1.95, 2.08, 3.85, '평균 치명 비율', [
-    '기본 파티', `이긴 판 ${pc(ab.winRate)}`, `진 판 ${pc(ab.loseRate)}`, '', '톡찌리', `이긴 판 ${pc(at.winRate)}`, `진 판 ${pc(at.loseRate)}`, '', '판 수: ' + cb('base').map((r) => r.runs).join(' · '),
+    '톡찌리', `이긴 판 ${pc(at.winRate)}`, `진 판 ${pc(at.loseRate)}`, '', '멘티삿', `이긴 판 ${pc(am.winRate)}`, `진 판 ${pc(am.loseRate)}`, '', '판 수: ' + cb('tok').map((r) => r.runs).join(' · '),
   ], { size: 10.5 });
-  const lo = Math.min(...cb('base').map((r) => r.clear)), hi = Math.max(...cb('base').map((r) => r.clear));
-  concl(s, `기본 파티는 이긴 판과 진 판의 치명 비율이 같습니다(${pc(ab.winRate)} · ${pc(ab.loseRate)}) — 「몇 번」보다 「언제」 터지느냐(창 안에 넷을 함께 잡는지)가 승패를 가르고, 운에 따라 ${lo}~${hi}%를 오가도 절반을 못 넘습니다. 스킬마다 치명(스킬 피해 +55%)처럼 크게 강해지면 ${vrow('치명타', 3, 'base').clear}% — 같은 투력이면 열쇠가 필요합니다.`, { y: 5.92, h: 0.8 });
+  const lo = Math.min(...cb('tok').map((r) => r.clear)), hi = Math.max(...cb('tok').map((r) => r.clear));
+  concl(s, `치명 운이 좋을수록 이깁니다 — 톡찌리 파티는 치명 비율이 낮은 판 ${lo}% → 높은 판 ${hi}% (이긴 판 ${pc(at.winRate)} · 진 판 ${pc(at.loseRate)}). 치명이 하나도 없으면 ${vrow('치명타', 1, 'tok').clear}%, 스킬마다 치명이면 ${vrow('치명타', 3, 'tok').clear}%. 기본 파티는 스킬마다 치명(스킬 피해 +55%)이어야 ${vrow('치명타', 3, 'base').clear}% — 같은 투력이면 열쇠가 필요합니다.`, { y: 5.92, h: 0.8 });
   note(s, '치명 비율 구간별 판 수가 적은 칸(100판 안팎)은 오차가 ±10%p까지 커짐', 6.85);
 }
 
@@ -675,7 +676,7 @@ function varChart(s, group, labels, x, y, w, h, ttl) {
   const s = pres.addSlide();
   header(s, '03', '문항 2 · 검증');
   title(s, '전투 업타임별 클리어 확률 — 같은 기준에서 시간이 지나면', '중반 10단계, 파티마다 1,000판. 「t초 안에 깬 판 ÷ 1,000」 누적 곡선 — 곡선이 멈추는 높이가 최종 클리어율입니다.');
-  const U = V.uptime, keysU = ['base', 'tok', 'mong', 'chot', 'duo'];
+  const U = V.uptime, keysU = ['base', 'tok', 'ment', 'duo', 'duo2'];
   s.addChart(pres.charts.LINE, keysU.map((k) => ({ name: V.upName[k], labels: U.map((r) => (r.t % 30 === 0 ? `${r.t}` : '')), values: U.map((r) => r[k]) })), {
     x: 0.5, y: 1.95, w: 8.6, h: 3.85, chartColors: [C.mute, C.purple, C.blue, C.teal, C.deep], lineSize: 2, lineDataSymbol: 'none',
     valAxisMaxVal: 100, valAxisMinVal: 0, valAxisLabelFormatCode: '0"%"', valAxisLabelFontFace: F.r, valAxisLabelFontSize: 9, valAxisLabelColor: C.sub,
@@ -735,18 +736,19 @@ function varChart(s, group, labels, x, y, w, h, ttl) {
   title(s, '한계와 확인할 것', '시뮬레이션은 게임 엔진이 아니라 관측값으로 만든 전용 계산입니다. 아래 항목이 확정되면 다시 돌립니다.');
   card(s, 0.5, 2.05, 6.0, 3.3, '가정으로 둔 것', [
     '· 딸랑귀 피해 — 관측이 없어 쥐강이 값으로 대신',
-    '· 열쇠 몬몬(톡찌리·몽실벌·촛동) 수치 — 계정에 없어 쥐강이 화력',
+    '· 열쇠 몬몬(톡찌리·멘티삿·토볼트) 수치 — 계정에 없어 쥐강이 화력 (광역은 적마다)',
     '· 피해 공식 — 없어서 분열체 피해는 "아군이 받는 값"으로 기획',
     '· 시작 게이지 모두 0 — 결과가 거의 한 흐름이라 체력 ±500에 크게 흔들림 → 체력 범위 평균으로 판단',
     '· 클리어 시간은 보스전만 (잡몹 웨이브 빠짐)',
-    '· 빠진 실제 효과 — 몽실벌 ★5 「다시 윙윙」(쓰러진 아군 50% 부활), 딸랑귀 평타 게이지 −20% (4%, 변수 실험에서만)',
+    '· 빠진 실제 효과 — 딸랑귀 평타 게이지 −20% (4%, 변수 실험에서만) · 멘티삿 디버프 75% (종류 모름)',
+    '· 반격 6,000 — 은신 없는 광역(파이온 · 딸랑귀)은 열쇠 파티에서도 반격을 맞음',
   ], { color: C.red, size: 13.5 });
   card(s, 6.83, 2.05, 6.0, 3.3, '게임에서 확인할 규칙', [
     '· 톡찌리 [부활 차단] 15%가 맞은 적마다인지 타격마다인지',
     '· [독] 피해가 들어가는 시점 (분열체 자기 턴 / 타이머)',
     '· 글라틀 등껍질이 보스 스킬 때 가득으로 다시 생기는지 (문항 1)',
     '· 보스 게이지가 속도에 비례하는지',
-    '· 반사 피해가 방어력에 깎이는 비율 (지금 추정 0.16)',
+    '· 멘티삿 [강철 은신]이 반격을 피하는지 (깜뭉치는 피함 — 사용자 확인)',
   ], { color: C.teal, size: 13.5 });
   sub(s, '다음 단계', 0.5, 5.7);
   ['문항 1 재설계 수치 확정 (K · N · t · x)', '쿼디 스킬 이름 · 문구 확정', '열쇠 몬몬 실측 후 재시뮬레이션'].forEach((t, i) => chip(s, 0.5 + i * 4.14, 6.12, 3.95, t, C.lilac, C.deep));

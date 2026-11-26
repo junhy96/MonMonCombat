@@ -19,11 +19,11 @@ const glattle = Object.fromEntries(readFileSync('data/dungeons/ice-fortress/boss
 
 const BANDS = [
   { name: '초반 1~6', from: 1, to: 6, piece: 0.104, aoeCut: 30, counter: false, slowMax: 0, note: '기믹 소개: 분열·부활만, 반격·느려짐 없음' },
-  { name: '중반 7~15', from: 7, to: 15, piece: 0.121, aoeCut: 50, counter: true, slowMax: 2, note: '반격·느려짐 시작 — 열쇠 없으면 대부분 실패, 톡찌리 약 2분 50초' },
-  { name: '후반 16~20', from: 16, to: 20, piece: 0.130, aoeCut: 50, counter: true, slowMax: 3, note: '느려짐 최대 3겹 — 열쇠 2명이면 안정' },
+  { name: '중반 7~15', from: 7, to: 15, piece: 0.121, aoeCut: 50, counter: true, slowMax: 2, note: '반격·느려짐 시작 — 열쇠 없으면 실패, 열쇠 1명 64~79%' },
+  { name: '후반 16~20', from: 16, to: 20, piece: 0.130, aoeCut: 50, counter: true, slowMax: 3, note: '느려짐 최대 3겹 — 열쇠 2명 권장' },
 ];
 const BODY = 1.734, ATK_MUL = 0.15, RAMP = 10;
-const DMG10 = { basic: 45, single: 450, aoe: 225, counter: 1500 };   // 10단계 기준 아군(관측 파티)이 받는 피해 후보값
+const DMG10 = { basic: 45, single: 450, aoe: 225, counter: 6000 };   // 반격 6,000: 2026-11-26 은신 열쇠가 의미 있게 (사용자 결정)   // 10단계 기준 아군(관측 파티)이 받는 피해 후보값
 const resAcc = (s) => s >= 10 ? [75, 75] : s >= 7 ? [50, 50] : s >= 4 ? [35, 30] : [30, 0];   // 기존 보스 공통 단계 (글라틀 표)
 
 const out = [['단계', '보스 레벨', '구간', '한 몸 체력', '분열체 체력 (1마리)', '전체 체력 (한 몸 + 4마리)', '분열체 공격력 (스탯 후보)', '방어력', '속도', '치명확률', '치명피해', '효과저항', '효과명중',

@@ -1,5 +1,5 @@
 // 분열 보스 결과 페이지용 데이터 — tools/split-sim.mjs 를 설정별로 돌려 docs/split-report/*.json 으로 저장
-//   clear = 클리어율(%, 소수 1자리) · 파티 key: base 기본 파티(열쇠 몬몬과 같은 능력치, 열쇠 효과 없음) / tok / mong / chot / duo
+//   clear = 클리어율(%, 소수 1자리) · 파티 key: base 기본 파티(열쇠 몬몬과 같은 능력치, 열쇠 효과 없음) / tok / mong / ment(멘티삿) / duo
 //   sweep.json : 최종 설정에서 분열체 체력 8,000~16,000 × 파티 5종
 //   steps.json : 분열체 REF_HP에서 설정을 하나씩 더해 가며 파티 5종
 //   sync.json  : 분열체 REF_HP에서 아군 속도 원래 / 전원 110 / 전원 120 × 파티 5종 (속도를 맞춘 파티 = 다른 해법)
@@ -18,7 +18,7 @@ mkdirSync(OUT, { recursive: true });
 const codeMeta = { label: 'split-sim.mjs', value: code, type: 'code', lang: 'javascript' };
 const START_NOTE = { label: '시작 게이지', value: '모두 0에서 시작 (사용자 결정)' };
 
-const FINAL = { AOECUT: '0.5', SPLIT: '200000', PCOUNTER: '5000', CTARGET: 'user', PDMG: '0.3', RAMP: '0.1', SLOW: '10', SLOWN: '2', SLOWMAX: '2' };   // 중반 기준 (같은 투력·열쇠 없이 2분 30초~3분 목표)
+const FINAL = { AOECUT: '0.5', SPLIT: '200000', PCOUNTER: '20000', CTARGET: 'user', PDMG: '0.3', RAMP: '0.1', SLOW: '10', SLOWN: '2', SLOWMAX: '2' };   // 중반 기준 (같은 투력·열쇠 없이 2분 30초~3분 목표)
 const sweep = run({ ...FINAL, HS: '11000,12000,13000,14000,15000,16000' });
 writeFileSync(`${OUT}/sweep.json`, JSON.stringify({
   rows: sweep,
@@ -35,7 +35,7 @@ const STEPS = [
   { step: 2, setting: '피해 감소 −50%로', env: { AOECUT: '0.5', CTARGET: 'all' } },
   { step: 3, setting: '+ 맞는 즉시 반격', env: { AOECUT: '0.5', CTARGET: 'all', INSTANT: '1' } },
   { step: 4, setting: '+ 한 몸 30,000으로 시작해 중간 분열', env: { AOECUT: '0.5', CTARGET: 'all', INSTANT: '1', SPLIT: '30000' } },
-  { step: 5, setting: '반격을 다수 공격 쓴 몬몬 단일 5,000으로 (최종)', env: FINAL },
+  { step: 5, setting: '반격을 다수 공격 쓴 몬몬 단일로, 20,000 (×0.3 → 6,000) (최종)', env: FINAL },
 ];
 const steps = STEPS.flatMap(s => run({ ...s.env, HS: REF_HP }).map(r => ({ step: s.step, setting: s.setting, key: r.key, party: r.party, clear: r.clear })));
 writeFileSync(`${OUT}/steps.json`, JSON.stringify({

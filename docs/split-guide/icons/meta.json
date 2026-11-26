@@ -64,5 +64,11 @@
   "grade": "에픽",
   "element": "화염",
   "icon": "icons/116.png"
+ },
+ "멘티삿": {
+  "no": "055",
+  "grade": "전설",
+  "element": "곤충",
+  "icon": "icons/055.png"
  }
 }

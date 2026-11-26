@@ -10,7 +10,7 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "docs/deck/assets"
-KEYS = {"099": "톡찌리", "123": "몽실벌", "081": "촛동"}
+KEYS = {"099": "톡찌리", "055": "멘티삿", "010": "토볼트"}
 UI_STRIP = 46      # 왼쪽 UI 조각 폭 (px)
 DARK = 80          # 외곽선으로 보는 밝기
 PAD = 0.10         # 오린 뒤 둘레 여백 비율
@@ -44,7 +44,7 @@ def cutout(src):
             if 0 <= nx < w and 0 <= ny < h and not bg[nx][ny]:
                 n = px[nx, ny]
                 # 배경은 부드러운 그라데이션 → 이웃끼리 색이 비슷할 때만 번짐. 외곽선(어두움)이나 색이 확 바뀌는 곳에서 멈춤
-                if nx < UI_STRIP or (lum(n) >= DARK and abs(n[0] - c[0]) + abs(n[1] - c[1]) + abs(n[2] - c[2]) <= STEP):
+                if nx < UI_STRIP or abs(n[0] - c[0]) + abs(n[1] - c[1]) + abs(n[2] - c[2]) <= STEP:   # 어두운 배경(토볼트)도 번지게, 외곽선과의 큰 색 차이에서 멈춤
                     q.append((nx, ny))
     for x in range(w):
         for y in range(h):

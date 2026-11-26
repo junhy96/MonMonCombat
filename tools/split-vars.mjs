@@ -8,9 +8,9 @@ import { writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 const SIM = fileURLToPath(new URL('./split-sim.mjs', import.meta.url));
-const FINAL = { AOECUT: '0.5', SPLIT: '200000', PCOUNTER: '5000', CTARGET: 'user', PDMG: '0.3', RAMP: '0.1', SLOW: '10', SLOWN: '2', SLOWMAX: '2', START: '0', HS: '13955' };
-const KEYS = 'base,tok';
-const NAME = { base: '기본 파티', tok: '톡찌리' };
+const FINAL = { AOECUT: '0.5', SPLIT: '200000', PCOUNTER: '20000', CTARGET: 'user', PDMG: '0.3', RAMP: '0.1', SLOW: '10', SLOWN: '2', SLOWMAX: '2', START: '0', HS: '13955' };
+const KEYS = 'base,tok,ment';
+const NAME = { base: '기본 파티', tok: '톡찌리', ment: '멘티삿' };
 const raw = (env) => JSON.parse(execFileSync(process.execPath, [SIM], { env: { ...process.env, RAW: '1', KEY: KEYS, ...FINAL, ...env }, encoding: 'utf8', maxBuffer: 1 << 28 }));
 const sum = (runs) => {
   const w = runs.filter((r) => r.win), ts = w.map((r) => r.t).sort((a, b) => a - b);
@@ -28,6 +28,8 @@ const EXP = [
   { group: '조각 게이지 감소', order: 3, label: '스킬마다 모든 조각 −15%', note: '콜리킹 자리 몬몬에 북치기 · 윙빗 ★3 같은 효과를 붙임', env: { GCUT: '0.15', GCUTBY: '콜리킹' } },
   { group: '조각 게이지 감소', order: 4, label: '위 둘 다', note: '', env: { GCUT: '0.15', GCUTBY: '콜리킹', DALCUT: '1' } },
   { group: '조각 게이지 감소', order: 5, label: '스킬마다 모든 조각 −30%', note: '강한 경우 (참고)', env: { GCUT: '0.30', GCUTBY: '콜리킹' } },
+  { group: '은신', order: 1, label: '멘티삿 은신 끔', note: '광역 화력은 그대로, [강철 은신]만 끔 — 은신의 몫', env: { NOSTEALTH: '1' } },
+  { group: '은신', order: 2, label: '멘티삿 은신 켬 (지금 결과)', note: '', env: {} },
   { group: '치명타', order: 1, label: '치명 없음', note: '딸랑귀 · 쥐강이 자리 치명이 하나도 안 터지면', env: { CRIT: 'off' } },
   { group: '치명타', order: 2, label: '확률대로 (지금 결과)', note: '딸랑귀 28% · 쥐강이 37% (3,216 → 5,000)', env: { CRIT: 'roll' } },
   { group: '치명타', order: 3, label: '스킬마다 치명', note: '모두 터지면', env: { CRIT: 'all' } },
@@ -48,7 +50,7 @@ for (const e of EXP) {
 // 치명 비율별 승률 — 같은 설정 1,000판을 판마다 「터진 치명 ÷ 치명이 날 수 있던 스킬 수」로 나눠 봄
 //   (횟수로 나누면 오래 끈 판일수록 스킬을 많이 써 치명도 많아져서, 진 판에 치명이 많아 보이는 착시가 생김)
 const crit = [];
-for (const k of ['base', 'tok']) {
+for (const k of ['tok', 'ment']) {   // 기본 파티는 반격 6,000 뒤 거의 못 이겨(1% 안팎) 이긴 판 비교가 안 됨
   const runs = base[k].map((r) => ({ ...r, rate: r.tries ? r.crits / r.tries : 0 }));
   const bins = [[0, 0.25, '25% 미만 (운 나쁨)'], [0.25, 0.35, '25~35%'], [0.35, 0.45, '35~45%'], [0.45, 1.01, '45% 이상 (운 좋음)']];
   for (const [lo, hi, lab] of bins) {
@@ -71,8 +73,8 @@ for (const [k, idx] of [['base', kb], ['tok', kt]]) {
 }
 
 // 전투 업타임별 누적 클리어 확률 — 같은 설정(중반 10단계)에서 「t초 안에 깬 판 ÷ 1,000」
-const UP_NAME = { base: '기본 파티', tok: '톡찌리', mong: '몽실벌', chot: '촛동', duo: '톡찌리 + 몽실벌' };
-const upRaw = raw({ KEY: 'base,tok,mong,chot,duo' });
+const UP_NAME = { base: '기본 파티', tok: '톡찌리', ment: '멘티삿', duo: '톡찌리 + 멘티삿', duo2: '톡찌리 + 토볼트' };
+const upRaw = raw({ KEY: 'base,tok,ment,duo,duo2' });
 const uptime = [];
 for (let sec = 0; sec <= 360; sec += 10) {
   const row = { t: sec };
