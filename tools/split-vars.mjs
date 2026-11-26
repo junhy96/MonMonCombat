@@ -8,7 +8,7 @@ import { writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 const SIM = fileURLToPath(new URL('./split-sim.mjs', import.meta.url));
-const FINAL = { AOECUT: '0.5', SPLIT: '200000', PCOUNTER: '20000', CTARGET: 'user', PDMG: '0.3', RAMP: '0.1', SLOW: '10', SLOWN: '2', SLOWMAX: '2', START: '0', HS: '13955' };
+const FINAL = { AOECUT: '0.5', SPLIT: '100000', PCOUNTER: '20000', CTARGET: 'user', PDMG: '0.3', RAMP: '0.1', SLOW: '10', SLOWN: '2', SLOWMAX: '2', START: '0', HS: '13955' };
 const KEYS = 'base,tok,ment';
 const NAME = { base: '기본 파티', tok: '톡찌리', ment: '멘티삿' };
 const raw = (env) => JSON.parse(execFileSync(process.execPath, [SIM], { env: { ...process.env, RAW: '1', KEY: KEYS, ...FINAL, ...env }, encoding: 'utf8', maxBuffer: 1 << 28 }));
@@ -76,7 +76,7 @@ for (const [k, idx] of [['base', kb], ['tok', kt]]) {
 const UP_NAME = { base: '기본 파티', tok: '톡찌리', ment: '멘티삿', duo: '톡찌리 + 멘티삿', duo2: '톡찌리 + 토볼트' };
 const upRaw = raw({ KEY: 'base,tok,ment,duo,duo2' });
 const uptime = [];
-for (let sec = 0; sec <= 360; sec += 10) {
+for (let sec = 0; sec <= 600; sec += 10) {   // 시간 보정 뒤 늦게 깨는 판까지 (최대 600초)
   const row = { t: sec };
   for (const o of upRaw) row[o.key] = +(o.runs.filter((r) => r.win && r.t <= sec).length / o.runs.length * 100).toFixed(1);
   uptime.push(row);
@@ -84,7 +84,7 @@ for (let sec = 0; sec <= 360; sec += 10) {
 console.log('업타임', uptime.filter((r) => r.t % 60 === 0).map((r) => `${r.t}s base ${r.base} tok ${r.tok}`).join(' · '));
 
 const meta = [
-  { label: '설정', value: '중반 10단계 결과와 같음 (분열체 13,955 · 한 몸 200,000 · 모두 빈 게이지 · 1,000판 시드 4242) + 실험마다 한 가지만 바꿈' },
+  { label: '설정', value: '중반 10단계 결과와 같음 (분열체 13,955 · 한 몸 100,000 · 모두 빈 게이지 · 1,000판 시드 4242) + 실험마다 한 가지만 바꿈' },
   { label: '파티', value: '기본 파티(쥐강이 자리에 열쇠 몬몬과 같은 능력치) · 톡찌리 파티' },
   { label: '주의', value: '속도 버프를 1명에게만 주는 것 · 게이지 −15/30% 몬몬을 콜리킹 자리에 붙이는 것은 「만약」 실험. 실제 스킬은 note 칸' },
 ];

@@ -180,7 +180,7 @@ const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart
   const mech = [
     ['얼음 등껍질', '받는 피해 −80% · 해로운 효과 차단 · 보스 스킬마다 다시 두름 · 1~6단계 60번, 7단계부터 70~90번 맞아야 깨짐', C.teal],
     ['빙하 분출', '못 깬 채 보스 스킬이 나가면 남은 횟수 1개당 아군 최대 체력 0.5% 피해 + 최대 체력 감소, 보스 회복', C.red],
-    ['탈진', '깨면 7~8초 동안 행동 불가 · 속도와 관계없이 스킬 에너지가 참 → 이 창에서만 체력이 깎임', C.green],
+    ['탈진', '깨면 28초(10단계 측정) 동안 행동 불가 · 속도와 관계없이 스킬 에너지가 참 → 이 창에서 체력이 깎임', C.green],
     ['빙하 각성', '자신의 디버프 전부 제거 + 속도 +15% → 다음 주기가 짧아짐', C.olive],
   ];
   mech.forEach(([h, d, col], i) => {
@@ -189,7 +189,7 @@ const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart
     chip(s, 4.55, y + 0.26, 1.35, h, col);
     s.addText(d, { x: 6.05, y: y + 0.06, w: 6.65, h: 0.7, fontFace: F.r, fontSize: 12, color: C.ink, margin: 0, valign: 'middle', isTextBox: true });
   });
-  const stats = [['12초', '보스 게이지 — 이 안에 등껍질을 깨야 함'], ['60 → 90번', '7단계부터 깨야 하는 횟수'], ['38마리', '다회 피해 몬몬 (고급·일반 15)']];
+  const stats = [['27초', '등껍질 창 (10단계 측정) = 1턴'], ['60 → 70~90번', '7단계부터 깨야 하는 횟수'], ['38마리', '다회 피해 몬몬 (고급·일반 15)']];
   stats.forEach(([n, l], i) => {
     const x = 4.4 + i * 2.85;
     s.addText(n, { x, y: 5.85, w: 2.7, h: 0.5, fontFace: F.b, fontSize: 26, color: C.purple, margin: 0, isTextBox: true });
@@ -201,18 +201,18 @@ const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart
 {
   const s = pres.addSlide();
   header(s, '02', '문항 1 · 진단');
-  title(s, '한 주기 타수 — 7단계부터는 열쇠만으로 빠듯하고, 90번은 한 주기 안에 못 깬다', '보스 스킬 한 주기 동안 파티 5명이 등껍질을 때리는 횟수 (평타도 1번씩 셈). ✔ 깸 · △ 70번이면 깸, 90번이면 못 깸 · ✘ 못 깸. 레벨 · 별로 바뀌는 칸이 없습니다.');
+  title(s, '한 주기 타수 — 1~6단계는 열쇠가 필요 없고, 7단계부터 갑자기 다회 2~4명', '보스 스킬 한 주기 동안 파티 5명이 등껍질을 때리는 횟수 (평타도 1번씩 셈). ✔ 깸 · △ 70번이면 깸, 90번이면 못 깸 · ✘ 못 깸. 레벨 · 별로 바뀌는 칸이 없습니다.');
   const rows = [
-    ['단계 (보스 속도 · 깨야 하는 수)', '한 주기 (아군 평타)', '다회 없음', '5회 다회 3명', '5회 다회 5명', '10회 다회 2명', '10회 다회 4명', '10회 다회 5명'],
-    // 2026-11-26 고침: 보스 게이지 12초는 10단계(속도 100) 관측 → 1~6단계 15초 · 11단계부터 9.6초 (속도 비례), ✔ 깸 · △ 70번만 · ✘ 못 깸
-    ['1~6 (80 · 60번)', ctr('9.4 (15초)'), ng('52 ✘'), ok('63 ✔'), ok('70 ✔'), ok('68 ✔'), ok('85 ✔'), ok('94 ✔')],
-    ['7~10 (100 · 70~90번)', ctr('7.5 (12초)'), ng('41 ✘'), ng('50 ✘'), ng('56 ✘'), ng('55 ✘'), ng('68 ✘'), ctr('75 △', { color: C.olive })],
-    ['11~ (125 · 70~90번)', ctr('6.0 (9.6초)'), ng('33 ✘'), ng('40 ✘'), ng('45 ✘'), ng('44 ✘'), ng('55 ✘'), ng('60 ✘')],
+    ['단계 (보스 속도 · 깨야 하는 수)', '창 (아군 평타)', '다회 없음', '5회 다회 3명', '5회 다회 5명', '10회 다회 2명', '10회 다회 4명', '10회 다회 5명'],
+    // 2026-11-26 측정: 10단계 등껍질 창 27초 = 속도 100 몬몬 평타 10번 + 스킬 1번 (평타 2.7초). 1~6 · 11~ 는 보스 속도 비례 가정
+    ['1~6 (80 · 60번)', ctr('12.5 (33.8초)'), ok('69 ✔'), ok('84 ✔'), ok('94 ✔'), ok('91 ✔'), ok('114 ✔'), ok('125 ✔')],
+    ['7~10 (100 · 70~90번)', ctr('10 (27초)'), ng('55 ✘'), ng('67 ✘'), ctr('75 △', { color: C.olive }), ctr('73 △', { color: C.olive }), ok('91 ✔'), ok('100 ✔')],
+    ['11~ (125 · 70~90번)', ctr('8 (21.6초)'), ng('44 ✘'), ng('54 ✘'), ng('60 ✘'), ng('58 ✘'), ctr('73 △', { color: C.olive }), ctr('80 △', { color: C.olive })],
   ];
   table(s, rows, { x: 0.5, y: 2.1, w: 12.33, colW: [2.9, 1.5, 1.3, 1.35, 1.35, 1.3, 1.3, 1.33], size: 12, rowH: 0.5 });
   const pts = [
-    ['1~6단계', '다회 1명(10회)이면 60번 — 실제 파티(콘센파리 10회 1명, 평균 속도 112)는 68번으로 첫 주기에 깸 (게임 관측과 같음)'],
-    ['7단계부터', '70번은 10회 다회 5명(75번), 또는 실제 파티 다회 2명(61번) + 아군 [속도 +15%] ≈ 70번. 90번은 10회 5명 + 속도 +15%로도 86번 → 한 주기 안에 못 깸'],
+    ['1~6단계', '다회 없이도 69번 > 60번 → 열쇠(다회)가 필요 없음. 공략은 「다회 피해로 깨세요」인데 아무 파티나 깸'],
+    ['7단계부터', '70번은 10회 다회 2명(73번), 90번은 4명(91번) — 측정 파티(콘센파리 10회 · 슬라미 7회)는 27초에 78번, 70번을 24초에 깸 (실제 24~25초)'],
     ['성장', '타수는 레벨·별·스킬 레벨과 무관 (스킬 레벨업은 피해량·대기시간·확률만) → 키워도 같은 벽'],
   ];
   pts.forEach(([h, d], i) => {
@@ -220,25 +220,25 @@ const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart
     chip(s, 0.5, y + 0.1, 1.3, h, C.purple);
     s.addText(d, { x: 2.0, y, w: 10.8, h: 0.5, fontFace: F.r, fontSize: 13, color: C.ink, margin: 0, valign: 'middle', isTextBox: true });
   });
-  note(s, '가정: 5명 모두 속도 100 · 생존. 보스 게이지 10단계(속도 100) 12초 관측 → 보스 속도에 비례로 보고 1~6단계 15초 · 11단계부터 9.6초 (비례는 확인 필요). 등껍질은 보스 스킬마다 가득으로 다시 생김 (확인)', 6.85);
+  note(s, '측정: 10단계 등껍질 창 27초 · 70번을 24~25초에 깸 · 탈진 28초. 가정: 5명 속도 100 · 생존, 1~6단계 · 11단계부터 창은 보스 속도에 비례 (확인 필요). 등껍질은 스킬마다 가득으로 다시 (확인)', 6.85);
 }
 
 // ── 6. 문제 6가지 ──────────────────────────────────────────
 {
   const s = pres.addSlide();
   header(s, '02', '문항 1 · 진단');
-  title(s, '진단 — 글라틀의 문제 6가지', '열쇠(다회)는 고정된 타수를 주는데, 단계는 짧아지는 창 × 늘어나는 횟수를 요구합니다.');
+  title(s, '진단 — 글라틀의 문제 6가지', '1~6단계는 열쇠 없이 깨지다가 7단계에서 갑자기 다회 2~4명을 요구하고, 그 타수는 키워도 늘지 않습니다.');
   const rows = [
     ['#', '문제', '숫자', '플레이어가 느끼는 것'],
-    [ctr('1'), '7단계부터 열쇠만으로 빠듯, 90번은 못 엶', '70번은 10회 다회 5명(75번)이나 다회 2명 + 속도 +15%, 90번은 다회 5명 + 속도 +15%로도 86번', '다회를 늘려도 90번이 나오는 판은 안 깨짐'],
+    [ctr('1'), '열쇠가 1~6단계엔 필요 없다가 7단계에서 갑자기 필수', '1~6단계 다회 없이 69번 > 60번 → 7단계 70번은 다회 2명, 90번은 4명', '초반엔 배울 일이 없다가 7단계에서 벽'],
     [ctr('2'), '키워도 깨는 속도가 그대로', '타수는 레벨·별과 무관, 바꿀 수 있는 건 속도뿐', '육성해도 같은 벽'],
-    [ctr('3'), '한 명만 쓰러져도 무너짐', '한 명 빠지면 한 주기 −8~15번, 못 깨면 [빙하 분출] + 보스 회복', '한 번 꼬이면 회복 불가'],
-    [ctr('4'), '실패가 운처럼 보임', '스킬 16초마다 vs 창 12초 → 몬몬마다 창 안 스킬 확률 75%', '같은 파티로 깰 때와 못 깰 때가 섞임'],
-    [ctr('5'), '진짜 승부는 열쇠 밖', '탈진 7~8초 피해의 약 3/4이 고화력 몬몬 스킬', '보상은 다른 몬몬이 가져감'],
+    [ctr('3'), '한 명만 쓰러져도 무너짐', '한 명 빠지면 한 주기 −11~20번, 못 깨면 [빙하 분출] + 보스 회복', '한 번 꼬이면 회복 불가'],
+    [ctr('4'), '11단계부터 창이 1턴보다 짧아짐', '창 21.6초 < 스킬 27초 → 몬몬마다 창 안 스킬 확률 80%, 10회 다회 5명도 80번', '같은 파티로 깰 때와 못 깰 때가 섞임'],
+    [ctr('5'), '진짜 승부는 열쇠 밖', '탈진 28초 아군 피해의 약 2/3이 스킬 — 파이온 한 명이 약 40%, 다회 열쇠(콘센파리)는 약 18%', '보상은 다른 몬몬이 가져감'],
     [ctr('6'), '디버프·속도로 돕는 길도 막힘', '[빙하 각성] 디버프 전부 제거 + 속도 +15%', '탈진 중 건 디버프가 바로 사라짐'],
   ];
   table(s, rows, { x: 0.5, y: 2.05, w: 12.33, colW: [0.5, 3.2, 5.0, 3.63], size: 12, rowH: 0.54 });
-  concl(s, '열쇠(다회)는 레벨 · 별과 무관한 고정 타수를 주는데, 단계는 짧아지는 창 × 늘어나는 횟수를 요구합니다 → 키워도 못 여는 열쇠, 진짜 승부는 열쇠 밖.', { y: 6.0, h: 0.7 });
+  concl(s, '1~6단계는 다회 없이도 깨져 열쇠를 배울 일이 없고, 7단계에서 갑자기 다회 2~4명이 필요해집니다 → 그 타수는 레벨 · 별과 무관해 키워도 못 여는 열쇠, 진짜 승부는 열쇠 밖.', { y: 6.0, h: 0.7 });
 }
 
 // ── 7. 재설계 방향 ─────────────────────────────────────────
@@ -299,7 +299,7 @@ const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart
     ['skill-body.png', '젤리 몸통박치기', '기본공격 · 가까운 적 1명'],
     ['skill-shot.png', '젤리 포탄', '스킬 · 공격력 1위 적에게 큰 피해 (단단한 조각)'],
     ['skill-wave.png', '젤리 해일', '스킬 · 모든 적 + 가까운 2명 속도 −10% (흐물 조각)'],
-    ['skill-split.png', '사분열 · 다시 뭉치기', '쓰러진 조각은 15초 뒤 부활, 부활마다 공격력 +10%'],
+    ['skill-split.png', '사분열 · 다시 뭉치기', '쓰러진 조각은 25초 뒤 부활, 부활마다 공격력 +10%'],
     ['skill-jelly.png', '녹지 않는 젤리', '[부활 차단]에 저항 못 함 · 광역 피해 −30% (7단계 −50%)'],
   ];
   skills.forEach(([img, n, d], i) => {
@@ -328,7 +328,7 @@ const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart
     ['skill-shot.png', '젤리 포탄', '스킬 · 단단한 조각', '공격력 1위 적에게 큰 피해 (450)', '화력 1위 한 명이 다 잡는 편성을 흔들어, 여러 몬몬이 나눠 잡게'],
     ['skill-wave.png', '젤리 해일', '스킬 · 흐물 조각', '모든 적 피해 (225) + 가까운 2명 속도 −10% (최대 2~3겹)', '느려짐이 쌓일수록 아군 스킬 타이밍이 어긋남 → 동시 처치가 점점 어려워짐 (속도 맞추기 · 정화의 가치)'],
     ['skill-split.png', '사분열', '패시브', '한 몸이 쓰러지면 조각 4마리로 나뉨', '보스의 정체성 — 한 몸을 넘기면 「넷을 함께」라는 두 번째 국면이 열림'],
-    ['skill-split.png', '다시 뭉치기', '패시브', '쓰러진 조각은 15초 뒤 부활 (속도 무관) · 부활마다 공격력 +10%', '시간 제한 대신 누적 압박 — 오래 끌수록 강해져 「언젠가는 못 버팀」. 15초 창이 부활 차단의 자리'],
+    ['skill-split.png', '다시 뭉치기', '패시브', '쓰러진 조각은 25초 뒤 부활 (속도 무관) · 부활마다 공격력 +10%', '시간 제한 대신 누적 압박 — 오래 끌수록 강해져 「언젠가는 못 버팀」. 25초 창이 부활 차단의 자리'],
     ['skill-jelly.png', '녹지 않는 젤리', '패시브', '[부활 차단]에 저항 못 함 · 광역 피해 −30% (7단계부터 −50%)', '단계가 올라 효과저항이 높아져도 열쇠가 확실히 통하게 보장 · 광역 몰아치기 우회는 좁힘'],
     [null, '반격 자세', '패시브 · 7단계부터', '조각 하나가 늘 자세, 다수 공격을 맞으면 쓴 몬몬에게 바로 반격 6,000 (은신이면 빗나감)', '반격 6,000으로 광역 남용에 큰 대가 — 스스로 은신하며 광역을 쓰는 몬몬(멘티삿)이 열쇠가 되는 이유 · 반격 연출로 왜 아픈지 보이게 (조건 4)'],
     [null, '절대 면역 · 몰아붙이기 · 기회', '패시브 (공통)', '기절 · 실명 · 침묵 · 도발 · 속박 면역 / 이탈 1명당 피해 +10% / 이탈시키면 에너지 +25%', '기존 보스와 같은 공통 규칙 — 행동을 묶어 기믹을 건너뛰는 우회를 막음'],
@@ -352,22 +352,22 @@ const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart
 {
   const s = pres.addSlide();
   header(s, '03', '문항 2 · 에픽 열쇠 던전');
-  title(s, '쿼디 행동 타임라인 ① — 9.6초 주기와 15초 부활', '속도 100 기준, 조각 4마리가 같은 때 시작했다고 놓은 예시 30초. 실제로는 조각마다 시작 게이지가 0~30% 달라 조금씩 어긋납니다.');
-  const flow = ['한 몸 200,000 (10단계)', '쓰러지면 사분열 → 조각 4마리', '15초 안에 넷을 함께 쓰러뜨리기', '못 하면 부활 + 공격력 +10%'];
+  title(s, '쿼디 행동 타임라인 ① — 16초 주기와 25초 부활', '속도 100 기준(1턴 27초 — 글라틀 측정으로 보정), 조각 4마리가 같은 때 시작했다고 놓은 예시 60초. 실제로는 조각마다 시작 게이지가 0~30% 달라 조금씩 어긋납니다.');
+  const flow = ['한 몸 100,000 (10단계)', '쓰러지면 사분열 → 조각 4마리', '25초 안에 넷을 함께 쓰러뜨리기', '못 하면 부활 + 공격력 +10%'];
   flow.forEach((t, i) => {
     const x = 0.5 + i * 3.12;
     s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y: 1.95, w: 2.95, h: 0.5, rectRadius: 0.08, fill: { color: i === 2 ? C.purple : C.tint }, line: { color: i === 2 ? C.purple : C.edge, width: 0.75 } });
     s.addText(t, { x, y: 1.95, w: 2.95, h: 0.5, fontFace: F.m, fontSize: 11.5, color: i === 2 ? C.white : C.ink, align: 'center', valign: 'middle', margin: 0, isTextBox: true });
     if (i < 3) arrow(s, x + 2.955, 2.13);
   });
-  const T = 30, X0 = 2.2, X1 = 12.75, sx = (t) => X0 + (X1 - X0) * t / T;
+  const T = 60, X0 = 2.2, X1 = 12.75, sx = (t) => X0 + (X1 - X0) * t / T;
   const rows = ['아군 (속도 100)', '단단한 조각', '흐물 조각', '반격 자세', '부활 (예시)'];
   const RY = (r) => 2.85 + r * 0.56;
   rows.forEach((lab, r) => {
     s.addText(lab, { x: 0.5, y: RY(r), w: 1.6, h: 0.4, fontFace: F.s, fontSize: 11, color: C.ink, align: 'right', valign: 'middle', margin: 0, isTextBox: true });
     s.addShape(pres.shapes.LINE, { x: X0, y: RY(r) + 0.2, w: X1 - X0, h: 0, line: { color: C.edge, width: 1 } });
   });
-  for (let t = 0; t <= T; t += 5) {
+  for (let t = 0; t <= T; t += 10) {
     s.addShape(pres.shapes.LINE, { x: sx(t), y: RY(0) - 0.05, w: 0, h: 5 * 0.56, line: { color: 'EEEDF5', width: 0.5, dashType: 'dash' } });
     s.addText(`${t}초`, { x: sx(t) - 0.3, y: RY(5) - 0.08, w: 0.6, h: 0.22, fontFace: F.r, fontSize: 9, color: C.mute, align: 'center', margin: 0, isTextBox: true });
   }
@@ -376,26 +376,26 @@ const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart
     s.addShape(pres.shapes.DIAMOND, { x: sx(t) - 0.11, y: RY(r) + 0.09, w: 0.22, h: 0.22, fill: { color: col }, line: { color: C.white, width: 0.75 } });
     if (lab) s.addText(lab, { x: sx(t) + 0.12, y: RY(r) - 0.06, w: 2.2, h: 0.22, fontFace: F.m, fontSize: 9.5, color: col, margin: 0, isTextBox: true });
   };
-  for (let t = 1.6; t <= T; t += 1.6) dot(t, 0, C.soft, 0.07);
-  dia(16, 0, C.purple, '스킬 (16초마다)');
-  for (const r of [1, 2]) for (let t = 2.4; t <= T + 0.01; t += 2.4) dot(t, r, C.mute);
-  for (let t = 9.6; t <= T; t += 9.6) { dia(t, 1, C.red, t < 10 ? '젤리 포탄 (공격력 1위)' : null); dia(t, 2, C.teal, t < 10 ? '젤리 해일 + 느려짐' : null); }
-  [[0, 9.6, '조각 1'], [9.6, 19.2, '조각 2'], [19.2, 28.8, '조각 3'], [28.8, 30, '4']].forEach(([a, b, lab], i) => {
+  for (let t = 2.7; t <= T; t += 2.7) dot(t, 0, C.soft, 0.07);
+  for (let t = 27; t <= T; t += 27) dia(t, 0, C.purple, t < 30 ? '스킬 (27초마다)' : null);
+  for (const r of [1, 2]) for (let t = 4.05; t <= T + 0.01; t += 4.05) dot(t, r, C.mute);
+  for (let t = 16.2; t <= T; t += 16.2) { dia(t, 1, C.red, t < 17 ? '젤리 포탄 (공격력 1위)' : null); dia(t, 2, C.teal, t < 17 ? '젤리 해일 + 느려짐' : null); }
+  [[0, 16.2, '조각 1'], [16.2, 32.4, '조각 2'], [32.4, 48.6, '조각 3'], [48.6, 60, '조각 4']].forEach(([a, b, lab], i) => {
     s.addShape(pres.shapes.RECTANGLE, { x: sx(a) + 0.01, y: RY(3) + 0.08, w: sx(b) - sx(a) - 0.02, h: 0.24, fill: { color: i % 2 ? C.soft : C.purple }, line: { color: C.white, width: 0 } });
     s.addText(lab, { x: sx(a), y: RY(3) + 0.08, w: sx(b) - sx(a), h: 0.24, fontFace: F.m, fontSize: 9, color: C.white, align: 'center', valign: 'middle', margin: 0, isTextBox: true });
   });
-  s.addShape(pres.shapes.RECTANGLE, { x: sx(3), y: RY(4) + 0.12, w: sx(18) - sx(3), h: 0.16, fill: { color: C.lilac }, line: { color: C.purple, width: 0.75 } });
-  s.addText('쓰러짐 → 15초 (속도 무관) → 부활', { x: sx(3), y: RY(4) + 0.08, w: sx(18) - sx(3), h: 0.24, fontFace: F.m, fontSize: 9, color: C.deep, align: 'center', valign: 'middle', margin: 0, isTextBox: true });
-  s.addShape(pres.shapes.RECTANGLE, { x: sx(19), y: RY(4) + 0.12, w: sx(29.5) - sx(19), h: 0.16, fill: { color: 'F6E3E1' }, line: { color: C.red, width: 0.75 } });
-  s.addText('[부활 차단]이 남은 채 쓰러짐 → ✕ 안 일어남', { x: sx(19), y: RY(4) + 0.08, w: sx(29.5) - sx(19), h: 0.24, fontFace: F.m, fontSize: 9, color: C.red, align: 'center', valign: 'middle', margin: 0, isTextBox: true });
-  concl(s, '조각은 9.6초마다 스킬, 부활은 15초 자체 타이머 — 아군 스킬 16초 주기와 박자가 맞지 않아 「넷을 함께」가 어렵고, 젤리 해일의 느려짐이 쌓일수록 더 어긋납니다. 반격 자세 조각이 바뀌는 것도 주기로 보입니다.', { y: 5.9, h: 0.8 });
+  s.addShape(pres.shapes.RECTANGLE, { x: sx(4), y: RY(4) + 0.12, w: sx(29) - sx(4), h: 0.16, fill: { color: C.lilac }, line: { color: C.purple, width: 0.75 } });
+  s.addText('쓰러짐 → 25초 (속도 무관) → 부활', { x: sx(4), y: RY(4) + 0.08, w: sx(29) - sx(4), h: 0.24, fontFace: F.m, fontSize: 9, color: C.deep, align: 'center', valign: 'middle', margin: 0, isTextBox: true });
+  s.addShape(pres.shapes.RECTANGLE, { x: sx(33), y: RY(4) + 0.12, w: sx(58) - sx(33), h: 0.16, fill: { color: 'F6E3E1' }, line: { color: C.red, width: 0.75 } });
+  s.addText('[부활 차단]이 남은 채 쓰러짐 → ✕ 안 일어남', { x: sx(33), y: RY(4) + 0.08, w: sx(58) - sx(33), h: 0.24, fontFace: F.m, fontSize: 9, color: C.red, align: 'center', valign: 'middle', margin: 0, isTextBox: true });
+  concl(s, '조각은 16초마다 스킬, 부활은 25초 자체 타이머 — 아군 스킬 27초 주기와 박자가 맞지 않아 「넷을 함께」가 어렵고, 젤리 해일의 느려짐이 쌓일수록 더 어긋납니다. 반격 자세 조각이 바뀌는 것도 주기로 보입니다.', { y: 5.9, h: 0.8 });
 }
 
 // ── 9-4. 쿼디 행동 타임라인 — 실제 한 판 ───────────────────
 {
   const s = pres.addSlide();
   header(s, '03', '문항 2 · 에픽 열쇠 던전');
-  title(s, '쿼디 행동 타임라인 ② — 시뮬레이션 한 판 (중반 10단계)', '1,000판 중 시간이 중앙값에 가까운 판을 골라 그대로 그렸습니다. 막대 = 조각이 살아 있는 시간, 빈 칸 = 쓰러져 부활을 기다리는 15초.');
+  title(s, '쿼디 행동 타임라인 ② — 시뮬레이션 한 판 (중반 10단계)', '1,000판 중 시간이 중앙값에 가까운 판을 골라 그대로 그렸습니다. 막대 = 조각이 살아 있는 시간, 빈 칸 = 쓰러져 부활을 기다리는 25초.');
   const Tm = Math.ceil(Math.max(V.traces.base.t, V.traces.tok.t) / 30) * 30;
   const X0 = 1.95, X1 = 12.75, sx = (t) => X0 + (X1 - X0) * t / Tm;
   const panel = (tr, y0, head, col) => {
@@ -551,7 +551,7 @@ function shotRow(s, items, x0, gap, h, y = 2.0) {   // items: [파일, 라벨, �
     `한 몸 ${(+r10[si('한 몸 체력')]).toLocaleString('en-US')} → 분열체 ${(+r10[si('분열체 체력 (1마리)')]).toLocaleString('en-US')} × 4`,
     `방어력 ${(+r10[si('방어력')]).toLocaleString('en-US')} · 속도 100 · 효과저항 ${r10[si('효과저항')]}`,
     `피해: 평타 ${r10[si('분열체 평타 피해')]} · 단일 ${r10[si('단일 스킬 피해')]} · 모든 적 ${r10[si('모든 적 스킬 피해')]} · 반격 ${(+r10[si('반격 피해')]).toLocaleString('en-US')}`,
-    '부활 15초(속도 무관) · 부활마다 공격력 +10%',
+    '부활 25초(속도 무관) · 부활마다 공격력 +10%',
   ], { size: 12 });
 }
 
@@ -562,14 +562,14 @@ function shotRow(s, items, x0, gap, h, y = 2.0) {   // items: [파일, 라벨, �
   title(s, '시뮬레이션 방식 — 전투 1판을 0.1초씩 끝까지, 1,000판 돌려 확률로', '게임 엔진이 아니라 관측값과 기획 규칙으로 만든 전용 전투 계산입니다. 무작위가 섞인 전투를 1,000번 돌려 「몇 번 이기는지」로 봅니다.');
   sub(s, '한 판의 흐름', 0.5, 2.0);
   s.addShape(pres.shapes.RECTANGLE, { x: 0.5, y: 2.4, w: 6.9, h: 0.38, fill: { color: C.lilac }, line: { color: C.lilac, width: 0 } });
-  s.addText('준비  아군 게이지 0 · 첫 평타 시점만 무작위, 보스는 한 몸 200,000', { x: 0.62, y: 2.4, w: 6.7, h: 0.38, fontFace: F.m, fontSize: 11.5, color: C.deep, margin: 0, valign: 'middle', isTextBox: true });
+  s.addText('준비  아군 게이지 0 · 첫 평타 시점만 무작위, 보스는 한 몸 100,000', { x: 0.62, y: 2.4, w: 6.7, h: 0.38, fontFace: F.m, fontSize: 11.5, color: C.deep, margin: 0, valign: 'middle', isTextBox: true });
   const flow = [
-    ['아군 행동', '속도만큼 평타 1.6초 · 스킬 16초 (속도 100). 단일은 맨 앞 조각, 광역은 조각 전부 (−50%)'],
+    ['아군 행동', '속도만큼 평타 2.7초 · 스킬 27초 (속도 100, 글라틀 측정으로 보정). 단일은 맨 앞 조각, 광역은 조각 전부 (−50%)'],
     ['분열', '한 몸이 쓰러지면 조각 4마리 (단단한 2 · 흐물 2)'],
-    ['부활', '쓰러지고 15초 뒤 부활 (속도 무관), 부활마다 공격력 ×1.1 · [부활 차단]이 남아 있으면 못 일어남'],
-    ['조각 공격', '평타 2.4초 · 스킬 9.6초 — 맨 앞 1명 450 / 전체 225 + 가까운 2명 느려짐'],
+    ['부활', '쓰러지고 25초 뒤 부활 (속도 무관), 부활마다 공격력 ×1.1 · [부활 차단]이 남아 있으면 못 일어남'],
+    ['조각 공격', '평타 4초 · 스킬 16초 — 맨 앞 1명 450 / 전체 225 + 가까운 2명 느려짐'],
     ['반격', '반격 자세 조각이 다수 공격을 맞으면 쓴 몬몬에게 6,000 (은신이면 빗나감)'],
-    ['판정', '조각 4마리가 다 쓰러지면 클리어 · 아군 전멸이나 600초면 실패'],
+    ['판정', '조각 4마리가 다 쓰러지면 클리어 · 아군 전멸이나 약 17분이면 실패'],
   ];
   const fy = 2.88, fh = 0.6;
   s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: 0.5, y: fy, w: 0.55, h: flow.length * fh - 0.08, rectRadius: 0.1, fill: { color: C.purple }, line: { color: C.purple, width: 0 } });
@@ -581,7 +581,7 @@ function shotRow(s, items, x0, gap, h, y = 2.0) {   // items: [파일, 라벨, �
     s.addText(d, { x: 2.6, y, w: 4.7, h: fh - 0.08, fontFace: F.r, fontSize: 10.5, color: C.ink, valign: 'middle', margin: 0, isTextBox: true });
   });
   card(s, 7.75, 2.0, 5.08, 1.75, '판마다 달라지는 것 (무작위 요소)', [
-    '· 첫 평타 시점 — 아군 0~1.6초 · 조각 0~2.4초',
+    '· 첫 평타 시점 — 아군 0~2.7초 · 조각 0~4초',
     '· 치명타 — 딸랑귀 28% · 쥐강이 37% (3,216 → 5,000)',
     '· 톡찌리 타격 대상 무작위 + 타격마다 [부활 차단] 15%',
     '· 딸랑귀 약화 75% (받는 피해 +25%)',
@@ -647,7 +647,7 @@ function varChart(s, group, labels, x, y, w, h, ttl) {
   varChart(s, '속도 버프 대상', ['없음', '모든 아군\n(실제)', '콜리킹만', '열쇠 자리만', '파이온만\n(광역)'], 0.5, 2.85, 6.05, 3.0, '속도 버프를 받는 아군별 클리어율 (%)');
   card(s, 6.78, 1.95, 6.05, 0.82, '조각 게이지 감소 — 조각 스킬(포탄 · 해일)이 늦게 나오게', ['딸랑귀 평타 「4% 확률로 스킬 에너지 −20%」는 실제 효과 (지금 결과엔 빠짐)'], { size: 10.5, color: C.teal });
   varChart(s, '조각 게이지 감소', ['없음\n(지금)', '딸랑귀 평타\n4% −20%', '스킬마다\n전체 −15%', '둘 다', '스킬마다\n전체 −30%'], 6.78, 2.85, 6.05, 3.0, '조각 게이지를 깎는 몬몬이 있을 때 클리어율 (%)');
-  concl(s, `속도 버프는 「누가 받느냐」가 승률을 가릅니다 — 멘티삿 파티는 파이온만 빨라지면 ${sb(2, 'ment')}% → ${sb(5, 'ment')}%, 멘티삿만 빨라지면 ${sb(4, 'ment')}% (박자가 어긋나 광역이 반격 자세에 걸림). 조각 게이지 감소는 −30%까지도 톡찌리 ${gb(1)} → ${gb(5)}%로 오차 수준 → 우회로가 되지 않아 막을 필요 없음.`, { y: 5.95, h: 0.78 });
+  concl(s, `속도 버프는 「누가 받느냐」에 따라 승률이 크게 바뀝니다 — 멘티삿 파티는 실제(모든 아군) ${sb(2, 'ment')}%, 파이온만 빨라지면 ${sb(5, 'ment')}%, 버프가 없으면 ${sb(1, 'ment')}%. 조각 게이지 감소는 −30%까지 해도 톡찌리 ${gb(1)} → ${gb(5)}%로 차이가 작아 우회로가 되지 않음 → 막을 필요 없음.`, { y: 5.95, h: 0.78 });
   note(s, '1명에게만 / −15 · 30% 는 「만약」 실험 (콜리킹 자리 몬몬에 북치기 · 윙빗 ★3 같은 효과를 붙임)', 6.85);
 }
 
@@ -666,8 +666,8 @@ function varChart(s, group, labels, x, y, w, h, ttl) {
   card(s, 10.75, 1.95, 2.08, 3.85, '평균 치명 비율', [
     '톡찌리', `이긴 판 ${pc(at.winRate)}`, `진 판 ${pc(at.loseRate)}`, '', '멘티삿', `이긴 판 ${pc(am.winRate)}`, `진 판 ${pc(am.loseRate)}`, '', '판 수: ' + cb('tok').map((r) => r.runs).join(' · '),
   ], { size: 10.5 });
-  const lo = Math.min(...cb('tok').map((r) => r.clear)), hi = Math.max(...cb('tok').map((r) => r.clear));
-  concl(s, `치명 운이 좋을수록 이깁니다 — 톡찌리 파티는 치명 비율이 낮은 판 ${lo}% → 높은 판 ${hi}% (이긴 판 ${pc(at.winRate)} · 진 판 ${pc(at.loseRate)}). 치명이 하나도 없으면 ${vrow('치명타', 1, 'tok').clear}%, 스킬마다 치명이면 ${vrow('치명타', 3, 'tok').clear}%. 기본 파티는 스킬마다 치명(스킬 피해 +55%)이어야 ${vrow('치명타', 3, 'base').clear}% — 같은 투력이면 열쇠가 필요합니다.`, { y: 5.92, h: 0.8 });
+  const lo = cb('tok')[0].clear, hi = cb('tok')[cb('tok').length - 1].clear;   // 치명 비율 25% 미만 판 · 45% 이상 판
+  concl(s, `치명 운이 승패에 섞입니다 — 톡찌리 파티는 이긴 판의 치명 비율이 진 판보다 높고, 치명 비율 25% 미만 판 ${lo}% · 45% 이상 판 ${hi}% (이긴 판 ${pc(at.winRate)} · 진 판 ${pc(at.loseRate)}). 치명이 하나도 없으면 ${vrow('치명타', 1, 'tok').clear}%, 스킬마다 치명이면 ${vrow('치명타', 3, 'tok').clear}%. 기본 파티는 스킬마다 치명(스킬 피해 +55%)이어야 ${vrow('치명타', 3, 'base').clear}% — 같은 투력이면 열쇠가 필요합니다.`, { y: 5.92, h: 0.8 });
   note(s, '치명 비율 구간별 판 수가 적은 칸(100판 안팎)은 오차가 ±10%p까지 커짐', 6.85);
 }
 
@@ -684,10 +684,11 @@ function varChart(s, group, labels, x, y, w, h, ttl) {
     valGridLine: { color: 'E6E6EE', size: 0.5 }, catGridLine: { style: 'none' }, showLegend: true, legendPos: 'b', legendFontFace: F.r, legendFontSize: 9.5, legendColor: C.ink,
     showTitle: true, title: '누적 클리어 확률 (%)', titleFontFace: F.s, titleFontSize: 11.5, titleColor: C.ink });
   const at = (sec, k) => (U.find((r) => r.t === sec) || {})[k];
-  const rows = [['파티', '2:30', '3:00', '4:00', '최종']].concat(keysU.map((k) => [V.upName[k], ctr(`${at(150, k)}%`), ctr(`${at(180, k)}%`), ctr(`${at(240, k)}%`), ctr(`${at(360, k)}%`, { fontFace: F.b })]));
+  const rows = [['파티', '2:30', '3:00', '4:00', '최종']].concat(keysU.map((k) => [V.upName[k], ctr(`${at(150, k)}%`), ctr(`${at(180, k)}%`), ctr(`${at(240, k)}%`), ctr(`${at(600, k)}%`, { fontFace: F.b })]));
   table(s, rows, { x: 9.35, y: 1.95, w: 3.48, colW: [1.28, 0.55, 0.55, 0.55, 0.55], size: 9.5, rowH: 0.36 });
   s.addText('목표 클리어 시간 2:30~3:00 (150~180초)', { x: 9.35, y: 4.2, w: 3.48, h: 0.3, fontFace: F.m, fontSize: 10, color: C.purple, margin: 0, isTextBox: true });
-  s.addText('한 몸(200,000)을 깎는 약 100초 동안은 아무도 못 깨고, 분열 뒤 15초 창마다 곡선이 계단처럼 오릅니다.', { x: 9.35, y: 4.5, w: 3.48, h: 1.0, fontFace: F.r, fontSize: 10, color: C.ink, margin: 0, valign: 'top', isTextBox: true });
+  const spT = Math.round(((V.traces.base.ev.find((e) => e.type === 'split') || {}).t + (V.traces.tok.ev.find((e) => e.type === 'split') || {}).t) / 2);
+  s.addText(`한 몸(100,000)을 깎는 약 ${spT}초 동안은 아무도 못 깨고, 분열 뒤 25초 창마다 곡선이 계단처럼 오릅니다.`, { x: 9.35, y: 4.5, w: 3.48, h: 1.0, fontFace: F.r, fontSize: 10, color: C.ink, margin: 0, valign: 'top', isTextBox: true });
   concl(s, `톡찌리 파티는 목표 구간 3:00까지 ${at(180, 'tok')}%가 깨고, 기본 파티는 3:00에 ${at(180, 'base')}% · 4:00에 ${at(240, 'base')}%로 멈춥니다 — 오래 버틴다고 더 깨지지 않습니다 (부활마다 강해지는 조각에 결국 무너짐). 조건 3 「이대로는 못 깬다」가 시간 축에서도 보입니다.`, { y: 5.92, h: 0.8 });
 }
 

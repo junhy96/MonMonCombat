@@ -18,12 +18,12 @@ mkdirSync(OUT, { recursive: true });
 const codeMeta = { label: 'split-sim.mjs', value: code, type: 'code', lang: 'javascript' };
 const START_NOTE = { label: '시작 게이지', value: '모두 0에서 시작 (사용자 결정)' };
 
-const FINAL = { AOECUT: '0.5', SPLIT: '200000', PCOUNTER: '20000', CTARGET: 'user', PDMG: '0.3', RAMP: '0.1', SLOW: '10', SLOWN: '2', SLOWMAX: '2' };   // 중반 기준 (같은 투력·열쇠 없이 2분 30초~3분 목표)
+const FINAL = { AOECUT: '0.5', SPLIT: '100000', PCOUNTER: '20000', CTARGET: 'user', PDMG: '0.3', RAMP: '0.1', SLOW: '10', SLOWN: '2', SLOWMAX: '2' };   // 중반 기준 (같은 투력·열쇠 없이 2분 30초~3분 목표)
 const sweep = run({ ...FINAL, HS: '11000,12000,13000,14000,15000,16000' });
 writeFileSync(`${OUT}/sweep.json`, JSON.stringify({
   rows: sweep,
   meta: [
-    { label: '설정', value: '중반: ' + Object.entries(FINAL).map(([k, v]) => `${k}=${v}`).join(' ') + ' (다수 공격 피해 −50%, 한 몸 200,000 뒤 분열, 다수 공격을 쓴 몬몬에게 바로 단일 반격, 분열체 피해 ¼, 부활마다 +10%, 가까운 2명 속도 −10% 최대 2겹)' },
+    { label: '설정', value: '중반: ' + Object.entries(FINAL).map(([k, v]) => `${k}=${v}`).join(' ') + ' (다수 공격 피해 −50%, 한 몸 100,000 뒤 분열, 다수 공격을 쓴 몬몬에게 바로 단일 반격, 분열체 피해 ¼, 부활마다 +10%, 가까운 2명 속도 −10% 최대 2겹)' },
     START_NOTE,
     { label: '판 수', value: '설정·파티·체력마다 1,000판, 시드 4242' },
     codeMeta,
