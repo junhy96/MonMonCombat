@@ -112,6 +112,8 @@ const html = `<title>쿼디 보스 공략</title>
   .skill .t-key, .skill .t-boss, .skill .t-bad { border: 1.5px solid currentColor; border-radius: 4px; padding: 0 2px; }
   .skills { display: flex; flex-direction: column; gap: 12px; }
   [hidden] { display: none !important; }
+  .shot .caption { display: none; }
+  .shot .wrap { padding-block: 16px; }
   @media (max-width: 420px) { .boss-name { font-size: 34px; } .intro { font-size: 16px; } }
   @media (prefers-reduced-motion: no-preference) { .blob { animation: bob 3.2s ease-in-out infinite; transform-origin: center bottom; } .blob.b2 { animation-delay: -.8s; } .blob.b3 { animation-delay: -1.6s; } .blob.b4 { animation-delay: -2.4s; } }
   @keyframes bob { 0%, 100% { transform: translateY(0) scaleY(1); } 50% { transform: translateY(-3px) scaleY(1.03); } }
@@ -134,9 +136,9 @@ const html = `<title>쿼디 보스 공략</title>
         <div><div class="boss-name" id="bossName"></div><div class="boss-island" id="bossIsland"></div></div>
         <div class="race"><div class="race-badge" aria-hidden="true"><svg viewBox="0 0 64 64" width="34" height="34">${RACE_ICON}</svg></div><div><small>종족</small><strong id="bossRace"></strong></div></div>
       </div>
-      <div class="card"><p class="intro-label">이 보스는</p><p class="intro" id="intro"></p></div>
+      <div class="card" id="card-intro"><p class="intro-label">이 보스는</p><p class="intro" id="intro"></p></div>
 
-      <div class="card">
+      <div class="card" id="card-points">
         <div class="sec-title"><div class="sec-ico ico-target" aria-hidden="true">◎</div><h2>공략 포인트</h2></div>
         <div class="bands" id="bands"></div>
         <div class="card" style="background:#141a30">
@@ -148,12 +150,12 @@ const html = `<title>쿼디 보스 공략</title>
         </div>
       </div>
 
-      <div class="card">
+      <div class="card" id="card-needed">
         <div class="sec-title"><div class="sec-ico ico-plus" aria-hidden="true">+</div><h2>필요한 효과</h2></div>
         <div id="needed"></div>
       </div>
 
-      <div class="card">
+      <div class="card" id="card-race">
         <div class="sec-title"><div class="sec-ico ico-race" aria-hidden="true">↑</div><h2>종족 강점 몬몬</h2></div>
         <p class="race-note" id="raceNote"></p>
       </div>
@@ -226,6 +228,21 @@ const html = `<title>쿼디 보스 공략</title>
   const openTab = (t, p) => tabs.forEach(([t2, p2]) => { $(t2).setAttribute('aria-selected', String(t2 === t)); $(p2).hidden = p2 !== p; });
   tabs.forEach(([t, p]) => $(t).addEventListener('click', () => openTab(t, p)));
   if (location.hash === '#boss-skills') openTab('tab-skill', 'pane-skill');
+
+  // 캡처용: #shot=overview · band-0/1/2 · needed · skills-1/2 → 창 틀은 두고 그 부분만 보임 (기획서 이미지)
+  const shot = (location.hash.match(/^#shot=([a-z0-9-]+)$/) || [])[1];
+  if (shot) {
+    document.body.classList.add('shot');
+    const only = (ids) => ['.hero', '.hero-meta', '#card-intro', '#card-points', '#card-needed', '#card-race'].forEach((q) => { document.querySelector(q).hidden = !ids.includes(q); });
+    if (shot === 'overview') only(['.hero', '.hero-meta', '#card-intro']);
+    if (shot.startsWith('band-')) { only(['#card-points']); showBand(+shot.slice(5)); }
+    if (shot === 'needed') only(['#card-needed']);
+    if (shot.startsWith('skills-')) {
+      openTab('tab-skill', 'pane-skill');
+      const half = Math.ceil(guide.skills.length / 2), part = +shot.slice(7);
+      document.querySelectorAll('#skills .skill').forEach((el, i) => { el.hidden = part === 1 ? i >= half : i < half; });
+    }
+  }
 })();
 </script>
 `;

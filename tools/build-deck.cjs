@@ -286,25 +286,54 @@ const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart
   s.addText('부활 차단이 남은 채 쓰러진 조각은 다시 일어나지 못함', { x: 6.45, y: 6.45, w: 6.4, h: 0.35, fontFace: F.m, fontSize: 12, color: C.purple, margin: 0, isTextBox: true });
 }
 
-// ── 10. 공략 창 UI ─────────────────────────────────────────
+// ── 10. 공략 창 UI — 탭 · 구간별로 자른 캡처 (docs/split-guide/shots, tools/split-guide-shots.py) ──
+const SHOT = (f) => path.join(ROOT, 'docs/split-guide/shots', f);
+const shotW = (f, h) => { const d = require('image-size').imageSize(fs.readFileSync(SHOT(f))); return h * d.width / d.height; };
+function shotRow(s, items, x0, gap, h, y = 2.0) {   // items: [파일, 라벨, 색] → 라벨 칩 + 이미지, 끝 x 반환
+  let x = x0;
+  items.forEach(([f, lab, col]) => {
+    const w = shotW(f, h);
+    chip(s, x, y, Math.min(w, 2.1), lab, col);
+    s.addImage({ path: SHOT(f), x, y: y + 0.4, w, h, altText: `쿼디 공략 창 — ${lab}` });
+    x += w + gap;
+  });
+  return x - gap;
+}
 {
   const s = pres.addSlide();
   header(s, '03', '문항 2 · 에픽 열쇠 던전');
-  title(s, '보스 공략 창 UI 초안', '게임의 보스 공략 창(공략 정보 · 보스 스킬)과 같은 구성. 구간 버튼으로 "보스 패턴 / 이렇게 풀어요"가 바뀌고, 필요한 효과에 열쇠 몬몬이 뜹니다.');
-  const h = 5.0, w = h * 1040 / 1915;
-  s.addImage({ path: path.join(IMG, 'ui-info-c.png'), x: 0.7, y: 2.0, w, h });
-  s.addImage({ path: path.join(IMG, 'ui-skills-c.png'), x: 0.7 + w + 0.35, y: 2.0, w, h });
-  const x0 = 0.7 + 2 * w + 0.8;
+  title(s, '보스 공략 창 ① 공략 포인트 — 구간 버튼마다 바뀌는 안내', '게임의 보스 공략 창과 같은 구성. 초반 · 중반 · 후반 버튼을 누르면 「보스 패턴 / 이렇게 풀어요」가 그 구간 내용으로 바뀝니다.');
+  const end = shotRow(s, [['02-points-early.png', '초반 1~6', C.green], ['03-points-mid.png', '중반 7~15', C.purple], ['04-points-late.png', '후반 16~20', C.red]], 0.5, 0.3, 4.75);
+  const x0 = end + 0.4, w0 = 12.83 - x0;
   const pts = [
-    ['예고가 보이게', '반격 자세 조각 표시 · 부활까지 남은 게이지 · 공격력 증가 아이콘'],
-    ['필요한 효과', '① 부활 차단 ② 피해 반사 ③ 은신 — 몬몬 아이콘과 편성 버튼'],
-    ['구간별 공략', '초반 1~6 · 중반 7~15 · 후반 16~20 (반격·느려짐이 붙는 시점)'],
-    ['반격 자세 잠금', '7단계부터 열리는 패시브는 자물쇠 표시'],
+    ['초반 1~6', '기믹 소개 — 반격 · 느려짐 없음, 광역 피해 감소 30%. 열쇠 없이도 깸', C.green],
+    ['중반 7~15', '[반격 자세] · 느려짐 2겹 · 광역 감소 50% → 같은 투력이면 열쇠가 필요', C.purple],
+    ['후반 16~20', '느려짐 3겹 · 조각 체력↑ → 열쇠 2명 권장', C.red],
+  ];
+  sub(s, '구간마다 바뀌는 것', x0, 2.0, w0);
+  pts.forEach(([hh, d, col], i) => {
+    const y = 2.5 + i * 1.35;
+    chip(s, x0, y, 1.4, hh, col);
+    s.addText(d, { x: x0, y: y + 0.38, w: w0, h: 0.9, fontFace: F.r, fontSize: 12, color: C.ink, margin: 0, valign: 'top', isTextBox: true });
+  });
+  s.addText('「내 구간」 표시는 지금 도전 중인 단계의 구간', { x: x0, y: 6.6, w: w0, h: 0.5, fontFace: F.r, fontSize: 10, color: C.mute, margin: 0, valign: 'top', isTextBox: true });
+}
+{
+  const s = pres.addSlide();
+  header(s, '03', '문항 2 · 에픽 열쇠 던전');
+  title(s, '보스 공략 창 ② 필요한 효과 · 보스 스킬', '필요한 효과에 열쇠 몬몬과 편성 버튼이 뜨고, 보스 스킬 탭은 쿼디의 기본공격 · 스킬 · 패시브 10개를 보여 줍니다.');
+  const end = shotRow(s, [['05-needed.png', '필요한 효과', C.teal], ['06-skills-1.png', '보스 스킬 ① 1~5', C.purple], ['07-skills-2.png', '보스 스킬 ② 6~10', C.purple]], 0.5, 0.3, 4.75);
+  const x0 = end + 0.45, w0 = 12.83 - x0;
+  const pts = [
+    ['필요한 효과', '① 부활 차단 ② 피해 반사 ③ 은신 — 효과마다 열쇠 몬몬 아이콘과 편성 버튼'],
+    ['예고가 보이게', '반격 자세 조각 · 부활까지 남은 시간 · 공격력 증가를 전투 화면에 표시'],
+    ['스킬 그림', '젤리 몸통박치기 · 포탄 · 해일 · 사분열 · 녹지 않는 젤리는 제작 이미지'],
+    ['반격 자세 잠금', '7단계부터 열리는 패시브는 자물쇠 + 「7단계부터」 표시'],
   ];
   pts.forEach(([hh, d], i) => {
-    const y = 2.1 + i * 1.2;
-    chip(s, x0, y, 1.8, hh, C.purple);
-    s.addText(d, { x: x0, y: y + 0.38, w: 12.83 - x0, h: 0.7, fontFace: F.r, fontSize: 12, color: C.ink, margin: 0, valign: 'top', isTextBox: true });
+    const y = 2.0 + i * 1.2;
+    chip(s, x0, y, 1.6, hh, C.purple);
+    s.addText(d, { x: x0, y: y + 0.38, w: w0, h: 0.75, fontFace: F.r, fontSize: 12, color: C.ink, margin: 0, valign: 'top', isTextBox: true });
   });
 }
 
