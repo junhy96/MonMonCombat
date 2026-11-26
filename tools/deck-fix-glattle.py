@@ -2,7 +2,7 @@
 고친 이유 (사용자 확인 2026-11-26): 보스 게이지 12초는 10단계(보스 속도 100)에서 잰 값. 예전 표는 12초를 속도 80 값으로 놓고
 10단계를 9.6초로 줄여 타수를 적게 셌음 → 게임에서 다회 1마리로 60번이 첫 주기에 깨지는 것과 안 맞았음.
 새 기준: 10단계 12초, 보스 속도에 비례 (1~6단계 15초 · 11단계부터 9.6초 — 비례는 확인 필요), 등껍질은 스킬마다 가득으로 다시(사용자 확인).
-실행: python tools/deck-fix-glattle.py docs/deck/monmon-assignment-draft.pptx
+실행: python tools/deck-fix-glattle.py docs/split-report/monmon-assignment-draft.pptx
 """
 import os
 import shutil

@@ -3,7 +3,7 @@
 //         글꼴 "프리젠테이션 4 Regular / 5 Medium / 6 SemiBold / 7 Bold", 본문 2A2740, 보조 70707A
 // 참고 기획서(마왕성 주식회사 v2)에서 가져온 구성: 아래 바닥줄(선 · 과제명 · 출처 · 쪽 번호), 「한 줄 결론」 상자, 흐름 상자 + 화살표,
 //   큰 숫자 + 강조 막대 3칸(결과), 도넛 링(클리어율), 강조 카드 테두리 — 색은 서식의 보라 그대로
-// 그래프 다듬기 (막대 굵기·간격, 누적 클리어 곡선 마크·색·선 옆 이름): 만든 뒤 python tools/deck-chart-style.py docs/deck/monmon-assignment-draft.pptx
+// 그래프 다듬기 (막대 굵기·간격, 누적 클리어 곡선 마크·색·선 옆 이름): 만든 뒤 python tools/deck-chart-style.py docs/split-report/monmon-assignment-draft.pptx
 // 데이터: docs/split-report/*.json, data/dungeons/split-boss/boss-stats.csv
 // 실행: NODE_PATH=<pptxgenjs 설치 폴더>/node_modules DECK_IMG=<잘라 둔 이미지 폴더> node tools/build-deck.cjs
 const fs = require('fs');
@@ -12,7 +12,7 @@ const pptxgen = require('pptxgenjs');
 
 const ROOT = path.resolve(__dirname, '..');
 const IMG = process.env.DECK_IMG;
-const OUT = path.join(ROOT, 'docs/deck/monmon-assignment-draft.pptx');
+const OUT = path.join(ROOT, 'docs/split-report/monmon-assignment-draft.pptx');
 const J = (p) => JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8')).rows;
 
 const F = { r: '프리젠테이션 4 Regular', m: '프리젠테이션 5 Medium', s: '프리젠테이션 6 SemiBold', b: '프리젠테이션 7 Bold' };

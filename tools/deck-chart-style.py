@@ -2,7 +2,7 @@
   · 두 파티를 나란히 비교하는 막대 그래프: 막대를 가늘게(gapWidth) + 같은 묶음 안 막대 사이 간격(overlap 음수)
   · 「누적 클리어 확률」 선 그래프: 2:30 · 3:00 · 4:00 · 최종(옆 표와 같은 시점)에만 원형 마크,
     선마다 뚜렷하게 다른 색, 아래 범례 대신 선 바로 옆에 파티 이름
-실행: python tools/deck-chart-style.py docs/deck/monmon-assignment-draft.pptx   (같은 파일에 덮어씀, 열려 있으면 실패)
+실행: python tools/deck-chart-style.py docs/split-report/monmon-assignment-draft.pptx   (같은 파일에 덮어씀, 열려 있으면 실패)
       node tools/build-deck.cjs 로 다시 만든 뒤에도 이것을 한 번 돌림
 """
 import os
